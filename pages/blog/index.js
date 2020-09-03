@@ -1,4 +1,4 @@
-import BlogLayout from '../layouts'
+import BlogLayout from '../../layouts'
 
 
 export default function Blog() {
