@@ -15,6 +15,7 @@ body {
 }
 a{
   color: black;
+  text-decoration-line: none;
 }
 a:hover{
   text-decoration: none;
@@ -27,3 +28,7 @@ main{
   background-color: initial;
 }
 
+input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        display: none;
+      }
