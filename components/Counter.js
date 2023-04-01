@@ -12,7 +12,7 @@ const Counter = ({ initialCount = 1 }) => {
   };
 
   return (
-    <div className="w-100 py-3">
+    <div className="w-100">
       <InputGroup>
         <Button disabled={count < 2} onClick={handleDecrement} variant="secondary">
           -

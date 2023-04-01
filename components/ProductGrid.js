@@ -27,7 +27,6 @@ const ProductGrid = ({ catalogItems, catalogImages }) => {
                   key={item.id}
                   href={`/product/${encodeURIComponent(item.id)}`}
                 >
-                  {console.log(item)}
                   <ProductItem itemData={item.itemData} images={Object.values(images)} />
                 </Link>
               );
