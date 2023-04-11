@@ -1,17 +1,22 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import DefaultLayout from "../components/layout";
-import { InventoryContext } from "../context/InventoryContext";
+import DefaultLayout from "../components/Layout";
 import "../styles/globals.scss";
+import CartProvider from "context/cartContext";
+import { CookiesProvider } from "react-cookie";
 
 function MyApp({ Component, pageProps }) {
-  const Layout = Component.Layout || DefaultLayout
+  const Layout = Component.Layout || DefaultLayout;
 
   return (
-      /* <InventoryContext> */
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-      /* </InventoryContext> */
+    /* <InventoryContext> */
+    <CookiesProvider>
+      <CartProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </CartProvider>
+    </CookiesProvider>
+    /* </InventoryContext> */
   );
 }
 

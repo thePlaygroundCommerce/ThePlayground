@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 
-const Counter = ({ initialCount = 1 }) => {
+const Counter = ({ initialCount = 1, setCountChange }) => {
   const [count, setCount] = useState(initialCount);
 
   const handleIncrement = () => setCount(count + 1);
   const handleDecrement = () => setCount(count - 1);
   const handleTextChange = (e) => {
     const value = +e.target.value;
-    setCount(value < 2 ? 1 : value);
+    const valueToSet = value < 2 ? 1 : value
+    setCount(valueToSet);
+    setCountChange(valueToSet);
   };
 
   return (

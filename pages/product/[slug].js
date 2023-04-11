@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { useRouter } from "next/router";
 import {
   Accordion,
@@ -18,21 +18,20 @@ import Counter from "components/Counter";
 import ReactImageMagnify from "react-image-magnify";
 import BreadcrumbNav from "components/BreadcrumbNav";
 import Link from "next/link";
+import { CartContext } from "context/cartContext";
+import { getCatalogItem } from "pages/api/catalog";
 
-const { Client, Environment, ApiError } = require("square");
-
-const squareClient = new Client({
-  accessToken: process.env.SQUARE_ACCESS_TOKEN,
-  environment: Environment.Sandbox,
-});
-
-const { catalogApi } = squareClient;
-
-const ProductDetails = ({ catalogObjects }) => {
+const ProductDetails = ({ catalogObject }) => {
+  const { cart, updateCart } = useContext(CartContext);
+  const [ activeVariationIndex, setActiveVariationIndex ] = useState(1)
+  const [ quantity ,setQuantity ] = useState(1) 
   const {
-    object: { itemData },
+    object: {
+      itemData,
+      itemData: { variations },
+    },
     relatedObjects: [image],
-  } = catalogObjects;
+  } = catalogObject;
   const amount = BigInt(
     itemData.variations[0].itemVariationData.priceMoney.amount
   ).toString();
@@ -53,14 +52,21 @@ const ProductDetails = ({ catalogObjects }) => {
     // isFluidWidth: true
   };
 
+  const handleAddToCart = () => {
+    updateCart({
+      itemVariationID: variations[activeVariationIndex].id,
+      quantity: quantity.toString()
+    })
+  };
+
+  const handleDropDownButtonChange = (e) => setActiveVariationIndex(e.target.name)
+
   return (
     <Container>
       <BreadcrumbNav />
 
       <Row>
-        <Col>
-          <ReactImageMagnify {...{ smallImage, largeImage }} />
-        </Col>
+        <Col>{/* <ReactImageMagnify {...{ smallImage, largeImage }} /> */}</Col>
         <Col>
           <div className="w-75 m-auto">
             <div className="mt-5 m-3 p-3">
@@ -76,23 +82,21 @@ const ProductDetails = ({ catalogObjects }) => {
                   <DropdownButton
                     variant="secondary"
                     id="dropdown-basic-button"
-                    title="M"
+                    title={variations[activeVariationIndex].itemVariationData.name[0].toUpperCase()}
                   >
-                    <Dropdown.Item href="#/action-1">S</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">M</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">L</Dropdown.Item>
+                    {variations.map(({ id, itemVariationData }, i) => (
+                      <Dropdown.Item onClick={handleDropDownButtonChange} name={i} key={id} href="#/action-1">{itemVariationData.name[0].toUpperCase()}</Dropdown.Item>
+                    ))}
                   </DropdownButton>
                 </div>
                 <div className="w-75">
-                  <Counter />
+                  <Counter initialCount={quantity} onCountChange={setQuantity} />
                 </div>
               </div>
             </div>
             <div className="d-grid m-3 gap-2">
-              <Button variant="secondary">
-                Buy Now
-              </Button>
-              <Button variant="dark">
+              <Button variant="secondary">Buy Now</Button>
+              <Button variant="dark" onClick={handleAddToCart}>
                 Add To Cart
               </Button>
             </div>
@@ -153,28 +157,9 @@ export async function getServerSideProps(context) {
     params: { slug },
   } = context;
 
-  var catalogObjects = await (async () => {
-    try {
-      let catalogResponse = await catalogApi.retrieveCatalogObject(slug, true);
-      let parsedObject = catalogResponse.result;
-
-      console.log(parsedObject);
-
-      return parsedObject;
-    } catch (error) {
-      if (error instanceof ApiError) {
-        error.result.errors.forEach(function (e) {
-          console.log(e.category);
-          console.log(e.code);
-          console.log(e.detail);
-        });
-      } else {
-        console.log("Unexpected error occurred: ", error);
-      }
-    }
-  })();
+  const catalogObject = await getCatalogItem(slug);
 
   return {
-    props: { catalogObjects },
+    props: { catalogObject },
   };
 }
