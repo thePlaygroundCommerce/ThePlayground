@@ -1,12 +1,14 @@
 import { createContext, useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
-import { v4 as uuidv4 } from "uuid";
 
 export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
   const [cookies, setCookie] = useCookies();
-  const [cart, setCart] = useState(null);
+  const [cart, setCart] = useState({
+    itemVariationsIDs: [],
+    order: null,
+  });
   const init = {
     method: "POST",
     headers: {
@@ -15,50 +17,74 @@ const CartProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (cookies.cartRefID) {
+    if (cookies.cartID) {
       fetch("/api/carts")
         .then((res) => res.json())
-        .then((result) => {
-          result.error ? null : setCart(result.order);
-        });
-    } else {
-      setCookie("cartRefID", uuidv4());
+        .then(({ order }) => {
+          const parsedOrder = JSON.parse(order);
+          !order ? null : populateCart(parsedOrder);
+        })
+        .catch((err) => console.log(err));
     }
   }, []);
 
-  const updateCart = async (catalogOrder) => {
-    if (cart) {
+  const updateCart = async (lineItem) => {
+    if (cart.order) {
+      const body = {
+        orderID: cart.order.id,
+        order: {
+          version: cart.order.version,
+          lineItems: [lineItem],
+        },
+      };
       fetch("/api/carts/updateCart", {
         ...init,
-        body: JSON.stringify(catalogOrder),
+        body: JSON.stringify(body),
       })
-        .then((res) => {
-          console.log(res.json());
+        .then((res) => res.json())
+        .then(({ order }) => {
+          console.log("Cart Successfully Updated");
+          const parsedOrder = JSON.parse(order);
+
+          populateCart(parsedOrder);
         })
-        .then((result) => {
-          return result;
-        });
+        .catch((err) => console.log(err));
     } else {
-      return createCart(catalogOrder);
+      createCart(lineItem);
     }
   };
-  const createCart = async (catalogOrder) => {
-    if (cart) {
-      console.log("Active cart already present");
-    } else {
-      fetch("/api/carts/createCart", {
-        ...init,
-        body: JSON.stringify(catalogOrder),
+  const createCart = async (catalogOrder, checkout) => {
+    catalogOrder.state = checkout ? "OPEN" : "DRAFT";
+    const body = JSON.stringify(catalogOrder);
+    return fetch("/api/carts/createCart", {
+      ...init,
+      body: body,
+    })
+      .then((res) => {
+        return res.json();
       })
-        .then((res) => {
-          console.log("Woah");
-          console.log(res.json());
-        })
-        .then((result) => {
-          console.log("Woah");
-          return result;
-        }).catch(err => console.log(err));
-    }
+      .then(({ order }) => {
+        console.log("Cart Successfully Created");
+        const parsedOrder = JSON.parse(order);
+
+        if (checkout) {
+          return parsedOrder;
+        } else {
+          setCookie("cartID", parsedOrder.id, {
+            path: "/",
+          });
+          populateCart(parsedOrder);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+  const populateCart = (order) => {
+    setCart({
+      order: order,
+      itemVariationsIDs: order.lineItems.map(
+        ({ catalogObjectId }) => catalogObjectId
+      ),
+    });
   };
 
   return (

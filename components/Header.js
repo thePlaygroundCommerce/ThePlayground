@@ -1,12 +1,25 @@
+import { CartContext } from "context/cartContext";
 import Link from "next/link";
-import React from "react";
-import { Badge, Col, Container, Nav, Navbar, Row } from "react-bootstrap";
+import React, { useContext, useRef } from "react";
+import {
+  Badge,
+  Col,
+  Container,
+  Nav,
+  Navbar,
+  Overlay,
+  Row,
+} from "react-bootstrap";
 import { BsCart, BsSearch } from "react-icons/bs";
+import Cart from "./Cart";
 
 function Header() {
+  const target = useRef();
+  const { cart } = useContext(CartContext);
+
   return (
     <Navbar className="mb-3 px-3" bg="light" variant="light">
-            <Navbar.Brand href="#home">SWaNK</Navbar.Brand>
+      <Navbar.Brand href="/">SWaNK</Navbar.Brand>
       <Container fluid>
         <Row className="w-100">
           <Col>
@@ -26,10 +39,7 @@ function Header() {
             <div className="mx-2">
               <BsSearch />
             </div>
-            <div>
-              <BsCart />
-              {/* <Badge>2</Badge> */}
-            </div>
+            <Cart cart={cart}/>
           </Col>
         </Row>
       </Container>

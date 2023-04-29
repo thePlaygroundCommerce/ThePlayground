@@ -1,5 +1,6 @@
+import { stringifyBigIntReplacer } from "util/jsonUtils";
+
 const { Client, Environment, ApiError } = require("square");
-// const { v4: uidv4 } = require("uuid");
 
 const squareClient = new Client({
   accessToken: process.env.SQUARE_ACCESS_TOKEN,
@@ -12,26 +13,37 @@ const getOrder = async (orderID) => {
   try {
     const response = await ordersApi.retrieveOrder(orderID);
 
-    return response;
+    return JSON.parse(JSON.stringify( response.result, stringifyBigIntReplacer));
   } catch (error) {
     return error;
   }
 };
+const searchOrder = async () => {
+  try {
+    const response = await ordersApi.searchOrders({
+      locationIds: ["LFX4KWJMYHQZ3"],
+      query: {
+        filter: {
+
+        }
+      }
+    })    
+  } catch (error) {
+    return error
+  }
+}
 
 export default async (req, res) => {
   try {
-    const order = await getOrder(req.cookies.cartRefID);
+    const { order } = await getOrder(req.cookies.cartID);
 
-    res.json({ ...order.result });
+    res.json({ order: JSON.stringify(order, stringifyBigIntReplacer) });
   } catch (error) {
+    console.error(error)
     res.json({ error });
   }
-
-  // //if no cartOrder is present create one
-  // createOrder(catalogOrder)
-  // //else update cartOrder
-  // updateOrder(catalogOrder)
 };
 
+export { getOrder } ;
 export { default as createOrder } from "./createCart";
 export { default as updateOrder } from "./updateCart";

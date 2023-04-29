@@ -1,17 +1,13 @@
 import SideNav from "components/SideNav";
-import Socials from "components/Socials";
 import ProductGrid from "components/ProductGrid";
 import { Col, Container, Nav, Navbar, Row } from "react-bootstrap";
-import { squareClient, ApiError } from "./api";
-import { IconContext } from "react-icons";
-import { FaShoppingCart } from "react-icons/fa";
 import { getCatalogItems } from "./api/catalog";
 
 
 
 export default function Home({ catalogItems }) {
   var catalogImages = {};
-  var catalogItems = catalogItems.filter(( item ) => {
+  var catalogItems = catalogItems.objects.filter(( item ) => {
     if(item.type === 'ITEM'){
       return true;
     } else if(item.type === 'IMAGE'){

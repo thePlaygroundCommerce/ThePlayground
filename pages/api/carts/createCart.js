@@ -1,3 +1,5 @@
+import { stringifyBigIntReplacer } from "util/jsonUtils";
+
 const { Client, Environment, ApiError } = require("square");
 const { v4: uidv4 } = require("uuid");
 
@@ -9,29 +11,25 @@ const squareClient = new Client({
 const { ordersApi } = squareClient;
 
 const createOrder = async ({
-  itemVariationID,
-  itemModifierID,
+  catalogObjectId,
   quantity,
-  userCookie,
-  state,
+  state = "DRAFT",
 }) => {
   try {
     const response = await ordersApi.createOrder({
       order: {
         locationId: "LFX4KWJMYHQZ3",
-        referenceId: userCookie, //set to cookie
         state: state,
         lineItems: [
           {
             quantity: quantity,
-            catalogObjectId: itemVariationID,
+            catalogObjectId: catalogObjectId,
           },
         ],
       },
       idempotencyKey: uidv4(),
     });
 
-    console.log(response.result);
     return response;
   } catch (error) {
     console.log(error);
@@ -39,12 +37,12 @@ const createOrder = async ({
 };
 
 export default async (req, res) => {
+
   const order = await createOrder({
     ...req.body,
-    userCookie: req.cookies.cartRefID,
   });
 
-  res.json({ cart: order });
+  res.json({ order: JSON.stringify(order.result.order, stringifyBigIntReplacer) });
 
 };
 
