@@ -1,14 +1,11 @@
 import Image from "next/image";
-import { Card, Button, ButtonGroup } from "react-bootstrap";
-import { IconContext } from "react-icons";
-import { FaCartPlus, FaShareAlt } from "react-icons/fa";
-import { GoThreeBars } from "react-icons/go";
+import { Card } from "react-bootstrap";
 import Unavailable from 'public/unavailable-image.jpeg'
-// import styles from "../styles/ProductItem.module.scss";
 
 export default function ProductGridItem({ itemData, images }) {
   const { name, variations } = itemData;
 
+  // console.log(variations)
   return (
     <Card className="border-0 text-center w-100">
       <Card.Img
@@ -23,7 +20,7 @@ export default function ProductGridItem({ itemData, images }) {
       <Card.Body className="p-3">
         <Card.Text>{name}</Card.Text>
         <Card.Text>
-          ${BigInt(variations[0].itemVariationData.priceMoney.amount).toString()}
+          $ {variations[0].itemVariationData.priceMoney.amount}
         </Card.Text>
         {/* <ButtonGroup>
           <IconContext.Provider value={{ size: "1em", color: "black" }}>

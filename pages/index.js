@@ -1,7 +1,6 @@
 import SideNav from "components/SideNav";
 import ProductGrid from "components/ProductGrid";
 import { Col, Container, Nav, Navbar, Row } from "react-bootstrap";
-import { getCatalogItems } from "./api/catalog";
 
 
 
@@ -30,10 +29,11 @@ export default function Home({ catalogItems }) {
 }
 
 export async function getServerSideProps() {
-  const catalogItems = await getCatalogItems();
+  const catalogItems = await fetch("http://localhost:3000/catalog/objects").then(res => res.json());
+  
   return {
     props: {
-      catalogItems,
+      catalogItems : catalogItems.result
     },
   };
 }
