@@ -2,17 +2,15 @@ import SideNav from "components/SideNav";
 import ProductGrid from "components/ProductGrid";
 import { Col, Container, Nav, Navbar, Row } from "react-bootstrap";
 
-
-
 export default function Home({ catalogItems }) {
   var catalogImages = {};
-  var catalogItems = catalogItems.objects.filter(( item ) => {
-    if(item.type === 'ITEM'){
+  var catalogItems = catalogItems.objects.filter((item) => {
+    if (item.type === "ITEM") {
       return true;
-    } else if(item.type === 'IMAGE'){
-      catalogImages[item.id] = item.imageData
+    } else if (item.type === "IMAGE") {
+      catalogImages[item.id] = item.imageData;
     }
-  })
+  });
 
   return (
     <Container className="p-0" fluid>
@@ -21,7 +19,10 @@ export default function Home({ catalogItems }) {
           <SideNav />
         </Col>
         <Col>
-          <ProductGrid catalogItems={catalogItems} catalogImages={catalogImages} />
+          <ProductGrid
+            catalogItems={catalogItems}
+            catalogImages={catalogImages}
+          />
         </Col>
       </Row>
     </Container>
@@ -29,11 +30,15 @@ export default function Home({ catalogItems }) {
 }
 
 export async function getServerSideProps() {
-  const catalogItems = await fetch("http://localhost:3000/catalog/objects").then(res => res.json());
-  
+  const catalogItems = await fetch(
+    process.env.square[process.env.NODE_ENV].url + "catalog/objects"
+  )
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
+
   return {
     props: {
-      catalogItems : catalogItems.result
+      catalogItems: catalogItems.result,
     },
   };
 }

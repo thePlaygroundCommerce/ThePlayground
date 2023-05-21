@@ -15,7 +15,6 @@ const CartList = (...rest) => {
     <ListGroup variant="flush" {...rest}>
       {order.lineItems.map(item => (
         <ListGroup.Item key={item.uid} className="d-flex row">
-          {console.log(item)}
           <div className="col-2">
             {/* <div
               className="w-100 bg-secondary"

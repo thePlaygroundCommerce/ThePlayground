@@ -12,13 +12,13 @@ import {
 } from "react-bootstrap";
 import Shirt from "public/shirt.png";
 import Counter from "components/Counter";
-import ReactImageMagnify from "react-image-magnify";
+// import ReactImageMagnify from "react-image-magnify";
 import BreadcrumbNav from "components/BreadcrumbNav";
 import { CartContext } from "context/cartContext";
 import { useRouter } from "next/router";
-// import { CheckoutContext } from "context/checkoutContext";
 
 const ProductDetails = ({ catalogObject }) => {
+  console.log(catalogObject);
   const router = useRouter();
   const {
     cart: { itemVariationsIDs, order },
@@ -63,14 +63,14 @@ const ProductDetails = ({ catalogObject }) => {
       checkoutOrder({ lineItems });
     };
     const checkoutOrder = async (catalogOrder) => {
-      fetch("/api/checkout", {
+      fetch(process.env.square[process.env.NODE_ENV].url + "/api/checkout", {
         method: "POST",
         body: JSON.stringify(catalogOrder),
       })
         .then((res) => res.json())
         .then(({ paymentLink }) => {
-          paymentLink = JSON.parse(paymentLink)
-          router.push(paymentLink.url)
+          paymentLink = JSON.parse(paymentLink);
+          router.push(paymentLink.url);
         })
         .catch((err) => console.error(err));
     };
@@ -81,7 +81,7 @@ const ProductDetails = ({ catalogObject }) => {
     );
     const smallImage = {
       alt: "picture of shirt",
-      src: image.imageData.url,
+      src: image?.imageData.url || "",
       width: Shirt.width,
       height: Shirt.height,
       isFluidWidth: false,
@@ -89,10 +89,9 @@ const ProductDetails = ({ catalogObject }) => {
 
     const largeImage = {
       alt: "picture of shirt",
-      src: image.imageData.url,
+      src: image?.imageData.url || "",
       width: Shirt.width * 2,
       height: Shirt.height * 2,
-      // isFluidWidth: true
     };
 
     return (
@@ -122,7 +121,7 @@ const ProductDetails = ({ catalogObject }) => {
                         activeVariationIndex
                       ].itemVariationData.name[0].toUpperCase()}
                     >
-                      {variations.map(({ id, itemVariationData }, i) => (
+                      {/* {variations.map(({ id, itemVariationData }, i) => (
                         <Dropdown.Item
                           onClick={handleDropDownButtonChange}
                           name={i}
@@ -131,7 +130,7 @@ const ProductDetails = ({ catalogObject }) => {
                         >
                           {itemVariationData.name[0].toUpperCase()}
                         </Dropdown.Item>
-                      ))}
+                      ))} */}
                     </DropdownButton>
                   </div>
                   <div className="w-75">
@@ -208,25 +207,18 @@ const ProductDetails = ({ catalogObject }) => {
 
 export default ProductDetails;
 
-export async function getServerSideProps(context) {
-  const { Client, Environment, ApiError } = require("square");
-
-  const squareClient = new Client({
-    accessToken: process.env.SQUARE_ACCESS_TOKEN,
-    environment: Environment.Sandbox,
-  });
-
-  const { catalogApi } = squareClient;
-
-  const {
-    params: { slug },
-  } = context;
-
+export async function getServerSideProps({ params: { slug } }) {
   try {
-    let catalogResponse = await catalogApi.retrieveCatalogObject(slug, true);
+    const catalogObject = await fetch(
+      process.env.square[process.env.NODE_ENV].url + "catalog/" + slug
+    )
+      .then((res) => res.json())
+      .catch((err) => err);
 
     return {
-      props: { catalogObject: catalogResponse.result },
+      props: {
+        catalogObject: catalogObject.result,
+      },
     };
   } catch (error) {
     return {

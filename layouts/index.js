@@ -1,6 +1,5 @@
 import {Container, Row, Col, Nav, Navbar, ButtonGroup, Button} from 'react-bootstrap'
 import {FaShoppingCart, FaFacebookF, FaTwitter, FaSnapchatGhost, FaInstagram} from 'react-icons/fa'
-import Store from '../inventory'
 import Head from 'next/head'
 import Link from 'next/link'
 import styles from '../styles/Home.module.scss'
@@ -58,7 +57,7 @@ export function StoreLayout({ catalogItems }){
             <SideMenu/>
           </Col>
           <Col sm={8}>
-            <Store catalogItems={catalogItems} />
+            {/* <Store catalogItems={catalogItems} /> */}
           </Col>
           <Col sm={2} className="d-flex flex-column justify-content-between">
             <div style={{position: "fixed", height: "50vh"}} className="d-flex flex-column justify-content-between">              

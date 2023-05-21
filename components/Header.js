@@ -23,15 +23,21 @@ function Header() {
       <Container fluid>
         <Row className="w-100">
           <Col>
-            <Nav>
-              <Nav.Item as={Link} href="/blog">
-                MEN
+            <Nav className="ms-5">
+              <Nav.Item>
+                <Nav.Link as={Link} href="/blog">
+                  MEN
+                </Nav.Link>
               </Nav.Item>
-              <Nav.Item as={Link} href="/blog">
-                WOMEN
+              <Nav.Item>
+                <Nav.Link as={Link} href="/blog">
+                  WOMEN
+                </Nav.Link>
               </Nav.Item>
-              <Nav.Item as={Link} href="/blog">
-                WOMEN
+              <Nav.Item>
+                <Nav.Link as={Link} href="/blog">
+                  WOMEN
+                </Nav.Link>
               </Nav.Item>
             </Nav>
           </Col>
@@ -39,7 +45,7 @@ function Header() {
             <div className="mx-2">
               <BsSearch />
             </div>
-            <Cart cart={cart}/>
+            <Cart cart={cart} />
           </Col>
         </Row>
       </Container>
