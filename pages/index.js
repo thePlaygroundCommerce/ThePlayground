@@ -3,8 +3,8 @@ import ProductGrid from "components/ProductGrid";
 import { Col, Container, Nav, Navbar, Row } from "react-bootstrap";
 
 export default function Home({ catalogItems }) {
-  var catalogImages = {};
-  var catalogItems = catalogItems.objects.filter((item) => {
+  const catalogImages = {};
+  const filteredCatalogItems = catalogItems?.objects.filter((item) => {
     if (item.type === "ITEM") {
       return true;
     } else if (item.type === "IMAGE") {
@@ -20,7 +20,7 @@ export default function Home({ catalogItems }) {
         </Col>
         <Col>
           <ProductGrid
-            catalogItems={catalogItems}
+            catalogItems={filteredCatalogItems}
             catalogImages={catalogImages}
           />
         </Col>
@@ -34,11 +34,11 @@ export async function getServerSideProps() {
     process.env.square[process.env.NODE_ENV].url + "catalog/objects"
   )
     .then((res) => res.json())
-    .catch((err) => console.log(err));
+    .catch((err) => err)
 
   return {
     props: {
-      catalogItems: catalogItems.result,
+      catalogItems: catalogItems?.result,
     },
   };
 }

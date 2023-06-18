@@ -5,35 +5,61 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import OrderSummary from "components/OrderSummary";
 import { getOrder } from "pages/api/carts";
-import { stringifyBigIntReplacer } from "util/jsonUtils";
 import { getCatalogItems } from "pages/api/catalog";
-
-// const { Client, Environment } = require("square");
-
-// const squareClient = new Client({
-//   accessToken: process.env.SQUARE_ACCESS_TOKEN,
-//   environment: Environment.Sandbox,
-// });
-
-// const { checkoutApi } = squareClient;
+import OrderList from "components/OrderList";
+import Link from "next/link";
 
 const Checkout = ({ order, objects }) => {
   console.log(objects);
   return (
-    <Container>
+    <Container fluid>
       <Row>
-        <Col xs={8}>
+        <Col xs={7}>
+          <OrderList orders={order.lineItems} />
+        </Col>
+        <Col xs={5}>
           <div className="w-75 mt-5">
             <div className="text-center p-3">
               <BsFillCheckCircleFill size={100} color="green" />
             </div>
             <div className="mt-5">
-              <div className="text-center w-75 m-auto p-3">
+              <div className="text-center m-auto p-3">
                 <p>
-                  We thank you for your purchase. You will receive an
-                  email with your order details where you can track, change your
-                  order, or view your receipt.
+                  We thank you for your purchase. You will receive an email with
+                  your order details shortly.
                 </p>
+                <p>
+                  Log in to your aaccount and keep track of or change your
+                  order.
+                </p>
+                <Button as={Link} href="/login" variant="link">
+                  Login
+                </Button>
+                <Button as={Link} href="/login" variant="link">
+                  View Order
+                </Button>
+                <Button as={Link} href="/" variant="link">
+                  Continue Shopping
+                </Button>
+              </div>
+            </div>
+          </div>
+          {/* <div className="w-75 mt-5">
+            <div className="mt-5">
+              <div className="text-center m-auto p-3">
+                <p>
+                  Log in to your aaccount and keep track of or change your
+                  order.
+                </p>
+                <Button as={Link} href="/login" variant="link">
+                  Login
+                </Button>
+                <Button as={Link} href="/login" variant="link">
+                  View Order
+                </Button>
+                <Button as={Link} href="/" variant="link">
+                  Continue Shopping
+                </Button>
               </div>
               <Form.Group>
                 <Form.Label>How was your shopping experience?</Form.Label>
@@ -45,9 +71,8 @@ const Checkout = ({ order, objects }) => {
                 </div>
               </Form.Group>
             </div>
-          </div>
+          </div> */}
         </Col>
-        <Col>{/* <OrderSummary order={order} /> */}</Col>
       </Row>
     </Container>
   );

@@ -5,7 +5,6 @@ import Unavailable from 'public/unavailable-image.jpeg'
 export default function ProductGridItem({ itemData, images }) {
   const { name, variations } = itemData;
 
-  // console.log(variations)
   return (
     <Card className="border-0 text-center w-100">
       <Card.Img

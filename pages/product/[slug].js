@@ -12,13 +12,12 @@ import {
 } from "react-bootstrap";
 import Shirt from "public/shirt.png";
 import Counter from "components/Counter";
-// import ReactImageMagnify from "react-image-magnify";
 import BreadcrumbNav from "components/BreadcrumbNav";
 import { CartContext } from "context/cartContext";
 import { useRouter } from "next/router";
+import { SideBySideMagnifier } from "react-image-magnifiers";
 
 const ProductDetails = ({ catalogObject }) => {
-  console.log(catalogObject);
   const router = useRouter();
   const {
     cart: { itemVariationsIDs, order },
@@ -53,24 +52,24 @@ const ProductDetails = ({ catalogObject }) => {
     };
     const handleBuyNow = () => {
       const itemVariationID = variations[activeVariationIndex].id;
-      const lineItems = [
-        {
-          quantity: quantity.toString(),
-          catalogObjectId: itemVariationID,
-        },
-      ];
-
-      checkoutOrder({ lineItems });
+      const lineItem = {
+        quantity: quantity.toString(),
+        catalogObjectId: itemVariationID,
+      };
+      checkoutOrder(lineItem).catch((err) => console.log(err));
     };
-    const checkoutOrder = async (catalogOrder) => {
-      fetch(process.env.square[process.env.NODE_ENV].url + "/api/checkout", {
+    const checkoutOrder = async (lineItem) => {
+      fetch(process.env.square[process.env.NODE_ENV].url + "checkout", {
         method: "POST",
-        body: JSON.stringify(catalogOrder),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          order: { lineItems: [lineItem] },
+          checkoutOptions: { redirectUrl: "http://localhost:3005/checkout/" },
+        }),
       })
         .then((res) => res.json())
-        .then(({ paymentLink }) => {
-          paymentLink = JSON.parse(paymentLink);
-          router.push(paymentLink.url);
+        .then(({ result }) => {
+          router.push(result.paymentLink.url).catch((err) => console.log(err));
         })
         .catch((err) => console.error(err));
     };
@@ -100,7 +99,11 @@ const ProductDetails = ({ catalogObject }) => {
 
         <Row>
           <Col>
-            {/* <ReactImageMagnify {...{ smallImage, largeImage }} /> */}
+            <SideBySideMagnifier
+              alwaysInPlace={true}
+              imageSrc={image?.imageData.url}
+              imageAlt="picture of shirt"
+            />
           </Col>
           <Col>
             <div className="w-75 m-auto">
@@ -121,7 +124,7 @@ const ProductDetails = ({ catalogObject }) => {
                         activeVariationIndex
                       ].itemVariationData.name[0].toUpperCase()}
                     >
-                      {/* {variations.map(({ id, itemVariationData }, i) => (
+                      {variations.map(({ id, itemVariationData }, i) => (
                         <Dropdown.Item
                           onClick={handleDropDownButtonChange}
                           name={i}
@@ -130,7 +133,7 @@ const ProductDetails = ({ catalogObject }) => {
                         >
                           {itemVariationData.name[0].toUpperCase()}
                         </Dropdown.Item>
-                      ))} */}
+                      ))}
                     </DropdownButton>
                   </div>
                   <div className="w-75">

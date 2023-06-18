@@ -3,6 +3,8 @@ import Link from "next/link";
 import React, { useContext, useRef } from "react";
 import {
   Badge,
+  Button,
+  ButtonGroup,
   Col,
   Container,
   Nav,
@@ -10,8 +12,9 @@ import {
   Overlay,
   Row,
 } from "react-bootstrap";
-import { BsCart, BsSearch } from "react-icons/bs";
+import { BsPerson, BsSearch } from "react-icons/bs";
 import Cart from "./Cart";
+import { Person, Search } from "react-bootstrap-icons";
 
 function Header() {
   const target = useRef();
@@ -22,8 +25,8 @@ function Header() {
       <Navbar.Brand href="/">SWaNK</Navbar.Brand>
       <Container fluid>
         <Row className="w-100">
-          <Col>
-            <Nav className="ms-5">
+          <Col className="d-flex align-items-center">
+            {/* <Nav className="ms-5">
               <Nav.Item>
                 <Nav.Link as={Link} href="/blog">
                   MEN
@@ -39,13 +42,31 @@ function Header() {
                   WOMEN
                 </Nav.Link>
               </Nav.Item>
-            </Nav>
+            </Nav> */}
           </Col>
           <Col xs={2} className="d-flex align-items-center justify-content-end">
-            <div className="mx-2">
-              <BsSearch />
-            </div>
-            <Cart cart={cart} />
+            {/* <div className="d-flex align-items-center">
+              <div>
+                <Search />
+              </div>
+              <div>
+                <Cart cart={cart} />
+              </div>
+              <div>
+                <Person fontSize={18} />
+              </div>
+            </div> */}
+            <ButtonGroup>
+              {/* <Button as="" variant="" className="p-1">
+                <Search />
+              </Button> */}
+              <Button variant="" className="p-1">
+                <Cart />
+              </Button>
+              <Button variant="" className="p-1">
+                <Person fontSize={18} />
+              </Button>
+            </ButtonGroup>
           </Col>
         </Row>
       </Container>

@@ -1,10 +1,10 @@
-import CartList from "components/CartList";
+import OrderList from "components/OrderList";
 import CartLayout from "layouts/CartLayout";
 import React from "react";
 import { Container } from "react-bootstrap";
 
 const Cart = () => {
-  return false ? <EmptyCart /> : <CartList></CartList>;
+  return false ? <EmptyCart /> : <OrderList></OrderList>;
 };
 
 const EmptyCart = () => (
