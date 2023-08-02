@@ -1,7 +1,7 @@
-import BlogLayout from "../../layouts";
+// import BlogLayout from "../../layouts";
 
-const Layout = ({ children }) => {
-  return <BlogLayout>{children}</BlogLayout>;
-};
+// const Layout = ({ children }) => {
+//   return <BlogLayout>{children}</BlogLayout>;
+// };
 
-export default Layout;
+// export default Layout;
