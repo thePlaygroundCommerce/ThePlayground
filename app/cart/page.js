@@ -1,6 +1,4 @@
 import OrderList from "components/OrderList";
-import CartLayout from "layouts/CartLayout";
-import React from "react";
 
 const Cart = () => {
   return false ? <EmptyCart /> : <OrderList></OrderList>;
@@ -12,6 +10,5 @@ const EmptyCart = () => (
   </div>
 );
 
-Cart.Layout = CartLayout;
 
 export default Cart;
