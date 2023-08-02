@@ -5,7 +5,7 @@ function SideNav({ catalogCategories }) {
     name.split(" ")
   );
   const makeCategoryTree = (arr) =>
-    arr.reduce((acc, cv) => {
+    arr?.reduce((acc, cv) => {
       const cvLowercase = cv[0].toLowerCase();
 
       acc[cvLowercase] !== undefined
