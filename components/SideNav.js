@@ -1,6 +1,6 @@
 "use client";
 
-function SideNav({ catalogCategories }) {
+function SideNav({ catalogCategories = [] }) {
   const splitNameArr = catalogCategories?.map(({ categoryData: { name } }) =>
     name.split(" ")
   );
