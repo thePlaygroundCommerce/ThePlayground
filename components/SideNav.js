@@ -1,64 +1,66 @@
+'use client'
+
 import Link from "next/link";
-import React from "react";
-import { Accordion, Button, Nav } from "react-bootstrap";
 import { CaretDownFill } from "react-bootstrap-icons";
 
-function SideNav(props) {
-  const categoryObjs = [""];
-
-  return (
-    <Accordion className="w-100 border border-0" flush>
-      <Accordion.Item className="border border-0" eventKey="1">
-        <Accordion.Header  className="border border-0">CLOTHING</Accordion.Header>
-        <Accordion.Body className="p-0 border border-0">
-          <Accordion>
-            <Accordion.Item className="border border-0">
-              <Accordion.Body>
-                <Button
-                  as={Accordion.Item}
-                  variant=""
-                  className="border-0 rounded-1 my-0 py-0 text-end"
-                >
-                  SHIRTS
-                </Button>
-              </Accordion.Body>
-            </Accordion.Item>
-            <Accordion.Item className="border border-0">
-              <Accordion.Body>
-                <Button
-                  as={Accordion.Item}
-                  variant=""
-                  className="border-0 rounded-1 my-0 py-0 text-end"
-                >
-                  JACKETS
-                </Button>
-              </Accordion.Body>
-            </Accordion.Item>
-            <Accordion.Item className="border border-0">
-              <Accordion.Body>
-                <Button
-                  as={Accordion.Item}
-                  variant=""
-                  className="border-0 rounded-1 my-0 py-0 text-end"
-                >
-                  SWEATERS
-                </Button>
-              </Accordion.Body>
-            </Accordion.Item>
-          </Accordion>
-        </Accordion.Body>
-      </Accordion.Item>
-      <Accordion.Item className="border-0" eventKey="2">
-        <Accordion.Header className="mb-1 me-1">ACCESSORIES</Accordion.Header>
-      </Accordion.Item>
-      <Accordion.Item className="border-0" eventKey="3">
-        <Accordion.Header className="mb-1 me-1">FOOTWEAR</Accordion.Header>
-      </Accordion.Item>
-      <Accordion.Item className="border-0" eventKey="4">
-        <Accordion.Header className="mb-1 me-1">LIFE</Accordion.Header>
-      </Accordion.Item>
-    </Accordion>
+function SideNav({ catalogCategories }) {
+  const splitNameArr = catalogCategories.map(({ categoryData: { name } }) =>
+    name.split(" ")
   );
+  const makedivTree = (arr) =>
+    arr.reduce((acc, cv) => {
+      const cvLowercase = cv[0].toLowerCase();
+
+      acc[cvLowercase] !== undefined
+        ? acc[cvLowercase].push(makedivTree([cv.slice(1)]))
+        : (acc[cvLowercase] = []);
+
+      return acc;
+    }, {});
+  const renderdivItems = (items) => {
+    return items.map(([itemName, itemChildren], i) => {
+      const itemDisplayName = itemName[0].toUpperCase() + itemName.slice(1);
+      const hasTree = itemChildren.length > 1;
+
+      return (
+        <div key={i} className="w-100 border border-0" >
+          {hasTree ? (
+            <div
+              key={itemName + i}
+              className=" w-100 border border-0"
+            >
+              <div>
+                <div className="border-0">
+                  <div className="border border-0 p-1">
+                    {itemDisplayName}
+                  </div>
+                  <div className="border border-0 py-0">
+                    <div>
+                      {itemChildren.map((item) =>
+                        renderdivItems(Object.entries(item))
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <button
+              style={{ paddingBlock: 16, paddingInline: 20 }}
+              variant=""
+              className="w-100 text-start"
+            >
+              {/* <button style={{ paddingBlock: 16, paddingInline: 20}} variant="" className=" border border-0"> */}
+              {itemDisplayName}
+              {/* </button> */}
+            </button>
+          )}
+        </div>
+      );
+    });
+  };
+
+  return renderdivItems(Object.entries(makedivTree(splitNameArr)));
 }
 
 export default SideNav;

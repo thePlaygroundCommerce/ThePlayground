@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "react-bootstrap";
 import OrderList from "./OrderList";
 
 const CartSummary = ({ order }) => {
@@ -22,19 +21,19 @@ const CartFooter = () => (
   <>
     <div className="w-100 mt-1">
       <div className="">
-        <div className="d-flex justify-content-between">
+        <div className="flex justify-content-between">
           <p>Subtotal</p>
           <p>$30</p>
         </div>
-        {/* <div className="d-flex justify-content-between">
+        {/* <div className="flex justify-content-between">
             <p>Discounts</p>
             <p>$30</p>
           </div>
-          <div className="d-flex justify-content-between">
+          <div className="flex justify-content-between">
             <p>Shipping</p>
             <p>$30</p>
           </div>
-          <div className="d-flex justify-content-between">
+          <div className="flex justify-content-between">
             <p>Order Total</p>
             <p>$30</p>
           </div> */}
@@ -44,22 +43,22 @@ const CartFooter = () => (
         <div className="">
           <InputGroup>
             <FloatingLabel label="Enter Promotional Code">
-              <Form.Control
+              <div
                 className="border-0 border-bottom rounded-0"
                 placeholder="Enter Promotional Code"
               />
             </FloatingLabel>
-            <Button variant="dark">Apply</Button>
+            <button variant="dark">Apply</button>
           </InputGroup>
         </div>
       </div> */}
-    <div className="text-center d-flex">
-      <Button className="w-100 mx-2" variant="dark">
+    <div className="text-center flex">
+      <button className="w-100 mx-2" variant="dark">
         View Cart
-      </Button>
-      <Button className="w-100 mx-2" variant="dark">
+      </button>
+      <button className="w-100 mx-2" variant="dark">
         Checkout Now
-      </Button>
+      </button>
     </div>
   </>
 );

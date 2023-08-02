@@ -1,53 +1,28 @@
+"use client";
+
 import React, { useContext, useRef, useState } from "react";
-import { Badge, Overlay, OverlayTrigger } from "react-bootstrap";
 import { BsCart } from "react-icons/bs";
 import CartSummary from "./CartSummary";
 import { CartContext } from "context/cartContext";
 
-const CartOverlay = (props) => {
-  return (
-    <div
-      {...props}
-      id="cartOverlay"
-      style={{
-        ...props.style,
-        width: "30rem",
-      }}
-      className={`bg-white p-3 border border-dark popover-arrow ${props.className}`}
-    >
-      <CartSummary />
-    </div>
-  );
-};
-
 const Cart = () => {
   const [show, setShow] = useState(false);
   const ref = useRef();
-  const { cart } = useContext(CartContext);
+  // const { cart } = useContext(CartContext);
 
   return (
     <>
       <div
         ref={ref}
-        // {...triggerHandler}
         onMouseOver={() => setShow(true)}
-        // onMouseOver={e => {console.log("Over"); return triggerHandler.onMouseOver(e)}}
-        // onFocus={null}
-        // onBlur={null}
-        // onMouseEnter={(e) => {
-        //   console.log("Enter");
-        //   return triggerHandler.onMouseOver(e);
-        // }}
-        // onMouseEnter={null}
         className="p-2 position-relative"
       >
-        <BsCart/>
-        <Badge className="rounded-circle position-absolute top-0 end-0">
-          {cart?.itemVariationsIDs.length > 0 && cart?.itemVariationsIDs.length}
-        </Badge>
+        <BsCart />
+        {/* {cart?.itemVariationsIDs.length > 0 && cart?.itemVariationsIDs.length} */}
       </div>
-      <Overlay target={ref?.current} show={show} placement="bottom-end">
+      {/* <Overlay target={ref.current} show={show} placement="bottom-end">
         {(props) => {
+          console.log(props.style);
           return (
             <div
               {...props}
@@ -58,13 +33,12 @@ const Cart = () => {
                 ...props.style,
               }}
               onMouseLeave={() => setShow(false)}
-              // onMouseOut={() => setShow(false)}
             >
-              <CartSummary cart={cart.order}/>
+              <CartSummary cart={cart.order} />
             </div>
           );
         }}
-      </Overlay>
+      </Overlay> */}
     </>
   );
 };

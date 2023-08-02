@@ -1,5 +1,6 @@
-module.exports = {
-  env:{
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  env: {
     square: {
       development: {
         url: "http://localhost:3000/",
@@ -25,14 +26,5 @@ module.exports = {
       },
     ],
   },
-  experimental: {
-    swcPlugins: [
-      [
-        "next-superjson-plugin",
-        {
-          excluded: [],
-        },
-      ],
-    ],
-  },
 };
+module.exports = nextConfig;

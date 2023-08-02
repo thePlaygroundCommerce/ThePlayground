@@ -1,9 +1,9 @@
 import React from 'react'
 
-const RegisterForm = () => {
+const Registerdiv = () => {
   return (
-    <div>RegisterForm</div>
+    <div>Registerdiv</div>
   )
 }
 
-export default RegisterForm
+export default Registerdiv

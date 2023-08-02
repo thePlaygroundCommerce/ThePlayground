@@ -1,8 +1,6 @@
-// Required
-@import "../node_modules/bootstrap/scss/functions";
-@import "../node_modules/bootstrap/scss/variables";
-@import "../node_modules/bootstrap/scss/mixins";
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 html,
 body {
@@ -26,6 +24,10 @@ main{
 }
 .btn-primary{
   background-color: initial;
+}
+
+img {
+  max-width: unset !important;
 }
 
 input::-webkit-outer-spin-button,

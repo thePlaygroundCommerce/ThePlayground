@@ -1,40 +1,39 @@
 import Image from "next/image";
-import { Card } from "react-bootstrap";
 import Unavailable from 'public/unavailable-image.jpeg'
 
 export default function ProductGridItem({ itemData, images }) {
   const { name, variations } = itemData;
+  const firstImage = images[0]?.imageData
 
   return (
-    <Card className="border-0 text-center w-100">
-      <Card.Img
-        as={Image}
+    <div className="border-0 text-center w-100">
+      <Image
         className={`mx-auto`}
         variant="top"
         width={250}
         height={250}
-        src={images[0]?.url || Unavailable}
-        alt={images[0]?.caption || "Picture of shirt"}
+        src={firstImage.url || Unavailable}
+        alt={firstImage.caption || "Picture of shirt"}
       />
-      <Card.Body className="p-3">
-        <Card.Text>{name}</Card.Text>
-        <Card.Text>
+      <div className="p-3">
+        <div>{name}</div>
+        <div>
           $ {variations[0].itemVariationData.priceMoney.amount}
-        </Card.Text>
-        {/* <ButtonGroup>
-          <IconContext.Provider value={{ size: "1em", color: "black" }}>
-            <Button variant="primary" className="text-left border-0">
+        </div>
+        {/* <div>
+          <IconContext.Provider value={{ size: "1em", divor: "black" }}>
+            <button variant="primary" className="text-left border-0">
               <FaCartPlus />
-            </Button>
-            <Button variant="primary" className="text-left border-0">
+            </button>
+            <button variant="primary" className="text-left border-0">
               <GoThreeBars />
-            </Button>
-            <Button variant="primary" className="text-left border-0">
+            </button>
+            <button variant="primary" className="text-left border-0">
               <FaShareAlt />
-            </Button>
+            </button>
           </IconContext.Provider>
-        </ButtonGroup> */}
-      </Card.Body>
-    </Card>
+        </div> */}
+      </div>
+    </div>
   );
 }
