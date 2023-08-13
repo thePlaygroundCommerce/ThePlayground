@@ -2,12 +2,18 @@
 import React from "react";
 import CartProvider from "context/cartContext";
 import { CookiesProvider } from "react-cookie";
+import NavigationProvider from "context/navigationContext";
+import CheckoutProvider from "context/checkoutContext";
 
-const Providers = ({ children }) => {
+const Providers = ({ children, apparelCategories }) => {
   return (
+    <NavigationProvider apparelCategories={apparelCategories}>
       <CookiesProvider>
-        <CartProvider>{children}</CartProvider>
+        <CartProvider>
+          <CheckoutProvider>{children}</CheckoutProvider>
+        </CartProvider>
       </CookiesProvider>
+    </NavigationProvider>
   );
 };
 

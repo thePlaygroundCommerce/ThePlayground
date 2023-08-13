@@ -1,18 +1,24 @@
+import Button from "components/Button";
+import CartPricing from "components/CartPricing";
 import CartSummary from "components/CartSummary";
 import React from "react";
 
 const CartLayout = ({ children }) => {
   return (
     <div>
-      <div>
+      {/* <div>
         <p>Shopping Cart</p>
-      </div>
-      <div>
-        <div xs={8}>
+      </div> */}
+      <div className="grid grid-cols-3">
+        <div className="col-span-2">
           {children}
         </div>
-        <div xs={4}>
-          <CartSummary />
+        <div className="col-span-1">
+          {/* <CartSummary /> */}
+          <CartPricing />
+        <div>
+          <Button>Checkout Now</Button>
+        </div>
         </div>
       </div>
     </div>

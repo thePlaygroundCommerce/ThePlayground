@@ -1,26 +1,46 @@
-'use client';
+"use client";
 import { Person } from "react-bootstrap-icons";
-import { Menu } from "@headlessui/react";
+import { Menu, Popover } from "@headlessui/react";
 import Cart from "./Cart";
 import Link from "next/link";
 import Button from "./Button";
+import { useContext } from "react";
+import { CartContext } from "context/cartContext";
+import CartOverlay from "./CartOverlay";
+import { CheckoutContext } from "context/checkoutContext";
 
 function HeaderActions() {
+  const {
+    toggleCartOverlay: [toggleCartOverlay, setToggleCartOverlay],
+  } = useContext(CartContext);
+    const { getCheckoutUrl } = useContext(CheckoutContext)
+  const handleCartToggle = (e, bool = !toggleCartOverlay) => setToggleCartOverlay(bool);
+
   return (
     <div className="flex items-center justify-end">
-      <button variant="" className="p-1">
+      <button onClick={handleCartToggle} className="p-1">
         <Cart />
       </button>
-      <Menu>
+      <Popover>
+        {() => toggleCartOverlay && (
+          <div className="absolute border bg-white z-20 p-2 top-0 right-0 w-1/3 h-full">
+            <Popover.Overlay className="fixed inset-0 bg-black opacity-30" />
+            <Popover.Panel static>
+              <CartOverlay handleCartToggle={handleCartToggle} getCheckoutUrl={getCheckoutUrl} />
+            </Popover.Panel>
+          </div>
+        )}
+      </Popover>
+      {/* <Menu>
         <Menu.Button>
           <Person fontSize={18} />
         </Menu.Button>
         <Menu.Items>
-          <Menu.Item as={Button}>
+          <Menu.Item as={Link} href="/account">
             My Account
           </Menu.Item>
         </Menu.Items>
-      </Menu>
+      </Menu> */}
     </div>
   );
 }

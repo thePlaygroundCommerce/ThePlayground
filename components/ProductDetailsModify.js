@@ -2,32 +2,46 @@
 
 import { CartContext } from "context/cartContext";
 import { useRouter } from "next/navigation";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Counter from "./Counter";
 import DropdownMenu from "./DropdownMenu";
 import { Tab } from "@headlessui/react";
 import Button from "./Button";
+import { CheckoutContext } from "context/checkoutContext";
 
 const ProductDetailsModify = ({ catalogObject }) => {
-  const [quantity, setQuantity] = useState(1);
   const [activeVariationIndex, setActiveVariationIndex] = useState(1);
   const {
     cart: { itemVariationsIDs, order },
-    createCart,
     updateCart,
   } = useContext(CartContext);
+  const { getCheckoutUrl } = useContext(CheckoutContext);
   const {
     object: {
       itemData,
       itemData: { variations, name },
     },
-    relatedObjects: [image],
   } = catalogObject;
+  const [cartLineItem, setCartLineItem] = useState(
+    order.lineItems?.find(({ catalogObjectId }) =>
+      itemVariationsIDs.includes(catalogObjectId)
+    )
+  );
+  const quantity = cartLineItem?.quantity;
 
+  useEffect(() => {
+    setCartLineItem(
+      order.lineItems?.find(({ catalogObjectId }) =>
+        itemVariationsIDs.includes(catalogObjectId)
+      )
+    );
+  }, [order]);
+  const setQuantity = (quantity) =>
+    setCartLineItem({ ...cartLineItem, quantity });
   const handleAddToCart = () => {
     const itemVariationID = variations[activeVariationIndex].id;
     const lineItem = { quantity: quantity.toString() };
-    if (!isCartItemNew) {
+    if (cartLineItem) {
       lineItem.uid =
         order.lineItems[itemVariationsIDs.indexOf(itemVariationID)].uid;
     } else {
@@ -36,49 +50,32 @@ const ProductDetailsModify = ({ catalogObject }) => {
 
     updateCart(lineItem);
   };
-  const handleBuyNow = () => {
+  const handleBuyNow = async () => {
     const itemVariationID = variations[activeVariationIndex].id;
     const lineItem = {
       quantity: quantity.toString(),
       catalogObjectId: itemVariationID,
     };
-    fetch(process.env.square[process.env.NODE_ENV].url + "checkout", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        order: { lineItems: [lineItem] },
-        checkoutOptions: { redirectUrl: "http://localhost:3005/checkout/" },
-      }),
-    })
-      .then((res) => res.json())
-      .then(({ result }) => {
-        console.log(result);
-        window.location.assign(result.paymentLink.url);
-        // router.push(result.paymentLink.url).catch((err) => console.log(err));
-      })
-      .catch((err) => console.error(err));
+
+    const checkoutUrl = await getCheckoutUrl([lineItem]);
+
+    window.location.assign(checkoutUrl);
   };
 
   const amount = BigInt(
     itemData.variations[0].itemVariationData.priceMoney.amount
   ).toString();
-  const handleDropDownbuttonChange = (e) =>
-    setActiveVariationIndex(e.target.name);
-
-  const isCartItemNew = !itemVariationsIDs.includes(
-    variations[activeVariationIndex].id
-  );
 
   return (
     <div className="m-auto">
-      <div className="flex mt-5 m-3">
-        <div className="basis-full mb-5">
-          <p className="h4">SWaNK</p>
-          <p className="h4 fw-bold">{name}</p>
+      <div className="flex mb-7">
+        <div className="basis-full">
+          <p className="mb-1 h4">SWaNK</p>
+          <p className="mb-1 h4 fw-bold">{name}</p>
           <p>$ {amount}</p>
         </div>
         <div className="basis-full grow">
-          <div className="">
+          <div className="w-3/4">
             <Counter count={quantity} onCountChange={setQuantity} />
           </div>
           <div className="flex">
@@ -88,15 +85,15 @@ const ProductDetailsModify = ({ catalogObject }) => {
           </div>
         </div>
       </div>
-      <div className="flex justify-around">
+      <div className="flex mb-7 justify-around">
         <Button onClick={handleBuyNow}>Buy Now</Button>
         <Button onClick={handleAddToCart}>
-          {isCartItemNew ? "Add To Cart" : "Update Cart"}
+          {!cartLineItem ? "Add To Cart" : "Update Cart"}
         </Button>
       </div>
-      <div className="mt-5">
+      <div className="mb-7">
         <Tab.Group defaultIndex={0}>
-          <Tab.List className="mb-3">
+          <Tab.List className="mb-3 pb-2 border-b">
             <Tab className="pe-3">Details</Tab>
             <Tab className="pe-3">Mission</Tab>
             <Tab className="pe-3">Shop The Style</Tab>

@@ -1,38 +1,29 @@
-'use client'
-
+"use client";
 
 import { createContext, useState, useEffect, useContext } from "react";
 import { CartContext } from "./cartContext";
+import { getCheckoutUrl } from "api/checkoutApi";
 
 export const CheckoutContext = createContext();
 
 const CheckoutProvider = ({ children }) => {
-  const { createCart } = useContext(CartContext);
-  const [cart, setCheckout] = useState({
-    itemVariationsIDs: [],
-    order: {},
-  });
-  const init = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
+  const {
+    cart: { order },
+    createCart,
+  } = useContext(CartContext);
 
-  useEffect(() => {
-    if (cookies.cartID) {
-      fetch("/api/carts")
-        .then((res) => res.json())
-        .then(({ order }) => {
-          const parsedOrder = JSON.parse(order);
-          !order ? null : populateCheckout(parsedOrder);
-        });
-    }
-  }, []);
-
+  const _getCheckoutUrl = (lineItems) =>
+    lineItems
+      ? getCheckoutUrl({ lineItems })
+      : getCheckoutUrl(
+          order.lineItems.map(({ catalogObjectId }) => ({
+            catalogObjectId,
+            quantity: "1",
+          }))
+        );
 
   return (
-    <CheckoutContext.Provider value={{ checkoutOrder }}>
+    <CheckoutContext.Provider value={{ getCheckoutUrl: _getCheckoutUrl }}>
       {children}
     </CheckoutContext.Provider>
   );

@@ -53,9 +53,9 @@ const CartFooter = () => (
         </div>
       </div> */}
     <div className="text-center flex">
-      <button className="w-100 mx-2" variant="dark">
+      {/* <button className="w-100 mx-2" variant="dark">
         View Cart
-      </button>
+      </button> */}
       <button className="w-100 mx-2" variant="dark">
         Checkout Now
       </button>

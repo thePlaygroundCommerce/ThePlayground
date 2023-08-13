@@ -1,6 +1,7 @@
-'use client'
+"use client";
 
-import { createContext, useState, useEffect } from "react";
+import { callCreateCart, callGetCart, callUpdateCart } from "api/cartApi";
+import { createContext, useState, useEffect, useMemo } from "react";
 import { useCookies } from "react-cookie";
 
 export const CartContext = createContext();
@@ -8,27 +9,23 @@ export const CartContext = createContext();
 const CartProvider = ({ children }) => {
   const [cookies, setCookie] = useCookies();
   const [cart, setCart] = useState({
+    id: cookies.cartID,
     itemVariationsIDs: [],
-    order: null,
+    order: {},
   });
-  const init = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
 
   useEffect(() => {
     if (cookies.cartID) {
-      fetch("/api/carts")
-        .then((res) => res.json())
-        .then(({ order }) => {
-          const parsedOrder = JSON.parse(order);
-          !order ? null : populateCart(parsedOrder);
-        })
-        .catch((err) => console.log(err));
+      getCart();
     }
   }, []);
+
+  const toggleCartOverlay = useState(false);
+
+  const getCart = async () => {
+    const order = await callGetCart(cookies.cartID);
+    order ? populateCart(order) : null;
+  };
 
   const updateCart = async (lineItem) => {
     if (cart.order) {
@@ -39,49 +36,28 @@ const CartProvider = ({ children }) => {
           lineItems: [lineItem],
         },
       };
-      fetch("/api/carts/updateCart", {
-        ...init,
-        body: JSON.stringify(body),
-      })
-        .then((res) => res.json())
-        .then(({ order }) => {
-          console.log("Cart Successfully Updated");
-          const parsedOrder = JSON.parse(order);
-
-          populateCart(parsedOrder);
-        })
-        .catch((err) => console.log(err));
+      const order = await callUpdateCart(body, { method: "PUT" });
+      populateCart(order);
     } else {
       createCart(lineItem);
     }
   };
-  const createCart = async (catalogOrder, checkout) => {
-    catalogOrder.state = checkout ? "OPEN" : "DRAFT";
-    const body = JSON.stringify(catalogOrder);
-    return fetch("/api/carts/createCart", {
-      ...init,
-      body: body,
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then(({ order }) => {
-        console.log("Cart Successfully Created");
-        const parsedOrder = JSON.parse(order);
 
-        if (checkout) {
-          return parsedOrder;
-        } else {
-          setCookie("cartID", parsedOrder.id, {
-            path: "/",
-          });
-          populateCart(parsedOrder);
-        }
-      })
-      .catch((err) => console.log(err));
+  const createCart = async (catalogOrder, checkout) => {
+    const state = checkout ? "OPEN" : "DRAFT";
+    const { order } = await callCreateCart({
+      order: { state, lineItems: [catalogOrder] },
+    });
+
+    setCookie("cartID", order.id, {
+      path: "/",
+    });
+    populateCart(order);
   };
+
   const populateCart = (order) => {
     setCart({
+      id: cookies.cartID,
       order: order,
       itemVariationsIDs: order.lineItems.map(
         ({ catalogObjectId }) => catalogObjectId
@@ -89,8 +65,14 @@ const CartProvider = ({ children }) => {
     });
   };
 
+
   return (
-    <CartContext.Provider value={{ cart, updateCart, createCart }}>
+    <CartContext.Provider
+      value={useMemo(
+        () => ({ cart, updateCart, createCart, toggleCartOverlay }),
+        [cart, toggleCartOverlay]
+      )}
+    >
       {children}
     </CartContext.Provider>
   );

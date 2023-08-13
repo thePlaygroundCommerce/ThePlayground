@@ -2,7 +2,7 @@
 
 const Button = ({ children, onClick }) => {
   return (
-    <button className="border p-3" onClick={onClick}>
+    <button className="border p-3 rounded-lg" onClick={onClick}>
       {children}
     </button>
   );

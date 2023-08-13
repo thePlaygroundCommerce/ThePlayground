@@ -3,6 +3,7 @@ import ProductDetailsModify from "components/ProductDetailsModify";
 import ProductImageViewer from "components/ProductImageViewer";
 import Image from "next/image";
 import ProductImageGallery from "components/ProductImageGallery";
+import { getProductDetails } from "api/catalogApi";
 
 const Page = async (props) => {
   const { catalogObject } = await getProductDetails(props);
@@ -10,10 +11,6 @@ const Page = async (props) => {
   const renderProductError = () => <p>Something went wrong!</p>;
   const renderProductDetails = () => {
     const {
-      object: {
-        itemData,
-        itemData: { variations },
-      },
       relatedObjects,
     } = catalogObject;
     const filteredRelatedImages = relatedObjects.filter(
@@ -45,21 +42,3 @@ const Page = async (props) => {
 };
 
 export default Page;
-
-async function getProductDetails({ params: { slug } }) {
-  try {
-    const catalogObject = await fetch(
-      process.env.square[process.env.NODE_ENV].url + "catalog/" + slug
-    )
-      .then((res) => res.json())
-      .catch((err) => err);
-
-    return {
-      catalogObject: catalogObject.result,
-    };
-  } catch (error) {
-    return {
-      error: error.result,
-    };
-  }
-}

@@ -8,24 +8,10 @@ function Header() {
       <div className="flex align-items">
         <Link href="/">SWaNK</Link>
       </div>
-      <HeaderNavigation />
+      <div className="w-1/2 relative">
+        <HeaderNavigation />
+      </div>
       <HeaderActions />
-      {/* <Overlay target={ref.current} show={show} placement="bottom">
-        {(props) => (
-          <div
-            {...props}
-            style={{
-              position: "absolute",
-              width: "30rem",
-              borderRadius: 3,
-              ...props.style,
-            }}
-            className="border p-3 bg-white"
-          >
-            {renderOverlay()}
-          </div>
-        )}
-      </Overlay> */}
     </div>
   );
 }

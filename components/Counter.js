@@ -10,19 +10,19 @@ const Counter = ({ count = 1, onCountChange }) => {
   };
 
   return (
-    <div>
-      <button disabled={count < 2} onClick={handleDecrement}>
+    <div className="flex rounded-full justify-around align-middle px-5 py-2">
+      <button className="border p-3 rounded-full" disabled={count < 2} onClick={handleDecrement}>
         <FaMinus />
       </button>
-      <input 
-        className="text-center w-8"
+      <input
+        className="text-center w-full "
         type="number"
         id="counterInput"
         name="counterInput"
         onChange={handleTextChange}
         value={count}
       />
-      <button onClick={handleIncrement} variant="secondary">
+      <button className="border p-3 rounded-full" onClick={handleIncrement} variant="secondary">
         <FaPlus />
       </button>
     </div>
