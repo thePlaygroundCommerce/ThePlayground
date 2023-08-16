@@ -6,7 +6,7 @@ async function getCatalogObjects(types) {
     process.env.square[process.env.NODE_ENV].url
   }catalog/objects?${queryParams}`;
 
-  return await fetch(fetchUrl)
+  return await fetch(fetchUrl, { cache: "no-store" })
     .then((res) => res.json())
     .then((data) => {console.log(data.result); return data.result})
     .catch((err) => err);
