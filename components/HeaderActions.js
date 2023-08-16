@@ -22,8 +22,8 @@ function HeaderActions() {
         <Cart />
       </button>
       <Popover>
-        {() => toggleCartOverlay && (
-          <div className="absolute border bg-white z-20 p-2 top-0 right-0 w-1/3 h-full">
+        {toggleCartOverlay && (
+          <div className="absolute border bg-white z-20 p-2 top-0 right-0 w-1/3 h-screen">
             <Popover.Overlay className="fixed inset-0 bg-black opacity-30" />
             <Popover.Panel static>
               <CartOverlay handleCartToggle={handleCartToggle} getCheckoutUrl={getCheckoutUrl} />

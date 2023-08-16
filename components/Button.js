@@ -1,8 +1,10 @@
 'use client'
 
-const Button = ({ children, onClick }) => {
+import clsx from "clsx"
+
+const Button = ({ children, onClick, className }) => {
   return (
-    <button className="border p-3 rounded-lg" onClick={onClick}>
+    <button className={clsx(className, "border p-3 rounded-lg")} onClick={onClick}>
       {children}
     </button>
   );

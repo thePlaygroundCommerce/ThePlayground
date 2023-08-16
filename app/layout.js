@@ -18,11 +18,13 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <body className="relative">
+      <body className="">
         <Providers apparelCategories={splitNames(categoryItems)}>
           <Header />
-          <main>{children}</main>
-          <Footer />
+          <main className="pt-12">
+            <div className="min-h-screen">{children}</div>
+            <Footer />
+          </main>
         </Providers>
       </body>
     </html>

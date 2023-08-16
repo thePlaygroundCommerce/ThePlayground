@@ -4,7 +4,7 @@ import Link from "next/link";
 
 function Header() {
   return (
-    <div className="flex justify-between content-center w-full px-8 py-6">
+    <header className="fixed bg-white h-12 flex justify-between content-center w-full px-8 py-3">
       <div className="flex align-items">
         <Link href="/">SWaNK</Link>
       </div>
@@ -12,7 +12,7 @@ function Header() {
         <HeaderNavigation />
       </div>
       <HeaderActions />
-    </div>
+    </header>
   );
 }
 

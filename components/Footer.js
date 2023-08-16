@@ -1,19 +1,28 @@
-import React from 'react'
-import styles from '../styles/Home.module.scss'
+import NewsletterForm from "./NewsletterForm";
+import SocialMediaButttons from "./SocialMediaButttons";
 
-function Footer(){
-    return(
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    )
-  }
+function Footer() {
+  return (
+    <footer className="border-t p-5">
+      <div className="flex w-1/2 mx-auto">
+        <div className="">
+          <p>About Us</p>
+          <p>Feedback & Returns</p>
+          <p>Contact Us</p>
+          <p>Terms & Conditions</p>
+        </div>
+        <div className="w-5"></div>
+        <div className="">
+          <p>You should keep a eye on us, we're a bit crazy.</p>
+          <NewsletterForm />
+          <SocialMediaButttons />
+        </div>
+      </div>
+      <div className="text-center">
+        <p>The Playground</p>
+      </div>
+    </footer>
+  );
+}
 
-export default Footer
+export default Footer;
