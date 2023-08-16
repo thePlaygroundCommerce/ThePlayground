@@ -4,8 +4,6 @@ import ProductGrid from "components/ProductGrid";
 export default async function Page() {
   const catalogItems = await getCatalogObjects("CATEGORY,IMAGE,ITEM");
 
-  console.log(catalogItems)
-
   const mappedCatalogItems = {};
   catalogItems?.objects.forEach((item) => {
     const lowerCaseItemType = item.type.toLowerCase();

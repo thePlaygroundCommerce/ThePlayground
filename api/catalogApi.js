@@ -8,7 +8,7 @@ async function getCatalogObjects(types) {
 
   return await fetch(fetchUrl)
     .then((res) => res.json())
-    .then((data) => data.result)
+    .then((data) => {console.log(data.result); return data.result})
     .catch((err) => err);
 }
 
