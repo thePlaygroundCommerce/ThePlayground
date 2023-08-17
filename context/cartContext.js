@@ -28,7 +28,7 @@ const CartProvider = ({ children }) => {
   };
 
   const updateCart = async (lineItem) => {
-    if (cart.order) {
+    if (cart.order.id) {
       const body = {
         orderID: cart.order.id,
         order: {

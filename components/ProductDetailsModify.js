@@ -11,33 +11,29 @@ import { CheckoutContext } from "context/checkoutContext";
 
 const ProductDetailsModify = ({ catalogObject }) => {
   const [activeVariationIndex, setActiveVariationIndex] = useState(1);
+
   const {
     cart: { itemVariationsIDs, order },
     updateCart,
   } = useContext(CartContext);
+
   const { getCheckoutUrl } = useContext(CheckoutContext);
+
   const {
     object: {
       itemData,
       itemData: { variations, name },
     },
   } = catalogObject;
+
   const [cartLineItem, setCartLineItem] = useState(
     order.lineItems?.find(({ catalogObjectId }) =>
       itemVariationsIDs.includes(catalogObjectId)
     )
   );
-  const quantity = cartLineItem?.quantity;
 
-  useEffect(() => {
-    setCartLineItem(
-      order.lineItems?.find(({ catalogObjectId }) =>
-        itemVariationsIDs.includes(catalogObjectId)
-      )
-    );
-  }, [order]);
-  const setQuantity = (quantity) =>
-    setCartLineItem({ ...cartLineItem, quantity });
+  const [quantity, setQuantity] = useState(cartLineItem?.quantity || 0)
+
   const handleAddToCart = () => {
     const itemVariationID = variations[activeVariationIndex].id;
     const lineItem = { quantity: quantity.toString() };
@@ -50,6 +46,7 @@ const ProductDetailsModify = ({ catalogObject }) => {
 
     updateCart(lineItem);
   };
+
   const handleBuyNow = async () => {
     const itemVariationID = variations[activeVariationIndex].id;
     const lineItem = {
@@ -88,7 +85,7 @@ const ProductDetailsModify = ({ catalogObject }) => {
       <div className="flex mb-7 justify-around">
         <Button onClick={handleBuyNow}>Buy Now</Button>
         <Button onClick={handleAddToCart}>
-          {!cartLineItem ? "Add To Cart" : "Update Cart"}
+          {!quantity ? "Add To Cart" : "Update Cart"}
         </Button>
       </div>
       <div className="mb-7">

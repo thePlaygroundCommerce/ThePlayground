@@ -14,7 +14,7 @@ const CheckoutProvider = ({ children }) => {
 
   const _getCheckoutUrl = (lineItems) =>
     lineItems
-      ? getCheckoutUrl({ lineItems })
+      ? getCheckoutUrl(lineItems)
       : getCheckoutUrl(
           order.lineItems.map(({ catalogObjectId }) => ({
             catalogObjectId,
