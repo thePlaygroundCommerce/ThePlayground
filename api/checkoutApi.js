@@ -1,11 +1,12 @@
 async function getOrderAndCatalogObjects(orderId) {
   try {
     const { order } = await fetch(
-      process.env.square[process.env.NODE_ENV].url + "checkout/order/" + orderId
+      process.env.square[process.env.NODE_ENV].url + "checkout/order/" + orderId, { next: { revalidate: 0} }
     )
       .then((res) => res.json())
       .then(({ result }) => result)
       .catch((err) => err);
+
     const lineItemsCatalogIdList = order.lineItems.map(
       (item) => item.catalogObjectId
     );
@@ -13,6 +14,7 @@ async function getOrderAndCatalogObjects(orderId) {
     const objects = await fetch(
       process.env.square[process.env.NODE_ENV].url + "catalog",
       {
+        next: { revalidate: 0 },
         method: "POST",
         body: JSON.stringify({
           objectIds: lineItemsCatalogIdList,

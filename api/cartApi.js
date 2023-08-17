@@ -18,7 +18,6 @@ async function callGetCart(orderId) {
 }
 
 async function callUpdateCart({ orderID, order }, init = DEFAULT_INIT ) {
-  // return console.log(`${BASE_PATH}/update/${body.orderID}`)
   return fetch(`${BASE_PATH}/update/${orderID}`, {
     ...DEFAULT_INIT,
     ...init,

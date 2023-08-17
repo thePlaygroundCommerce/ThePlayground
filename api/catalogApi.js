@@ -6,9 +6,9 @@ async function getCatalogObjects(types) {
     process.env.square[process.env.NODE_ENV].url
   }catalog/objects?${queryParams}`;
 
-  return await fetch(fetchUrl, { cache: "no-store" })
+  return await fetch(fetchUrl, { next: { revalidate: 3600 * 12 } })
     .then((res) => res.json())
-    .then((data) => {console.log(data.result); return data.result})
+    .then((data) => data.result)
     .catch((err) => err);
 }
 
@@ -30,9 +30,7 @@ async function getProductDetails({ params: { slug } }) {
   }
 }
 
-
 module.exports = {
-    getCatalogObjects,
-    getProductDetails
-  };
-  
+  getCatalogObjects,
+  getProductDetails,
+};
