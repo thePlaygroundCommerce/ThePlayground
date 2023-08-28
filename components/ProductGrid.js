@@ -4,8 +4,8 @@ import ProductItem from "./ProductGridItem";
 const ProductGrid = ({ catalogItems, catalogImages }) => {
   return catalogItems == undefined ? (
     <EmptyProductGrid />
-  ) : (
-    <div className="grid grid-cols-4 w-full">
+    ) : (
+      <div className="grid grid-cols-4 w-full">
       {catalogItems?.map(({ itemData, id }) => {
         const itemImages = itemData.imageIds;
         const images = catalogImages?.filter(({ id }) => itemImages.includes(id) );

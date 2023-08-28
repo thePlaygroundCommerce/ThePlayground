@@ -9,7 +9,6 @@ export const CheckoutContext = createContext();
 const CheckoutProvider = ({ children }) => {
   const {
     cart: { order },
-    createCart,
   } = useContext(CartContext);
 
   const _getCheckoutUrl = (lineItems) =>

@@ -1,17 +1,19 @@
 "use client";
 
 import { callCreateCart, callGetCart, callUpdateCart } from "api/cartApi";
-import { createContext, useState, useEffect, useMemo } from "react";
+import { createContext, useState, useEffect, useMemo, useContext } from "react";
 import { useCookies } from "react-cookie";
+import { Order } from "square";
 
-export const CartContext = createContext();
+export const CartContext = createContext(null);
 
-const CartProvider = ({ children }) => {
+const CartProvider = ({ apparelData, children }) => {
   const [cookies, setCookie] = useCookies();
+  const toggleCartOverlay = useState(false);
   const [cart, setCart] = useState({
     id: cookies.cartID,
     itemVariationsIDs: [],
-    order: {},
+    order: { lineItems: [] },
   });
 
   useEffect(() => {
@@ -20,33 +22,33 @@ const CartProvider = ({ children }) => {
     }
   }, []);
 
-  const toggleCartOverlay = useState(false);
-
   const getCart = async () => {
     const order = await callGetCart(cookies.cartID);
-    order ? populateCart(order) : null;
+    if (order) populateCart(order);
   };
 
-  const updateCart = async (lineItem) => {
+  const updateCart = async (lineItems, fieldsToClear) => {
     if (cart.order.id) {
       const body = {
         orderID: cart.order.id,
         order: {
           version: cart.order.version,
-          lineItems: [lineItem],
+          lineItems: lineItems,
         },
+        fieldsToClear,
       };
       const order = await callUpdateCart(body, { method: "PUT" });
+      console.log(order);
       populateCart(order);
     } else {
-      createCart(lineItem);
+      createCart(lineItems, null);
     }
   };
 
   const createCart = async (catalogOrder, checkout) => {
     const state = checkout ? "OPEN" : "DRAFT";
     const { order } = await callCreateCart({
-      order: { state, lineItems: [catalogOrder] },
+      order: { state, lineItems: catalogOrder },
     });
 
     setCookie("cartID", order.id, {
@@ -55,27 +57,53 @@ const CartProvider = ({ children }) => {
     populateCart(order);
   };
 
+  const addCartItem = (lineItem) =>
+    updateCart(cart.order.lineItems.concat(lineItem), null);
+
+  const deleteCartItem = (lineItemUid: string) => {
+    updateCart(
+      null,
+      [
+        `line_items[${lineItemUid}]`
+      ]
+    );
+  };
+
+  const modifyCartItem = (itemVariationId) => {};
+
   const populateCart = (order) => {
     setCart({
       id: cookies.cartID,
       order: order,
-      itemVariationsIDs: order.lineItems.map(
+      itemVariationsIDs: order.lineItems?.map(
         ({ catalogObjectId }) => catalogObjectId
       ),
     });
   };
 
-
   return (
     <CartContext.Provider
       value={useMemo(
-        () => ({ cart, updateCart, createCart, toggleCartOverlay }),
+        () => ({
+          cart,
+          updateCart,
+          createCart,
+          addCartItem,
+          deleteCartItem,
+          toggleCartOverlay,
+        }),
         [cart, toggleCartOverlay]
       )}
     >
       {children}
     </CartContext.Provider>
   );
+};
+
+type Cart = {
+  id: string;
+  itemVariationsIDs: string[];
+  order: Order;
 };
 
 export default CartProvider;

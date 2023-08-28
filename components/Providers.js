@@ -4,14 +4,19 @@ import CartProvider from "context/cartContext";
 import { CookiesProvider } from "react-cookie";
 import NavigationProvider from "context/navigationContext";
 import CheckoutProvider from "context/checkoutContext";
+import InventoryProvider from "../context/inventoryContext";
 
-const Providers = ({ children, apparelCategories }) => {
+const Providers = ({ data, children }) => {
   return (
-    <NavigationProvider apparelCategories={apparelCategories}>
+    <NavigationProvider apparelCategories={data.categories}>
       <CookiesProvider>
-        <CartProvider>
-          <CheckoutProvider>{children}</CheckoutProvider>
-        </CartProvider>
+        <InventoryProvider
+          apparelData={{ apparelItems: data.items, apparelImages: data.images }}
+        >
+          <CartProvider apparelData={data.items}>
+            <CheckoutProvider>{children}</CheckoutProvider>
+          </CartProvider>
+        </InventoryProvider>
       </CookiesProvider>
     </NavigationProvider>
   );

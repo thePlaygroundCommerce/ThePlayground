@@ -8,39 +8,27 @@ import { CartContext } from "context/cartContext";
 const Cart = () => {
   const [show, setShow] = useState(false);
   const ref = useRef();
-  // const { cart } = useContext(CartContext);
+  const { cart: { order } } = useContext(CartContext);
+  const cartSize = order.lineItems?.length;
 
   return (
     <>
       <div
         ref={ref}
         onMouseOver={() => setShow(true)}
-        className="p-2 position-relative"
+        className="relative"
       >
+        {cartSize > 0 && <Badge num={cartSize} />}
         <BsCart />
-        {/* {cart?.itemVariationsIDs.length > 0 && cart?.itemVariationsIDs.length} */}
       </div>
-      {/* <Overlay target={ref.current} show={show} placement="bottom-end">
-        {(props) => {
-          console.log(props.style);
-          return (
-            <div
-              {...props}
-              className="bg-white p-3 border border-dark"
-              style={{
-                width: "30rem",
-                borderRadius: 3,
-                ...props.style,
-              }}
-              onMouseLeave={() => setShow(false)}
-            >
-              <CartSummary cart={cart.order} />
-            </div>
-          );
-        }}
-      </Overlay> */}
     </>
   );
 };
+
+const Badge = ({ num = 1 }) => (
+  <div className="absolute text-xs left-full top-0 bg-white p-2 badge">
+    {num}
+  </div>
+)
 
 export default Cart;

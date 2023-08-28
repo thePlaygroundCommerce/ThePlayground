@@ -8,13 +8,14 @@ import DropdownMenu from "./DropdownMenu";
 import { Tab } from "@headlessui/react";
 import Button from "./Button";
 import { CheckoutContext } from "context/checkoutContext";
+import { CaretRight } from "react-bootstrap-icons";
 
 const ProductDetailsModify = ({ catalogObject }) => {
   const [activeVariationIndex, setActiveVariationIndex] = useState(1);
 
   const {
     cart: { itemVariationsIDs, order },
-    updateCart,
+    addCartItem,
   } = useContext(CartContext);
 
   const { getCheckoutUrl } = useContext(CheckoutContext);
@@ -27,12 +28,16 @@ const ProductDetailsModify = ({ catalogObject }) => {
   } = catalogObject;
 
   const [cartLineItem, setCartLineItem] = useState(
-    order.lineItems?.find(({ catalogObjectId }) =>
-      itemVariationsIDs.includes(catalogObjectId)
-    )
-  );
+    order.lineItems?.find(({ catalogObjectId }) => {
+      let i = 0;
 
-  const [quantity, setQuantity] = useState(cartLineItem?.quantity || 0)
+      while (i < variations.length) {
+        if (catalogObjectId == variations[i].id) return true;
+        i++;
+      }
+    })
+  );
+  const [quantity, setQuantity] = useState(cartLineItem?.quantity || 0);
 
   const handleAddToCart = () => {
     const itemVariationID = variations[activeVariationIndex].id;
@@ -44,7 +49,7 @@ const ProductDetailsModify = ({ catalogObject }) => {
       lineItem.catalogObjectId = itemVariationID;
     }
 
-    updateCart(lineItem);
+    addCartItem(lineItem);
   };
 
   const handleBuyNow = async () => {

@@ -2,10 +2,14 @@
 
 import { NavigationContext } from "context/navigationContext";
 import { useContext } from "react";
+import { splitCategoryNames } from "../util";
 
 function SideNav() {
-  const [{ activeIndex, onNavChange, sideNavs = [], As = "div" }] =
-    useContext(NavigationContext);
+  const {
+    apparelNavigation: [
+      { onNavChange, sideNavs = [], As = "div" },
+    ],
+  } = useContext(NavigationContext);
 
   const makeCategoryTree = (arr) =>
     arr?.reduce((acc, cv) => {
@@ -53,7 +57,10 @@ function SideNav() {
     });
   };
 
-  return renderCategoryItems(Object.entries(makeCategoryTree(sideNavs)), true);
+  return renderCategoryItems(
+    Object.entries(makeCategoryTree(splitCategoryNames(sideNavs))),
+    true
+  );
 }
 
 export default SideNav;

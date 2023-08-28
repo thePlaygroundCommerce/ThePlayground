@@ -6,15 +6,11 @@ import React from "react";
 const CartLayout = ({ children }) => {
   return (
     <div>
-      {/* <div>
-        <p>Shopping Cart</p>
-      </div> */}
       <div className="grid grid-cols-3">
         <div className="col-span-2">
           {children}
         </div>
         <div className="col-span-1">
-          {/* <CartSummary /> */}
           <CartPricing />
         <div>
           <Button>Checkout Now</Button>

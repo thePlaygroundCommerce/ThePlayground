@@ -17,11 +17,11 @@ async function callGetCart(orderId) {
     .catch((err) => console.log(err));
 }
 
-async function callUpdateCart({ orderID, order }, init = DEFAULT_INIT ) {
+async function callUpdateCart({ orderID, order, fieldsToClear }, init = DEFAULT_INIT ) {
   return fetch(`${BASE_PATH}/update/${orderID}`, {
     ...DEFAULT_INIT,
     ...init,
-    body: JSON.stringify(order),
+    body: JSON.stringify({order, fieldsToClear}),
   })
     .then((res) => res.json())
     .then(({ result }) => {

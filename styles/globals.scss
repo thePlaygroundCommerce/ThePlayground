@@ -26,6 +26,17 @@ main{
   background-color: initial;
 }
 
+.badge {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid transparent;
+  // padding-top: 100%;
+}
+
 img {
   max-width: unset !important;
 }

@@ -3,12 +3,15 @@
 import { NavigationContext } from "context/navigationContext";
 import Link from "next/link";
 import { useContext } from "react";
+import { splitCategoryNames } from "../util";
 
 const HeaderNavigationPopover = () => {
-  const [, , categories] = useContext(NavigationContext);
+  const {
+    apparelNavigation: [{ onNavChange, sideNavs = [], As = "div" }],
+  } = useContext(NavigationContext);
   const categoryMap = {};
 
-  categories.forEach((arr) => {
+  splitCategoryNames(sideNavs).forEach((arr) => {
     if (arr[1] !== undefined) categoryMap[arr[0]].push(arr[1]);
     else categoryMap[arr[0]] = [];
   });
