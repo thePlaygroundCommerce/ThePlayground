@@ -4,7 +4,7 @@ import AccountSettings from "components/AccountSettings";
 import { createContext, useState, useMemo, Fragment } from "react";
 import { splitCategoryNamesWithId } from "../util";
 
-export const NavigationContext = createContext("light");
+export const NavigationContext = createContext(null);
 
 const NavigationProvider = ({ children, apparelCategories }) => {
   const accountNavigation = useState({
@@ -17,11 +17,13 @@ const NavigationProvider = ({ children, apparelCategories }) => {
   const apparelNavigation = useState({
     activeIndex: 0,
     unformattedCategories: apparelCategories,
-    formattedCategories: makeCategoryTree(splitCategoryNamesWithId(apparelCategories)),
+    formattedCategories: makeCategoryTree(
+      splitCategoryNamesWithId(apparelCategories)
+    ),
     currentCategory: null,
   });
 
-  const handleNavigationChange = e => {
+  const handleNavigationChange = (e) => {
     apparelNavigation[1]({
       ...apparelNavigation[0],
       currentCategoryId: e.target.id,
@@ -49,7 +51,7 @@ export default NavigationProvider;
 
 const makeCategoryTree = (arr) =>
   arr?.reduce((acc, { id, category }) => {
-    const categoryLowercase = category[0].toLowerCase()
+    const categoryLowercase = category[0].toLowerCase();
     if (acc[categoryLowercase] !== undefined) {
       acc[categoryLowercase].categoryList.push(
         makeCategoryTree([{ id, category: category.slice(1) }])

@@ -7,11 +7,11 @@ import { splitCategoryNames } from "../util";
 
 const HeaderNavigationPopover = () => {
   const {
-    apparelNavigation: [{ onNavChange, sideNavs = [], As = "div" }],
+    apparelNavigation: [{ unformattedCategories = []}],
   } = useContext(NavigationContext);
   const categoryMap = {};
 
-  splitCategoryNames(sideNavs).forEach((arr) => {
+  splitCategoryNames(unformattedCategories).forEach((arr) => {
     if (arr[1] !== undefined) categoryMap[arr[0]].push(arr[1]);
     else categoryMap[arr[0]] = [];
   });

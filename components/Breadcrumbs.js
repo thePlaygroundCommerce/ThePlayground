@@ -5,17 +5,7 @@ import React, { useContext } from "react";
 import { NavigationContext } from "../context/navigationContext";
 import { IoIosArrowBack } from "react-icons/io";
 
-type Props = {
-  categoryId?: string;
-  breadCrumbs: Breadcrumb[];
-};
-
-type Breadcrumb = {
-  name: string;
-  link: string;
-};
-
-const Breadcrumbs = ({ categoryId }: Props) => {
+const Breadcrumbs = ({ categoryId }) => {
   const {
     apparelNavigation: [{ unformattedCategories }],
   } = useContext(NavigationContext);
@@ -31,7 +21,7 @@ const Breadcrumbs = ({ categoryId }: Props) => {
   const breadCrumbs = productCategory.categoryData.name.split(" ");
   return (
     <div>
-      {breadCrumbs.map((name: string, i: number) => (
+      {breadCrumbs.map((name, i) => (
         <>
           <Link key={name} href={"/apparel"}>
             {name.toUpperCase()}

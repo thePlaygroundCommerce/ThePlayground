@@ -68,8 +68,6 @@ const ProductDetailsModify = ({ catalogObject }) => {
     itemData.variations[0].itemVariationData.priceMoney.amount
   ).toString();
 
-  console.log(cartLineItem)
-
   return (
     <div className="m-auto">
       <div className="flex mb-7">

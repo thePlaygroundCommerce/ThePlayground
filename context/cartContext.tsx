@@ -38,7 +38,6 @@ const CartProvider = ({ apparelData, children }) => {
         fieldsToClear,
       };
       const order = await callUpdateCart(body, { method: "PUT" });
-      console.log(order);
       populateCart(order);
     } else {
       createCart(lineItems, null);
