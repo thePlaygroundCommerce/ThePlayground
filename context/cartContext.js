@@ -64,7 +64,7 @@ const CartProvider = ({ apparelData, children }) => {
     }
   };
 
-  const deleteCartItem = (lineItemUid: string) => {
+  const deleteCartItem = (lineItemUid) => {
     updateCart(null, [`line_items[${lineItemUid}]`]);
   };
 
@@ -97,12 +97,6 @@ const CartProvider = ({ apparelData, children }) => {
       {children}
     </CartContext.Provider>
   );
-};
-
-type Cart = {
-  id: string;
-  itemVariationsIDs: string[];
-  order: Order;
 };
 
 export default CartProvider;
