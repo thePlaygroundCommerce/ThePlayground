@@ -17,9 +17,9 @@ type Breadcrumb = {
 
 const Breadcrumbs = ({ categoryId }: Props) => {
   const {
-    apparelNavigation: [{ sideNavs }],
+    apparelNavigation: [{ unformattedCategories }],
   } = useContext(NavigationContext);
-  const productCategory = sideNavs.find(({ id }) => categoryId == id);
+  const productCategory = unformattedCategories.find(({ id }) => categoryId == id);
 
   if (!productCategory)
     return (
@@ -29,7 +29,6 @@ const Breadcrumbs = ({ categoryId }: Props) => {
     );
 
   const breadCrumbs = productCategory.categoryData.name.split(" ");
-
   return (
     <div>
       {breadCrumbs.map((name: string, i: number) => (
