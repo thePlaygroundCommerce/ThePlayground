@@ -1,4 +1,4 @@
-import { getCatalogObjects } from "api/catalogApi";
+import { getCatalogObjects, getCatalogItemsByCategories } from "api/catalogApi";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import Providers from "components/Providers";
@@ -12,6 +12,10 @@ export const metadata = {
 
 export default async function RootLayout({ children }) {
   const { objects } = await getCatalogObjects("CATEGORY,ITEM,IMAGE");
+
+  const handleCategoryChange = async () => {
+    return await getCatalogItemsByCategories
+  }
   
   const mappedCatalogItems = mapArrayToMap(objects);
 

@@ -2,44 +2,31 @@
 
 import { NavigationContext } from "context/navigationContext";
 import { useContext } from "react";
-import { splitCategoryNames } from "../util";
 
-function SideNav() {
+export default function SideNav() {
   const {
-    apparelNavigation: [
-      { onNavChange, sideNavs = [], As = "div" },
-    ],
+    apparelNavigation: [{ onNavChange, formattedCategories = [], As = "div" }],
+    handleNavigationChange,
   } = useContext(NavigationContext);
 
-  const makeCategoryTree = (arr) =>
-    arr?.reduce((acc, cv) => {
-      const cvLowercase = Array.isArray(cv)
-        ? cv[0].toLowerCase()
-        : cv.toLowerCase();
-
-      acc[cvLowercase] !== undefined
-        ? acc[cvLowercase].push(makeCategoryTree([cv.slice(1)]))
-        : (acc[cvLowercase] = []);
-
-      return acc;
-    }, {});
-
   const renderCategoryItems = (items, firstRun) => {
-    return items?.map(([itemName, itemChildren], i) => {
+    return items?.map(([itemName, { id, categoryList }], i) => {
       const itemDisplayName = itemName[0].toUpperCase() + itemName.slice(1);
-
+  
       return (
-        <div key={i} className="w-100 border-0">
+        <div key={id} className="w-100 border-0">
           {firstRun ? (
             <As
-              onClick={onNavChange}
-              id={i}
+              onClick={handleNavigationChange}
+              id={id}
               className={`border-0 p-1 ${firstRun && "py-3"}`}
             >
               {itemDisplayName}
             </As>
           ) : (
             <button
+              onClick={handleNavigationChange}
+              id={id}
               style={{ paddingBlock: 12, paddingInline: 20 }}
               variant=""
               className="w-100 text-start p-1"
@@ -48,7 +35,7 @@ function SideNav() {
             </button>
           )}
           <div className="border-0 py-0">
-            {itemChildren?.map((item) =>
+            {categoryList?.map((item) =>
               renderCategoryItems(Object.entries(item), false)
             )}
           </div>
@@ -56,11 +43,9 @@ function SideNav() {
       );
     });
   };
-
+  
   return renderCategoryItems(
-    Object.entries(makeCategoryTree(splitCategoryNames(sideNavs))),
+    Object.entries(formattedCategories),
     true
   );
 }
-
-export default SideNav;

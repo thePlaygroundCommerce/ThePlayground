@@ -1,8 +1,8 @@
 "use client";
 
 import AccountSettings from "components/AccountSettings";
-import { usePathname } from "next/navigation";
 import { createContext, useState, useMemo, Fragment } from "react";
+import { splitCategoryNamesWithId } from "../util";
 
 export const NavigationContext = createContext("light");
 
@@ -16,13 +16,27 @@ const NavigationProvider = ({ children, apparelCategories }) => {
   });
   const apparelNavigation = useState({
     activeIndex: 0,
-    sideNavs: apparelCategories,
+    unformattedCategories: apparelCategories,
+    formattedCategories: makeCategoryTree(splitCategoryNamesWithId(apparelCategories)),
+    currentCategory: null,
   });
+
+  const handleNavigationChange = e => {
+    apparelNavigation[1]({
+      ...apparelNavigation[0],
+      currentCategoryId: e.target.id,
+    });
+  };
 
   return (
     <NavigationContext.Provider
       value={useMemo(
-        () => ({ accountNavigation, apparelNavigation, apparelCategories }),
+        () => ({
+          accountNavigation,
+          apparelNavigation,
+          apparelCategories,
+          handleNavigationChange,
+        }),
         [accountNavigation, apparelNavigation, apparelCategories]
       )}
     >
@@ -32,3 +46,16 @@ const NavigationProvider = ({ children, apparelCategories }) => {
 };
 
 export default NavigationProvider;
+
+const makeCategoryTree = (arr) =>
+  arr?.reduce((acc, { id, category }) => {
+    const categoryLowercase = category[0].toLowerCase()
+    if (acc[categoryLowercase] !== undefined) {
+      acc[categoryLowercase].categoryList.push(
+        makeCategoryTree([{ id, category: category.slice(1) }])
+      );
+    } else {
+      acc[categoryLowercase] = { id: id, categoryList: [] };
+    }
+    return acc;
+  }, {});

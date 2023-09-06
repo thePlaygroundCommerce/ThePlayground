@@ -2,10 +2,17 @@ export function splitCategoryNames(arr) {
   return arr?.map(({ categoryData: { name } }) => name.split(" "));
 }
 
+export function splitCategoryNamesWithId(arr) {
+  return arr?.map(({ id, categoryData: { name } }) => ({
+    id,
+    category: name.split(" "),
+  }));
+}
+
 export function mapArrayToMap(arr) {
   const mappedCatalogItems = {};
 
-  arr.forEach((item) => {
+  arr?.forEach((item) => {
     const lowerCaseItemType = item.type.toLowerCase();
     const key =
       lowerCaseItemType == "category"

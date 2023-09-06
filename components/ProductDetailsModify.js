@@ -68,6 +68,8 @@ const ProductDetailsModify = ({ catalogObject }) => {
     itemData.variations[0].itemVariationData.priceMoney.amount
   ).toString();
 
+  console.log(cartLineItem)
+
   return (
     <div className="m-auto">
       <div className="flex mb-7">
@@ -90,7 +92,7 @@ const ProductDetailsModify = ({ catalogObject }) => {
       <div className="flex mb-7 justify-around">
         <Button onClick={handleBuyNow}>Buy Now</Button>
         <Button onClick={handleAddToCart}>
-          {!quantity ? "Add To Cart" : "Update Cart"}
+          {!cartLineItem?.quantity > 0 ? "Add To Cart" : "Update Cart"}
         </Button>
       </div>
       <div className="mb-7">

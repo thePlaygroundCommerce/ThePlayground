@@ -57,16 +57,16 @@ const CartProvider = ({ apparelData, children }) => {
     populateCart(order);
   };
 
-  const addCartItem = (lineItem) =>
-    updateCart(cart.order.lineItems.concat(lineItem), null);
+  const addCartItem = (lineItem) => {
+    if (!cart.order.lineItems) {
+      updateCart([lineItem], null);
+    } else {
+      updateCart(cart.order.lineItems.concat(lineItem), null);
+    }
+  };
 
   const deleteCartItem = (lineItemUid: string) => {
-    updateCart(
-      null,
-      [
-        `line_items[${lineItemUid}]`
-      ]
-    );
+    updateCart(null, [`line_items[${lineItemUid}]`]);
   };
 
   const modifyCartItem = (itemVariationId) => {};
