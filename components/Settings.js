@@ -4,10 +4,7 @@ import { NavigationContext } from "context/navigationContext";
 import { useContext } from "react";
 
 const Settings = () => {
-  const [{ components, activeIndex }] = useContext(NavigationContext);
-
-  const Component = components[activeIndex]
-  return <Component />;
+  return <div></div>
 };
 
 export default Settings;

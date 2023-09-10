@@ -9,7 +9,22 @@ export const NavigationContext = createContext(null);
 const NavigationProvider = ({ children, apparelCategories }) => {
   const accountNavigation = useState({
     activeIndex: 0,
-    sideNavs: ["Account", "Orders", "Wishlists"],
+    formattedCategories: [
+      {
+        account: {
+          id: 0,
+          categoryList: []
+        },
+        orders: {
+          id: 1,
+          categoryList: []
+        },
+        wishlists: {
+          id: 2,
+          categoryList: []
+        },
+      }
+    ],
     components: [AccountSettings, Fragment, Fragment],
     As: "button",
     // onNavChange: e => onNavIndexChange(e.target.id),
@@ -20,7 +35,7 @@ const NavigationProvider = ({ children, apparelCategories }) => {
     formattedCategories: makeCategoryTree(
       splitCategoryNamesWithId(apparelCategories)
     ),
-    currentCategory: null,
+    currentCategoryId: null,
   });
 
   const handleNavigationChange = (e) => {
@@ -30,6 +45,8 @@ const NavigationProvider = ({ children, apparelCategories }) => {
     });
   };
 
+
+  console.log(apparelNavigation[0].formattedCategories)
   return (
     <NavigationContext.Provider
       value={useMemo(

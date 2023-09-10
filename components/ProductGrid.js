@@ -24,7 +24,7 @@ const ProductGrid = ({ catalogItems, catalogImages }) => {
 const EmptyProductGrid = () => (
   <div>
     <div>
-      <div className="text-center w-100 my-5">
+      <div className="text-center  my-5">
         <p>Oddly, we don't have any clothes right now.</p>
       </div>
     </div>

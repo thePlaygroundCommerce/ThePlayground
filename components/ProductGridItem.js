@@ -6,7 +6,7 @@ export default function ProductGridItem({ itemData, images }) {
   const firstImage = images[0]?.imageData
 
   return (
-    <div className="border-0 text-center w-100">
+    <div className="border-0 text-center ">
       <Image
         className={`mx-auto`}
         variant="top"

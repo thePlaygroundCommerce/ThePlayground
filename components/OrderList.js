@@ -23,7 +23,7 @@ const OrderList = ({ orders, allowOrderItemDeletion = true, ...rest }) => {
 
           <div className="col-span-2">
             {/* <div
-              className="w-100 bg-secondary"
+              className=" bg-secondary"
               style={{ height: 130.33 }}
             ></div> */}
           </div>

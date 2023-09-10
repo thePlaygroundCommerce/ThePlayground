@@ -40,7 +40,7 @@ const CartProvider = ({ apparelData, children }) => {
       const order = await callUpdateCart(body, { method: "PUT" });
       populateCart(order);
     } else {
-      createCart(lineItems, null);
+      createCart(lineItems, null)
     }
   };
 

@@ -1,9 +1,4 @@
-const DEFAULT_INIT = {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-};
+const DEFAULT_INIT = require("./")
 
 const BASE_PATH = process.env.square[process.env.NODE_ENV].url + "carts";
 

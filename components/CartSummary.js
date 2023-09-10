@@ -19,7 +19,7 @@ const CartSummary = ({ order }) => {
 
 const CartFooter = () => (
   <>
-    <div className="w-100 mt-1">
+    <div className=" mt-1">
       <div className="">
         <div className="flex justify-content-between">
           <p>Subtotal</p>
@@ -39,7 +39,7 @@ const CartFooter = () => (
           </div> */}
       </div>
     </div>
-    {/* <div className="border w-100 p-2">
+    {/* <div className="border  p-2">
         <div className="">
           <InputGroup>
             <FloatingLabel label="Enter Promotional Code">
@@ -53,10 +53,10 @@ const CartFooter = () => (
         </div>
       </div> */}
     <div className="text-center flex">
-      {/* <button className="w-100 mx-2" variant="dark">
+      {/* <button className=" mx-2" variant="dark">
         View Cart
       </button> */}
-      <button className="w-100 mx-2" variant="dark">
+      <button className=" mx-2" variant="dark">
         Checkout Now
       </button>
     </div>

@@ -1,33 +1,45 @@
 "use client";
 
 import { NavigationContext } from "context/navigationContext";
-import Link from "next/link";
 import { useContext } from "react";
-import { splitCategoryNames } from "../util";
+import { useRouter } from "next/navigation";
 
 const HeaderNavigationPopover = () => {
   const {
-    apparelNavigation: [{ unformattedCategories = []}],
+    apparelNavigation: [{ formattedCategories }],
+    handleNavigationChange,
   } = useContext(NavigationContext);
-  const categoryMap = {};
+  const router = useRouter();
 
-  splitCategoryNames(unformattedCategories).forEach((arr) => {
-    if (arr[1] !== undefined) categoryMap[arr[0]].push(arr[1]);
-    else categoryMap[arr[0]] = [];
-  });
+  const handleNavigation = (e) => {
+    handleNavigationChange(e);
+    router.push("/apparel/" + e.target.name);
+  };
 
   return (
     <div className="flex justify-between">
-      {Object.entries(categoryMap).map(([key, arr]) => (
-        <div key={key}>
-          <p className="underline underline-offset-4">{key}</p>
-          {arr.map((item) => (
-            <Link key={item} href="/apparel">
-              <p>{item}</p>
-            </Link>
-          ))}
-        </div>
-      ))}
+      {Object.entries(formattedCategories).map(
+        ([key, { categoryList, id }]) => (
+          <div key={key}>
+            <p className="underline underline-offset-4">{key}</p>
+            {categoryList.map((item) => {
+              const itemName = Object.keys(item)[0];
+              return (
+                <div>
+                  <button
+                    id={id}
+                    name={itemName}
+                    key={itemName}
+                    onClick={handleNavigation}
+                  >
+                    {itemName}
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        )
+      )}
       <div></div>
     </div>
   );
