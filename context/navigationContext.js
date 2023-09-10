@@ -45,8 +45,6 @@ const NavigationProvider = ({ children, apparelCategories }) => {
     });
   };
 
-
-  console.log(apparelNavigation[0].formattedCategories)
   return (
     <NavigationContext.Provider
       value={useMemo(
