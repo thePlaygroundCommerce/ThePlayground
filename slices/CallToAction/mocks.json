@@ -1,0 +1,41 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"call_description": {
+				"__TYPE__": "FieldContent",
+				"value": "usual",
+				"type": "Text"
+			},
+			"action_button_text": {
+				"__TYPE__": "FieldContent",
+				"value": "week",
+				"type": "Text"
+			},
+			"form_placeholder_text": {
+				"__TYPE__": "FieldContent",
+				"value": "typical",
+				"type": "Text"
+			}
+		},
+		"items": []
+	},
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "onlyButton",
+		"primary": {
+			"action_button_text": {
+				"__TYPE__": "FieldContent",
+				"value": "bell",
+				"type": "Text"
+			}
+		},
+		"items": [
+			{
+				"__TYPE__": "GroupItemContent",
+				"value": []
+			}
+		]
+	}
+]

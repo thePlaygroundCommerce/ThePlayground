@@ -1,0 +1,27 @@
+{
+  "id": "social_media_links",
+  "type": "SharedSlice",
+  "name": "SocialMediaLinks",
+  "description": "SocialMediaLinks",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {},
+      "items": {
+        "social_media_handle": {
+          "type": "Link",
+          "config": {
+            "label": "Social Media Handle",
+            "placeholder": "",
+            "select": null
+          }
+        }
+      }
+    }
+  ]
+}

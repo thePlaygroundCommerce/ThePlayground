@@ -1,0 +1,234 @@
+{
+  "id": "hero",
+  "type": "SharedSlice",
+  "name": "Hero",
+  "description": "Hero",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "hero_title": {
+          "type": "Text",
+          "config": {
+            "label": "Hero Title",
+            "placeholder": ""
+          }
+        },
+        "hero_description": {
+          "type": "Text",
+          "config": {
+            "label": "Hero Description",
+            "placeholder": ""
+          }
+        },
+        "hero_bg_image": {
+          "type": "Image",
+          "config": {
+            "label": "Hero BG Image",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "content_alignment": {
+          "type": "Text",
+          "config": {
+            "label": "Content Alignment",
+            "placeholder": ""
+          }
+        },
+        "use_logo": {
+          "type": "Boolean",
+          "config": {
+            "label": "Use Logo",
+            "default_value": false,
+            "placeholder_true": "true",
+            "placeholder_false": "false"
+          }
+        }
+      },
+      "items": {}
+    },
+    {
+      "id": "heroWithSocialMediaHandles",
+      "name": "HeroWithSocialMediaHandles",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "hero_title": {
+          "type": "Text",
+          "config": {
+            "label": "Hero Title",
+            "placeholder": ""
+          }
+        },
+        "hero_description": {
+          "type": "Text",
+          "config": {
+            "label": "Hero Description",
+            "placeholder": ""
+          }
+        },
+        "content_alignment": {
+          "type": "Text",
+          "config": {
+            "label": "Content Alignment",
+            "placeholder": ""
+          }
+        },
+        "hero_bg_image": {
+          "type": "Image",
+          "config": {
+            "label": "Hero BG Image",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "use_logo": {
+          "type": "Boolean",
+          "config": {
+            "label": "Use Logo",
+            "default_value": false,
+            "placeholder_true": "true",
+            "placeholder_false": "false"
+          }
+        }
+      },
+      "items": {
+        "social_media_handle": {
+          "type": "Link",
+          "config": {
+            "label": "Social Media Handle",
+            "select": "document"
+          }
+        }
+      }
+    },
+    {
+      "id": "handlesCta",
+      "name": "Handles & CTA",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "hero_title": {
+          "type": "Text",
+          "config": {
+            "label": "Hero Title",
+            "placeholder": ""
+          }
+        },
+        "hero_description": {
+          "type": "Text",
+          "config": {
+            "label": "Hero Description",
+            "placeholder": ""
+          }
+        },
+        "cta": {
+          "type": "Link",
+          "config": {
+            "label": "CTA",
+            "select": "document"
+          }
+        },
+        "hero_bg_image": {
+          "type": "Image",
+          "config": {
+            "label": "Hero BG Image",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "content_alignment": {
+          "type": "Text",
+          "config": {
+            "label": "Content Alignment",
+            "placeholder": ""
+          }
+        },
+        "use_logo": {
+          "type": "Boolean",
+          "config": {
+            "label": "Use Logo",
+            "default_value": false,
+            "placeholder_true": "true",
+            "placeholder_false": "false"
+          }
+        }
+      },
+      "items": {
+        "social_media_handle": {
+          "type": "Link",
+          "config": {
+            "label": "Social Media Handle",
+            "select": "document"
+          }
+        }
+      }
+    },
+    {
+      "id": "withCta",
+      "name": "WithCta",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "hero_title": {
+          "type": "Text",
+          "config": {
+            "label": "Hero Title",
+            "placeholder": ""
+          }
+        },
+        "hero_description": {
+          "type": "Text",
+          "config": {
+            "label": "Hero Description",
+            "placeholder": ""
+          }
+        },
+        "cta": {
+          "type": "Link",
+          "config": {
+            "label": "CTA",
+            "select": "document"
+          }
+        },
+        "hero_bg_image": {
+          "type": "Image",
+          "config": {
+            "label": "Hero BG Image",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "content_alignment": {
+          "type": "Text",
+          "config": {
+            "label": "Content Alignment",
+            "placeholder": ""
+          }
+        },
+        "use_logo": {
+          "type": "Boolean",
+          "config": {
+            "label": "Use Logo",
+            "default_value": false,
+            "placeholder_true": "true",
+            "placeholder_false": "false"
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

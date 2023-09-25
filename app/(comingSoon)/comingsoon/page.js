@@ -1,14 +1,50 @@
-const Page = () => {
-  return (
-    <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
-      <div class="w3-display-topleft w3-padding-large w3-xlarge">Logo</div>
-      <div class="w3-display-middle">
-        <h1 class="w3-jumbo w3-animate-top">COMING SOON</h1>
-        <hr class="w3-border-grey" style={{ margin: "auto", width: "40%" }} />
-        <p class="w3-large w3-center">35 days left</p>
-      </div>
-    </div>
-  );
+import { components } from "slices";
+import { createClient } from "prismicio";
+import ThePlaygroundLogo from "components/canva/ThePlaygroundLogo";
+import { SliceZone } from "@prismicio/react";
+
+const Page = async () => {
+  const client = createClient();
+
+  const [{ data: { slices }}] = await client.getAllByType("coming_soon", {
+    graphQuery: `
+    {
+      coming_soon {
+        slices {
+          ... on hero {
+            variation {
+              ... on handlesCta {
+                primary {
+                  ...primaryFields
+                  cta {
+                    ... on cta_email {
+                      slices {
+                        ... on call_to_action {
+                          variation {
+                            ... on default {
+                              primary {
+                                ...primaryFields
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+                items {
+                  ...itemsFields
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `
+  });
+ 
+  return <SliceZone slices={slices} components={components} />;
 };
 
 export default Page;

@@ -1,24 +1,49 @@
-import SideNav from "components/SideNav";
-import ProductGrid from "components/ProductGrid";
+import { components } from "slices";
+import { createClient } from "prismicio";
+import ThePlaygroundLogo from "components/canva/ThePlaygroundLogo";
+import { SliceZone } from "@prismicio/react";
 
-const url = require("url");
+const Page = async () => {
+  const client = createClient();
 
-export default async function Page() {
+  const [{ data, data: { slices } } = { data: { slices: [] } }] =
+    await client.getAllByType("homepage", {
+      graphQuery: `
+    {
+      homepage {
+        slices {
+          ... on hero {
+            variation {
+              ... on withCta {
+                primary {
+                  ...primaryFields
+                  cta {
+                    ... on cta_email {
+                      slices {
+                        ... on call_to_action {
+                          variation {
+                            ... on onlyButton {
+                              primary {
+                                ...primaryFields
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `,
+    });
 
-  return ( 
-    <div>
-      {/* <div className="p-4 pb-0">
-         <div sm={2}>
-           <SideNav catalogCategories={mappedCatalogItems.categories} />
-         </div>
-         <div>
-           <ProductGrid
-             catalogItems={mappedCatalogItems.items}
-             catalogImages={mappedCatalogItems.images}
-           />
-         </div>
-       </div>  */}
-    </div>
-  );
-}
+    // return null;
+  return <SliceZone slices={slices} components={components} />;
+};
 
+export default Page;

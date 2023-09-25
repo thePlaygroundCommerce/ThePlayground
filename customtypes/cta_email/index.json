@@ -1,0 +1,49 @@
+{
+  "id": "cta_email",
+  "label": "CTA",
+  "format": "custom",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": {
+        "config": {
+          "label": "UID"
+        },
+        "type": "UID"
+      },
+      "paragraph": {
+        "type": "Text",
+        "config": {
+          "label": "Paragraph",
+          "placeholder": ""
+        }
+      },
+      "button_label": {
+        "type": "Text",
+        "config": {
+          "label": "Button Label",
+          "placeholder": ""
+        }
+      },
+      "form_placeholder": {
+        "type": "Text",
+        "config": {
+          "label": "Form Placeholder",
+          "placeholder": ""
+        }
+      },
+      "slices": {
+        "type": "Slices",
+        "fieldset": "Slice Zone",
+        "config": {
+          "choices": {
+            "call_to_action": {
+              "type": "SharedSlice"
+            }
+          }
+        }
+      }
+    }
+  }
+}

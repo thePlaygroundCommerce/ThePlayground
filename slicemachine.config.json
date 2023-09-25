@@ -2,5 +2,5 @@
   "repositoryName": "theplaygroundmedia",
   "adapter": "@slicemachine/adapter-next",
   "libraries": ["./slices"],
-  "localSliceSimulatorURL": "http://localhost:3000/slice-simulator"
+  "localSliceSimulatorURL": "http://localhost:3005/slice-simulator"
 }

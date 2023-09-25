@@ -1,0 +1,58 @@
+{
+  "id": "call_to_action",
+  "type": "SharedSlice",
+  "name": "CallToAction",
+  "description": "CallToAction",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "call_description": {
+          "type": "Text",
+          "config": {
+            "label": "Call Description",
+            "placeholder": ""
+          }
+        },
+        "action_button_text": {
+          "type": "Text",
+          "config": {
+            "label": "Action Button Text",
+            "placeholder": ""
+          }
+        },
+        "form_placeholder_text": {
+          "type": "Text",
+          "config": {
+            "label": "Form Placeholder Text",
+            "placeholder": ""
+          }
+        }
+      },
+      "items": {}
+    },
+    {
+      "id": "onlyButton",
+      "name": "OnlyButton",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "action_button_text": {
+          "type": "Text",
+          "config": {
+            "label": "Action Button Text",
+            "placeholder": ""
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

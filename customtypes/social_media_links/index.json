@@ -1,0 +1,22 @@
+{
+  "id": "social_media_links",
+  "label": "Social Media Handles",
+  "format": "custom",
+  "repeatable": false,
+  "status": true,
+  "json": {
+    "Main": {
+      "slices": {
+        "type": "Slices",
+        "fieldset": "Slice Zone",
+        "config": {
+          "choices": {
+            "social_media_links": {
+              "type": "SharedSlice"
+            }
+          }
+        }
+      }
+    }
+  }
+}

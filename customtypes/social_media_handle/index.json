@@ -1,0 +1,39 @@
+{
+  "id": "social_media_handle",
+  "label": "Social Media Handle",
+  "format": "custom",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": {
+        "config": {
+          "label": "UID"
+        },
+        "type": "UID"
+      },
+      "social_media_name": {
+        "type": "Text",
+        "config": {
+          "label": "Social Media Name",
+          "placeholder": ""
+        }
+      },
+      "social_media_url": {
+        "type": "Text",
+        "config": {
+          "label": "Social Media Url",
+          "placeholder": ""
+        }
+      },
+      "social_media_logo": {
+        "type": "Image",
+        "config": {
+          "label": "Social Media Logo",
+          "constraint": {},
+          "thumbnails": []
+        }
+      }
+    }
+  }
+}

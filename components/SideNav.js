@@ -36,11 +36,11 @@ export default function SideNav() {
           >
             {itemDisplayName}
           </button>
-          <div className="border-0 py-0">
-            {categoryList?.map((item) =>
-              renderCategoryItems(Object.entries(item), false)
-            )}
-          </div>
+          {categoryList?.map((item) => (
+            <div className="border-0 m-18 py-0">
+              {renderCategoryItems(Object.entries(item), false)}
+            </div>
+          ))}
         </div>
       );
     });

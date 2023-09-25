@@ -1,4 +1,4 @@
-import { getCatalogObjects, getCatalogItemsByCategories } from "api/catalogApi";
+import { getCatalogObjects } from "api/catalogApi";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import Providers from "components/Providers";
@@ -6,6 +6,7 @@ import { mapArrayToMap } from "../../util";
 
 import "styles/globals.scss";
 import { PrismicPreview } from "@prismicio/next";
+import { repositoryName } from "prismicio";
 
 export const metadata = {
   title: "The Playground",
@@ -31,8 +32,8 @@ export async function generateStaticParams() {
 }
 
 export default async function RootLayout({ children }) {
-  const { objects: categoryObjects } = await getCatalogObjects("CATEGORY");
-  const { objects: apparelObjects } = await getCatalogObjects("ITEM,IMAGE");
+  const { objects: categoryObjects = [] } = await getCatalogObjects("CATEGORY");
+  const { objects: apparelObjects = [] } = await getCatalogObjects("ITEM,IMAGE");
 
   const mappedCatalogItems = mapArrayToMap(
     apparelObjects.concat(categoryObjects)
@@ -49,7 +50,7 @@ export default async function RootLayout({ children }) {
           </main>
         </Providers>
 
-        {/* <PrismicPreview repositoryName={repositoryName} /> */}
+        <PrismicPreview repositoryName={repositoryName} />
       </body>
     </html>
   );
