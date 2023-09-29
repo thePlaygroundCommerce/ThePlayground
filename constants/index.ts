@@ -19,4 +19,4 @@ export const CONFIG = {
   },
 };
 
-export { default as SOCIAL_MEDIA_COMPONENT_MAP } from "./SocialMediaComponentMap";
+// export { default as SOCIAL_MEDIA_COMPONENT_MAP } from "./SocialMediaComponentMap";

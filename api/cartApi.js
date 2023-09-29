@@ -1,8 +1,8 @@
-
+import { CONFIG } from "../constants";
 
 const DEFAULT_INIT = require("./")
 
-const BASE_PATH = process.env.square[process.env.NODE_ENV].url + "carts";
+const BASE_PATH = CONFIG.square[process.env.NODE_ENV].url + "carts";
 
 async function callGetCart(orderId) {
   return fetch(`${BASE_PATH}/${orderId}`)

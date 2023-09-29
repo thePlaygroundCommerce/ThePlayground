@@ -1,9 +1,9 @@
-
+import { CONFIG } from "../constants";
 
 async function getOrderAndCatalogObjects(orderId) {
   try {
     const { order } = await fetch(
-      process.env.square[process.env.NODE_ENV].url + "checkout/order/" + orderId, { next: { revalidate: 0} }
+      CONFIG.square[process.env.NODE_ENV].url + "checkout/order/" + orderId, { next: { revalidate: 0} }
     )
       .then((res) => res.json())
       .then(({ result }) => result)
@@ -14,7 +14,7 @@ async function getOrderAndCatalogObjects(orderId) {
     );
 
     const objects = await fetch(
-      process.env.square[process.env.NODE_ENV].url + "catalog",
+      CONFIG.square[process.env.NODE_ENV].url + "catalog",
       {
         next: { revalidate: 0 },
         method: "POST",
@@ -42,7 +42,7 @@ async function getOrderAndCatalogObjects(orderId) {
 
 async function getCheckoutUrl(lineItems) {
   return await fetch(
-    process.env.square[process.env.NODE_ENV].url + "checkout",
+    CONFIG.square[process.env.NODE_ENV].url + "checkout",
     {
       next: { revalidate: 0 },
       method: "POST",

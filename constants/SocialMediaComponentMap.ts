@@ -1,11 +1,11 @@
 import { IconType } from "react-icons";
 import {
-  BsFacebook,
-  BsInstagram,
-  BsYoutube,
-  BsTiktok,
-  BsTwitter,
-} from "react-icons/bs";
+  FaSquareFacebook,
+  FaInstagram,
+  FaYoutube,
+  FaTiktok,
+  FaTwitter,
+} from "react-icons/fa6";
 
 export type SocialMediaIcons = {
   facebook: IconType;
@@ -16,9 +16,9 @@ export type SocialMediaIcons = {
 };
 
 export default {
-  facebook: BsFacebook,
-  instagram: BsInstagram,
-  youtube: BsYoutube,
-  tiktok: BsTiktok,
-  twitter: BsTwitter,
+  facebook: FaSquareFacebook,
+  instagram: FaInstagram,
+  youtube: FaYoutube,
+  tiktok: FaTiktok,
+  twitter: FaTwitter,
 } as SocialMediaIcons;

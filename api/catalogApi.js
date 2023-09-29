@@ -1,10 +1,11 @@
 
-const url = require("url");
-const { DEFAULT_INIT } = require("./")
+import { URLSearchParams } from "url";
+import { DEFAULT_INIT } from ".";
+import { CONFIG } from "../constants";
 
-async function getCatalogItemsByCategory(request) {
+export async function getCatalogItemsByCategory(request) {
   const fetchUrl = `${
-    process.env.square[process.env.NODE_ENV].url
+    CONFIG.square[process.env.NODE_ENV].url
   }catalog/search`;
   const init = {
     ...DEFAULT_INIT,
@@ -18,10 +19,10 @@ async function getCatalogItemsByCategory(request) {
     .catch((err) => err);
 }
 
-async function getCatalogObjects(types) {
-  const queryParams = new url.URLSearchParams({ types });
+export async function getCatalogObjects(types) {
+  const queryParams = new URLSearchParams({ types });
   const fetchUrl = `${
-    process.env.square[process.env.NODE_ENV].url
+    CONFIG.square[process.env.NODE_ENV].url
   }catalog/objects?${queryParams}`;
 
   return await fetch(fetchUrl, { next: { revalidate: 60 * 15 } }) // TODO must set to appropriate value in prod
@@ -30,10 +31,10 @@ async function getCatalogObjects(types) {
     .catch((err) => err);
 }
 
-async function getProductDetails({ params: { slug } }) {
+export async function getProductDetails({ params: { slug } }) {
   try {
     const catalogObject = await fetch(
-      process.env.square[process.env.NODE_ENV].url + "catalog/" + slug
+      CONFIG.square[process.env.NODE_ENV].url + "catalog/" + slug
     )
       .then((res) => res.json())
       .catch((err) => err);
@@ -48,8 +49,4 @@ async function getProductDetails({ params: { slug } }) {
   }
 }
 
-module.exports = {
-  getCatalogItemsByCategory,
-  getCatalogObjects,
-  getProductDetails,
-};
+
