@@ -3,16 +3,6 @@ const nextConfig = {
   experimental: {
     serverActions: true,
   },
-  env: {
-    square: {
-      development: {
-        url: "http://localhost:3000/",
-      },
-      production: {
-        url: "https://square-backend.herokuapp.com/",
-      },
-    },
-  },
   images: {
     remotePatterns: [
       {
