@@ -1,16 +1,16 @@
 import * as prismic from "@prismicio/client";
 import { SliceComponentProps, SliceZone } from "@prismicio/react";
-import { components } from "../../slices";
+import { components } from "..";
 import Image from "next/image";
 import clsx from "clsx";
 import {
   HeroSliceHandlesCtaItem,
   HeroSliceHeroWithSocialMediaHandlesItem,
-} from "../../prismicio-types.js";
+} from "../../../prismicio-types.js";
 import { IconType } from "react-icons";
 import SocialMediaComponentMap, {
   SocialMediaIcons,
-} from "../../constants/SocialMediaComponentMap";
+} from "../../../constants/SocialMediaComponentMap";
 
 /**
  * Props for `Hero`.
@@ -45,7 +45,6 @@ const Hero = ({
     return prismic.isFilled.contentRelationship(contentRelationshipField);
   };
 
-  console.log(slice.variation);
 
   return (
     <section
@@ -97,13 +96,11 @@ const Hero = ({
               }:
                 | HeroSliceHandlesCtaItem
                 | HeroSliceHeroWithSocialMediaHandlesItem) => {
-                console.log(slice);
                 if (hasContentRelationshipData(social_media_handle)) {
                   const slug = social_media_handle.uid;
                   const IconComponent: IconType =
                     SocialMediaComponentMap[slug as keyof SocialMediaIcons];
 
-                  console.log(IconComponent);
                   return (
                     <div className="m-2" key={slug}>
                       <IconComponent />

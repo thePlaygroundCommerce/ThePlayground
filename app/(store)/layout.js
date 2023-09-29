@@ -16,24 +16,30 @@ export async function generateStaticParams() {
   const { objects } = await getCatalogObjects("CATEGORY");
   const settingsNavs = [
     {
-      category: "account"
+      category: "account",
     },
     {
-      category: "orders"
+      category: "orders",
     },
     {
-      category: "wishlists"
+      category: "wishlists",
     },
   ];
 
-  return objects.map(({ categoryData: { name } }) => ({
-    category: name.toLowerCase(),
-  })).concat(settingsNavs);
+  return objects
+    ? objects
+        .map(({ categoryData: { name } }) => ({
+          category: name.toLowerCase(),
+        }))
+        .concat(settingsNavs)
+    : [];
 }
 
 export default async function RootLayout({ children }) {
   const { objects: categoryObjects = [] } = await getCatalogObjects("CATEGORY");
-  const { objects: apparelObjects = [] } = await getCatalogObjects("ITEM,IMAGE");
+  const { objects: apparelObjects = [] } = await getCatalogObjects(
+    "ITEM,IMAGE"
+  );
 
   const mappedCatalogItems = mapArrayToMap(
     apparelObjects.concat(categoryObjects)

@@ -12,8 +12,6 @@ async function createCustomer(request) {
     next: { revalidate: 60 * 15  }, // TODO must set to appropriate value in prod
   };
 
-  console.log(request)
-
   return await fetch(fetchUrl, init)
     .then((res) => res.json())
     .then((data) => data.result)

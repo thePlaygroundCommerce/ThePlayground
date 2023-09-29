@@ -1,6 +1,5 @@
-import { components } from "slices";
+import { components } from "app/slices";
 import { createClient } from "prismicio";
-import ThePlaygroundLogo from "components/canva/ThePlaygroundLogo";
 import { SliceZone } from "@prismicio/react";
 
 const Page = async () => {
@@ -42,7 +41,6 @@ const Page = async () => {
   `,
     });
 
-    // return null;
   return <SliceZone slices={slices} components={components} />;
 };
 

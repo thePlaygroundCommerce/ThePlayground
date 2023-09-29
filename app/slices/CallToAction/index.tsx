@@ -1,6 +1,6 @@
 import { Content } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
-import { createCustomer } from "../../api/customerApi";
+import { createCustomer } from "api/customerApi";
 
 /**
  * Props for `CallToAction`.
@@ -14,17 +14,16 @@ const CallToAction = ({
   slice,
   slice: { primary, variation },
 }: CallToActionProps): JSX.Element => {
-  async function create(formData: FormData) {
-    "use server";
-    const request: Record<string, FormDataEntryValue> = {};
-    for (const [key, value] of formData.entries()) {
-      request[key] = value;
-    }
+  // async function create(formData: FormData) {
+  //   "use server";
+  //   const request: Record<string, FormDataEntryValue> = {};
+  //   for (const [key, value] of formData.entries()) {
+  //     request[key] = value;
+  //   }
 
-    console.log(request);
-    const a = await createCustomer(request);
-    console.log(a);
-  }
+
+  //   const a = await createCustomer(request);
+  // }
   let description;
   let placeholder;
 
@@ -40,7 +39,7 @@ const CallToAction = ({
       data-slice-variation={slice.variation}
     >
       <p className="mb-4 text-white">{description}</p>
-      <form action={create}>
+      {/* <form action={create}>
         {variation !== "onlyButton" && (
           <input
             type="text"
@@ -53,7 +52,7 @@ const CallToAction = ({
         <button className="text-white p-2 bg-slate-700">
           {primary.action_button_text}
         </button>
-      </form>
+      </form> */}
     </section>
   );
 };
