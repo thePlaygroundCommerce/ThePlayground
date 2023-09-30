@@ -1,4 +1,3 @@
-// import "styles/comingsoon.scss";
 import "styles/globals.scss";
 import { PrismicPreview } from "@prismicio/next";
 import { repositoryName } from "prismicio";

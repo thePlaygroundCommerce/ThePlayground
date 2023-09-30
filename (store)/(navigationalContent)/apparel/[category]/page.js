@@ -1,6 +1,6 @@
 import { getCatalogObjects, getCatalogItemsByCategory } from "api/catalogApi";
 import ProductGrid from "components/ProductGrid";
-import { mapArrayToMap } from "../../../../../util";
+import { mapArrayToMap } from "../../../../util";
 
 export default async function Page({ params }) {
   const { objects: categories } = await getCatalogObjects("CATEGORY");
