@@ -27,11 +27,11 @@ const CallToAction = ({
 
   return (
     <section
-      className="m-4 text-black"
+      className="m-4"
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      <p className="mb-4 text-white">{description}</p>
+      <h6 className="mb-4 text-white">{description}</h6>
       <form action={callToActionCreateForm}>
         {variation !== "onlyButton" && (
           <input
