@@ -32,7 +32,12 @@ const Page = async () => {
                   }
                 }
                 items {
-                  ...itemsFields
+                  social_media_handle {
+                    ...on social_media_handle {
+                      social_media_name
+                      social_media_url
+                    }
+                  }
                 }
               }
             }

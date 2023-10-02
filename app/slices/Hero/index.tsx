@@ -39,12 +39,13 @@ const Hero = ({
   ): contentRelationshipField is TContentRelationshipField & {
     uid: string;
     data: {
+      social_media_name: string | undefined;
+      social_media_url: string | undefined;
       slices: prismic.SliceZone;
     };
   } => {
     return prismic.isFilled.contentRelationship(contentRelationshipField);
   };
-
 
   return (
     <section
@@ -102,9 +103,9 @@ const Hero = ({
                     SocialMediaComponentMap[slug as keyof SocialMediaIcons];
 
                   return (
-                    <div className="m-2" key={slug}>
+                    <a target="_blank" id={social_media_handle.data.social_media_name} href={social_media_handle.data.social_media_url} className="m-2" key={slug}>
                       <IconComponent />
-                    </div>
+                    </a>
                   );
                 }
               }
