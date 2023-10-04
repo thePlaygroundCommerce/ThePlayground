@@ -32,7 +32,7 @@ const CallToAction = ({
       data-slice-variation={slice.variation}
     >
       <h6 className="mb-4 text-white">{description}</h6>
-      <form action={callToActionCreateForm}>
+      <form className="text-black" action={callToActionCreateForm}>
         {variation !== "onlyButton" && (
           <input
             type="text"

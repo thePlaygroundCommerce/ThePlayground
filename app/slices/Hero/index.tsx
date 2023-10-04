@@ -2,6 +2,7 @@ import * as prismic from "@prismicio/client";
 import { SliceComponentProps, SliceZone } from "@prismicio/react";
 import { components } from "..";
 import Image from "next/image";
+import Logo from "/public/The Playground Logo_White.svg"
 import clsx from "clsx";
 import {
   HeroSliceHandlesCtaItem,
@@ -51,7 +52,7 @@ const Hero = ({
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="p-36 flex items-center bgimg w-full h-screen w3-display-container text-white"
+      className="flex items-center bgimg w-full h-screen w3-display-container text-white"
     >
       {hero_bg_image?.url && (
         <Image
@@ -68,12 +69,12 @@ const Hero = ({
         className={clsx("w-full", "text-" + content_alignment?.toLowerCase())}
       >
         {use_logo && (
-          <div className="flex justify-center">
+          <div className="flex justify-start">
             <Image
-              src="/The Playground Logo_White.svg"
-              width={800}
-              height={800}
+              src={Logo}
               alt="Logo"
+              style={{ width: "100%", height: "auto"}}
+              priority
             />
           </div>
         )}
