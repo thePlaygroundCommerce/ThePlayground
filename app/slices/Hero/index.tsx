@@ -2,7 +2,7 @@ import * as prismic from "@prismicio/client";
 import { SliceComponentProps, SliceZone } from "@prismicio/react";
 import { components } from "..";
 import Image from "next/image";
-import Logo from "/public/The Playground Logo_White.svg"
+import Logo from "/public/The Playground Logo_White.svg";
 import clsx from "clsx";
 import {
   HeroSliceHandlesCtaItem,
@@ -52,7 +52,7 @@ const Hero = ({
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="flex items-center bgimg w-full h-screen w3-display-container text-white"
+      className="flex justify-center items-center bgimg w-full h-screen w3-display-container text-white"
     >
       {hero_bg_image?.url && (
         <Image
@@ -61,19 +61,17 @@ const Hero = ({
           alt="Picture of the author"
           className="-z-10"
           objectFit="cover"
-          // width={500}
-          // height={500}
         />
       )}
       <div
         className={clsx("w-full", "text-" + content_alignment?.toLowerCase())}
       >
         {use_logo && (
-          <div className="flex justify-start">
+          <div className="w-3/4 m-auto">
             <Image
               src={Logo}
               alt="Logo"
-              style={{ width: "100%", height: "auto"}}
+              style={{ width: "100%", height: "auto" }}
               priority
             />
           </div>
@@ -104,7 +102,13 @@ const Hero = ({
                     SocialMediaComponentMap[slug as keyof SocialMediaIcons];
 
                   return (
-                    <a target="_blank" id={social_media_handle.data.social_media_name} href={social_media_handle.data.social_media_url} className="m-2" key={slug}>
+                    <a
+                      target="_blank"
+                      id={social_media_handle.data.social_media_name}
+                      href={social_media_handle.data.social_media_url}
+                      className="m-2"
+                      key={slug}
+                    >
                       <IconComponent />
                     </a>
                   );
