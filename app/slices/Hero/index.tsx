@@ -77,7 +77,7 @@ const Hero = ({
           </div>
         )}
         <h1 className="w3-animate-top">{hero_title}</h1>
-        <p className=" font-bold">{hero_description}</p>
+        <p className="font-bold">{hero_description}</p>
         {(slice.variation == "withCta" || slice.variation == "handlesCta") &&
           hasContentRelationshipData(slice.primary.cta) && (
             <div>
