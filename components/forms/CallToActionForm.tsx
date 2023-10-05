@@ -1,9 +1,8 @@
 "use client";
+import { experimental_useFormState as useFormState } from "react-dom";
 import { experimental_useFormStatus as useFormStatus } from "react-dom";
 import { callToActionCreateForm } from "api/customerApi";
 import Spinner from "components/Spinner";
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
 
 const CallToActionForm = ({
   primary,
@@ -18,15 +17,8 @@ const CallToActionForm = ({
   variation: any;
   placeholder: any;
 }) => {
-  const { pending, action } = useFormStatus();
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const onSubmit = (e: any) => {
-    e.preventDefault();
-    setIsSubmitted(true);
-  };
-
-  console.log(isSubmitted);
+  const { pending } = useFormStatus();
+  const [{ isSubmitted }, formAction] = useFormState(callToActionCreateForm, { });
 
   return (
     <>
@@ -38,8 +30,7 @@ const CallToActionForm = ({
       {isSubmitted || (
         <form
           className="text-black"
-          onSubmit={onSubmit}
-          action={callToActionCreateForm}
+          action={formAction}
         >
           {variation !== "onlyButton" && (
             <input

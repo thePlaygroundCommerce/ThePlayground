@@ -21,14 +21,17 @@ export async function createCustomer(request: Record<string, FormDataEntryValue>
     .catch((err) => err);
 }
 
-export async function callToActionCreateForm(formData: FormData) {
+export async function callToActionCreateForm(a: boolean, formData: FormData) {
 
-  console.log(formData)
+  // console.log(formData)
   const request: Record<string, FormDataEntryValue> = {};
   for (const [key, value] of formData.entries()) {
     request[key] = value;
   }
   
-  
-  const a = await createCustomer(request);
+  await createCustomer(request);
+  return {
+    isSubmitted: true,
+    error: null
+  }
 }
