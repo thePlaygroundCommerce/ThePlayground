@@ -1,4 +1,5 @@
 "use client";
+// @ts-ignore
 import { experimental_useFormState as useFormState } from "react-dom";
 import { experimental_useFormStatus as useFormStatus } from "react-dom";
 import { callToActionCreateForm } from "api/customerApi";
