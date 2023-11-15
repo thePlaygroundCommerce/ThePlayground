@@ -64,7 +64,7 @@ const Hero = ({
         />
       )}
       <div
-        className={clsx("w-full", "text-" + content_alignment?.toLowerCase())}
+        className={clsx("p-24", "w-full", "text-" + content_alignment?.toLowerCase())}
       >
         {use_logo && (
           <div className="w-3/4 m-auto">

@@ -4,7 +4,9 @@ import Header from "components/Header";
 import Providers from "components/Providers";
 import { mapArrayToMap } from "../../util";
 
+import 'rsuite/dist/rsuite.min.css';
 import "styles/globals.scss";
+
 import { PrismicPreview } from "@prismicio/next";
 import { repositoryName } from "prismicio";
 
@@ -50,7 +52,7 @@ export default async function RootLayout({ children }) {
       <body className="">
         <Providers data={mappedCatalogItems}>
           <Header />
-          <main className="pt-12">
+          <main className="">
             <div className="min-h-screen">{children}</div>
             <Footer />
           </main>

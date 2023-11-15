@@ -35,6 +35,28 @@ const Page = async () => {
               }
             }
           }
+          ... on featured_categories {
+            variation {
+              ... on default {
+                items {
+                  category {
+                    ... on categorylink {
+                      ...categorylinkFields
+                    }
+                  }
+                }
+              }
+            }
+          }
+          ... on hero_2 {
+            variation {
+              ... on default {
+                primary {
+                  ...primaryFields
+                }
+              }
+            }
+          }
         }
       }
     }

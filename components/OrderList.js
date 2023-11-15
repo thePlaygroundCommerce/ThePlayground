@@ -10,9 +10,9 @@ const OrderList = ({ orders, allowOrderItemDeletion = true, ...rest }) => {
       order: { lineItems },
       itemVariationsIDs,
     },
-    deleteCartItem
+    deleteCartItem,
   } = useContext(CartContext);
-  
+
   if (!itemVariationsIDs?.length > 0)
     return <p className="text-center">There are no items in the cart.</p>;
 
@@ -20,7 +20,6 @@ const OrderList = ({ orders, allowOrderItemDeletion = true, ...rest }) => {
     <div {...rest}>
       {lineItems?.map((item) => (
         <div key={item.uid} className="grid grid-cols-8">
-
           <div className="col-span-2">
             {/* <div
               className=" bg-secondary"
@@ -31,15 +30,14 @@ const OrderList = ({ orders, allowOrderItemDeletion = true, ...rest }) => {
           <div className="col-span-4">
             <p>{item.name}</p>
           </div>
-          
+
+          <div className="col-span-1">
+            <p className="m-0">SIZE : {item.variationName[0].toUpperCase()}</p>
+            <p className="m-0">QTY : {item.quantity}</p>
+            <p className="m-0">$ {item.basePriceMoney.amount}</p>
+          </div>
+
           <div className="flex justify-around">
-            <div>
-              <p className="m-0">
-                SIZE : {item.variationName[0].toUpperCase()}
-              </p>
-              <p className="m-0">QTY : {item.quantity}</p>
-              <p className="m-0">$ {item.basePriceMoney.amount}</p>
-            </div>
             {allowOrderItemDeletion && (
               <div className="ml-5">
                 <IconContext.Provider value={{ size: "2em" }}>
@@ -48,7 +46,6 @@ const OrderList = ({ orders, allowOrderItemDeletion = true, ...rest }) => {
               </div>
             )}
           </div>
-
         </div>
       ))}
     </div>

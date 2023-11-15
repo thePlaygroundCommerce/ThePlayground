@@ -1,0 +1,26 @@
+{
+  "id": "featured_categories",
+  "type": "SharedSlice",
+  "name": "FeaturedCategories",
+  "description": "FeaturedCategories",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {},
+      "items": {
+        "category": {
+          "type": "Link",
+          "config": {
+            "label": "Category",
+            "select": "document"
+          }
+        }
+      }
+    }
+  ]
+}

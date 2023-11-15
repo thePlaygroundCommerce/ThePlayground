@@ -8,11 +8,9 @@ import DropdownMenu from "./DropdownMenu";
 import { Tab } from "@headlessui/react";
 import Button from "./Button";
 import { CheckoutContext } from "context/checkoutContext";
-import { CaretRight } from "react-bootstrap-icons";
+import { SelectPicker } from "rsuite";
 
 const ProductDetailsModify = ({ catalogObject }) => {
-  const [activeVariationIndex, setActiveVariationIndex] = useState(1);
-
   const {
     cart: { itemVariationsIDs, order },
     addCartItem,
@@ -37,10 +35,11 @@ const ProductDetailsModify = ({ catalogObject }) => {
       }
     })
   );
-  const [quantity, setQuantity] = useState(cartLineItem?.quantity || 0);
+  const [quantity, setQuantity] = useState(cartLineItem?.quantity || 1);
+  const [selectedVariation, setSelectedVariation] = useState(0);
 
   const handleAddToCart = () => {
-    const itemVariationID = variations[activeVariationIndex].id;
+    const itemVariationID = variations[selectedVariation].id;
     const lineItem = { quantity: quantity.toString() };
     if (cartLineItem) {
       lineItem.uid =
@@ -64,30 +63,39 @@ const ProductDetailsModify = ({ catalogObject }) => {
     window.location.assign(checkoutUrl);
   };
 
+  const handleSelectChange = (value) =>  setSelectedVariation(value === null ? 0 : value);
+
   const amount = BigInt(
     itemData.variations[0].itemVariationData.priceMoney.amount
   ).toString();
 
+  const data = variations.map(({ itemVariationData: { name } }, i) => ({
+    label: name.slice(0, 1).toUpperCase(),
+    value: i,
+  }));
   return (
     <div className="m-auto">
-      <div className="flex mb-7">
+      <div className="flex mb-7 p-3">
         <div className="basis-full">
           <p className="mb-1 h4">SWaNK</p>
           <p className="mb-1 h4 fw-bold">{name}</p>
           <p>$ {amount}</p>
         </div>
-        <div className="basis-full grow">
+        <div className="basis-full grow flex flex-col items-center">
           <div className="w-3/4">
             <Counter count={quantity} onCountChange={setQuantity} />
           </div>
-          <div className="flex">
-            <div className="w-75">
-              <DropdownMenu />
-            </div>
-          </div>
+          <SelectPicker
+            data={data}
+            onChange={handleSelectChange}
+            searchable={false}
+            cleanable={false}
+            placeholder={variations[selectedVariation].itemVariationData.name.slice(0,1)}
+            defaultValue={selectedVariation}
+          />
         </div>
       </div>
-      <div className="flex mb-7 justify-around">
+      <div className="flex pb-7 border-b justify-around">
         <Button onClick={handleBuyNow}>Buy Now</Button>
         <Button onClick={handleAddToCart}>
           {!cartLineItem?.quantity > 0 ? "Add To Cart" : "Update Cart"}
@@ -95,12 +103,12 @@ const ProductDetailsModify = ({ catalogObject }) => {
       </div>
       <div className="mb-7">
         <Tab.Group defaultIndex={0}>
-          <Tab.List className="mb-3 pb-2 border-b">
+          <Tab.List className="mb-3 pb-2 p-3 border-b">
             <Tab className="pe-3">Details</Tab>
             <Tab className="pe-3">Mission</Tab>
             <Tab className="pe-3">Shop The Style</Tab>
           </Tab.List>
-          <Tab.Panel>
+          <Tab.Panel className="px-3">
             <div>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Est
@@ -108,7 +116,7 @@ const ProductDetailsModify = ({ catalogObject }) => {
               interdum consectetur.
             </div>
           </Tab.Panel>
-          <Tab.Panel>
+          <Tab.Panel className="px-3">
             <div>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut

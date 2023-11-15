@@ -2,6 +2,7 @@ import React from "react";
 import OrderList from "./OrderList";
 import Button from "./Button";
 import { IoClose } from "react-icons/io5";
+import Link from "next/link";
 
 const CartOverlay = ({ handleCartToggle, getCheckoutUrl }) => {
   const handleCheckoutClick = async () => {
@@ -25,6 +26,9 @@ const CartOverlay = ({ handleCartToggle, getCheckoutUrl }) => {
         </div>
         <Button className="w-full" onClick={handleCheckoutClick}>
           Checkout Now
+        </Button>
+        <Button className="w-full" >
+          <Link href="/cart" >Go to Cart</Link>
         </Button>
       </div>
     </div>

@@ -4,6 +4,49 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
+/**
+ * Content for CategoryLink documents
+ */
+interface CategorylinkDocumentData {
+  /**
+   * Title field in *CategoryLink*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: categorylink.title
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Image field in *CategoryLink*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: categorylink.image
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+}
+
+/**
+ * CategoryLink document from Prismic
+ *
+ * - **API ID**: `categorylink`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type CategorylinkDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<CategorylinkDocumentData>,
+    "categorylink",
+    Lang
+  >;
+
 type ComingSoonDocumentDataSlicesSlice =
   | SocialMediaLinksSlice
   | HeroSlice
@@ -140,7 +183,53 @@ export type CtaEmailDocument<Lang extends string = string> =
     Lang
   >;
 
-type HomepageDocumentDataSlicesSlice = HeroSlice;
+/**
+ * Item in *HeaderNavigation → Navs*
+ */
+export interface HeaderDocumentDataNavsItem {
+  /**
+   * Nav field in *HeaderNavigation → Navs*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header.navs[].nav
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  nav: prismic.ContentRelationshipField;
+}
+
+/**
+ * Content for HeaderNavigation documents
+ */
+interface HeaderDocumentData {
+  /**
+   * Navs field in *HeaderNavigation*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header.navs[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  navs: prismic.GroupField<Simplify<HeaderDocumentDataNavsItem>>;
+}
+
+/**
+ * HeaderNavigation document from Prismic
+ *
+ * - **API ID**: `header`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type HeaderDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<Simplify<HeaderDocumentData>, "header", Lang>;
+
+type HomepageDocumentDataSlicesSlice =
+  | FeaturedCategoriesSlice
+  | Hero2Slice
+  | HeroSlice;
 
 /**
  * Content for homepage documents
@@ -295,8 +384,10 @@ export type SocialMediaLinksDocument<Lang extends string = string> =
   >;
 
 export type AllDocumentTypes =
+  | CategorylinkDocument
   | ComingSoonDocument
   | CtaEmailDocument
+  | HeaderDocument
   | HomepageDocument
   | SocialMediaHandleDocument
   | SocialMediaLinksDocument;
@@ -549,6 +640,51 @@ type CallToAction2SliceVariation =
 export type CallToAction2Slice = prismic.SharedSlice<
   "call_to_action_2",
   CallToAction2SliceVariation
+>;
+
+/**
+ * Primary content in *FeaturedCategories → Items*
+ */
+export interface FeaturedCategoriesSliceDefaultItem {
+  /**
+   * Category field in *FeaturedCategories → Items*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: featured_categories.items[].category
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  category: prismic.ContentRelationshipField;
+}
+
+/**
+ * Default variation for FeaturedCategories Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type FeaturedCategoriesSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Record<string, never>,
+  Simplify<FeaturedCategoriesSliceDefaultItem>
+>;
+
+/**
+ * Slice variation for *FeaturedCategories*
+ */
+type FeaturedCategoriesSliceVariation = FeaturedCategoriesSliceDefault;
+
+/**
+ * FeaturedCategories Shared Slice
+ *
+ * - **API ID**: `featured_categories`
+ * - **Description**: FeaturedCategories
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type FeaturedCategoriesSlice = prismic.SharedSlice<
+  "featured_categories",
+  FeaturedCategoriesSliceVariation
 >;
 
 /**
@@ -896,6 +1032,176 @@ type HeroSliceVariation =
 export type HeroSlice = prismic.SharedSlice<"hero", HeroSliceVariation>;
 
 /**
+ * Primary content in *ProductShowcase → Primary*
+ */
+export interface Hero2SliceDefaultPrimary {
+  /**
+   * eyebrowHeadline field in *ProductShowcase → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Eyebrow
+   * - **API ID Path**: hero_2.primary.eyebrowHeadline
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  eyebrowHeadline: prismic.KeyTextField;
+
+  /**
+   * title field in *ProductShowcase → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_2.primary.title
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  title: prismic.RichTextField;
+
+  /**
+   * description field in *ProductShowcase → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_2.primary.description
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * image field in *ProductShowcase → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_2.primary.image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * callToActionLabel field in *ProductShowcase → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_2.primary.callToActionLabel
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  callToActionLabel: prismic.KeyTextField;
+
+  /**
+   * callToActionLink field in *ProductShowcase → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_2.primary.callToActionLink
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  callToActionLink: prismic.LinkField;
+}
+
+/**
+ * Default variation for ProductShowcase Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type Hero2SliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<Hero2SliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Primary content in *ProductShowcase → Primary*
+ */
+export interface Hero2SliceImageRightPrimary {
+  /**
+   * eyebrowHeadline field in *ProductShowcase → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Eyebrow
+   * - **API ID Path**: hero_2.primary.eyebrowHeadline
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  eyebrowHeadline: prismic.KeyTextField;
+
+  /**
+   * title field in *ProductShowcase → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_2.primary.title
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  title: prismic.RichTextField;
+
+  /**
+   * description field in *ProductShowcase → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_2.primary.description
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * image field in *ProductShowcase → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_2.primary.image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * callToActionLabel field in *ProductShowcase → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_2.primary.callToActionLabel
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  callToActionLabel: prismic.KeyTextField;
+
+  /**
+   * callToActionLink field in *ProductShowcase → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_2.primary.callToActionLink
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  callToActionLink: prismic.LinkField;
+}
+
+/**
+ * Image Right variation for ProductShowcase Slice
+ *
+ * - **API ID**: `imageRight`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type Hero2SliceImageRight = prismic.SharedSliceVariation<
+  "imageRight",
+  Simplify<Hero2SliceImageRightPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *ProductShowcase*
+ */
+type Hero2SliceVariation = Hero2SliceDefault | Hero2SliceImageRight;
+
+/**
+ * ProductShowcase Shared Slice
+ *
+ * - **API ID**: `hero_2`
+ * - **Description**: Hero
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type Hero2Slice = prismic.SharedSlice<"hero_2", Hero2SliceVariation>;
+
+/**
  * Primary content in *SocialMediaLinks → Items*
  */
 export interface SocialMediaLinksSliceDefaultItem {
@@ -950,12 +1256,17 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      CategorylinkDocument,
+      CategorylinkDocumentData,
       ComingSoonDocument,
       ComingSoonDocumentData,
       ComingSoonDocumentDataSlicesSlice,
       CtaEmailDocument,
       CtaEmailDocumentData,
       CtaEmailDocumentDataSlicesSlice,
+      HeaderDocument,
+      HeaderDocumentData,
+      HeaderDocumentDataNavsItem,
       HomepageDocument,
       HomepageDocumentData,
       HomepageDocumentDataSlicesSlice,
@@ -977,6 +1288,10 @@ declare module "@prismicio/client" {
       CallToAction2SliceVariation,
       CallToAction2SliceDefault,
       CallToAction2SliceAlignLeft,
+      FeaturedCategoriesSlice,
+      FeaturedCategoriesSliceDefaultItem,
+      FeaturedCategoriesSliceVariation,
+      FeaturedCategoriesSliceDefault,
       HeroSlice,
       HeroSliceDefaultPrimary,
       HeroSliceHeroWithSocialMediaHandlesPrimary,
@@ -989,6 +1304,12 @@ declare module "@prismicio/client" {
       HeroSliceHeroWithSocialMediaHandles,
       HeroSliceHandlesCta,
       HeroSliceWithCta,
+      Hero2Slice,
+      Hero2SliceDefaultPrimary,
+      Hero2SliceImageRightPrimary,
+      Hero2SliceVariation,
+      Hero2SliceDefault,
+      Hero2SliceImageRight,
       SocialMediaLinksSlice,
       SocialMediaLinksSliceDefaultItem,
       SocialMediaLinksSliceVariation,

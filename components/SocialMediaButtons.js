@@ -8,33 +8,32 @@ import {
   FaYoutube,
 } from "react-icons/fa";
 import Button from "./Button";
+import { useMemo } from "react";
 
-const SocialMediaButttons = () => {
+const SocialMediaButtons = ({ align = "left" }) => {
   return (
     <div>
-      <IconContext.Provider value={{ size: 22 }}>
-        <div className="flex justify-center">
+      <IconContext.Provider value={useMemo(() => ({ size: 22 }), [])}>
+        <div className={`flex justify-${align}`}>
           <Button className="border-0">
             <FaFacebook />
           </Button>
-          <Button className="border-0">
+          {/* <Button className="border-0">
             <FaTwitter />
-          </Button>
+          </Button> */}
           <Button className="border-0">
             <FaInstagram />
           </Button>
-        </div>
-        <div className="flex mt-2 justify-center">
           <Button className="border-0">
             <FaYoutube />
           </Button>
-          <Button className="border-0">
+          {/* <Button className="border-0">
             <FaTiktok />
-          </Button>
+          </Button> */}
         </div>
       </IconContext.Provider>
     </div>
   );
 };
 
-export default SocialMediaButttons;
+export default SocialMediaButtons;

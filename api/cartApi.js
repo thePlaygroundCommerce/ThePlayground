@@ -1,6 +1,6 @@
 import { CONFIG } from "../constants";
 
-const DEFAULT_INIT = require("./")
+const { DEFAULT_INIT } = require("./")
 
 const BASE_PATH = CONFIG.square[process.env.NODE_ENV].url + "carts";
 
@@ -29,9 +29,10 @@ async function callUpdateCart({ orderID, order, fieldsToClear }, init = DEFAULT_
 }
 
 async function callCreateCart(catalogOrder, init = DEFAULT_INIT) {
+  console.log(DEFAULT_INIT,  init)
   return fetch(`${BASE_PATH}/create`, {
-    ...DEFAULT_INIT,
     ...init,
+    method: "POST",
     body: JSON.stringify(catalogOrder),
   })
     .then((res) => {
@@ -39,6 +40,7 @@ async function callCreateCart(catalogOrder, init = DEFAULT_INIT) {
     })
     .then((order) => {
       console.log("Cart Successfully Created");
+      console.log(order)
       return order.result;
     })
     .catch((err) => console.log(err));
