@@ -8,7 +8,8 @@ export const DEFAULT_FETCH_INIT = {
 export const CONFIG = {
   square: {
     development: {
-      url: "http://localhost:3000/",
+      // url: "http://localhost:3000/",
+      url: "https://square-backend-stage-ac8a01ff6dd6.herokuapp.com/",
     },
     production: {
       url: "https://square-backend.herokuapp.com/",

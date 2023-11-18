@@ -15,7 +15,8 @@ export const metadata = {
 };
 
 export async function generateStaticParams() {
-  const { objects } = await getCatalogObjects("CATEGORY");
+  const { objects: categoryObjects = [] } = await getCatalogObjects("CATEGORY");
+
   const settingsNavs = [
     {
       category: "account",
@@ -28,8 +29,8 @@ export async function generateStaticParams() {
     },
   ];
 
-  return objects
-    ? objects
+  return categoryObjects
+    ? categoryObjects
         .map(({ categoryData: { name } }) => ({
           category: name.toLowerCase(),
         }))

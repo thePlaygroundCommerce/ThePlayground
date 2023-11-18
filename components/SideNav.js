@@ -37,7 +37,7 @@ export default function SideNav() {
             {itemDisplayName}
           </button>
           {categoryList?.map((item) => (
-            <div className="border-0 m-18 py-0">
+            <div key={item} className="border-0 m-18 py-0">
               {renderCategoryItems(Object.entries(item), false)}
             </div>
           ))}
