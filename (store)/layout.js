@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react';
 import { getCatalogObjects } from "api/catalogApi";
 import Footer from "components/Footer";
 import Header from "components/Header";
@@ -57,6 +58,7 @@ export default async function RootLayout({ children }) {
         </Providers>
 
         <PrismicPreview repositoryName={repositoryName} />
+        <Analytics />
       </body>
     </html>
   );

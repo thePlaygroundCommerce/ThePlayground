@@ -1,4 +1,5 @@
 import "styles/globals.scss";
+import { Analytics } from '@vercel/analytics/react';
 import { PrismicPreview } from "@prismicio/next";
 import { repositoryName } from "prismicio";
 
@@ -14,6 +15,7 @@ const Layout = ({ children }) => {
           <div className="min-h-screen">{children}</div>
           <PrismicPreview repositoryName={repositoryName} />
         </main>
+        <Analytics />
       </body>
     </html>
   );
