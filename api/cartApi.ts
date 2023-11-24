@@ -1,10 +1,10 @@
 import { CONFIG } from "../constants";
 
-const { DEFAULT_INIT } = require("./")
+import { DEFAULT_INIT } from "."
 
 const BASE_PATH = CONFIG.square[process.env.NODE_ENV].url + "carts";
 
-async function callGetCart(orderId) {
+export async function callGetCart(orderId: string) {
   return fetch(`${BASE_PATH}/${orderId}`)
     .then((res) => res.json())
     .then(({ result }) => {
@@ -14,7 +14,7 @@ async function callGetCart(orderId) {
     .catch((err) => console.log(err));
 }
 
-async function callUpdateCart({ orderID, order, fieldsToClear }, init = DEFAULT_INIT ) {
+export async function callUpdateCart({ orderID, order, fieldsToClear } : any, init: Headers = DEFAULT_INIT ) {
   return fetch(`${BASE_PATH}/update/${orderID}`, {
     ...DEFAULT_INIT,
     ...init,
@@ -28,7 +28,7 @@ async function callUpdateCart({ orderID, order, fieldsToClear }, init = DEFAULT_
     .catch((err) => console.log(err));
 }
 
-async function callCreateCart(catalogOrder, init = DEFAULT_INIT) {
+export async function callCreateCart(catalogOrder: any, init = DEFAULT_INIT) {
   console.log(DEFAULT_INIT,  init)
   return fetch(`${BASE_PATH}/create`, {
     ...init,
@@ -45,9 +45,3 @@ async function callCreateCart(catalogOrder, init = DEFAULT_INIT) {
     })
     .catch((err) => console.log(err));
 }
-
-module.exports = {
-  callGetCart,
-  callUpdateCart,
-  callCreateCart,
-};

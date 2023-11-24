@@ -8,8 +8,8 @@ import { CartContext } from "context/cartContext";
 const Cart = () => {
   const [show, setShow] = useState(false);
   const ref = useRef();
-  const { cart: { order } } = useContext(CartContext);
-  const cartSize = order.lineItems?.length;
+  const { cart: { lineItems } } = useContext(CartContext);
+  const cartSize = lineItems?.length;
 
   return (
     <>

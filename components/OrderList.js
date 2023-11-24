@@ -2,18 +2,18 @@
 import { CartContext } from "context/cartContext";
 import React, { useContext } from "react";
 import { IconContext } from "react-icons";
-import { IoClose } from "react-icons/io5";
+import { AiOutlineMinusCircle } from "react-icons/ai";
+
 
 const OrderList = ({ orders, allowOrderItemDeletion = true, ...rest }) => {
   const {
     cart: {
-      order: { lineItems },
-      itemVariationsIDs,
+      lineItems
     },
     deleteCartItem,
   } = useContext(CartContext);
 
-  if (!itemVariationsIDs?.length > 0)
+  if (!lineItems.length > 0)
     return <p className="text-center">There are no items in the cart.</p>;
 
   return (
@@ -40,8 +40,8 @@ const OrderList = ({ orders, allowOrderItemDeletion = true, ...rest }) => {
           <div className="flex justify-around">
             {allowOrderItemDeletion && (
               <div className="ml-5">
-                <IconContext.Provider value={{ size: "2em" }}>
-                  <IoClose onClick={() => deleteCartItem(item.uid)} />
+                <IconContext.Provider value={{ size: "1.5em" }}>
+                  <AiOutlineMinusCircle onClick={() => deleteCartItem(item.uid)} />
                 </IconContext.Provider>
               </div>
             )}

@@ -4,12 +4,18 @@ import Link from "next/link";
 import Button from "components/Button";
 import { getOrderAndCatalogObjects } from "api/checkoutApi";
 
-const Checkout = async ({ params: { orderId } }) => {
-  const { order, objects } = await getOrderAndCatalogObjects(orderId);
+const Checkout = async ({
+  params: { orderId },
+}: {
+  params: { orderId: string };
+}) => {
+  const res = await getOrderAndCatalogObjects(orderId);
+  const lineItems = res?.order;
+
   return (
     <div className="grid grid-cols-12 px-8">
       <div className="col-span-7">
-        <OrderList orders={order.lineItems} />
+        <OrderList orders={lineItems} />
       </div>
       <div className="col-span-5 h-full border-l">
         <div className="flex flex-col mt-5">
@@ -28,7 +34,7 @@ const Checkout = async ({ params: { orderId } }) => {
                 Log in to your aaccount and keep track of or change your order.
               </p>
               <Link href="/authenticate">
-                <Button variant="link">Login</Button>
+                <Button onClick={undefined} className={undefined}>Login</Button>
               </Link>
               <Link href="/apparel">
                 <Button variant="link">Continue Shopping</Button>

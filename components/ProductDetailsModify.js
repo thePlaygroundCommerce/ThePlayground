@@ -1,5 +1,4 @@
 "use client";
-
 import { CartContext } from "context/cartContext";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
@@ -12,7 +11,7 @@ import { SelectPicker } from "rsuite";
 
 const ProductDetailsModify = ({ catalogObject }) => {
   const {
-    cart: { itemVariationsIDs, order },
+    cart: { itemVariationsIDs, lineItems },
     addCartItem,
   } = useContext(CartContext);
 
@@ -26,7 +25,7 @@ const ProductDetailsModify = ({ catalogObject }) => {
   } = catalogObject;
 
   const [cartLineItem, setCartLineItem] = useState(
-    order.lineItems?.find(({ catalogObjectId }) => {
+    lineItems?.find(({ catalogObjectId }) => {
       let i = 0;
 
       while (i < variations.length) {
@@ -43,7 +42,7 @@ const ProductDetailsModify = ({ catalogObject }) => {
     const lineItem = { quantity: quantity.toString() };
     if (cartLineItem) {
       lineItem.uid =
-        order.lineItems[itemVariationsIDs.indexOf(itemVariationID)].uid;
+        lineItems[itemVariationsIDs.indexOf(itemVariationID)].uid;
     } else {
       lineItem.catalogObjectId = itemVariationID;
     }
@@ -52,7 +51,7 @@ const ProductDetailsModify = ({ catalogObject }) => {
   };
 
   const handleBuyNow = async () => {
-    const itemVariationID = variations[activeVariationIndex].id;
+    const itemVariationID = variations[selectedVariation].id;
     const lineItem = {
       quantity: quantity.toString(),
       catalogObjectId: itemVariationID,

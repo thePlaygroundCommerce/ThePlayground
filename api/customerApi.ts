@@ -23,7 +23,6 @@ export async function createCustomer(request: Record<string, FormDataEntryValue>
 
 export async function callToActionCreateForm(a: boolean, formData: FormData) {
 
-  // console.log(formData)
   const request: Record<string, FormDataEntryValue> = {};
   for (const [key, value] of formData.entries()) {
     request[key] = value;

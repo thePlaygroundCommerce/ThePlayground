@@ -2,11 +2,17 @@
 
 import AccountSettings from "components/AccountSettings";
 import { createContext, useState, useMemo, Fragment } from "react";
-import { splitCategoryNamesWithId } from "../util";
+import { splitCategoryNamesWithId, makeCategoryTree } from "../util";
+import { AppProps } from "types";
+import { CatalogObject } from "square";
 
-export const NavigationContext = createContext(null);
+export const NavigationContext = createContext({});
 
-const NavigationProvider = ({ children, apparelCategories }) => {
+type Props = AppProps & {
+  apparelCategories: CatalogObject[]
+};
+
+const NavigationProvider = ({ children, apparelCategories }: Props) => {
   const accountNavigation = useState({
     activeIndex: 0,
     formattedCategories: [
@@ -31,14 +37,14 @@ const NavigationProvider = ({ children, apparelCategories }) => {
   });
   const apparelNavigation = useState({
     activeIndex: 0,
-    unformattedCategories: apparelCategories,
+    unformattedCategories: apparelCategories, 
     formattedCategories: makeCategoryTree(
       splitCategoryNamesWithId(apparelCategories)
     ),
-    currentCategoryId: null,
+    currentCategoryId: "",
   });
 
-  const handleNavigationChange = (e) => {
+  const handleNavigationChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     apparelNavigation[1]({
       ...apparelNavigation[0],
       currentCategoryId: e.target.id,
@@ -64,15 +70,4 @@ const NavigationProvider = ({ children, apparelCategories }) => {
 
 export default NavigationProvider;
 
-const makeCategoryTree = (arr) =>
-  arr?.reduce((acc, { id, category }) => {
-    const categoryLowercase = category[0].toLowerCase();
-    if (acc[categoryLowercase] !== undefined) {
-      acc[categoryLowercase].categoryList.push(
-        makeCategoryTree([{ id, category: category.slice(1) }])
-      );
-    } else {
-      acc[categoryLowercase] = { id: id, categoryList: [] };
-    }
-    return acc;
-  }, {});
+

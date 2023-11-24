@@ -1,10 +1,19 @@
 "use client";
 
 import { createContext, useState } from "react";
+import { AppProps } from "types";
 
-export const InventoryContext = createContext();
+export const InventoryContext = createContext({});
 
-const InventoryProvider = ({ children, apparelData, handleCategoryChange }) => {
+type Props = AppProps & {
+  apparelData: {
+    image: any;
+    item: any;
+  };
+  handleCategoryChange: () => void
+}
+
+const InventoryProvider = ({ children, apparelData, handleCategoryChange }: Props) => {
   const [catalogImages, setCatalogImages] = useState(apparelData.image);
   const [catalogItems, setCatalogItems] = useState(apparelData.item);
 
