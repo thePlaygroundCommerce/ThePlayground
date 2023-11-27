@@ -1,57 +1,61 @@
 "use client";
-import { CartContext } from "context/cartContext";
-import { useRouter } from "next/navigation";
-import { useContext, useEffect, useState } from "react";
+import { useCart } from "context/cartContext";
+import { SetStateAction, useState } from "react";
 import Counter from "./Counter";
-import DropdownMenu from "./DropdownMenu";
 import { Tab } from "@headlessui/react";
 import Button from "./Button";
-import { CheckoutContext } from "context/checkoutContext";
 import { SelectPicker } from "rsuite";
+import { AppProps } from "types";
+import { CatalogObject, OrderLineItem } from "square";
+import { ItemDataType } from "rsuite/esm/@types/common";
+import { getCheckoutUrl } from "api/checkoutApi";
 
-const ProductDetailsModify = ({ catalogObject }) => {
+type Props = AppProps & {
+  catalogObject: CatalogObject;
+};
+
+const ProductDetailsModify = ({ catalogObject }: Props) => {
   const {
-    cart: { itemVariationsIDs, lineItems },
+    cart: { lineItems = [] },
     addCartItem,
-  } = useContext(CartContext);
+  } = useCart();
 
-  const { getCheckoutUrl } = useContext(CheckoutContext);
+  const itemData = catalogObject.itemData!;
+  const imageData = catalogObject.imageData!;
 
-  const {
-    object: {
-      itemData,
-      itemData: { variations, name },
-    },
-  } = catalogObject;
-
-  const [cartLineItem, setCartLineItem] = useState(
+  const isProductInCart = (itemVariationId?: string) =>
     lineItems?.find(({ catalogObjectId }) => {
-      let i = 0;
+      if (itemVariationId) return catalogObjectId == itemVariationId;
+      else {
+        let i = 0;
 
-      while (i < variations.length) {
-        if (catalogObjectId == variations[i].id) return true;
-        i++;
+        while (i < (itemData?.variations?.length ?? 0)) {
+          if (catalogObjectId == itemData?.variations![i].id) return true;
+          i++;
+        }
       }
-    })
-  );
-  const [quantity, setQuantity] = useState(cartLineItem?.quantity || 1);
+    });
+
+  const [quantity, setQuantity] = useState(+(isProductInCart()?.quantity ?? 1));
   const [selectedVariation, setSelectedVariation] = useState(0);
 
   const handleAddToCart = () => {
-    const itemVariationID = variations[selectedVariation].id;
-    const lineItem = { quantity: quantity.toString() };
-    if (cartLineItem) {
-      lineItem.uid =
-        lineItems[itemVariationsIDs.indexOf(itemVariationID)].uid;
+    const itemVariationId = itemData.variations![selectedVariation].id;
+    const lineItem: OrderLineItem = {
+      quantity: quantity.toString(),
+    };
+
+    if (isProductInCart(itemVariationId) && lineItems !== null) {
+      lineItem.uid = lineItems[selectedVariation].uid;
     } else {
-      lineItem.catalogObjectId = itemVariationID;
+      lineItem.catalogObjectId = itemVariationId;
     }
 
-    addCartItem(lineItem);
+    addCartItem(lineItem, catalogObject.imageData);
   };
 
   const handleBuyNow = async () => {
-    const itemVariationID = variations[selectedVariation].id;
+    const itemVariationID = itemData.variations![selectedVariation].id;
     const lineItem = {
       quantity: quantity.toString(),
       catalogObjectId: itemVariationID,
@@ -62,34 +66,44 @@ const ProductDetailsModify = ({ catalogObject }) => {
     window.location.assign(checkoutUrl);
   };
 
-  const handleSelectChange = (value) =>  setSelectedVariation(value === null ? 0 : value);
+  const handleSelectChange = (value: SetStateAction<number> | null) =>
+    setSelectedVariation(value === null ? 0 : value);
 
   const amount = BigInt(
-    itemData.variations[0].itemVariationData.priceMoney.amount
+    itemData?.variations![0].itemVariationData?.priceMoney?.amount ?? 50
   ).toString();
 
-  const data = variations.map(({ itemVariationData: { name } }, i) => ({
-    label: name.slice(0, 1).toUpperCase(),
-    value: i,
-  }));
+  const data: ItemDataType<number>[] = itemData?.variations!.map(
+    ({ itemVariationData }, i) => ({
+      label: itemVariationData?.name?.slice(0, 1).toUpperCase(),
+      value: i,
+    })
+  );
+
   return (
     <div className="m-auto">
       <div className="flex mb-7 p-3">
         <div className="basis-full">
           <p className="mb-1 h4">SWaNK</p>
-          <p className="mb-1 h4 fw-bold">{name}</p>
+          <p className="mb-1 h4 fw-bold">{itemData?.name}</p>
           <p>$ {amount}</p>
         </div>
         <div className="basis-full grow flex flex-col items-center">
           <div className="w-3/4">
-            <Counter count={quantity} onCountChange={setQuantity} />
+            <Counter
+              count={+quantity}
+              onCountChange={setQuantity}
+              childrenElement={<></>}
+            />
           </div>
           <SelectPicker
             data={data}
             onChange={handleSelectChange}
             searchable={false}
             cleanable={false}
-            placeholder={variations[selectedVariation].itemVariationData.name.slice(0,1)}
+            placeholder={itemData?.variations![
+              selectedVariation
+            ].itemVariationData?.name?.slice(0, 1)}
             defaultValue={selectedVariation}
           />
         </div>
@@ -97,7 +111,9 @@ const ProductDetailsModify = ({ catalogObject }) => {
       <div className="flex pb-7 border-b justify-around">
         <Button onClick={handleBuyNow}>Buy Now</Button>
         <Button onClick={handleAddToCart}>
-          {!cartLineItem?.quantity > 0 ? "Add To Cart" : "Update Cart"}
+          {!(+(isProductInCart()?.quantity ?? 0) > 0)
+            ? "Add To Cart"
+            : "Update Cart"}
         </Button>
       </div>
       <div className="mb-7">

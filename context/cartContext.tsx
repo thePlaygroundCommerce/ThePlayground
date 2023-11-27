@@ -1,26 +1,21 @@
 "use client";
 
 import { callCreateCart, callGetCart, callUpdateCart } from "api/cartApi";
+import _ from "lodash";
 import { createContext, useState, useEffect, useMemo, useContext } from "react";
 import { useCookies } from "react-cookie";
 import { CatalogImage, Order, OrderLineItem } from "square";
+import { CartContextType } from "types";
 
-export const CartContext = createContext({ cart: { lineItems: [] } });
-
-interface CartOrder extends Order {
-  lineItems: CartOrderItem[];
-}
-interface CartOrderItem extends OrderLineItem {
-  displayImage: CatalogImage;
-}
+export const CartContext = createContext<CartContextType | null>(null);
 
 const CartProvider = ({ apparelData, children }: any) => {
   const [cookies, setCookie] = useCookies();
-  const toggleCartOverlay = useState(false);
-  const [itemVariationIds, setItemVariationIds] = useState<
-    (string | null | undefined)[] | undefined
-  >([]);
-  const [cart, setCart] = useState<CartOrder>({
+  const toggleCartOverlay = useState<boolean>(false);
+  const [cartItemImages, setCartItemImages] = useState<{
+    [catalogObjectId: string]: CatalogImage;
+  }>({});
+  const [cart, setCart] = useState<Order>({
     id: cookies.cartID,
     lineItems: [],
     locationId: "",
@@ -33,12 +28,12 @@ const CartProvider = ({ apparelData, children }: any) => {
   }, []);
 
   const getCart = async () => {
-    const order: CartOrder = await callGetCart(cookies.cartID);
+    const order: Order = await callGetCart(cookies.cartID);
     if (order) populateCart(order);
   };
 
   const updateCart = async (
-    lineItems?: CartOrderItem[],
+    lineItems?: OrderLineItem[],
     fieldsToClear?: string[]
   ) => {
     if (cart.id) {
@@ -50,7 +45,7 @@ const CartProvider = ({ apparelData, children }: any) => {
         },
         fieldsToClear,
       };
-      const order = await callUpdateCart(body, new Headers({ method: "PUT" }));
+      const order = await callUpdateCart(body, { method: "PUT" });
       populateCart(order);
     } else {
       createCart(lineItems, undefined);
@@ -69,27 +64,60 @@ const CartProvider = ({ apparelData, children }: any) => {
     populateCart(order);
   };
 
-  const addCartItem = (lineItem: CartOrderItem) => {
-    if (!cart.lineItems) {
-      updateCart([lineItem], undefined);
-    } else {
-      updateCart(cart.lineItems.concat(lineItem), undefined);
-    }
+  const addCartItem = (
+    lineItem: OrderLineItem,
+    lineItemImageData?: CatalogImage
+  ) => {
+    const lineItems = cart.lineItems ?? [];
+    const existingItemIndex = lineItems.findIndex(
+      ({ uid }) => lineItem.uid == uid
+    );
+    const isExistingItem = existingItemIndex != -1;
+    if (isExistingItem) modifyCartItem(existingItemIndex, lineItem);
+    else updateCart(lineItems.concat(lineItem));
+
+    const objId = lineItem.catalogObjectId ?? "";
+    setCartItemImages({
+      ...cartItemImages,
+      [objId]: lineItemImageData ?? {},
+    });
   };
 
   const deleteCartItem = (lineItemUid: string) => {
     updateCart(undefined, [`line_items[${lineItemUid}]`]);
   };
 
-  const modifyCartItem = (itemVariationId: string) => {};
+  const modifyCartItem = (
+    existingCartItemIndex: number,
+    newCartItem: OrderLineItem
+  ) => {
+    if (!Array.isArray(cart.lineItems)) {
+      throw new Error("Cart line items must be an Array!");
+    }
 
-  const populateCart = (order: CartOrder) => {
+    const lineItems = [...cart.lineItems];
+    let existingCartItem = lineItems[existingCartItemIndex];
+
+    const mergedCartItem = {
+      ...existingCartItem,
+      ...newCartItem,
+    };
+
+    if (_.isEqual(mergedCartItem, existingCartItem)) {
+      console.log("No changes in merged cart item!");
+      return;
+    }
+
+    lineItems[existingCartItemIndex] = mergedCartItem;
+
+    updateCart(lineItems);
+  };
+
+  const populateCart = (order: Order) => {
     setCart({
       ...order,
       id: cookies.cartID,
     });
-    const ids = cart.lineItems?.map(({ catalogObjectId }) => catalogObjectId);
-    setItemVariationIds(ids);
   };
 
   return (
@@ -97,7 +125,7 @@ const CartProvider = ({ apparelData, children }: any) => {
       // @ts-ignore
       value={useMemo(
         () => ({
-          cart,
+          cart, cartItemImages,
           updateCart,
           createCart,
           addCartItem,
@@ -110,6 +138,15 @@ const CartProvider = ({ apparelData, children }: any) => {
       {children}
     </CartContext.Provider>
   );
+};
+
+export const useCart = () => {
+  const currentCart = useContext(CartContext);
+  if (!currentCart) {
+    throw new Error("Hooks have to be used within Providers");
+  }
+
+  return currentCart;
 };
 
 export default CartProvider;

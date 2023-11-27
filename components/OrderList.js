@@ -1,6 +1,5 @@
 "use client";
-import { CartContext } from "context/cartContext";
-import React, { useContext } from "react";
+import { useCart } from "context/cartContext";
 import { IconContext } from "react-icons";
 import { AiOutlineMinusCircle } from "react-icons/ai";
 
@@ -8,14 +7,16 @@ import { AiOutlineMinusCircle } from "react-icons/ai";
 const OrderList = ({ orders, allowOrderItemDeletion = true, ...rest }) => {
   const {
     cart: {
-      lineItems
+      lineItems = []
     },
+    cartItemImages,
     deleteCartItem,
-  } = useContext(CartContext);
+  } = useCart();
 
   if (!lineItems.length > 0)
     return <p className="text-center">There are no items in the cart.</p>;
 
+    console.log(cartItemImages)
   return (
     <div {...rest}>
       {lineItems?.map((item) => (

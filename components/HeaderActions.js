@@ -5,14 +5,14 @@ import Cart from "./Cart";
 import Link from "next/link";
 import Button from "./Button";
 import { useContext } from "react";
-import { CartContext } from "context/cartContext";
-import CartOverlay from "./CartOverlay";
+import { useCart } from "context/cartContext";
+import CartOverlay from "./CartOverlay.tsx";
 import { CheckoutContext } from "context/checkoutContext";
 
 function HeaderActions() {
   const {
     toggleCartOverlay: [toggleCartOverlay, setToggleCartOverlay],
-  } = useContext(CartContext);
+  } = useCart();
     const { getCheckoutUrl } = useContext(CheckoutContext)
   const handleCartToggle = (e, bool = !toggleCartOverlay) => setToggleCartOverlay(bool);
 

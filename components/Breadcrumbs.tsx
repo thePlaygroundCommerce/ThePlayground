@@ -1,15 +1,21 @@
 "use client";
-
 import Link from "next/link";
 import React, { useContext } from "react";
-import { NavigationContext } from "../context/navigationContext";
+import { NavigationContext, useNavigation } from "../context/navigationContext";
 import { IoIosArrowBack } from "react-icons/io";
+import { AppProps } from "types";
 
-const Breadcrumbs = ({ categoryId }) => {
+type Props = AppProps & {
+  categoryId: string;
+};
+
+const Breadcrumbs = ({ categoryId }: Props) => {
   const {
     apparelNavigation: [{ unformattedCategories }],
-  } = useContext(NavigationContext);
-  const productCategory = unformattedCategories.find(({ id }) => categoryId == id);
+  } = useNavigation();
+  const productCategory = unformattedCategories.find(
+    ({ id }) => categoryId == id
+  );
 
   if (!productCategory)
     return (
@@ -18,7 +24,9 @@ const Breadcrumbs = ({ categoryId }) => {
       </Link>
     );
 
-  const breadCrumbs = productCategory.categoryData.name.split(" ");
+  const breadCrumbs =
+    (productCategory && productCategory?.categoryData?.name?.split(" ")) || [];
+    
   return (
     <div>
       {breadCrumbs.map((name, i) => (

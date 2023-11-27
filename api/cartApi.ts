@@ -14,7 +14,7 @@ export async function callGetCart(orderId: string) {
     .catch((err) => console.log(err));
 }
 
-export async function callUpdateCart({ orderID, order, fieldsToClear } : any, init: Headers = DEFAULT_INIT ) {
+export async function callUpdateCart({ orderID, order, fieldsToClear } : any, init = DEFAULT_INIT ) {
   return fetch(`${BASE_PATH}/update/${orderID}`, {
     ...DEFAULT_INIT,
     ...init,
@@ -29,7 +29,6 @@ export async function callUpdateCart({ orderID, order, fieldsToClear } : any, in
 }
 
 export async function callCreateCart(catalogOrder: any, init = DEFAULT_INIT) {
-  console.log(DEFAULT_INIT,  init)
   return fetch(`${BASE_PATH}/create`, {
     ...init,
     method: "POST",
@@ -40,7 +39,6 @@ export async function callCreateCart(catalogOrder: any, init = DEFAULT_INIT) {
     })
     .then((order) => {
       console.log("Cart Successfully Created");
-      console.log(order)
       return order.result;
     })
     .catch((err) => console.log(err));

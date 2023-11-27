@@ -1,18 +1,19 @@
 "use client";
 
 import { createContext, useState, useEffect, useContext } from "react";
-import { CartContext } from "./cartContext";
+import { useCart } from "./cartContext";
 import { getCheckoutUrl } from "api/checkoutApi";
 import { AppProps } from "types";
+import { OrderLineItem } from "square";
 
 export const CheckoutContext = createContext({});
 
 const CheckoutProvider = ({ children }: AppProps) => {
   const {
     cart: { lineItems },
-  } = useContext(CartContext);
+  } = useCart();
 
-  const _getCheckoutUrl = (lineItems: any) => {
+  const _getCheckoutUrl = (lineItems: OrderLineItem[]) => {
     // lineItems
     //   ? getCheckoutUrl(lineItems)
     //   : getCheckoutUrl(

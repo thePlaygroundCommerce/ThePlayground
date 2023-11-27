@@ -1,16 +1,5 @@
 import { CatalogObject } from "square";
-
-type SplitCategoryNameWithId = {
-  id: string;
-  category: string;
-};
-
-type CategoryTree = {
-  [key: string]: {
-    id: string;
-    categoryList: CategoryTree[];
-  };
-};
+import { SplitCategoryNameWithId, CategoryTree } from "types";
 
 export function splitCategoryNames(arr: CatalogObject[]): string[][] {
   return arr?.map(({ categoryData }) =>

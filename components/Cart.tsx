@@ -3,18 +3,17 @@
 import React, { useContext, useRef, useState } from "react";
 import { BsCart } from "react-icons/bs";
 import CartSummary from "./CartSummary";
-import { CartContext } from "context/cartContext";
+import { useCart } from "context/cartContext";
 
 const Cart = () => {
   const [show, setShow] = useState(false);
   const ref = useRef();
-  const { cart: { lineItems } } = useContext(CartContext);
+  const { cart: { lineItems } } = useCart();
   const cartSize = lineItems?.length;
 
   return (
     <>
       <div
-        ref={ref}
         onMouseOver={() => setShow(true)}
         className="relative"
       >

@@ -1,7 +1,13 @@
 import React from "react";
 import OrderList from "./OrderList";
+import { AppProps } from "types";
+import { Order } from "square";
 
-const CartSummary = ({ order }) => {
+type Props = AppProps & {
+  order: Order;
+};
+
+const CartSummary = ({ order }: Props) => {
   return (
     <>
       <div
@@ -56,9 +62,7 @@ const CartFooter = () => (
       {/* <button className=" mx-2" variant="dark">
         View Cart
       </button> */}
-      <button className=" mx-2" variant="dark">
-        Checkout Now
-      </button>
+      <button className=" mx-2">Checkout Now</button>
     </div>
   </>
 );

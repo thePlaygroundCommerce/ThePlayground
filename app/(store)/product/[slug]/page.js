@@ -25,7 +25,7 @@ const Page = async (props) => {
           </div>
 
           <div>
-            <ProductDetailsModify catalogObject={catalogObject} />
+            <ProductDetailsModify catalogObject={catalogObject.object} />
           </div>
         </div>
       </>

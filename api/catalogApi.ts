@@ -26,8 +26,6 @@ export async function getCatalogItemsByCategory(request: any) {
     .then(checkForErrors)
     .catch((err) => err);
 
-    console.log(result)
-
   return result;
 }
 

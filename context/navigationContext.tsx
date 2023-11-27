@@ -1,50 +1,58 @@
 "use client";
-
 import AccountSettings from "components/AccountSettings";
-import { createContext, useState, useMemo, Fragment } from "react";
-import { splitCategoryNamesWithId, makeCategoryTree } from "../util";
-import { AppProps } from "types";
+import { Context, Fragment, createContext, useContext, useMemo, useState } from "react";
 import { CatalogObject } from "square";
+import {
+  AccountNavigation,
+  AppProps,
+  ApparelNavigation,
+  NavigationContextType,
+} from "types";
+import { makeCategoryTree, splitCategoryNamesWithId } from "../util";
 
-export const NavigationContext = createContext({});
+export const NavigationContext = createContext<NavigationContextType | null>(
+  null
+);
 
 type Props = AppProps & {
-  apparelCategories: CatalogObject[]
+  apparelCategories: CatalogObject[];
 };
 
 const NavigationProvider = ({ children, apparelCategories }: Props) => {
-  const accountNavigation = useState({
+  const accountNavigation = useState<AccountNavigation>({
     activeIndex: 0,
     formattedCategories: [
       {
         account: {
-          id: 0,
-          categoryList: []
+          id: "0",
+          categoryList: [],
         },
         orders: {
-          id: 1,
-          categoryList: []
+          id: "1",
+          categoryList: [],
         },
         wishlists: {
-          id: 2,
-          categoryList: []
+          id: "2",
+          categoryList: [],
         },
-      }
+      },
     ],
     components: [AccountSettings, Fragment, Fragment],
     As: "button",
     // onNavChange: e => onNavIndexChange(e.target.id),
   });
-  const apparelNavigation = useState({
+  const apparelNavigation = useState<ApparelNavigation>({
     activeIndex: 0,
-    unformattedCategories: apparelCategories, 
+    unformattedCategories: apparelCategories,
     formattedCategories: makeCategoryTree(
       splitCategoryNamesWithId(apparelCategories)
     ),
     currentCategoryId: "",
   });
 
-  const handleNavigationChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+  const handleNavigationChange: React.ChangeEventHandler<HTMLInputElement> = (
+    e
+  ) => {
     apparelNavigation[1]({
       ...apparelNavigation[0],
       currentCategoryId: e.target.id,
@@ -53,7 +61,7 @@ const NavigationProvider = ({ children, apparelCategories }: Props) => {
 
   return (
     <NavigationContext.Provider
-      value={useMemo(
+      value={useMemo<NavigationContextType>(
         () => ({
           accountNavigation,
           apparelNavigation,
@@ -68,6 +76,13 @@ const NavigationProvider = ({ children, apparelCategories }: Props) => {
   );
 };
 
+export const useNavigation = () => {
+  const currentNavigation = useContext(NavigationContext);
+  if (!currentNavigation) {
+    throw new Error("Hooks have to be used within Providers");
+  }
+
+  return currentNavigation;
+};
+
 export default NavigationProvider;
-
-
