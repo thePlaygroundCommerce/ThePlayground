@@ -1,10 +1,18 @@
-'use client'
+"use client";
 
-import clsx from "clsx"
+import clsx from "clsx";
+import { useFormStatus } from "react-dom";
 
-const Button = ({ children, onClick, className }: any) => {
+const Button = ({ children, onClick, className, type }: any) => {
+  let pending = false;
+  if (type == "submit") pending = useFormStatus().pending;
+
   return (
-    <button className={clsx(className, "border p-3 rounded-lg")} onClick={onClick}>
+    <button
+      aria-disabled={pending}
+      className={clsx("border p-3 rounded-lg", className)}
+      onClick={onClick}
+    >
       {children}
     </button>
   );

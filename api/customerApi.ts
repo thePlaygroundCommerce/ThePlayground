@@ -1,5 +1,4 @@
 "use server"
-
 import { DEFAULT_INIT } from "./";
 import { CONFIG } from "../constants"
 
@@ -21,7 +20,7 @@ export async function createCustomer(request: Record<string, FormDataEntryValue>
     .catch((err) => err);
 }
 
-export async function callToActionCreateForm(a: boolean, formData: FormData) {
+export async function callToActionCreateForm(formData: FormData) {
 
   const request: Record<string, FormDataEntryValue> = {};
   for (const [key, value] of formData.entries()) {

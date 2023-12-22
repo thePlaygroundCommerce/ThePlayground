@@ -1,7 +1,8 @@
 "use client";
 // @ts-ignore
-import { experimental_useFormState as useFormState } from "react-dom";
+import { useFormState } from "react-dom";
 import { callToActionCreateForm } from "api/customerApi";
+import Button from "components/Button";
 
 const NewsletterForm = ({
   primary,
@@ -16,8 +17,13 @@ const NewsletterForm = ({
   variation: any;
   placeholder: any;
 }) => {
-  // const { pending } = useFormStatus();
-  const [{ isSubmitted }, formAction] = useFormState(callToActionCreateForm, { });
+  const submitForm = (_previousState: any, formData: FormData) => {
+    callToActionCreateForm(formData);
+    return { isSubmitted: true };
+  };
+  const [{ isSubmitted }, formAction] = useFormState(submitForm, {
+    isSubmitted: false,
+  });
 
   return (
     <>
@@ -27,10 +33,7 @@ const NewsletterForm = ({
           description}
       </h6>
       {isSubmitted || (
-        <form
-          className="text-black"
-          action={formAction}
-        >
+        <form className="text-black" action={formAction}>
           {variation !== "onlyButton" && (
             <input
               type="email"
@@ -40,17 +43,13 @@ const NewsletterForm = ({
               placeholder={placeholder?.toString()}
             />
           )}
-          <button
-            // aria-disabled={pending}
-            type="submit"
-            className="text-white p-2 bg-slate-700"
-          >
+          <Button type="submit" className="text-white p-2 bg-slate-700">
             {primary?.action_button_text ?? "Join Now"}
-          </button>
+          </Button>
         </form>
       )}
     </>
   );
 };
 
-export default NewsletterForm
+export default NewsletterForm;

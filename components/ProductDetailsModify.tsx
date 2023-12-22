@@ -70,6 +70,8 @@ const ProductDetailsModify = ({ catalogObject }: Props) => {
     itemData?.variations![0].itemVariationData?.priceMoney?.amount ?? 50
   ).toString();
 
+  console.log(itemData)
+
   const data: ItemDataType<number>[] = itemData?.variations!.map(
     ({ itemVariationData }, i) => ({
       label: itemVariationData?.name?.slice(0, 1).toUpperCase(),
