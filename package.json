@@ -6,6 +6,7 @@
     "dev": "next dev -p 3005",
     "build": "next build",
     "start": "next start -p 3005",
+    "cypress:open": "cypress open",
     "slicemachine": "start-slicemachine"
   },
   "dependencies": {
@@ -39,7 +40,7 @@
   "devDependencies": {
     "@slicemachine/adapter-next": "^0.3.21",
     "autoprefixer": "^10.4.14",
-    "cypress": "^13.5.1",
+    "cypress": "13.5.1",
     "eslint-config-next": "^13.4.12",
     "postcss": "^8.4.27",
     "slice-machine-ui": "^1.18.0",

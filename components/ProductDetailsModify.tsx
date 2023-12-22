@@ -1,14 +1,11 @@
 "use client";
 import { useCart } from "context/cartContext";
 import { SetStateAction, useState } from "react";
-import Counter from "./Counter";
-import { Tab } from "@headlessui/react";
-import Button from "./Button";
-import { SelectPicker } from "rsuite";
 import { AppProps } from "types";
 import { CatalogObject, OrderLineItem } from "square";
 import { ItemDataType } from "rsuite/esm/@types/common";
 import { getCheckoutUrl } from "api/checkoutApi";
+import ProductDetailsModifyPresenter from "./ProductDetailsModifyPresenter";
 
 type Props = AppProps & {
   catalogObject: CatalogObject;
@@ -81,79 +78,18 @@ const ProductDetailsModify = ({ catalogObject }: Props) => {
   );
 
   return (
-    <div className="m-auto">
-      <div className="flex mb-7 p-3">
-        <div className="basis-full">
-          <p className="mb-1 h4">SWaNK</p>
-          <p className="mb-1 h4 fw-bold">{itemData?.name}</p>
-          <p>$ {amount}</p>
-        </div>
-        <div className="basis-full grow flex flex-col items-center">
-          <div className="w-3/4">
-            <Counter
-              count={+quantity}
-              onCountChange={setQuantity}
-              childrenElement={<></>}
-            />
-          </div>
-          <SelectPicker
-            data={data}
-            onChange={handleSelectChange}
-            searchable={false}
-            cleanable={false}
-            placeholder={itemData?.variations![
-              selectedVariation
-            ].itemVariationData?.name?.slice(0, 1)}
-            defaultValue={selectedVariation}
-          />
-        </div>
-      </div>
-      <div className="flex pb-7 border-b justify-around">
-        <Button onClick={handleBuyNow}>Buy Now</Button>
-        <Button onClick={handleAddToCart}>
-          {!(+(isProductInCart()?.quantity ?? 0) > 0)
-            ? "Add To Cart"
-            : "Update Cart"}
-        </Button>
-      </div>
-      <div className="mb-7">
-        <Tab.Group defaultIndex={0}>
-          <Tab.List className="mb-3 pb-2 p-3 border-b">
-            <Tab className="pe-3">Details</Tab>
-            <Tab className="pe-3">Mission</Tab>
-            <Tab className="pe-3">Shop The Style</Tab>
-          </Tab.List>
-          <Tab.Panel className="px-3">
-            <div>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Est
-              placerat in egestas erat imperdiet sed. Neque laoreet suspendisse
-              interdum consectetur.
-            </div>
-          </Tab.Panel>
-          <Tab.Panel className="px-3">
-            <div>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </div>
-            <div>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </div>
-          </Tab.Panel>
-        </Tab.Group>
-      </div>
-    </div>
+    <ProductDetailsModifyPresenter
+      amount={amount}
+      itemData={itemData}
+      quantity={quantity}
+      setQuantity={setQuantity}
+      data={data}
+      handleSelectChange={handleSelectChange}
+      selectedVariation={selectedVariation}
+      handleBuyNow={handleBuyNow}
+      handleAddToCart={handleAddToCart}
+      isProductInCart={isProductInCart}
+    />
   );
 };
 
