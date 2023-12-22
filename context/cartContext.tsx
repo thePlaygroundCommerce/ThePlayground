@@ -9,7 +9,7 @@ import { CartContextType } from "types";
 
 export const CartContext = createContext<CartContextType | null>(null);
 
-const CartProvider = ({ apparelData, children }: any) => {
+const CartProvider = ({ children }: any) => {
   const [cookies, setCookie] = useCookies();
   const toggleCartOverlay = useState<boolean>(false);
   const [cartItemImages, setCartItemImages] = useState<{
@@ -57,6 +57,8 @@ const CartProvider = ({ apparelData, children }: any) => {
     const { order } = await callCreateCart({
       order: { state, lineItems: catalogOrder },
     });
+
+    console.log(order)
 
     setCookie("cartID", order.id, {
       path: "/",
