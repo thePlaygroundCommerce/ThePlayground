@@ -39,6 +39,7 @@ export async function callCreateCart(catalogOrder: any, init = DEFAULT_INIT) {
     })
     .then((order) => {
       console.log("Cart Successfully Created");
+      console.log(order)
       return order.result;
     })
     .catch((err) => console.log(err));
