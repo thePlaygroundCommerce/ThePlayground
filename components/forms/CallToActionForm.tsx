@@ -1,7 +1,6 @@
 "use client";
 // @ts-ignore
 import { experimental_useFormState as useFormState } from "react-dom";
-import { experimental_useFormStatus as useFormStatus } from "react-dom";
 import { callToActionCreateForm } from "api/customerApi";
 import Spinner from "components/Spinner";
 
@@ -18,7 +17,7 @@ const CallToActionForm = ({
   variation: any;
   placeholder: any;
 }) => {
-  const { pending } = useFormStatus();
+  // const { pending } = useFormStatus();
   const [{ isSubmitted }, formAction] = useFormState(callToActionCreateForm, { });
 
   return (
@@ -43,7 +42,7 @@ const CallToActionForm = ({
             />
           )}
           <button
-            aria-disabled={pending}
+            // aria-disabled={pending}
             type="submit"
             className="text-white p-2 bg-slate-700"
           >

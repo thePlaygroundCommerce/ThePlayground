@@ -5,9 +5,9 @@ import Image from "next/image";
 import { createClient } from "prismicio";
 
 async function Header() {
-  let doc;
+  let navs = [];
   try {
-    doc = await createClient().getSingle("header", {
+    const doc = await createClient().getSingle("header", {
       graphQuery: `
       {
         header {
@@ -22,6 +22,8 @@ async function Header() {
       }
       `,
     });
+
+    navs = doc.data.navs
   } catch (error) {
     console.log(error);
   }
@@ -45,7 +47,7 @@ async function Header() {
             </div>
             <div className="">
               <div className="flex justify-around ">
-                <HeaderNavigation navs={doc.data.navs} />
+                <HeaderNavigation navs={navs} />
               </div>
             </div>
             <div className="">

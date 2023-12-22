@@ -4,26 +4,28 @@ import { SliceZone } from "@prismicio/react";
 
 const Page = async () => {
   const client = createClient();
+  let slices = [];
 
-  const [{ data, data: { slices } } = { data: { slices: [] } }] =
-    await client.getAllByType("homepage", {
+  try {
+    const data = await client.getAllByType("homepage", {
       graphQuery: `
-    {
-      homepage {
-        slices {
-          ... on hero {
-            variation {
-              ... on withCta {
-                primary {
-                  ...primaryFields
-                  cta {
-                    ... on cta_email {
-                      slices {
-                        ... on call_to_action {
-                          variation {
-                            ... on onlyButton {
-                              primary {
-                                ...primaryFields
+      {
+        homepage {
+          slices {
+            ... on hero {
+              variation {
+                ... on withCta {
+                  primary {
+                    ...primaryFields
+                    cta {
+                      ... on cta_email {
+                        slices {
+                          ... on call_to_action {
+                            variation {
+                              ... on onlyButton {
+                                primary {
+                                  ...primaryFields
+                                }
                               }
                             }
                           }
@@ -34,34 +36,38 @@ const Page = async () => {
                 }
               }
             }
-          }
-          ... on featured_categories {
-            variation {
-              ... on default {
-                items {
-                  category {
-                    ... on categorylink {
-                      ...categorylinkFields
+            ... on featured_categories {
+              variation {
+                ... on default {
+                  items {
+                    category {
+                      ... on categorylink {
+                        ...categorylinkFields
+                      }
                     }
                   }
                 }
               }
             }
-          }
-          ... on hero_2 {
-            variation {
-              ... on default {
-                primary {
-                  ...primaryFields
+            ... on hero_2 {
+              variation {
+                ... on default {
+                  primary {
+                    ...primaryFields
+                  }
                 }
               }
             }
           }
         }
       }
-    }
-  `,
+    `,
     });
+
+    slices = data.slices;
+  } catch (error) {
+    console.log(error);
+  }
 
   return <SliceZone slices={slices} components={components} />;
 };

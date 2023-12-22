@@ -1,13 +1,11 @@
-import React from 'react'
+import React from "react";
 
-const CartPricing = (lineItems) => {
-
-
+const CartPricing = () => {
   return (
     <div>
       <p>Subtotal</p>
     </div>
-  )
-}
+  );
+};
 
-export default CartPricing
+export default CartPricing;
