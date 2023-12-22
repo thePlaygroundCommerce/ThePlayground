@@ -7,7 +7,7 @@ const Page = async () => {
   let slices = [];
 
   try {
-    const data = await client.getAllByType("homepage", {
+    const [{ data }] = await client.getAllByType("homepage", {
       graphQuery: `
       {
         homepage {
@@ -63,10 +63,11 @@ const Page = async () => {
       }
     `,
     });
-
+    console.log(data);
     slices = data.slices;
   } catch (error) {
     console.log(error);
+    console.log("AHere");
   }
 
   return <SliceZone slices={slices} components={components} />;
