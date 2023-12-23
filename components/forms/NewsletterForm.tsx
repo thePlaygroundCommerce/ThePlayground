@@ -17,8 +17,8 @@ const NewsletterForm = ({
   variation: any;
   placeholder: any;
 }) => {
-  const submitForm = (_previousState: any, formData: FormData) => {
-    callToActionCreateForm(formData);
+  const submitForm = (previousState: any, formData: FormData) => {
+    callToActionCreateForm(previousState, formData);
     return { isSubmitted: true };
   };
   const [{ isSubmitted }, formAction] = useFormState(submitForm, {
