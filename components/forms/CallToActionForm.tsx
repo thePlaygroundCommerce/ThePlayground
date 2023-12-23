@@ -1,6 +1,5 @@
 "use client";
-// @ts-ignore
-import { experimental_useFormState as useFormState } from "react-dom";
+import { useFormState } from "react-dom";
 import { callToActionCreateForm } from "api/customerApi";
 import Spinner from "components/Spinner";
 
@@ -17,8 +16,10 @@ const CallToActionForm = ({
   variation: any;
   placeholder: any;
 }) => {
-  // const { pending } = useFormStatus();
-  const [{ isSubmitted }, formAction] = useFormState(callToActionCreateForm, { });
+  const [{ isSubmitted }, formAction] = useFormState(callToActionCreateForm, {
+    isSubmitted: false,
+    error: null,
+  });
 
   return (
     <>
@@ -28,10 +29,7 @@ const CallToActionForm = ({
           description}
       </h6>
       {isSubmitted || (
-        <form
-          className="text-black"
-          action={formAction}
-        >
+        <form className="text-black" action={formAction}>
           {variation !== "onlyButton" && (
             <input
               type="email"

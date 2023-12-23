@@ -1,31 +1,57 @@
 import { CONFIG } from "../constants";
-
-import { DEFAULT_INIT } from "."
+import { DEFAULT_INIT } from ".";
+import logger from "util/logger";
 
 const BASE_PATH = CONFIG.square[process.env.NODE_ENV].url + "carts";
 
+const processRes = async (promise: Promise<Response>) => {
+  let statusText;
+
+  const log = {
+    msg: "Cart Operation - " + "",
+    backendReq: "",
+    backendRes: "",
+  };
+
+  return promise
+    .then((res) => {
+      statusText = res.statusText
+      return res.json();
+    })
+    .then(({ result }) => {
+      logger.info(log);
+      return result.order;
+    })
+    .catch((err) => logger.error(err))
+    .finally(() => {});
+};
+
 export async function callGetCart(orderId: string) {
+
   return fetch(`${BASE_PATH}/${orderId}`)
     .then((res) => res.json())
     .then(({ result }) => {
-
+      logger.info(result);
       return result.order;
     })
-    .catch((err) => console.log(err));
+    .catch((err) => logger.error(err));
 }
 
-export async function callUpdateCart({ orderID, order, fieldsToClear } : any, init = DEFAULT_INIT ) {
+export async function callUpdateCart(
+  { orderID, order, fieldsToClear }: any,
+  init = DEFAULT_INIT
+) {
   return fetch(`${BASE_PATH}/update/${orderID}`, {
     ...DEFAULT_INIT,
     ...init,
-    body: JSON.stringify({order, fieldsToClear}),
+    body: JSON.stringify({ order, fieldsToClear }),
   })
     .then((res) => res.json())
     .then(({ result }) => {
-      console.log("Cart Successfully Updated");
+      logger.info("Cart Successfully Updated");
       return result.order;
     })
-    .catch((err) => console.log(err));
+    .catch((err) => logger.error(err));
 }
 
 export async function callCreateCart(catalogOrder: any, init = DEFAULT_INIT) {
@@ -39,7 +65,7 @@ export async function callCreateCart(catalogOrder: any, init = DEFAULT_INIT) {
     })
     .then((order) => {
       console.log("Cart Successfully Created");
-      console.log(order)
+      console.log(order);
       return order.result;
     })
     .catch((err) => console.log(err));
