@@ -5,6 +5,8 @@ export const DEFAULT_FETCH_INIT = {
     "Content-Type": "application/json",
   },
 };
+
+export const SQUARE_URL = process.env.SQUARE_ENV
 export const CONFIG = {
   square: {
     development: {

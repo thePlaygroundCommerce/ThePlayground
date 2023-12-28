@@ -1,8 +1,8 @@
-import { CONFIG } from "../constants";
+import { SQUARE_URL } from "../constants";
 import { DEFAULT_INIT } from ".";
 import logger from "util/logger";
 
-const BASE_PATH = CONFIG.square[process.env.NODE_ENV].url + "carts";
+const BASE_PATH = SQUARE_URL + "carts";
 
 const processRes = async (promise: Promise<Response>) => {
   let statusText;

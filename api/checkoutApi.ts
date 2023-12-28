@@ -4,7 +4,7 @@ import {
   BatchRetrieveCatalogObjectsResponse,
   RetrieveOrderResponse,
 } from "square";
-import { CONFIG } from "../constants";
+import { CONFIG, SQUARE_URL } from "../constants";
 
 export async function getOrderAndCatalogObjects(orderId: string): Promise<
   | {
@@ -15,7 +15,7 @@ export async function getOrderAndCatalogObjects(orderId: string): Promise<
 > {
   try {
     const { order } = await fetch(
-      CONFIG.square[process.env.NODE_ENV].url + "checkout/order/" + orderId,
+      SQUARE_URL + "checkout/order/" + orderId,
       { next: { revalidate: 0 } }
     )
       .then((res) => res.json())
@@ -27,7 +27,7 @@ export async function getOrderAndCatalogObjects(orderId: string): Promise<
     );
 
     const objects = await fetch(
-      CONFIG.square[process.env.NODE_ENV].url + "catalog",
+      SQUARE_URL + "catalog",
       {
         next: { revalidate: 0 },
         method: "POST",
@@ -57,7 +57,7 @@ export async function getOrderAndCatalogObjects(orderId: string): Promise<
 }
 
 export async function getCheckoutUrl(lineItems: any) {
-  return await fetch(CONFIG.square[process.env.NODE_ENV].url + "checkout", {
+  return await fetch(SQUARE_URL + "checkout", {
     next: { revalidate: 0 },
     method: "POST",
     headers: { "Content-Type": "application/json" },

@@ -1,6 +1,6 @@
 import { URLSearchParams } from "url";
 import { DEFAULT_INIT } from ".";
-import { CONFIG } from "../constants";
+import { SQUARE_URL } from "../constants";
 
 const checkForErrors = (data: any) => {
   if (data.errors) {
@@ -14,7 +14,7 @@ const checkForErrors = (data: any) => {
 };
 
 export async function getCatalogItemsByCategory(request: any) {
-  const fetchUrl = `${CONFIG.square[process.env.NODE_ENV].url}catalog/search`;
+  const fetchUrl = `${SQUARE_URL}catalog/search`;
   const init = {
     ...DEFAULT_INIT,
     body: JSON.stringify(request),
@@ -32,7 +32,7 @@ export async function getCatalogItemsByCategory(request: any) {
 export async function getCatalogObjects(types: any) {
   const queryParams = new URLSearchParams({ types });
   const fetchUrl = `${
-    CONFIG.square[process.env.NODE_ENV].url
+    SQUARE_URL
   }catalog/objects?${queryParams}`;
 
   return await fetch(fetchUrl, { next: { revalidate: 0 } }) // TODO must set to appropriate value in prod
@@ -44,7 +44,7 @@ export async function getCatalogObjects(types: any) {
 export async function getProductDetails({ params: { slug } }: any) {
   try {
     const catalogObject = await fetch(
-      CONFIG.square[process.env.NODE_ENV].url + "catalog/" + slug
+      SQUARE_URL + "catalog/" + slug
     )
       .then((res) => res.json())
       .catch((err) => err);
