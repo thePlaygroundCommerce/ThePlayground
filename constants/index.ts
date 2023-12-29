@@ -6,7 +6,4 @@ export const DEFAULT_FETCH_INIT = {
   },
 };
 
-export const SQUARE_URL = process.env.NEXT_PUBLIC_SQUARE_ENV
-
-
-// export { default as SOCIAL_MEDIA_COMPONENT_MAP } from "./SocialMediaComponentMap";
+export const SQUARE_URL = process.env.SQUARE_URL

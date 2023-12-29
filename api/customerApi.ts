@@ -1,12 +1,12 @@
 "use server"
 import { DEFAULT_INIT } from "./";
-import { CONFIG } from "../constants"
+import { SQUARE_URL } from "../constants"
 
 
 
 export async function createCustomer(request: Record<string, FormDataEntryValue>) {
   const fetchUrl = `${
-    CONFIG.square[process.env.NODE_ENV].url
+    SQUARE_URL
   }customers/create`;
   const init = {
     ...DEFAULT_INIT,

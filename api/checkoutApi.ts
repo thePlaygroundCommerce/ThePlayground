@@ -4,7 +4,7 @@ import {
   BatchRetrieveCatalogObjectsResponse,
   RetrieveOrderResponse,
 } from "square";
-import { CONFIG, SQUARE_URL } from "../constants";
+import { SQUARE_URL } from "../constants";
 
 export async function getOrderAndCatalogObjects(orderId: string): Promise<
   | {
