@@ -3,8 +3,11 @@ import { createClient } from "prismicio";
 import { SliceZone } from "@prismicio/react";
 
 const Page = async () => {
+  console.log("starting page 1");
   const client = createClient();
   let slices = [];
+
+  console.log("starting page");
 
   try {
     const [{ data }] = await client.getAllByType("homepage", {
