@@ -25,7 +25,7 @@ function Footer() {
       </div>
       <div className="flex justify-center mt-4">
         <Link href="/">
-          <Image src="/The Playground Logo_Black.svg" height={75} width={75} />
+          <Image alt="Logo" src="/The Playground Logo_Black.svg" height={75} width={75} />
         </Link>
       </div>
     </footer>

@@ -3,14 +3,9 @@ import { createClient } from "prismicio";
 import { SliceZone } from "@prismicio/react";
 
 const Page = async () => {
-  console.log("starting page 1");
   const client = createClient();
   let slices = [];
-
-  console.log("starting page");
-  
   try {
-    console.log("getting slices");
     const [{ data }] = await client.getAllByType("homepage", {
       graphQuery: `
       {
@@ -70,9 +65,7 @@ const Page = async () => {
     
     slices = data.slices;
 
-    console.log("recieved slices");
   } catch (error) {
-    console.log("recieved ERROR");
     console.log(error);
   }
 

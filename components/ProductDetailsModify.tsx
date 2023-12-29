@@ -8,17 +8,17 @@ import { getCheckoutUrl } from "api/checkoutApi";
 import ProductDetailsModifyPresenter from "./ProductDetailsModifyPresenter";
 
 type Props = AppProps & {
-  catalogObject: CatalogObject;
+  catalogItemObject: CatalogObject;
+  catalogImageObject: CatalogObject[];
 };
 
-const ProductDetailsModify = ({ catalogObject }: Props) => {
+const ProductDetailsModify = ({ catalogItemObject, catalogImageObject }: Props) => {
   const {
     cart: { lineItems = [] },
     addCartItem,
   } = useCart();
 
-  const itemData = catalogObject.itemData!;
-  const imageData = catalogObject.imageData!;
+  const itemData = catalogItemObject.itemData!;
 
   const isProductInCart = (itemVariationId?: string) =>
     lineItems?.find(({ catalogObjectId }) => {
@@ -47,8 +47,7 @@ const ProductDetailsModify = ({ catalogObject }: Props) => {
     } else {
       lineItem.catalogObjectId = itemVariationId;
     }
-
-    addCartItem(lineItem, catalogObject.imageData);
+    addCartItem(lineItem, catalogImageObject[0].imageData);
   };
 
   const handleBuyNow = async () => {
@@ -69,8 +68,6 @@ const ProductDetailsModify = ({ catalogObject }: Props) => {
   const amount = BigInt(
     itemData?.variations![0].itemVariationData?.priceMoney?.amount ?? 50
   ).toString();
-
-  console.log(itemData)
 
   const data: ItemDataType<number>[] = itemData?.variations!.map(
     ({ itemVariationData }, i) => ({

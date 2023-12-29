@@ -1,6 +1,7 @@
+"use server"
+
 import { URLSearchParams } from "url";
-import { DEFAULT_INIT } from ".";
-import { SQUARE_URL } from "../constants";
+import { DEFAULT_FETCH_INIT, SQUARE_URL } from "../constants";
 
 const checkForErrors = (data: any) => {
   if (data.errors) {
@@ -16,7 +17,7 @@ const checkForErrors = (data: any) => {
 export async function getCatalogItemsByCategory(request: any) {
   const fetchUrl = `${SQUARE_URL}catalog/search`;
   const init = {
-    ...DEFAULT_INIT,
+    ...DEFAULT_FETCH_INIT,
     body: JSON.stringify(request),
     next: { revalidate: 0 }, // TODO must set to appropriate value in prod
   }

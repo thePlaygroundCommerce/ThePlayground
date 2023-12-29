@@ -29,6 +29,7 @@ const CartProvider = ({ children }: any) => {
 
   const getCart = async () => {
     const order: Order = await callGetCart(cookies.cartID);
+    console.log(order)
     if (order) populateCart(order);
   };
 
@@ -46,6 +47,7 @@ const CartProvider = ({ children }: any) => {
         fieldsToClear,
       };
       const order = await callUpdateCart(body, { method: "PUT" });
+      console.log(order)
       populateCart(order);
     } else {
       createCart(lineItems, undefined);
@@ -116,6 +118,7 @@ const CartProvider = ({ children }: any) => {
   };
 
   const populateCart = (order: Order) => {
+    
     setCart({
       ...order,
       id: cookies.cartID,

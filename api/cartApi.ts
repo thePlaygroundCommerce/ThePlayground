@@ -1,37 +1,24 @@
-import { SQUARE_URL } from "../constants";
-import { DEFAULT_INIT } from ".";
+"use server";
+
+import { processRes } from "api";
+import { DEFAULT_FETCH_INIT, SQUARE_URL } from "../constants";
+
 import logger from "util/logger";
 
 const BASE_PATH = SQUARE_URL + "carts";
-
-const processRes = async (promise: Promise<Response>) => {
-  let statusText;
-
-  const log = {
-    msg: "Cart Operation - " + "",
-    backendReq: "",
-    backendRes: "",
-  };
-
-  return promise
-    .then((res) => {
-      statusText = res.statusText
-      return res.json();
-    })
-    .then(({ result }) => {
-      logger.info(log);
-      return result.order;
-    })
-    .catch((err) => logger.error(err))
-    .finally(() => {});
+const SQUARE_ORDER_CACHE_REVALIDATION = {
+  next: { tags: ["square", "order"] },
 };
 
 export async function callGetCart(orderId: string) {
-
   return fetch(`${BASE_PATH}/${orderId}`)
     .then((res) => res.json())
     .then(({ result }) => {
-      logger.info(result);
+      processRes(
+        result,
+        "Cart Successfully Retrieved!",
+        "Cart Retrieval Failed"
+      );
       return result.order;
     })
     .catch((err) => logger.error(err));
@@ -39,34 +26,35 @@ export async function callGetCart(orderId: string) {
 
 export async function callUpdateCart(
   { orderID, order, fieldsToClear }: any,
-  init = DEFAULT_INIT
+  init = DEFAULT_FETCH_INIT
 ) {
   return fetch(`${BASE_PATH}/update/${orderID}`, {
-    ...DEFAULT_INIT,
+    ...DEFAULT_FETCH_INIT,
     ...init,
     body: JSON.stringify({ order, fieldsToClear }),
   })
     .then((res) => res.json())
     .then(({ result }) => {
-      logger.info("Cart Successfully Updated");
+      processRes(result, "Cart Successfully Updated", "Cart Update Failed");
       return result.order;
     })
     .catch((err) => logger.error(err));
 }
 
-export async function callCreateCart(catalogOrder: any, init = DEFAULT_INIT) {
+export async function callCreateCart(
+  catalogOrder: any,
+  init = DEFAULT_FETCH_INIT
+) {
   return fetch(`${BASE_PATH}/create`, {
     ...init,
-    method: "POST",
     body: JSON.stringify(catalogOrder),
   })
     .then((res) => {
       return res.json();
     })
-    .then((order) => {
-      console.log("Cart Successfully Created");
-      console.log(order);
-      return order.result;
+    .then(({ result }) => {
+      processRes(result, "Cart Successfully Created", "Cart Creation Failed");
+      return result;
     })
     .catch((err) => console.log(err));
 }

@@ -22,7 +22,6 @@ function ProductImageGallery({ images }) {
                   height={250}
                   alt="picture of shirt"
                   onClick={() => setActiveVariationIndex(i)}
-                  // fill
                 />
               </div>
             )

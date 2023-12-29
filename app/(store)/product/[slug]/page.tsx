@@ -1,16 +1,21 @@
-import ProductDetailsModify from "components/ProductDetailsModify";
-import ProductImageGallery from "components/ProductImageGallery";
 import { getProductDetails } from "api/catalogApi";
 import Breadcrumbs from "components/Breadcrumbs";
+import ProductDetailsModify from "components/ProductDetailsModify";
+import ProductImageGallery from "components/ProductImageGallery";
+import { AppProps } from "next/app";
 
-const Page = async (props) => {
+type Props = AppProps & {
+  params: { slug: string };
+};
+
+const Page = async (props: Props) => {
   const { catalogObject } = await getProductDetails(props);
 
   const renderProductError = () => <p>Something went wrong!</p>;
   const renderProductDetails = () => {
     const { relatedObjects } = catalogObject;
     const filteredRelatedImages = relatedObjects.filter(
-      ({ type }) => type == "IMAGE"
+      ({ type }: { type: any }) => type == "IMAGE"
     );
 
     return (
@@ -25,7 +30,10 @@ const Page = async (props) => {
           </div>
 
           <div>
-            <ProductDetailsModify catalogObject={catalogObject.object} />
+            <ProductDetailsModify
+              catalogItemObject={catalogObject.object}
+              catalogImageObject={filteredRelatedImages}
+            />
           </div>
         </div>
       </>

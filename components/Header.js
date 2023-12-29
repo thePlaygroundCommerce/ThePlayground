@@ -41,6 +41,7 @@ async function Header() {
               <Link href="/">
                 <Image
                   src="/The Playground Logo_Black.svg"
+                  alt="Logo"
                   height={75}
                   width={75}
                 />
