@@ -10,6 +10,7 @@ const Page = async () => {
   console.log("starting page");
   
   try {
+    console.log("getting slices");
     const [{ data }] = await client.getAllByType("homepage", {
       graphQuery: `
       {
@@ -64,8 +65,9 @@ const Page = async () => {
           }
         }
       }
-    `,
+      `,
     });
+    
     slices = data.slices;
 
     console.log("recieved slices");
