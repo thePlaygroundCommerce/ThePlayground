@@ -7,3 +7,5 @@ export const DEFAULT_FETCH_INIT = {
 };
 
 export const SQUARE_URL = process.env.SQUARE_URL
+console.log(SQUARE_URL)
+console.log(process.env.PRISMIC_ACCESS_TOKEN)
