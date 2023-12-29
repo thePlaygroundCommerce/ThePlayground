@@ -60,46 +60,46 @@ export const makeCategoryTree = (
     return acc;
   }, {});
 
-const unregister = fetchIntercept.register({
-  request: function (url, config) {
-    // const _url = new URL(url);
-    // const host = _url.hostname;
-    // const path = _url.pathname;
-    // const log = {
-    //   host,
-    //   path,
-    //   body: config.body,
-    // };
+// const unregister = fetchIntercept.register({
+//   request: function (url, config) {
+//     // const _url = new URL(url);
+//     // const host = _url.hostname;
+//     // const path = _url.pathname;
+//     // const log = {
+//     //   host,
+//     //   path,
+//     //   body: config.body,
+//     // };
 
-    // logger.info(log);
-    return [url, config];
-  },
+//     // logger.info(log);
+//     return [url, config];
+//   },
 
-  requestError: function (error) {
-    return Promise.reject(error);
-  },
+//   requestError: function (error) {
+//     return Promise.reject(error);
+//   },
 
-  response: function (response) {
-    const clonedResponse = response.clone();
-    clonedResponse
-      .json()
-      .then((data) => {
-        const log = {
-          status: response.statusText,
-          errors: data.errors,
-        };
+//   response: function (response) {
+//     const clonedResponse = response.clone();
+//     clonedResponse
+//       .json()
+//       .then((data) => {
+//         const log = {
+//           status: response.statusText,
+//           errors: data.errors,
+//         };
 
-        if (data.errors) logger.error(log);
-      })
-      .catch((err) => logger.error(err));
+//         if (data.errors) logger.error(log);
+//       })
+//       .catch((err) => logger.error(err));
 
-    return response;
-  },
+//     return response;
+//   },
 
-  responseError: function (error) {
-    return Promise.reject(error);
-  },
-});
+//   responseError: function (error) {
+//     return Promise.reject(error);
+//   },
+// });
 
 // unregister interceptors
 // unregister();

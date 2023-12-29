@@ -22,6 +22,7 @@ async function Header() {
       }
       `,
     });
+    
 
     navs = doc.data.navs
   } catch (error) {
