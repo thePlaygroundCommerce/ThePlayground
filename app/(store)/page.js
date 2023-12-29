@@ -8,7 +8,7 @@ const Page = async () => {
   let slices = [];
 
   console.log("starting page");
-
+  
   try {
     const [{ data }] = await client.getAllByType("homepage", {
       graphQuery: `
@@ -67,7 +67,10 @@ const Page = async () => {
     `,
     });
     slices = data.slices;
+
+    console.log("recieved slices");
   } catch (error) {
+    console.log("recieved ERROR");
     console.log(error);
   }
 
