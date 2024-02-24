@@ -65,7 +65,7 @@ export async function getCheckoutUrl(lineItems: any) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       order: { lineItems },
-      checkoutOptions: { redirectUrl: "http://localhost:3005/checkout/" },
+      checkoutOptions: { redirectUrl: "http://localhost:3005/shop/checkout/" },
     }),
   })
     .then((res) => res.json())

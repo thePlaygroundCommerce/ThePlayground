@@ -19,57 +19,59 @@ type Props = AppProps & {
 };
 
 const NavigationProvider = ({ children, apparelCategories }: Props) => {
-  const accountNavigation = useState<AccountNavigation>({
-    activeIndex: 0,
-    formattedCategories: [
-      {
-        account: {
-          id: "0",
-          categoryList: [],
-        },
-        orders: {
-          id: "1",
-          categoryList: [],
-        },
-        wishlists: {
-          id: "2",
-          categoryList: [],
-        },
-      },
-    ],
-    components: [AccountSettings, Fragment, Fragment],
-    As: "button",
-    // onNavChange: e => onNavIndexChange(e.target.id),
-  });
-  const apparelNavigation = useState<ApparelNavigation>({
-    activeIndex: 0,
-    unformattedCategories: apparelCategories,
-    formattedCategories: makeCategoryTree(
-      splitCategoryNamesWithId(apparelCategories)
-    ),
-    currentCategoryId: "",
-  });
+  // const accountNavigation = useState<AccountNavigation>({
+  //   activeIndex: 0,
+  //   formattedCategories: [
+  //     {
+  //       account: {
+  //         id: "0",
+  //         categoryList: [],
+  //       },
+  //       orders: {
+  //         id: "1",
+  //         categoryList: [],
+  //       },
+  //       wishlists: {
+  //         id: "2",
+  //         categoryList: [],
+  //       },
+  //     },
+  //   ],
+  //   components: [AccountSettings, Fragment, Fragment],
+  //   As: "button",
+  //   // onNavChange: e => onNavIndexChange(e.target.id),
+  // });
+  // const apparelNavigation = useState<ApparelNavigation>({
+  //   activeIndex: 0,
+  //   unformattedCategories: apparelCategories,
+  //   formattedCategories: makeCategoryTree(
+  //     splitCategoryNamesWithId(apparelCategories)
+  //   ),
+  //   currentCategoryId: "",
+  // });
 
-  const handleNavigationChange: React.ChangeEventHandler<HTMLInputElement> = (
-    e
-  ) => {
-    apparelNavigation[1]({
-      ...apparelNavigation[0],
-      currentCategoryId: e.target.id,
-    });
-  };
+  // const handleNavigationChange: React.ChangeEventHandler<HTMLInputElement> = (
+  //   e
+  // ) => {
+  //   apparelNavigation[1]({
+  //     ...apparelNavigation[0],
+  //     currentCategoryId: e.target.id,
+  //   });
+  // };
 
   return (
     <NavigationContext.Provider
-      value={useMemo<NavigationContextType>(
-        () => ({
-          accountNavigation,
-          apparelNavigation,
-          apparelCategories,
-          handleNavigationChange,
-        }),
-        [accountNavigation, apparelNavigation, apparelCategories]
-      )}
+    value={null}
+      // value={useMemo<NavigationContextType>(
+      //   () => ({
+      //     // accountNavigation,
+      //     // apparelNavigation,
+      //     apparelCategories,
+      //     handleNavigationChange,
+      //   }),
+      //   // [accountNavigation, apparelNavigation, apparelCategories]
+      //   []
+      // )}
     >
       {children}
     </NavigationContext.Provider>

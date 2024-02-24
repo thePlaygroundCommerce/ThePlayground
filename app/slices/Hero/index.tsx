@@ -52,7 +52,7 @@ const Hero = ({
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="flex justify-center items-center bgimg w-full h-screen w3-display-container text-white"
+      className="flex rounded-[8rem] overflow-hidden justify-center items-center bgimg w-full h-screen w3-display-container text-white"
     >
       {hero_bg_image?.url && (
         <Image

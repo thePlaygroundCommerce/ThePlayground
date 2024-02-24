@@ -22,9 +22,8 @@ async function Header() {
       }
       `,
     });
-    
 
-    navs = doc.data.navs
+    navs = doc.data.navs;
   } catch (error) {
     console.log(error);
   }
@@ -32,9 +31,6 @@ async function Header() {
   return (
     <header className="sticky top-0 border-b z-10 bg-white w-full">
       <div className="relative">
-        <p className="bg-black text-white px-4 p-2">
-          Free Shipping on Orders over $100!
-        </p>
         <div className="px-8 py-3">
           <div className="w-full h-9 flex justify-between items-center">
             <div className="">
@@ -48,9 +44,12 @@ async function Header() {
               </Link>
             </div>
             <div className="">
-              <div className="flex justify-around ">
+              <p className="bg-black text-white px-4 p-2">
+                Free Shipping on Orders over $100!
+              </p>
+              {/* <div className="flex justify-around ">
                 <HeaderNavigation navs={navs} />
-              </div>
+              </div> */}
             </div>
             <div className="">
               <HeaderActions />

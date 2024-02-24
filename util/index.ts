@@ -1,7 +1,5 @@
 import { CatalogObject } from "square";
 import { SplitCategoryNameWithId, CategoryTree } from "types";
-import * as fetchIntercept from "fetch-intercept";
-import logger from "./logger";
 
 export function splitCategoryNames(arr: CatalogObject[]): string[][] {
   return arr?.map(({ categoryData }) =>

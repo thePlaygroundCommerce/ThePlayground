@@ -5,29 +5,29 @@ import Image from "next/image";
 
 function Footer() {
   return (
-    <footer className="border-t p-5 px-16">
+    <footer className="border-t p-5">
       <div className="flex">
-        <div className="w-full flex items-end flex-col pr-6 text-center">
+        <div className="w-full flex items-end flex-col text-right">
           <div>
             <p>About Us</p>
-            <p>Feedback & Returns</p>
             <p>Contact Us</p>
             <p>Terms & Conditions</p>
+            <p>Feedback & Returns</p>
           </div>
+          <SocialMediaButtons className="" align="center" />
         </div>
-        <div className="w-full pl-6">
+        {/* <div className="w-full pl-6">
           <p>You should keep a eye on us, we're a bit crazy.</p>
           <div className="w-max">
             <NewsletterForm />
-            <SocialMediaButtons className="" align="center" />
           </div>
-        </div>
+        </div> */}
       </div>
-      <div className="flex justify-center mt-4">
+      {/* <div className="flex justify-center mt-4">
         <Link href="/">
           <Image alt="Logo" src="/The Playground Logo_Black.svg" height={75} width={75} />
         </Link>
-      </div>
+      </div> */}
     </footer>
   );
 }
