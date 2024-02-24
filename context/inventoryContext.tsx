@@ -7,22 +7,28 @@ export const InventoryContext = createContext({});
 
 type Props = AppProps & {
   apparelData: {
-    image: any;
-    item: any;
+    apparelImages: any;
+    apparelItems: any;
   };
-  handleCategoryChange: () => void
-}
+  handleCategoryChange?: () => void;
+};
 
-const InventoryProvider = ({ children, apparelData, handleCategoryChange }: Props) => {
-  const [catalogImages, setCatalogImages] = useState(apparelData.image);
-  const [catalogItems, setCatalogItems] = useState(apparelData.item);
+const InventoryProvider = ({
+  children,
+  apparelData,
+  handleCategoryChange = () => {},
+}: Props) => {
+  const [catalogImages, setCatalogImages] = useState(apparelData.apparelImages);
+  const [catalogItems, setCatalogItems] = useState(apparelData.apparelItems);
 
   const onCategoryChange = () => {
-    setCatalogItems(handleCategoryChange())
-  }
+    setCatalogItems(handleCategoryChange());
+  };
 
   return (
-    <InventoryContext.Provider value={{ catalogItems, catalogImages, onCategoryChange }}>
+    <InventoryContext.Provider
+      value={{ catalogItems, catalogImages, onCategoryChange }}
+    >
       {children}
     </InventoryContext.Provider>
   );
