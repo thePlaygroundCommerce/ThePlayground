@@ -59,9 +59,7 @@ export default async function RootLayout({ children }: Props) {
       <body className="h-full">
         <Providers data={mappedCatalogItems}>
           <main className="h-full flex flex-col">
-            <div className="">
-              <Header />
-            </div>
+            <Header />
             <div className="grid grid-cols-6 h-full overflow-hidden">
               <div className="col-span-1 p-4 pr-8 flex flex-col pt-8 h-full sidebar-box-shadow">
                 <div className="h-full flex flex-col justify-center">

@@ -5,6 +5,7 @@ import { SliceZone } from "@prismicio/react";
 const Page = async () => {
   const client = createClient();
   let slices = [];
+  // throw Error("Inetntional Error")
   try {
     const [{ data }] = await client.getAllByType("homepage", {
       graphQuery: `
