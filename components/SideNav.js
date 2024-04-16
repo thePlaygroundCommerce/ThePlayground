@@ -54,9 +54,9 @@ export default function SideNav() {
   return (
     <nav className="text-end">
       <ul>
-        <li><Link href={"/"}>Home</Link></li>
+        {/* <li><Link href={"/"}>Home</Link></li> */}
         <li><Link href="/shop" >Shop</Link></li>
-        <li><Link href={"/explore"}>Explore</Link></li>
+        {/* <li><Link href={"/explore"}>Explore</Link></li> */}
       </ul>
     </nav>
   )
