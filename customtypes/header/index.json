@@ -1,0 +1,33 @@
+{
+  "id": "header",
+  "label": "HeaderNavigation",
+  "format": "custom",
+  "repeatable": false,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": {
+        "type": "UID",
+        "config": {
+          "label": "UID",
+          "placeholder": ""
+        }
+      },
+      "navs": {
+        "type": "Group",
+        "config": {
+          "label": "Navs",
+          "fields": {
+            "nav": {
+              "type": "Link",
+              "config": {
+                "label": "Nav",
+                "select": "document"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -106,6 +106,6 @@
       }
     ]
   },
-  "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx", "context/navigationContext.js", "components/Breadcrumbs.js", "context/cartContext.js", "(store)/slice-simulator/page.tsx", "next.config.js"],
+  "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx", "context/navigationContext.tsx", "components/Breadcrumbs.tsx", "context/cartContext.tsx", "app/slice-simulator/page.tsx", "next.config.js", "components/forms/NewsletterForm.tsx", "cypress.config.ts", "components/OrderList.js"],
   "exclude": ["node_modules"]
 }

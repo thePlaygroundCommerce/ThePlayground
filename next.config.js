@@ -1,8 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    serverActions: true,
-  },
   images: {
     remotePatterns: [
       {
@@ -19,12 +16,31 @@ const nextConfig = {
       },
       {
         protocol: "https",
+        hostname: "images.unsplash.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
         hostname: "images.prismic.io",
         port: "",
         pathname: "/theplaygroundmedia/**",
       },
+      {
+        protocol: "https",
+        hostname: "theplaygroundmedia.cdn.prismic.io",
+        port: "",
+        pathname: "/theplaygroundmedia/**",
+      },
     ],
-  }
+  },
+  redirects: () => [
+    {
+      source: '/',
+      destination: '/shop',
+      permanent: true,
+    }
+  ]
 };
 
 

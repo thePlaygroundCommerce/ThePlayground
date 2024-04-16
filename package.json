@@ -6,20 +6,23 @@
     "dev": "next dev -p 3005",
     "build": "next build",
     "start": "next start -p 3005",
+    "cypress:open": "cypress open",
     "slicemachine": "start-slicemachine"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.15",
-    "@prismicio/client": "^7.2.0",
-    "@prismicio/next": "^1.3.4",
-    "@prismicio/react": "^2.7.2",
+    "@prismicio/client": "latest",
+    "@prismicio/next": "latest",
+    "@prismicio/react": "latest",
     "@sentry/nextjs": "^7.72.0",
     "@types/node": "^20.5.0",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "@vercel/analytics": "^1.1.1",
     "clsx": "^2.0.0",
-    "next": "^13.5.3",
+    "fetch-intercept": "^2.4.0",
+    "lodash": "^4.17.21",
+    "next": "^14.1.4",
     "pino": "^8.15.0",
     "react": "^18.2.0",
     "react-bootstrap-icons": "^1.10.3",
@@ -29,18 +32,21 @@
     "react-hook-form": "^7.47.0",
     "react-icons": "^4.10.1",
     "react-image-magnifiers": "^1.4.0",
+    "rsuite": "^5.41.0",
     "sass": "^1.26.10",
     "sharp": "^0.32.5",
     "square": "^30.0.0",
     "typescript": "^5.1.6",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "whatwg-fetch": "^3.6.20"
   },
   "devDependencies": {
-    "@slicemachine/adapter-next": "^0.3.14",
+    "@slicemachine/adapter-next": "latest",
     "autoprefixer": "^10.4.14",
+    "cypress": "13.5.1",
     "eslint-config-next": "^13.4.12",
     "postcss": "^8.4.27",
-    "slice-machine-ui": "^1.12.0",
+    "slice-machine-ui": "latest",
     "tailwindcss": "^3.3.3"
   }
 }

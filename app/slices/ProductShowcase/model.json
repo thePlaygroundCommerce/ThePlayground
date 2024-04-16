@@ -1,0 +1,215 @@
+{
+  "id": "hero_2",
+  "type": "SharedSlice",
+  "name": "ProductShowcase",
+  "description": "Hero",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "eyebrowHeadline": {
+          "type": "Text",
+          "config": {
+            "label": "eyebrowHeadline",
+            "placeholder": "Eyebrow"
+          }
+        },
+        "title": {
+          "type": "StructuredText",
+          "config": {
+            "label": "title",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "single": "heading1,heading2,heading3,heading4,heading5,heading6,strong,em"
+          }
+        },
+        "description": {
+          "type": "StructuredText",
+          "config": {
+            "label": "description",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,hyperlink,embed,rtl,strong,em,list-item,o-list-item"
+          }
+        },
+        "image": {
+          "type": "Image",
+          "config": {
+            "label": "image",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "callToActionLabel": {
+          "type": "Text",
+          "config": {
+            "label": "callToActionLabel",
+            "placeholder": ""
+          }
+        },
+        "callToActionLink": {
+          "type": "Link",
+          "config": {
+            "label": "callToActionLink",
+            "placeholder": "",
+            "select": null
+          }
+        },
+        "description_align": {
+          "type": "Text",
+          "config": {
+            "label": "Description Align",
+            "placeholder": ""
+          }
+        }
+      },
+      "items": {}
+    },
+    {
+      "id": "imageRight",
+      "name": "Image Right",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "eyebrowHeadline": {
+          "type": "Text",
+          "config": {
+            "label": "eyebrowHeadline",
+            "placeholder": "Eyebrow"
+          }
+        },
+        "title": {
+          "type": "StructuredText",
+          "config": {
+            "label": "title",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "single": "heading1,heading2,heading3,heading4,heading5,heading6,strong,em"
+          }
+        },
+        "description": {
+          "type": "StructuredText",
+          "config": {
+            "label": "description",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,hyperlink,embed,rtl,strong,em,list-item,o-list-item"
+          }
+        },
+        "image": {
+          "type": "Image",
+          "config": {
+            "label": "image",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "callToActionLabel": {
+          "type": "Text",
+          "config": {
+            "label": "callToActionLabel",
+            "placeholder": ""
+          }
+        },
+        "callToActionLink": {
+          "type": "Link",
+          "config": {
+            "label": "callToActionLink",
+            "placeholder": "",
+            "select": null
+          }
+        },
+        "description_align": {
+          "type": "Text",
+          "config": {
+            "label": "Description Align",
+            "placeholder": ""
+          }
+        }
+      },
+      "items": {}
+    },
+    {
+      "id": "textContentLeft",
+      "name": "TextContentLeft",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "eyebrowHeadline": {
+          "type": "Text",
+          "config": {
+            "label": "eyebrowHeadline",
+            "placeholder": "Eyebrow"
+          }
+        },
+        "title": {
+          "type": "StructuredText",
+          "config": {
+            "label": "title",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "single": "heading1,heading2,heading3,heading4,heading5,heading6,strong,em"
+          }
+        },
+        "description": {
+          "type": "StructuredText",
+          "config": {
+            "label": "description",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,hyperlink,embed,rtl,strong,em,list-item,o-list-item"
+          }
+        },
+        "callToActionLabel": {
+          "type": "Text",
+          "config": {
+            "label": "callToActionLabel",
+            "placeholder": ""
+          }
+        },
+        "callToActionLink": {
+          "type": "Link",
+          "config": {
+            "label": "callToActionLink",
+            "placeholder": "",
+            "select": null
+          }
+        },
+        "background_image": {
+          "type": "Image",
+          "config": {
+            "label": "Background Image",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "description_align": {
+          "type": "Text",
+          "config": {
+            "label": "Description Align",
+            "placeholder": ""
+          }
+        },
+        "showcase_title": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Showcase Title",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

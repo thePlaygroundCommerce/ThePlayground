@@ -1,0 +1,263 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"title": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "heading2",
+						"content": {
+							"text": "Build a website that keeps getting better",
+							"spans": []
+						},
+						"direction": "ltr"
+					}
+				]
+			},
+			"eyebrowHeadline": {
+				"__TYPE__": "FieldContent",
+				"type": "Text",
+				"value": "Hero"
+			},
+			"description": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Learn how prismic.io helps thousands of businesses around the world with some of our customers’ use-cases",
+							"spans": []
+						},
+						"direction": "ltr"
+					}
+				]
+			},
+			"image": {
+				"url": "https://images.unsplash.com/photo-1522010675502-c7b3888985f6?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzc0NjN8MHwxfHNlYXJjaHwxfHxUb3VyaXN0fGVufDB8fHx8MTY5NzU5MDUyMHww&ixlib=rb-4.0.3&q=85",
+				"origin": {
+					"id": "7etIYqqw2jU",
+					"url": "https://images.unsplash.com/photo-1522010675502-c7b3888985f6?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzc0NjN8MHwxfHNlYXJjaHwxfHxUb3VyaXN0fGVufDB8fHx8MTY5NzU5MDUyMHww&ixlib=rb-4.0.3&q=85",
+					"width": 3648,
+					"height": 5472
+				},
+				"width": 3648,
+				"height": 5472,
+				"edit": {
+					"background": "transparent",
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					}
+				},
+				"credits": null,
+				"alt": null,
+				"__TYPE__": "ImageContent",
+				"thumbnails": {}
+			},
+			"callToActionLabel": {
+				"__TYPE__": "FieldContent",
+				"type": "Text",
+				"value": "Call to Action"
+			},
+			"callToActionLink": {
+				"__TYPE__": "LinkContent",
+				"value": {
+					"__TYPE__": "ExternalLink",
+					"url": "https://prismic.io",
+					"target": ""
+				}
+			},
+			"description_align": {
+				"__TYPE__": "FieldContent",
+				"value": "measure",
+				"type": "Text"
+			}
+		},
+		"items": []
+	},
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "imageRight",
+		"primary": {
+			"eyebrowHeadline": {
+				"__TYPE__": "FieldContent",
+				"type": "Text",
+				"value": "Image Right"
+			},
+			"title": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "heading1",
+						"content": {
+							"text": "Build a website",
+							"spans": []
+						},
+						"direction": "ltr"
+					}
+				]
+			},
+			"description": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Learn how prismic.io helps thousands of businesses around the world with some of our customers’ use-cases, including Image Right slice variations!",
+							"spans": []
+						},
+						"direction": "ltr"
+					},
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "\nBy the way: this RichText field supports multi-paragraph!",
+							"spans": []
+						},
+						"direction": "ltr"
+					}
+				]
+			},
+			"image": {
+				"origin": {
+					"id": "euqiHwS38Rw",
+					"url": "https://images.unsplash.com/photo-1595475207225-428b62bda831?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzc0NjN8MHwxfHNlYXJjaHwyMHx8ZnJ1aXR8ZW58MHx8fHwxNjk0NDQyOTc2fDA&ixlib=rb-4.0.3&q=85",
+					"width": 2500,
+					"height": 2500
+				},
+				"url": "https://images.unsplash.com/photo-1595475207225-428b62bda831?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzc0NjN8MHwxfHNlYXJjaHwyMHx8ZnJ1aXR8ZW58MHx8fHwxNjk0NDQyOTc2fDA&ixlib=rb-4.0.3&q=85",
+				"width": 2500,
+				"height": 2500,
+				"edit": {
+					"background": "transparent",
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					}
+				},
+				"credits": null,
+				"alt": "Image Content",
+				"__TYPE__": "ImageContent",
+				"thumbnails": {}
+			},
+			"callToActionLabel": {
+				"__TYPE__": "FieldContent",
+				"type": "Text",
+				"value": "Call to Action"
+			},
+			"callToActionLink": {
+				"__TYPE__": "LinkContent",
+				"value": {
+					"__TYPE__": "ExternalLink",
+					"url": "https://prismic.io",
+					"target": ""
+				}
+			},
+			"description_align": {
+				"__TYPE__": "FieldContent",
+				"value": "fall",
+				"type": "Text"
+			}
+		},
+		"items": [
+			{
+				"__TYPE__": "GroupItemContent",
+				"value": []
+			}
+		]
+	},
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "textContentLeft",
+		"primary": {
+			"eyebrowHeadline": {
+				"__TYPE__": "FieldContent",
+				"value": "driving",
+				"type": "Text"
+			},
+			"title": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "heading1",
+						"content": {
+							"text": "Again"
+						}
+					}
+				]
+			},
+			"description": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Deserunt officia elit Lorem occaecat nulla in deserunt laboris. Veniam fugiat irure ad reprehenderit incididunt occaecat velit minim nostrud qui."
+						}
+					}
+				]
+			},
+			"callToActionLabel": {
+				"__TYPE__": "FieldContent",
+				"value": "brain",
+				"type": "Text"
+			},
+			"callToActionLink": {
+				"__TYPE__": "LinkContent",
+				"value": {
+					"__TYPE__": "ExternalLink",
+					"url": "https://slicemachine.dev"
+				}
+			},
+			"background_image": {
+				"origin": {
+					"id": "main",
+					"url": "https://images.unsplash.com/photo-1593642532973-d31b6557fa68",
+					"width": 8640,
+					"height": 8640
+				},
+				"url": "https://images.unsplash.com/photo-1593642532973-d31b6557fa68",
+				"width": 8640,
+				"height": 8640,
+				"edit": {
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					},
+					"background": "transparent"
+				},
+				"credits": null,
+				"alt": null,
+				"__TYPE__": "ImageContent",
+				"thumbnails": {}
+			},
+			"description_align": {
+				"__TYPE__": "FieldContent",
+				"value": "attached",
+				"type": "Text"
+			},
+			"showcase_title": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Deserunt magna incididunt non velit ad et reprehenderit officia labore fugiat occaecat pariatur. Aute reprehenderit occaecat laboris irure. Adipisicing commodo sit est est aute velit."
+						}
+					}
+				]
+			}
+		},
+		"items": [
+			{
+				"__TYPE__": "GroupItemContent",
+				"value": []
+			}
+		]
+	}
+]

@@ -1,16 +1,13 @@
 "use server"
 
-import { DEFAULT_INIT } from "./";
-import { CONFIG } from "../constants"
-
-
+import { DEFAULT_FETCH_INIT, SQUARE_URL } from "../constants"
 
 export async function createCustomer(request: Record<string, FormDataEntryValue>) {
   const fetchUrl = `${
-    CONFIG.square[process.env.NODE_ENV].url
+    SQUARE_URL
   }customers/create`;
   const init = {
-    ...DEFAULT_INIT,
+    ...DEFAULT_FETCH_INIT,
     body: JSON.stringify(request),
     next: { revalidate: 60 * 15  }, // TODO must set to appropriate value in prod
   };
@@ -21,9 +18,8 @@ export async function createCustomer(request: Record<string, FormDataEntryValue>
     .catch((err) => err);
 }
 
-export async function callToActionCreateForm(a: boolean, formData: FormData) {
+export async function callToActionCreateForm(state: any, formData: FormData) {
 
-  // console.log(formData)
   const request: Record<string, FormDataEntryValue> = {};
   for (const [key, value] of formData.entries()) {
     request[key] = value;

@@ -4,29 +4,39 @@
 
 html,
 body {
-  font-family: rift-regular, rift-soft, -apple-system, Helvetica Neue, sans-serif;
+  font-family:
+    rift-regular,
+    rift-soft,
+    -apple-system,
+    Helvetica Neue,
+    sans-serif;
   font-size: 1rem;
   font-weight: 200;
   font-style: normal;
   line-height: 1.5;
-  letter-spacing: .06rem;
+  letter-spacing: 0.06rem;
 }
-a{
+a {
   color: black;
   text-decoration-line: none;
 }
-a:hover{
+a:hover {
   text-decoration: none;
   color: red;
-} 
-main{
+}
+main {
   min-height: 100vh;
 }
-.btn-primary{
+.btn-primary {
   background-color: initial;
 }
 
-
+.sidebar-box-shadow {
+  box-shadow:
+    rgba(50, 50, 93, 0.25) 10px 0px 60px,
+    rgba(50, 50, 93, 0.25) 0px -5px 10px inset,
+    // rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
 
 .badge {
   width: 10px;
@@ -44,10 +54,9 @@ img {
 }
 
 input::-webkit-outer-spin-button,
-      input::-webkit-inner-spin-button {
-        display: none;
-      }
-
+input::-webkit-inner-spin-button {
+  display: none;
+}
 
 .thelogo {
   position: relative;
@@ -74,8 +83,8 @@ html {
 }
 .bgimg {
   min-height: 100%;
-  background-position: center;
-  background-size: cover;
+  // background-position: center;
+  // background-size: cover;
 }
 
 /* W3.CSS 4.15 December 2020 by Jan Egil and Borge Refsnes */
@@ -402,7 +411,9 @@ a {
   white-space: nowrap;
 }
 .w3-btn:hover {
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow:
+    0 8px 16px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .w3-btn,
 .w3-button {
@@ -1019,11 +1030,15 @@ a {
 }
 .w3-card,
 .w3-card-2 {
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  box-shadow:
+    0 2px 5px 0 rgba(0, 0, 0, 0.16),
+    0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
 .w3-card-4,
 .w3-hover-shadow:hover {
-  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 4px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow:
+    0 4px 10px 0 rgba(0, 0, 0, 0.2),
+    0 4px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .w3-spin {
   animation: w3-spin 2s infinite linear;

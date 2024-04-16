@@ -5,25 +5,25 @@ import Cart from "./Cart";
 import Link from "next/link";
 import Button from "./Button";
 import { useContext } from "react";
-import { CartContext } from "context/cartContext";
-import CartOverlay from "./CartOverlay";
+import { useCart } from "context/cartContext";
+import CartOverlay from "./CartOverlay.tsx";
 import { CheckoutContext } from "context/checkoutContext";
 
 function HeaderActions() {
   const {
     toggleCartOverlay: [toggleCartOverlay, setToggleCartOverlay],
-  } = useContext(CartContext);
+  } = useCart();
     const { getCheckoutUrl } = useContext(CheckoutContext)
   const handleCartToggle = (e, bool = !toggleCartOverlay) => setToggleCartOverlay(bool);
 
   return (
-    <div className="flex items-center justify-end">
+    <div className="">
       <button onClick={handleCartToggle} className="p-1">
         <Cart />
       </button>
       <Popover>
         {toggleCartOverlay && (
-          <div className="absolute border bg-white z-20 p-2 top-0 right-0 w-1/3 h-screen">
+          <div className="absolute border bg-white z-20 p-2 top-full right-0 w-1/3 h-screen">
             <Popover.Overlay className="fixed inset-0 bg-black opacity-30" />
             <Popover.Panel static>
               <CartOverlay handleCartToggle={handleCartToggle} getCheckoutUrl={getCheckoutUrl} />

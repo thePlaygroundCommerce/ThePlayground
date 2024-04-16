@@ -11,7 +11,7 @@ const ProductGrid = ({ catalogItems, catalogImages }) => {
         const images = catalogImages?.filter(({ id }) => itemImages.includes(id) );
         return (
           <div key={id}>
-            <Link href={`/product/${encodeURIComponent(id)}`}>
+            <Link href={`/shop/product/${encodeURIComponent(id)}`}>
               <ProductItem itemData={itemData} images={images} />
             </Link>
           </div>
