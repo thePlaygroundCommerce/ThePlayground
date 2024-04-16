@@ -69,7 +69,7 @@ export default async function RootLayout({ children }: Props) {
                   <Footer />
                 </div>
               </div>
-              <div className="col-span-5 px-16 py-8 overflow-y-scroll max-h-full">
+              <div className="col-span-5 py-8 overflow-y-scroll max-h-full">
                 {children}
               </div>
             </div>

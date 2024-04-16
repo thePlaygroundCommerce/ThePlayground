@@ -1,0 +1,17 @@
+export const contentPositions = {
+    startTop: "translate-x-0 translate-y-0",
+    startThird: "translate-x-full translate-y-1/3",
+    startMiddle: "translate-x-1/2 translate-y-0",
+    startThirdQuarter: "translate-x-full translate-y-3/4",
+    startEnd: "translate-x-full translate-y-0",
+    centerTop: "translate-x-0 translate-y-1/2",
+    centerThird: "translate-x-full translate-y-1/3",
+    centerMiddle: "translate-x-1/2 translate-y-1/2",
+    centerThirdQuarter: "translate-x-full translate-y-3/4",
+    centerEnd: "translate-x-full translate-y-1/2",
+    bottomTop: "translate-x-full translate-y-0",
+    bottomThird: "translate-x-full translate-y-1/3",
+    bottomMiddle: "translate-x-full translate-y-1/2",
+    bottomThirdQuarter: "translate-x-full translate-y-3/4",
+    bottomEnd: "translate-x-full translate-y-full",
+}

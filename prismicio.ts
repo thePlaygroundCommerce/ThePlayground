@@ -18,10 +18,10 @@ const routes: prismic.ClientConfig["routes"] = [
     type: "coming_soon",
     path: "/comingsoon",
   },
-  // {
-  //   type: "page",
-  //   path: "/:uid",
-  // },
+  {
+    type: "homepage",
+    path: "/",
+  }
 ];
 
 /**
@@ -37,7 +37,7 @@ export const createClient = (config: prismicNext.CreateClientConfig = {}) => {
     fetchOptions:
       process.env.NODE_ENV === "production"
         ? { next: { tags: ["prismic"] } }
-        : { next: { revalidate: 5 } },
+        : { next: { revalidate: 0 } },
     ...config,
   });
 

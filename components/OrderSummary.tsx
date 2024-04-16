@@ -1,6 +1,6 @@
 import React from "react";
 
-const OrderSummary = ({ order }) => {
+const OrderSummary = ({}) => {
   return <div>OrderSummary</div>;
 };
 

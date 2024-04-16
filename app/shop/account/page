@@ -1,17 +1,17 @@
-import Button from "components/Button";
-import LoginForm from "components/LoginForm";
-import Settings from "components/Settings";
+// import Button from "components/Button";
+// import LoginForm from "components/LoginForm";
+// import Settings from "components/Settings";
 
-const Account = ({ params: { nav = "account" } }) => {
-  const navToComponentMap = {
-    account: Settings
-  }
+// const Account = ({ params: { nav = "account" } }) => {
+//   const navToComponentMap = {
+//     account: Settings
+//   }
 
-  const Component = navToComponentMap[nav];
+//   const Component = navToComponentMap[nav];
 
-  return (
-    <Component />
-  );
-};
+//   return (
+//     <Component />
+//   );
+// };
 
-export default Account;
+// export default Account;

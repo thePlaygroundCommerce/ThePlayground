@@ -49,6 +49,36 @@
             "placeholder_true": "true",
             "placeholder_false": "false"
           }
+        },
+        "embed_image": {
+          "type": "Embed",
+          "config": {
+            "label": "Embed Image",
+            "placeholder": ""
+          }
+        },
+        "description_font_size": {
+          "type": "Text",
+          "config": {
+            "label": "Description Font Size",
+            "placeholder": ""
+          }
+        },
+        "text_content_position": {
+          "type": "Text",
+          "config": {
+            "label": "Text Content Position",
+            "placeholder": ""
+          }
+        },
+        "fluid_container": {
+          "type": "Boolean",
+          "config": {
+            "label": "Fluid Container",
+            "default_value": false,
+            "placeholder_true": "true",
+            "placeholder_false": "false"
+          }
         }
       },
       "items": {}
@@ -94,6 +124,15 @@
           "type": "Boolean",
           "config": {
             "label": "Use Logo",
+            "default_value": false,
+            "placeholder_true": "true",
+            "placeholder_false": "false"
+          }
+        },
+        "fluid_container": {
+          "type": "Boolean",
+          "config": {
+            "label": "Fluid Container",
             "default_value": false,
             "placeholder_true": "true",
             "placeholder_false": "false"
@@ -162,6 +201,15 @@
             "placeholder_true": "true",
             "placeholder_false": "false"
           }
+        },
+        "fluid_container": {
+          "type": "Boolean",
+          "config": {
+            "label": "Fluid Container",
+            "default_value": false,
+            "placeholder_true": "true",
+            "placeholder_false": "false"
+          }
         }
       },
       "items": {
@@ -226,9 +274,112 @@
             "placeholder_true": "true",
             "placeholder_false": "false"
           }
+        },
+        "embed_image": {
+          "type": "Embed",
+          "config": {
+            "label": "Embed Image",
+            "placeholder": ""
+          }
+        },
+        "fluid_container": {
+          "type": "Boolean",
+          "config": {
+            "label": "Fluid Container",
+            "default_value": false,
+            "placeholder_true": "true",
+            "placeholder_false": "false"
+          }
         }
       },
       "items": {}
+    },
+    {
+      "id": "carousel",
+      "name": "Carousel",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "hero_title": {
+          "type": "Text",
+          "config": {
+            "label": "Hero Title",
+            "placeholder": ""
+          }
+        },
+        "hero_description": {
+          "type": "Text",
+          "config": {
+            "label": "Hero Description",
+            "placeholder": ""
+          }
+        },
+        "content_alignment": {
+          "type": "Text",
+          "config": {
+            "label": "Content Alignment",
+            "placeholder": ""
+          }
+        },
+        "use_logo": {
+          "type": "Boolean",
+          "config": {
+            "label": "Use Logo",
+            "default_value": false,
+            "placeholder_true": "true",
+            "placeholder_false": "false"
+          }
+        },
+        "cta": {
+          "type": "Link",
+          "config": {
+            "label": "Call To Action",
+            "select": "document"
+          }
+        },
+        "description_font_size": {
+          "type": "Text",
+          "config": {
+            "label": "Description Font Size",
+            "placeholder": ""
+          }
+        },
+        "text_content_position": {
+          "type": "Text",
+          "config": {
+            "label": "Text Content Position",
+            "placeholder": ""
+          }
+        },
+        "font_color": {
+          "type": "Color",
+          "config": {
+            "label": "Font Color",
+            "placeholder": ""
+          }
+        },
+        "fluid_container": {
+          "type": "Boolean",
+          "config": {
+            "label": "Fluid Container",
+            "default_value": false,
+            "placeholder_true": "true",
+            "placeholder_false": "false"
+          }
+        }
+      },
+      "items": {
+        "hero_bg_image": {
+          "type": "Image",
+          "config": {
+            "label": "Hero BG Image",
+            "constraint": {},
+            "thumbnails": []
+          }
+        }
+      }
     }
   ]
 }
