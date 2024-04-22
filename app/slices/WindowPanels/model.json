@@ -1,0 +1,52 @@
+{
+  "id": "window_panels",
+  "type": "SharedSlice",
+  "name": "WindowPanels",
+  "description": "WindowPanels",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {},
+      "items": {
+        "window_bg": {
+          "type": "Image",
+          "config": {
+            "label": "Window BG",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "window_description": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Window Description",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        },
+        "window_headline": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Window Headline",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        },
+        "call_to_action": {
+          "type": "Link",
+          "config": {
+            "label": "Call To Action",
+            "select": "document"
+          }
+        }
+      }
+    }
+  ]
+}

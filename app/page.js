@@ -69,6 +69,8 @@ const Page = async () => {
     console.log(error);
   }
 
+  console.log(slices)
+
   return <SliceZone slices={slices} components={components} />;
 };
 

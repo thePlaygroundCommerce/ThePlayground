@@ -35,12 +35,12 @@ export async function generateStaticParams() {
 
   return categoryObjects
     ? categoryObjects
-        .map(
-          ({ categoryData: { name } }: { categoryData: { name: string } }) => ({
-            category: name.toLowerCase(),
-          })
-        )
-        .concat(settingsNavs)
+      .map(
+        ({ categoryData: { name } }: { categoryData: { name: string } }) => ({
+          category: name.toLowerCase(),
+        })
+      )
+      .concat(settingsNavs)
     : [];
 }
 
@@ -55,25 +55,10 @@ export default async function RootLayout({ children }: Props) {
   );
 
   return (
-    <html lang="en" className="h-screen overflow-hidden">
+    <html lang="en" className="h-screen">
       <body className="h-full">
         <Providers data={mappedCatalogItems}>
-          <main className="h-full flex flex-col">
-            <Header />
-            <div className="grid grid-cols-6 h-full overflow-hidden">
-              <div className="col-span-1 p-4 pr-8 flex flex-col pt-8 h-full sidebar-box-shadow">
-                <div className="h-full flex flex-col justify-center">
-                  <SideNav />
-                </div>
-                <div className="">
-                  <Footer />
-                </div>
-              </div>
-              <div className="col-span-5 py-8 overflow-y-scroll max-h-full">
-                {children}
-              </div>
-            </div>
-          </main>
+          <LayoutB children={children}/>
         </Providers>
 
         <PrismicPreview repositoryName={repositoryName} />
@@ -81,3 +66,35 @@ export default async function RootLayout({ children }: Props) {
     </html>
   );
 }
+
+
+const LayoutA = ({ children }) => (
+  <main className="h-full flex flex-col">
+    <Header />
+    <div className="grid grid-cols-6 h-full overflow-hidden">
+      <div className="col-span-1 p-4 pr-8 flex flex-col pt-8 h-full sidebar-box-shadow">
+        <div className="h-full flex flex-col justify-center">
+          <SideNav />
+        </div>
+        <div className="">
+          <Footer />
+        </div>
+      </div>
+      <div className="col-span-5 py-8 overflow-y-scroll max-h-full">
+        {children}
+      </div>
+    </div>
+  </main>
+)
+
+const LayoutB = ({ children }) => (
+  <main className="h-full">
+    <Header />
+      <div className="max-h-full">
+        {children}
+        <div className="">
+          <Footer />
+        </div>
+      </div>
+  </main>
+)

@@ -9,4 +9,5 @@ export const components = {
   hero: dynamic(() => import("./Hero")),
   hero_2: dynamic(() => import("./ProductShowcase")),
   social_media_links: dynamic(() => import("./SocialMediaLinks")),
+  window_panels: dynamic(() => import("./WindowPanels")),
 };

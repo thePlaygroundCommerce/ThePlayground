@@ -226,6 +226,7 @@ export type HeaderDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<HeaderDocumentData>, "header", Lang>;
 
 type HomepageDocumentDataSlicesSlice =
+  | WindowPanelsSlice
   | FeaturedCategoriesSlice
   | Hero2Slice
   | HeroSlice;
@@ -1575,6 +1576,81 @@ export type SocialMediaLinksSlice = prismic.SharedSlice<
   SocialMediaLinksSliceVariation
 >;
 
+/**
+ * Primary content in *WindowPanels → Items*
+ */
+export interface WindowPanelsSliceDefaultItem {
+  /**
+   * Window BG field in *WindowPanels → Items*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: window_panels.items[].window_bg
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  window_bg: prismic.ImageField<never>;
+
+  /**
+   * Window Description field in *WindowPanels → Items*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: window_panels.items[].window_description
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  window_description: prismic.RichTextField;
+
+  /**
+   * Window Headline field in *WindowPanels → Items*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: window_panels.items[].window_headline
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  window_headline: prismic.RichTextField;
+
+  /**
+   * Call To Action field in *WindowPanels → Items*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: window_panels.items[].call_to_action
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  call_to_action: prismic.ContentRelationshipField;
+}
+
+/**
+ * Default variation for WindowPanels Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type WindowPanelsSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Record<string, never>,
+  Simplify<WindowPanelsSliceDefaultItem>
+>;
+
+/**
+ * Slice variation for *WindowPanels*
+ */
+type WindowPanelsSliceVariation = WindowPanelsSliceDefault;
+
+/**
+ * WindowPanels Shared Slice
+ *
+ * - **API ID**: `window_panels`
+ * - **Description**: WindowPanels
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type WindowPanelsSlice = prismic.SharedSlice<
+  "window_panels",
+  WindowPanelsSliceVariation
+>;
+
 declare module "@prismicio/client" {
   interface CreateClient {
     (
@@ -1648,6 +1724,10 @@ declare module "@prismicio/client" {
       SocialMediaLinksSliceDefaultItem,
       SocialMediaLinksSliceVariation,
       SocialMediaLinksSliceDefault,
+      WindowPanelsSlice,
+      WindowPanelsSliceDefaultItem,
+      WindowPanelsSliceVariation,
+      WindowPanelsSliceDefault,
     };
   }
 }
