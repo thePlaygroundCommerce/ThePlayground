@@ -8,7 +8,7 @@ import "rsuite/dist/rsuite.min.css";
 import "styles/globals.scss";
 
 import { PrismicPreview } from "@prismicio/next";
-import { repositoryName } from "prismicio";
+import { createClient, repositoryName } from "prismicio";
 import SideNav from "components/SideNav";
 import { AppProps } from "types";
 
@@ -18,33 +18,50 @@ export const metadata = {
 
 type Props = AppProps & {};
 
-export async function generateStaticParams() {
-  const { objects: categoryObjects = [] } = await getCatalogObjects("CATEGORY");
+// export async function generateStaticParams() {
+//   const { objects: categoryObjects = [] } = await getCatalogObjects("CATEGORY");
 
-  const settingsNavs = [
-    {
-      category: "account",
-    },
-    {
-      category: "orders",
-    },
-    {
-      category: "wishlists",
-    },
-  ];
+//   const settingsNavs = [
+//     {
+//       category: "account",
+//     },
+//     {
+//       category: "orders",
+//     },
+//     {
+//       category: "wishlists",
+//     },
+//   ];
 
-  return categoryObjects
-    ? categoryObjects
-      .map(
-        ({ categoryData: { name } }: { categoryData: { name: string } }) => ({
-          category: name.toLowerCase(),
-        })
-      )
-      .concat(settingsNavs)
-    : [];
-}
+//   return categoryObjects
+//     ? categoryObjects
+//       .map(
+//         ({ categoryData: { name } }: { categoryData: { name: string } }) => ({
+//           category: name.toLowerCase(),
+//         })
+//       )
+//       .concat(settingsNavs)
+//     : [];
+// }
 
 export default async function RootLayout({ children }: Props) {
+  const FOOTER_NAVIGATION = "footer_navigation";
+  const HEADER_NAVIGATION = "header";
+
+  const crFooterLinks = [".title", ".link"].map(
+    (link) => "categorylink" + link
+  );
+  const crHeaderLinks = [".title", ".link"].map(
+    (link) => "categorylink" + link
+  );
+
+  const client = createClient();
+  const {
+    results: [{ data: footerNavs }],
+  } = await client.getByType(FOOTER_NAVIGATION, { fetchLinks: crFooterLinks });
+  const {
+    results: [{ data: headerNavs }],
+  } = await client.getByType(HEADER_NAVIGATION, { fetchLinks: crHeaderLinks });
   const { objects: categoryObjects = [] } = await getCatalogObjects("CATEGORY");
   const { objects: apparelObjects = [] } = await getCatalogObjects(
     "ITEM,IMAGE,CATEGORY"
@@ -58,7 +75,7 @@ export default async function RootLayout({ children }: Props) {
     <html lang="en" className="h-screen">
       <body className="h-full">
         <Providers data={mappedCatalogItems}>
-          <LayoutB children={children}/>
+          <LayoutB children={children} navs={{ footerNavs, headerNavs }} />
         </Providers>
 
         <PrismicPreview repositoryName={repositoryName} />
@@ -67,8 +84,7 @@ export default async function RootLayout({ children }: Props) {
   );
 }
 
-
-const LayoutA = ({ children }) => (
+const LayoutA = ({ children, navs: { headerNavs, footerNavs } }) => (
   <main className="h-full flex flex-col">
     <Header />
     <div className="grid grid-cols-6 h-full overflow-hidden">
@@ -85,16 +101,16 @@ const LayoutA = ({ children }) => (
       </div>
     </div>
   </main>
-)
+);
 
-const LayoutB = ({ children }) => (
+const LayoutB = ({ children, navs: { headerNavs, footerNavs } }) => (
   <main className="h-full">
-    <Header />
-      <div className="max-h-full">
-        {children}
-        <div className="">
-          <Footer />
-        </div>
+    <Header navs={headerNavs.navs} />
+    <div className="max-h-full">
+      {children}
+      <div className="">
+        <Footer navs={footerNavs.navs} />
       </div>
+    </div>
   </main>
-)
+);

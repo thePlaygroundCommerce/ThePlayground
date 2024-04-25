@@ -26,6 +26,13 @@
           "constraint": {},
           "thumbnails": []
         }
+      },
+      "link": {
+        "type": "Text",
+        "config": {
+          "label": "link",
+          "placeholder": ""
+        }
       }
     }
   }
