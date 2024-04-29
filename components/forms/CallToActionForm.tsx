@@ -1,7 +1,6 @@
 "use client";
 import { useFormState } from "react-dom";
 import { callToActionCreateForm } from "api/customerApi";
-import Spinner from "components/Spinner";
 import Link from "next/link";
 
 type CallToActionProps = {

@@ -3,9 +3,15 @@ import HeaderActions from "./HeaderActions";
 import Link from "next/link";
 import Image from "next/image";
 import { createClient } from "prismicio";
+import { HeaderDocumentDataNavsItem, Simplify } from "prismicio-types";
 
 async function Header() {
-  let navs = [];
+  let navs:
+    | [
+        Simplify<HeaderDocumentDataNavsItem>,
+        ...Simplify<HeaderDocumentDataNavsItem>[],
+      ]
+    | never[] = [];
   try {
     const doc = await createClient().getSingle("header", {
       graphQuery: `
@@ -28,7 +34,7 @@ async function Header() {
     console.log(error);
   }
 
-  console.log(navs)
+  console.log(navs);
 
   return (
     <header className="sticky border-b z-10 bg-white w-full grid grid-cols-6">

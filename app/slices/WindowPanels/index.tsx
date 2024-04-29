@@ -20,7 +20,7 @@ const WindowPanels = ({ slice }: WindowPanelsProps): JSX.Element => {
     >
       {slice.items.map(
         (
-          { window_bg, window_description, window_headline, call_to_action },
+          { window_bg },
           i
         ) => {
 
@@ -40,9 +40,9 @@ const WindowPanels = ({ slice }: WindowPanelsProps): JSX.Element => {
             >
               <Window
                 imageProps={{ ...imageProps }}
-                window_headline={window_headline}
-                window_description={window_description}
-                call_to_action={call_to_action}
+                // window_headline={window_headline}
+                // window_description={window_description}
+                // call_to_action={call_to_action}
               />
             </div>
           );
@@ -53,11 +53,8 @@ const WindowPanels = ({ slice }: WindowPanelsProps): JSX.Element => {
 };
 
 const Window = ({
-  imageProps,
-  window_headline,
-  window_description,
-  call_to_action,
-}) => (
+  imageProps
+}: { imageProps: any}) => (
   <div className="relative h-full">
     <div className="-z-10 w-full h-full absolute rounded-lg">
       <Image {...imageProps} />
@@ -71,11 +68,11 @@ const Window = ({
           <PrismicRichText field={window_description} />
         </div> */}
       </div>
-      {isFilled.link(call_to_action) && (
+      {/* {isFilled.link(call_to_action) && (
         <div>
           <Button>Learn More</Button>
         </div>
-      )}
+      )} */}
     </div>
   </div>
 );

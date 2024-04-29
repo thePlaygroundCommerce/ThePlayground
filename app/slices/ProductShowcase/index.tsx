@@ -19,6 +19,7 @@ import { ReactNode, createElement } from "react";
 import { Form } from "rsuite";
 import { createClient } from "../../../prismicio";
 import { redirect } from "next/navigation";
+import { AppProps } from "types";
 
 export type Hero2Props = SliceComponentProps<Content.Hero2Slice>;
 type PrismicImageProps =
@@ -40,12 +41,12 @@ const Window = ({ children }: { children: ReactNode }) => (
 const Default = ({ children }: { children: ReactNode }) => (
   <div className="w-full h-full">{children}</div>
 );
-const List = ({ children, key }) => (
+const List = ({ children, key }: AppProps) => (
   <ul className="m-4 list-disc" key={key}>
     {children}
   </ul>
 );
-const ListItem = ({ children, key }) => (
+const ListItem = ({ children, key }: AppProps) => (
   <li className="" key={key}>
     {children}
   </li>
