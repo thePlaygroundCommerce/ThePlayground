@@ -1,7 +1,7 @@
 {
-  "id": "header",
-  "label": "HeaderNavigation",
   "format": "custom",
+  "id": "footer_navigation",
+  "label": "Footer Navigation",
   "repeatable": false,
   "status": true,
   "json": {
@@ -9,32 +9,22 @@
       "uid": {
         "type": "UID",
         "config": {
-          "label": "UID",
+          "label": "footer",
           "placeholder": ""
         }
       },
       "navs": {
         "type": "Group",
         "config": {
-          "label": "Navs",
+          "label": "navs",
+          "repeat": true,
           "fields": {
             "nav": {
               "type": "Link",
               "config": {
-                "label": "Nav",
+                "label": "nav",
                 "select": "document"
               }
-            }
-          }
-        }
-      },
-      "slices": {
-        "type": "Slices",
-        "fieldset": "Slice Zone",
-        "config": {
-          "choices": {
-            "header": {
-              "type": "SharedSlice"
             }
           }
         }

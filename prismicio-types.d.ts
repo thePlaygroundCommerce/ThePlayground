@@ -133,15 +133,15 @@ type CtaEmailDocumentDataSlicesSlice = CallToActionSlice;
  */
 interface CtaEmailDocumentData {
   /**
-   * Paragraph field in *CTA*
+   * Url field in *CTA*
    *
    * - **Field Type**: Text
    * - **Placeholder**: *None*
-   * - **API ID Path**: cta_email.paragraph
+   * - **API ID Path**: cta_email.url
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/field#key-text
    */
-  paragraph: prismic.KeyTextField;
+  url: prismic.KeyTextField;
 
   /**
    * Button Label field in *CTA*
@@ -155,15 +155,15 @@ interface CtaEmailDocumentData {
   button_label: prismic.KeyTextField;
 
   /**
-   * Form Placeholder field in *CTA*
+   * Placeholder field in *CTA*
    *
    * - **Field Type**: Text
    * - **Placeholder**: *None*
-   * - **API ID Path**: cta_email.form_placeholder
+   * - **API ID Path**: cta_email.placeholder
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/field#key-text
    */
-  form_placeholder: prismic.KeyTextField;
+  placeholder: prismic.KeyTextField;
 
   /**
    * Slice Zone field in *CTA*
@@ -190,6 +190,71 @@ export type CtaEmailDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<
     Simplify<CtaEmailDocumentData>,
     "cta_email",
+    Lang
+  >;
+
+/**
+ * Content for Customer Review documents
+ */
+interface CustomerReviewDocumentData {
+  /**
+   * Review field in *Customer Review*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: customer_review.review
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  review: prismic.KeyTextField;
+
+  /**
+   * Rating field in *Customer Review*
+   *
+   * - **Field Type**: Number
+   * - **Placeholder**: *None*
+   * - **API ID Path**: customer_review.rating
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#number
+   */
+  rating: prismic.NumberField;
+
+  /**
+   * Creator field in *Customer Review*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: customer_review.creator
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  creator: prismic.KeyTextField;
+
+  /**
+   * Arrow Pointing field in *Customer Review*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: customer_review.arrow_pointing
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  arrow_pointing: prismic.KeyTextField;
+}
+
+/**
+ * Customer Review document from Prismic
+ *
+ * - **API ID**: `customer_review`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type CustomerReviewDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<CustomerReviewDocumentData>,
+    "customer_review",
     Lang
   >;
 
@@ -255,6 +320,8 @@ export interface HeaderDocumentDataNavsItem {
   nav: prismic.ContentRelationshipField;
 }
 
+type HeaderDocumentDataSlicesSlice = HeaderSlice;
+
 /**
  * Content for HeaderNavigation documents
  */
@@ -269,6 +336,17 @@ interface HeaderDocumentData {
    * - **Documentation**: https://prismic.io/docs/field#group
    */
   navs: prismic.GroupField<Simplify<HeaderDocumentDataNavsItem>>;
+
+  /**
+   * Slice Zone field in *HeaderNavigation*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<HeaderDocumentDataSlicesSlice>;
 }
 
 /**
@@ -444,6 +522,7 @@ export type AllDocumentTypes =
   | CategorylinkDocument
   | ComingSoonDocument
   | CtaEmailDocument
+  | CustomerReviewDocument
   | FooterNavigationDocument
   | HeaderDocument
   | HomepageDocument
@@ -744,6 +823,33 @@ export type FeaturedCategoriesSlice = prismic.SharedSlice<
   "featured_categories",
   FeaturedCategoriesSliceVariation
 >;
+
+/**
+ * Default variation for Header Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type HeaderSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Record<string, never>,
+  never
+>;
+
+/**
+ * Slice variation for *Header*
+ */
+type HeaderSliceVariation = HeaderSliceDefault;
+
+/**
+ * Header Shared Slice
+ *
+ * - **API ID**: `header`
+ * - **Description**: Header
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type HeaderSlice = prismic.SharedSlice<"header", HeaderSliceVariation>;
 
 /**
  * Primary content in *Hero → Primary*
@@ -1344,26 +1450,6 @@ export interface Hero2SliceDefaultPrimary {
   image: prismic.ImageField<never>;
 
   /**
-   * callToActionLabel field in *ProductShowcase → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_2.primary.callToActionLabel
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  callToActionLabel: prismic.KeyTextField;
-
-  /**
-   * callToActionLink field in *ProductShowcase → Primary*
-   *
-   * - **Field Type**: Link
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_2.primary.callToActionLink
-   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
-   */
-  callToActionLink: prismic.LinkField;
-
-  /**
    * Description Align field in *ProductShowcase → Primary*
    *
    * - **Field Type**: Text
@@ -1383,6 +1469,26 @@ export interface Hero2SliceDefaultPrimary {
    * - **Documentation**: https://prismic.io/docs/field#boolean
    */
   window: prismic.BooleanField;
+
+  /**
+   * Call To Action Link field in *ProductShowcase → Primary*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_2.primary.call_to_action_link
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  call_to_action_link: prismic.ContentRelationshipField;
+
+  /**
+   * Call To Action Label field in *ProductShowcase → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_2.primary.call_to_action_label
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  call_to_action_label: prismic.KeyTextField;
 }
 
 /**
@@ -1443,26 +1549,6 @@ export interface Hero2SliceImageRightPrimary {
   image: prismic.ImageField<never>;
 
   /**
-   * callToActionLabel field in *ProductShowcase → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_2.primary.callToActionLabel
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  callToActionLabel: prismic.KeyTextField;
-
-  /**
-   * callToActionLink field in *ProductShowcase → Primary*
-   *
-   * - **Field Type**: Link
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_2.primary.callToActionLink
-   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
-   */
-  callToActionLink: prismic.LinkField;
-
-  /**
    * Description Align field in *ProductShowcase → Primary*
    *
    * - **Field Type**: Text
@@ -1482,6 +1568,26 @@ export interface Hero2SliceImageRightPrimary {
    * - **Documentation**: https://prismic.io/docs/field#boolean
    */
   window: prismic.BooleanField;
+
+  /**
+   * Call To Action Link field in *ProductShowcase → Primary*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_2.primary.call_to_action_link
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  call_to_action_link: prismic.ContentRelationshipField;
+
+  /**
+   * Call To Action Label field in *ProductShowcase → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_2.primary.call_to_action_label
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  call_to_action_label: prismic.KeyTextField;
 }
 
 /**
@@ -1532,26 +1638,6 @@ export interface Hero2SliceTextContentLeftPrimary {
   description: prismic.RichTextField;
 
   /**
-   * callToActionLabel field in *ProductShowcase → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_2.primary.callToActionLabel
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  callToActionLabel: prismic.KeyTextField;
-
-  /**
-   * callToActionLink field in *ProductShowcase → Primary*
-   *
-   * - **Field Type**: Link
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_2.primary.callToActionLink
-   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
-   */
-  callToActionLink: prismic.LinkField;
-
-  /**
    * Background Image field in *ProductShowcase → Primary*
    *
    * - **Field Type**: Image
@@ -1580,6 +1666,26 @@ export interface Hero2SliceTextContentLeftPrimary {
    * - **Documentation**: https://prismic.io/docs/field#rich-text-title
    */
   showcase_title: prismic.RichTextField;
+
+  /**
+   * Call To Action Link field in *ProductShowcase → Primary*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_2.primary.call_to_action_link
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  call_to_action_link: prismic.ContentRelationshipField;
+
+  /**
+   * Call To Action Label field in *ProductShowcase → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_2.primary.call_to_action_label
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  call_to_action_label: prismic.KeyTextField;
 }
 
 /**
@@ -1640,26 +1746,6 @@ export interface Hero2SliceCompactPrimary {
   image: prismic.ImageField<never>;
 
   /**
-   * callToActionLabel field in *ProductShowcase → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_2.primary.callToActionLabel
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  callToActionLabel: prismic.KeyTextField;
-
-  /**
-   * callToActionLink field in *ProductShowcase → Primary*
-   *
-   * - **Field Type**: Link
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_2.primary.callToActionLink
-   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
-   */
-  callToActionLink: prismic.LinkField;
-
-  /**
    * Description Align field in *ProductShowcase → Primary*
    *
    * - **Field Type**: Text
@@ -1679,6 +1765,26 @@ export interface Hero2SliceCompactPrimary {
    * - **Documentation**: https://prismic.io/docs/field#boolean
    */
   window: prismic.BooleanField;
+
+  /**
+   * Call To Action Link field in *ProductShowcase → Primary*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_2.primary.call_to_action_link
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  call_to_action_link: prismic.ContentRelationshipField;
+
+  /**
+   * Call To Action Label field in *ProductShowcase → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_2.primary.call_to_action_label
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  call_to_action_label: prismic.KeyTextField;
 }
 
 /**
@@ -1772,34 +1878,14 @@ export interface WindowPanelsSliceDefaultItem {
   window_bg: prismic.ImageField<never>;
 
   /**
-   * Window Description field in *WindowPanels → Items*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: window_panels.items[].window_description
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
-   */
-  window_description: prismic.RichTextField;
-
-  /**
-   * Window Headline field in *WindowPanels → Items*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: window_panels.items[].window_headline
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
-   */
-  window_headline: prismic.RichTextField;
-
-  /**
-   * Call To Action field in *WindowPanels → Items*
+   * Review field in *WindowPanels → Items*
    *
    * - **Field Type**: Content Relationship
    * - **Placeholder**: *None*
-   * - **API ID Path**: window_panels.items[].call_to_action
+   * - **API ID Path**: window_panels.items[].review
    * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
    */
-  call_to_action: prismic.ContentRelationshipField;
+  review: prismic.ContentRelationshipField;
 }
 
 /**
@@ -1816,9 +1902,64 @@ export type WindowPanelsSliceDefault = prismic.SharedSliceVariation<
 >;
 
 /**
+ * Primary content in *WindowPanels → Primary*
+ */
+export interface WindowPanelsSliceDoubledUpPrimary {
+  /**
+   * Double Up WIndow field in *WindowPanels → Primary*
+   *
+   * - **Field Type**: Number
+   * - **Placeholder**: *None*
+   * - **API ID Path**: window_panels.primary.double_up_window
+   * - **Documentation**: https://prismic.io/docs/field#number
+   */
+  double_up_window: prismic.NumberField;
+}
+
+/**
+ * Primary content in *WindowPanels → Items*
+ */
+export interface WindowPanelsSliceDoubledUpItem {
+  /**
+   * Window BG field in *WindowPanels → Items*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: window_panels.items[].window_bg
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  window_bg: prismic.ImageField<never>;
+
+  /**
+   * Review field in *WindowPanels → Items*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: window_panels.items[].review
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  review: prismic.ContentRelationshipField;
+}
+
+/**
+ * doubled-up variation for WindowPanels Slice
+ *
+ * - **API ID**: `doubledUp`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type WindowPanelsSliceDoubledUp = prismic.SharedSliceVariation<
+  "doubledUp",
+  Simplify<WindowPanelsSliceDoubledUpPrimary>,
+  Simplify<WindowPanelsSliceDoubledUpItem>
+>;
+
+/**
  * Slice variation for *WindowPanels*
  */
-type WindowPanelsSliceVariation = WindowPanelsSliceDefault;
+type WindowPanelsSliceVariation =
+  | WindowPanelsSliceDefault
+  | WindowPanelsSliceDoubledUp;
 
 /**
  * WindowPanels Shared Slice
@@ -1850,12 +1991,15 @@ declare module "@prismicio/client" {
       CtaEmailDocument,
       CtaEmailDocumentData,
       CtaEmailDocumentDataSlicesSlice,
+      CustomerReviewDocument,
+      CustomerReviewDocumentData,
       FooterNavigationDocument,
       FooterNavigationDocumentData,
       FooterNavigationDocumentDataNavsItem,
       HeaderDocument,
       HeaderDocumentData,
       HeaderDocumentDataNavsItem,
+      HeaderDocumentDataSlicesSlice,
       HomepageDocument,
       HomepageDocumentData,
       HomepageDocumentDataSlicesSlice,
@@ -1881,6 +2025,9 @@ declare module "@prismicio/client" {
       FeaturedCategoriesSliceDefaultItem,
       FeaturedCategoriesSliceVariation,
       FeaturedCategoriesSliceDefault,
+      HeaderSlice,
+      HeaderSliceVariation,
+      HeaderSliceDefault,
       HeroSlice,
       HeroSliceDefaultPrimary,
       HeroSliceHeroWithSocialMediaHandlesPrimary,
@@ -1912,8 +2059,11 @@ declare module "@prismicio/client" {
       SocialMediaLinksSliceDefault,
       WindowPanelsSlice,
       WindowPanelsSliceDefaultItem,
+      WindowPanelsSliceDoubledUpPrimary,
+      WindowPanelsSliceDoubledUpItem,
       WindowPanelsSliceVariation,
       WindowPanelsSliceDefault,
+      WindowPanelsSliceDoubledUp,
     };
   }
 }

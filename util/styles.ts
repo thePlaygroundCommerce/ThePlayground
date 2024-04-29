@@ -32,3 +32,9 @@ export const contentPositions = {
   bottomThirdQuarter: "left-3/4 bottom-0 -translate-x-3/4",
   bottomEnd: "right-0 bottom-0",
 };
+
+export const alignToFlexMapping: { [key: string]: string } = {
+  left: "start",
+  center: "center",
+  right: "end",
+} as const;

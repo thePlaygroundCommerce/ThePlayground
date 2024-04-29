@@ -2,20 +2,30 @@
 import { useFormState } from "react-dom";
 import { callToActionCreateForm } from "api/customerApi";
 import Spinner from "components/Spinner";
+import Link from "next/link";
+
+type CallToActionProps = {
+  buttonText: string | null;
+  // description: any;
+  // onSuccessDescription?: any;
+  // onFailDescription?: any;
+  // variation: any;
+  
+  type: string;
+  id: string;
+  name: string;
+  placeholder: any;
+  url: string;
+};
 
 const CallToActionForm = ({
-  primary,
-  variation,
+  buttonText,
+  type,
   placeholder,
-  description,
-}: {
-  primary: any;
-  description: any;
-  onSuccessDescription?: any;
-  onFailDescription?: any;
-  variation: any;
-  placeholder: any;
-}) => {
+  name,
+  id,
+  url
+}: CallToActionProps) => {
   const [{ isSubmitted }, formAction] = useFormState(callToActionCreateForm, {
     isSubmitted: false,
     error: null,
@@ -23,28 +33,26 @@ const CallToActionForm = ({
 
   return (
     <>
-      <h6 className="mb-4 text-white">
+      {/* <h6 className="mb-4 text-white">
         {(isSubmitted &&
           "Thanks for joining the grounds. Check up on your email for any updates!") ||
           description}
-      </h6>
+      </h6> */}
       {isSubmitted || (
-        <form className="text-black" action={formAction}>
-          {variation !== "onlyButton" && (
-            <input
-              type="email"
-              id="emailAddress"
-              name="emailAddress"
-              className="p-2 rounded w-64"
-              placeholder={placeholder?.toString()}
-            />
-          )}
+        <form className="text-black">
+          {placeholder && <input
+            type={type}
+            id={id}
+            name={name}
+            className="p-2 rounded w-64 border"
+            placeholder={placeholder?.toString()}
+          />}
           <button
             // aria-disabled={pending}
             type="submit"
             className="text-white p-2 bg-slate-700"
           >
-            {primary.action_button_text}
+            <Link href={url}>{buttonText}</Link>
           </button>
         </form>
       )}

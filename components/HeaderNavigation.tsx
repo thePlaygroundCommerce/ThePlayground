@@ -20,7 +20,7 @@ const HeaderNavigation = ({ navs }: { navs: any }) => {
       <ul className="flex whitespace-nowrap">
         {navs.map(({ nav: { data } }: { nav: { data: any } }) => (
           <li key={data.title} className="text-black w-full">
-            <Link className="px-4 py-2 block w-full" href="/">
+            <Link className="px-4 py-2 block w-full" href={data.link}>
               {data.title}
             </Link>
           </li>

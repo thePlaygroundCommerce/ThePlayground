@@ -34,45 +34,13 @@
 						}
 					],
 					[
-						"window_description",
-						{
-							"__TYPE__": "StructuredTextContent",
-							"value": [
-								{
-									"type": "paragraph",
-									"content": {
-										"text": "Non aliqua fugiat consequat qui magna aliqua dolor duis nostrud dolore cupidatat.",
-										"spans": []
-									},
-									"direction": "ltr"
-								}
-							]
-						}
-					],
-					[
-						"call_to_action",
+						"review",
 						{
 							"__TYPE__": "LinkContent",
 							"value": {
 								"__TYPE__": "DocumentLink",
 								"id": "mock_document_id"
 							}
-						}
-					],
-					[
-						"window_headline",
-						{
-							"__TYPE__": "StructuredTextContent",
-							"value": [
-								{
-									"type": "heading2",
-									"content": {
-										"text": "Be Bigger",
-										"spans": []
-									},
-									"direction": "ltr"
-								}
-							]
 						}
 					]
 				]
@@ -83,7 +51,6 @@
 					[
 						"window_bg",
 						{
-							"__TYPE__": "ImageContent",
 							"url": "https://images.unsplash.com/photo-1590004828948-09db7606e5ac?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzc0NjN8MHwxfHNlYXJjaHw3fHxjaXRydXMlMjBmcnVpdHxlbnwwfHx8fDE3MTM3ODgwMzJ8MA&ixlib=rb-4.0.3&q=85",
 							"alt": "sliced orange fruit on white surface",
 							"origin": {
@@ -102,39 +69,19 @@
 									"y": 0
 								}
 							},
+							"credits": null,
+							"__TYPE__": "ImageContent",
 							"thumbnails": {}
 						}
 					],
 					[
-						"window_description",
+						"review",
 						{
-							"__TYPE__": "StructuredTextContent",
-							"value": [
-								{
-									"type": "paragraph",
-									"content": {
-										"text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Amet justo donec enim diam. Faucibus in ornare quam viverra orci sagittis eu volutpat. Sit amet commodo nulla facilisi nullam vehicula ipsum. Vel turpis nunc eget lorem. Quis blandit turpis cursus in hac. Cursus in hac habitasse platea dictumst quisque. Vel fringilla est ullamcorper eget nulla. Elit ut aliquam purus sit amet luctus venenatis lectus. Orci porta non pulvinar neque laoreet. Fringilla urna porttitor rhoncus dolor purus. Justo laoreet sit amet cursus sit amet dictum sit. ",
-										"spans": []
-									},
-									"direction": "ltr"
-								}
-							]
-						}
-					],
-					[
-						"window_headline",
-						{
-							"__TYPE__": "StructuredTextContent",
-							"value": [
-								{
-									"type": "heading2",
-									"content": {
-										"text": "Welcome to the jungle",
-										"spans": []
-									},
-									"direction": "ltr"
-								}
-							]
+							"__TYPE__": "LinkContent",
+							"value": {
+								"__TYPE__": "DocumentLink",
+								"id": "mock_document_id"
+							}
 						}
 					]
 				]
@@ -145,7 +92,6 @@
 					[
 						"window_bg",
 						{
-							"__TYPE__": "ImageContent",
 							"url": "https://images.unsplash.com/photo-1547514701-42782101795e?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzc0NjN8MHwxfHNlYXJjaHwxOHx8Y2l0cnVzJTIwZnJ1aXR8ZW58MHx8fHwxNzEzNzg4MDMyfDA&ixlib=rb-4.0.3&q=85",
 							"alt": "two orange fruits on table",
 							"origin": {
@@ -164,39 +110,19 @@
 									"y": 0
 								}
 							},
+							"credits": null,
+							"__TYPE__": "ImageContent",
 							"thumbnails": {}
 						}
 					],
 					[
-						"window_description",
+						"review",
 						{
-							"__TYPE__": "StructuredTextContent",
-							"value": [
-								{
-									"type": "paragraph",
-									"content": {
-										"text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sem viverra aliquet eget sit amet tellus cras. Imperdiet massa tincidunt nunc pulvinar sapien et. Id aliquet lectus proin nibh nisl condimentum. Porta nibh venenatis cras sed. Egestas integer eget aliquet nibh praesent tristique magna sit amet. Dui faucibus in ornare quam viverra orci sagittis eu. Mattis enim ut tellus elementum sagittis vitae et leo. In nibh mauris cursus mattis molestie a. ",
-										"spans": []
-									},
-									"direction": "ltr"
-								}
-							]
-						}
-					],
-					[
-						"window_headline",
-						{
-							"__TYPE__": "StructuredTextContent",
-							"value": [
-								{
-									"type": "heading3",
-									"content": {
-										"text": "Bam to the wham",
-										"spans": []
-									},
-									"direction": "ltr"
-								}
-							]
+							"__TYPE__": "LinkContent",
+							"value": {
+								"__TYPE__": "DocumentLink",
+								"id": "mock_document_id"
+							}
 						}
 					]
 				]
@@ -207,7 +133,6 @@
 					[
 						"window_bg",
 						{
-							"__TYPE__": "ImageContent",
 							"url": "https://images.unsplash.com/photo-1610833805553-43556a0f821d?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzc0NjN8MHwxfHNlYXJjaHwxM3x8Y2l0cnVzJTIwZnJ1aXR8ZW58MHx8fHwxNzEzNzg4MDMyfDA&ixlib=rb-4.0.3&q=85",
 							"alt": "yellow lemon fruit on white surface",
 							"origin": {
@@ -226,39 +151,73 @@
 									"y": 0
 								}
 							},
+							"credits": null,
+							"__TYPE__": "ImageContent",
 							"thumbnails": {}
 						}
 					],
 					[
-						"window_description",
+						"review",
 						{
-							"__TYPE__": "StructuredTextContent",
-							"value": [
-								{
-									"type": "paragraph",
-									"content": {
-										"text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sem viverra aliquet eget sit amet tellus cras. Imperdiet massa tincidunt nunc pulvinar sapien et. Id aliquet lectus proin nibh nisl condimentum. Porta nibh venenatis cras sed. Egestas integer eget aliquet nibh praesent tristique magna sit amet. Dui faucibus in ornare quam viverra orci sagittis eu. Mattis enim ut tellus elementum sagittis vitae et leo. In nibh mauris cursus mattis molestie a. Adipiscing elit pellentesque habitant morbi tristique. Iaculis at erat pellentesque adipiscing commodo elit at imperdiet dui. Vel pretium lectus quam id leo in vitae turpis.",
-										"spans": []
-									},
-									"direction": "ltr"
-								}
-							]
+							"__TYPE__": "LinkContent",
+							"value": {
+								"__TYPE__": "DocumentLink",
+								"id": "mock_document_id"
+							}
+						}
+					]
+				]
+			}
+		]
+	},
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "doubledUp",
+		"primary": {
+			"double_up_window": {
+				"__TYPE__": "FieldContent",
+				"value": "77",
+				"type": "Number"
+			}
+		},
+		"items": [
+			{
+				"__TYPE__": "GroupItemContent",
+				"value": [
+					[
+						"window_bg",
+						{
+							"origin": {
+								"id": "main",
+								"url": "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2",
+								"width": 5616,
+								"height": 3744
+							},
+							"url": "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2",
+							"width": 5616,
+							"height": 3744,
+							"edit": {
+								"zoom": 1,
+								"crop": {
+									"x": 0,
+									"y": 0
+								},
+								"background": "transparent"
+							},
+							"credits": null,
+							"alt": null,
+							"__TYPE__": "ImageContent",
+							"thumbnails": {}
 						}
 					],
 					[
-						"window_headline",
+						"review",
 						{
-							"__TYPE__": "StructuredTextContent",
-							"value": [
-								{
-									"type": "heading2",
-									"content": {
-										"text": "Lets go",
-										"spans": []
-									},
-									"direction": "ltr"
-								}
-							]
+							"__TYPE__": "LinkContent",
+							"value": {
+								"__TYPE__": "DocumentLink",
+								"id": "mock_document_id"
+							}
 						}
 					]
 				]

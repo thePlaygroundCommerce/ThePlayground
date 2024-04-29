@@ -1,7 +1,7 @@
 {
-  "id": "cta_email",
-  "label": "CTA",
   "format": "custom",
+  "id": "customer_review",
+  "label": "Customer Review",
   "repeatable": true,
   "status": true,
   "json": {
@@ -12,36 +12,32 @@
         },
         "type": "UID"
       },
-      "url": {
+      "review": {
         "type": "Text",
         "config": {
-          "label": "Url",
+          "label": "Review",
           "placeholder": ""
         }
       },
-      "button_label": {
-        "type": "Text",
+      "rating": {
+        "type": "Number",
         "config": {
-          "label": "Button Label",
+          "label": "Rating",
           "placeholder": ""
         }
       },
-      "placeholder": {
+      "creator": {
         "type": "Text",
         "config": {
-          "label": "Placeholder",
+          "label": "Creator",
           "placeholder": ""
         }
       },
-      "slices": {
-        "type": "Slices",
-        "fieldset": "Slice Zone",
+      "arrow_pointing": {
+        "type": "Text",
         "config": {
-          "choices": {
-            "call_to_action": {
-              "type": "SharedSlice"
-            }
-          }
+          "label": "Arrow Pointing",
+          "placeholder": ""
         }
       }
     }
