@@ -115,7 +115,7 @@ const LayoutB = ({
 }: LayoutProps) => (
   <main className="h-full">
     <Header navs={headerNavs} />
-    <div className="max-h-full">
+    <div className="max-h-full h-full">
       {children}
       <div className=""><Footer navs={footerNavs} /></div>
     </div>
