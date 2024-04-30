@@ -12,10 +12,10 @@
         },
         "type": "UID"
       },
-      "paragraph": {
+      "url": {
         "type": "Text",
         "config": {
-          "label": "Paragraph",
+          "label": "Url",
           "placeholder": ""
         }
       },
@@ -26,10 +26,10 @@
           "placeholder": ""
         }
       },
-      "form_placeholder": {
+      "placeholder": {
         "type": "Text",
         "config": {
-          "label": "Form Placeholder",
+          "label": "Placeholder",
           "placeholder": ""
         }
       },

@@ -28,12 +28,6 @@ const CallToAction = ({
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      <CallToActionForm
-        description={description}
-        primary={primary}
-        variation={variation}
-        placeholder={placeholder}
-      />
     </section>
   );
 };

@@ -57,22 +57,25 @@
 				"__TYPE__": "ImageContent",
 				"thumbnails": {}
 			},
-			"callToActionLabel": {
-				"__TYPE__": "FieldContent",
-				"type": "Text",
-				"value": "Call to Action"
-			},
-			"callToActionLink": {
-				"__TYPE__": "LinkContent",
-				"value": {
-					"__TYPE__": "ExternalLink",
-					"url": "https://prismic.io",
-					"target": ""
-				}
-			},
 			"description_align": {
 				"__TYPE__": "FieldContent",
 				"value": "measure",
+				"type": "Text"
+			},
+			"window": {
+				"__TYPE__": "BooleanContent",
+				"value": true
+			},
+			"call_to_action_link": {
+				"__TYPE__": "LinkContent",
+				"value": {
+					"__TYPE__": "DocumentLink",
+					"id": "mock_document_id"
+				}
+			},
+			"call_to_action_label": {
+				"__TYPE__": "FieldContent",
+				"value": "raw",
 				"type": "Text"
 			}
 		},
@@ -144,22 +147,25 @@
 				"__TYPE__": "ImageContent",
 				"thumbnails": {}
 			},
-			"callToActionLabel": {
-				"__TYPE__": "FieldContent",
-				"type": "Text",
-				"value": "Call to Action"
-			},
-			"callToActionLink": {
-				"__TYPE__": "LinkContent",
-				"value": {
-					"__TYPE__": "ExternalLink",
-					"url": "https://prismic.io",
-					"target": ""
-				}
-			},
 			"description_align": {
 				"__TYPE__": "FieldContent",
 				"value": "fall",
+				"type": "Text"
+			},
+			"window": {
+				"__TYPE__": "BooleanContent",
+				"value": true
+			},
+			"call_to_action_link": {
+				"__TYPE__": "LinkContent",
+				"value": {
+					"__TYPE__": "DocumentLink",
+					"id": "mock_document_id"
+				}
+			},
+			"call_to_action_label": {
+				"__TYPE__": "FieldContent",
+				"value": "plate",
 				"type": "Text"
 			}
 		},
@@ -201,18 +207,6 @@
 					}
 				]
 			},
-			"callToActionLabel": {
-				"__TYPE__": "FieldContent",
-				"value": "brain",
-				"type": "Text"
-			},
-			"callToActionLink": {
-				"__TYPE__": "LinkContent",
-				"value": {
-					"__TYPE__": "ExternalLink",
-					"url": "https://slicemachine.dev"
-				}
-			},
 			"background_image": {
 				"origin": {
 					"id": "main",
@@ -251,6 +245,101 @@
 						}
 					}
 				]
+			},
+			"call_to_action_link": {
+				"__TYPE__": "LinkContent",
+				"value": {
+					"__TYPE__": "DocumentLink",
+					"id": "mock_document_id"
+				}
+			},
+			"call_to_action_label": {
+				"__TYPE__": "FieldContent",
+				"value": "disappear",
+				"type": "Text"
+			}
+		},
+		"items": [
+			{
+				"__TYPE__": "GroupItemContent",
+				"value": []
+			}
+		]
+	},
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "compact",
+		"primary": {
+			"eyebrowHeadline": {
+				"__TYPE__": "FieldContent",
+				"value": "become",
+				"type": "Text"
+			},
+			"title": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "heading1",
+						"content": {
+							"text": "Silence"
+						}
+					}
+				]
+			},
+			"description": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Consectetur excepteur cupidatat elit sunt ut laborum pariatur. Laborum officia esse cupidatat labore pariatur veniam."
+						}
+					}
+				]
+			},
+			"image": {
+				"origin": {
+					"id": "main",
+					"url": "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
+					"width": 4076,
+					"height": 2712
+				},
+				"url": "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
+				"width": 4076,
+				"height": 2712,
+				"edit": {
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					},
+					"background": "transparent"
+				},
+				"credits": null,
+				"alt": null,
+				"__TYPE__": "ImageContent",
+				"thumbnails": {}
+			},
+			"description_align": {
+				"__TYPE__": "FieldContent",
+				"value": "fill",
+				"type": "Text"
+			},
+			"window": {
+				"__TYPE__": "BooleanContent",
+				"value": true
+			},
+			"call_to_action_link": {
+				"__TYPE__": "LinkContent",
+				"value": {
+					"__TYPE__": "DocumentLink",
+					"id": "mock_document_id"
+				}
+			},
+			"call_to_action_label": {
+				"__TYPE__": "FieldContent",
+				"value": "basket",
+				"type": "Text"
 			}
 		},
 		"items": [

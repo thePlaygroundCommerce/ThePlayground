@@ -33,14 +33,7 @@ const nextConfig = {
         pathname: "/theplaygroundmedia/**",
       },
     ],
-  },
-  redirects: () => [
-    {
-      source: '/',
-      destination: '/shop',
-      permanent: true,
-    }
-  ]
+  }
 };
 
 

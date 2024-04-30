@@ -1,0 +1,68 @@
+{
+  "id": "window_panels",
+  "type": "SharedSlice",
+  "name": "WindowPanels",
+  "description": "WindowPanels",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {},
+      "items": {
+        "window_bg": {
+          "type": "Image",
+          "config": {
+            "label": "Window BG",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "review": {
+          "type": "Link",
+          "config": {
+            "label": "Review",
+            "select": "document"
+          }
+        }
+      }
+    },
+    {
+      "id": "doubledUp",
+      "name": "doubled-up",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "double_up_window": {
+          "type": "Number",
+          "config": {
+            "label": "Double Up WIndow",
+            "placeholder": ""
+          }
+        }
+      },
+      "items": {
+        "window_bg": {
+          "type": "Image",
+          "config": {
+            "label": "Window BG",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "review": {
+          "type": "Link",
+          "config": {
+            "label": "Review",
+            "select": "document"
+          }
+        }
+      }
+    }
+  ]
+}

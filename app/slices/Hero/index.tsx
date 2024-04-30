@@ -58,9 +58,8 @@ const Hero = ({
   const prepareBgVisual = ({ variation, primary }: HeroSliceVariation) => {
     const imageProps = {
       src: "",
-      layout: "fill",
       alt: "Picture of the author",
-      className: "-z-10 h-full",
+      className: "-z-10 h-full object-cover w-full",
     };
     switch (variation) {
       case "carousel":
@@ -72,7 +71,6 @@ const Hero = ({
                 {...imageProps}
                 src={hero_bg_image.url}
                 className="object-cover"
-                layout={undefined}
                 width={hero_bg_image.dimensions.width}
                 height={hero_bg_image.dimensions.height}
               />
@@ -81,7 +79,7 @@ const Hero = ({
         );
       default:
         imageProps.src = primary.hero_bg_image.url ?? "";
-        return <Image {...imageProps} style={{ width: undefined }} />;
+        return <Image {...imageProps} width={primary.hero_bg_image.dimensions?.width} height={primary.hero_bg_image.dimensions?.height} />;
     }
   };
 
@@ -89,14 +87,14 @@ const Hero = ({
     sliceContainer: clsx("overflow-hidden bgimg w-full h-screen relative"),
     heroContainer: "",
     // @ts-ignore
-    textContainerWidth: clsx("w-1/2", "absolute", contentPositions[primary.text_content_position], "text-black", "text-" + content_alignment?.toLowerCase())
+    textContainerWidth: clsx("w-1/3", "absolute", contentPositions[primary.text_content_position], "text-black", "text-" + content_alignment?.toLowerCase())
   }
 
   return (
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className={clsx(primary.fluid_container && "px-12")}
+      className={clsx("", primary.fluid_container && "px-12")}
     >
       <div className={classNames.sliceContainer}>
         <div className="w-full absolute h-screen">

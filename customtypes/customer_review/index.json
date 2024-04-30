@@ -1,7 +1,7 @@
 {
-  "id": "categorylink",
-  "label": "CategoryLink",
   "format": "custom",
+  "id": "customer_review",
+  "label": "Customer Review",
   "repeatable": true,
   "status": true,
   "json": {
@@ -12,25 +12,31 @@
         },
         "type": "UID"
       },
-      "title": {
+      "review": {
         "type": "Text",
         "config": {
-          "label": "Title",
+          "label": "Review",
           "placeholder": ""
         }
       },
-      "image": {
-        "type": "Image",
+      "rating": {
+        "type": "Number",
         "config": {
-          "label": "Image",
-          "constraint": {},
-          "thumbnails": []
+          "label": "Rating",
+          "placeholder": ""
         }
       },
-      "link": {
+      "creator": {
         "type": "Text",
         "config": {
-          "label": "link",
+          "label": "Creator",
+          "placeholder": ""
+        }
+      },
+      "arrow_pointing": {
+        "type": "Text",
+        "config": {
+          "label": "Arrow Pointing",
           "placeholder": ""
         }
       }

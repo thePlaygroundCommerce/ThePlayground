@@ -11,6 +11,9 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "window_panels": {
+              "type": "SharedSlice"
+            },
             "featured_categories": {
               "type": "SharedSlice"
             },

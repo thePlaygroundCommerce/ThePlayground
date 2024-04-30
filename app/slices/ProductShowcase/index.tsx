@@ -1,69 +1,174 @@
-import { type Content, isFilled } from "@prismicio/client";
+import {
+  type Content,
+  type Client,
+  isFilled,
+  EmptyImageFieldImage,
+  FilledImageFieldImage,
+} from "@prismicio/client";
 import { PrismicNextLink, PrismicNextImage } from "@prismicio/next";
 import { SliceComponentProps, PrismicRichText } from "@prismicio/react";
+import Button from "components/Button";
+import { alignToFlexMapping } from "util/styles";
+import CallToActionForm from "components/forms/CallToActionForm";
+import {
+  AllDocumentTypes,
+  CtaEmailDocument,
+  Hero2Slice,
+} from "prismicio-types";
+import { ReactNode, createElement } from "react";
+import { Form } from "rsuite";
+import { createClient } from "../../../prismicio";
+import { redirect } from "next/navigation";
+import { AppProps } from "types";
 
 export type Hero2Props = SliceComponentProps<Content.Hero2Slice>;
+type PrismicImageProps =
+  | FilledImageFieldImage
+  | EmptyImageFieldImage
+  | null
+  | undefined;
 
-const ProductShowcase = ({ slice }: Hero2Props): JSX.Element => {
+const Compact = ({ children }: { children: ReactNode }) => (
+  <div className="w-full h-full flex justify-end items-center">
+    <div className="h-3/4 w-3/4 overflow-hidden rounded-lg border-2">
+      {children}
+    </div>
+  </div>
+);
+const Window = ({ children }: { children: ReactNode }) => (
+  <div className="h-full w-full p-48">{children}</div>
+);
+const Default = ({ children }: { children: ReactNode }) => (
+  <div className="w-full h-full">{children}</div>
+);
+const List = ({ children, key }: AppProps) => (
+  <ul className="m-4 list-disc" key={key}>
+    {children}
+  </ul>
+);
+const ListItem = ({ children, key }: AppProps) => (
+  <li className="" key={key}>
+    {children}
+  </li>
+);
+const componentToVariationMap = {
+  compact: Compact,
+  window: Window,
+  default: Default,
+  imageRight: Default,
+  textContentLeft: Default,
+};
 
-  const determineVariation = () => {
-    switch (slice.variation) {
-      case "default":
-      case "imageRight":
-        return <div>
-          {isFilled.image(slice.primary.image) && (
-            <PrismicNextImage
-              field={slice.primary.image}
-              // alt={slice.primary.image.alt}
-              width={500}
-              height={500}
-            // className="es-fullpage-hero__image"
-            />
-          )}
-        </div>;
-    }
+const ProductShowcase = async ({
+  slice,
+  slice: { variation, primary },
+}: Hero2Props): Promise<JSX.Element> => {
+  let cta: Content.CtaEmailDocument;
+
+  if (
+    isFilled.contentRelationship(primary.call_to_action_link) &&
+    primary.call_to_action_link.type == "cta_email" &&
+    primary.call_to_action_link.uid
+  ) {
+    cta = await getCta(
+      createClient(),
+      primary.call_to_action_link.type,
+      primary.call_to_action_link.uid
+    );
   }
 
-  const prepareVisuals = () => {
-    let left = determineVariation();
-    let right = <div className="es-fullpage-hero__content-right w-1/2">
-      <div className="es-fullpage-hero__content__intro p-6  flex flex-col justify-between h-1/3">
-        {isFilled.keyText(slice.primary.eyebrowHeadline) && (
-          <p className="es-fullpage-hero__content__intro__eyebrow">
-            {slice.primary.eyebrowHeadline}
-          </p>
+
+  const determineVariation = ({ variation, primary }: Hero2Slice) => {
+    let image;
+    const renderImage = (image: PrismicImageProps) => (
+      <div className="relative w-full h-full">
+        {isFilled.image(image) && (
+          <PrismicNextImage
+            field={image}
+            className="absolute object-cover w-full h-full"
+          />
         )}
-        <div>
+      </div>
+    );
+
+    if (variation !== "textContentLeft") image = primary.image;
+    return createElement(
+      componentToVariationMap[variation] || <div />,
+      null,
+      renderImage(image)
+    );
+  };
+
+  const prepareVisuals = async () => {
+    let descriptionAlignment = slice.primary.description_align ?? "";
+
+    let left = determineVariation(slice);
+    let right = (
+      <div className="w-full">
+        <div
+          className={`p-8 flex flex-col justify-center h-full items-${alignToFlexMapping[descriptionAlignment]}`}
+        >
+          {isFilled.keyText(slice.primary.eyebrowHeadline) && (
+            <p>{slice.primary.eyebrowHeadline}</p>
+          )}
           {isFilled.richText(slice.primary.title) && (
-            <div className="es-fullpage-hero__content__intro__headline text-center">
+            <div className="">
               <PrismicRichText field={slice.primary.title} />
             </div>
           )}
           {isFilled.richText(slice.primary.description) && (
-            <div className="es-fullpage-hero__content__intro__description text-center">
-              <PrismicRichText field={slice.primary.description} />
+            <div className={`w-2/3 text-${slice.primary.description_align}`}>
+              <PrismicRichText
+                field={slice.primary.description}
+                components={{
+                  list: List,
+                  listItem: ListItem,
+                }}
+              />
+            </div>
+          )}
+          {cta && (
+            <div className="text-center m-8 flex">
+              <CallToActionForm
+                buttonText={
+                  primary.call_to_action_label ?? cta.data.button_label ?? ""
+                }
+                type={""}
+                id={""}
+                name={""}
+                placeholder={cta.data.placeholder}
+                url={cta.data.url ?? ""}
+              />
+              {/* <div className="">
+                <Form>
+                  <Form.Control className="" name="email" placeholder="Email" />
+                </Form>
+              </div>
+              <div>
+                <Button>
+                  <PrismicNextLink
+                    field={slice.primary.call_to_action_link || "/"}
+                  >
+                    {slice.primary.call_to_action_label ?? "Learn more…"}
+                  </PrismicNextLink>
+                </Button>
+              </div> */}
             </div>
           )}
         </div>
-        {isFilled.link(slice.primary.callToActionLink) || (
-          <PrismicNextLink
-            className="es-call-to-action__link text-center"
-            field={slice.primary.callToActionLink || "/"}
-          >
-            {slice.primary.callToActionLabel ?? "Learn more…"}
-          </PrismicNextLink>
-        )}
       </div>
-    </div>;
+    );
 
-    return [left, right]
-  }
+    return slice.variation !== "imageRight"
+      ? [left, right]
+      : [left, right].reverse();
+  };
 
   return (
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="flex justify-center p-16"
+      className="flex justify-center product-showcase-container"
     >
       {prepareVisuals()}
     </section>
@@ -71,3 +176,12 @@ const ProductShowcase = ({ slice }: Hero2Props): JSX.Element => {
 };
 
 export default ProductShowcase;
+
+const getCta = async (
+  client: Client<CtaEmailDocument>,
+  type: any,
+  uid: string
+) => {
+  const cta = await client.getByUID(type, uid);
+  return cta;
+};

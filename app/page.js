@@ -58,6 +58,15 @@ const Page = async () => {
                 }
               }
             }
+            ... on window_panels {
+              variation {
+                ... on default {
+                  items {
+                    ...itemsFields
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -68,6 +77,7 @@ const Page = async () => {
   } catch (error) {
     console.log(error);
   }
+
 
   return <SliceZone slices={slices} components={components} />;
 };

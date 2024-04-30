@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 import { CatalogImage, CatalogObject, Order, OrderLineItem } from "square";
 
 export declare interface AppProps {
+  key?: React.Key;
   children?: React.ReactNode; // best, accepts everything React can render
   childrenElement?: React.JSX.Element; // A single React element
   style?: React.CSSProperties; // to pass through style props
