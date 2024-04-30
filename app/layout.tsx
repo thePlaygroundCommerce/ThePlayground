@@ -9,63 +9,59 @@ import "styles/globals.scss";
 
 import { PrismicPreview } from "@prismicio/next";
 import { createClient, repositoryName } from "prismicio";
-import SideNav from "components/SideNav";
 import { AppProps } from "types";
+import { Content } from "@prismicio/client";
 
 export const metadata = {
   title: "The Playground",
 };
 
-type Props = AppProps & {};
+type Navs = {
+  data: {
+    navs: {
+      nav: Nav;
+    }[];
+  };
+};
 
-// export async function generateStaticParams() {
-//   const { objects: categoryObjects = [] } = await getCatalogObjects("CATEGORY");
+export type Nav = {
+  data: Pick<Content.CategorylinkDocument["data"], "title" | "link">;
+};
 
-//   const settingsNavs = [
-//     {
-//       category: "account",
-//     },
-//     {
-//       category: "orders",
-//     },
-//     {
-//       category: "wishlists",
-//     },
-//   ];
-
-//   return categoryObjects
-//     ? categoryObjects
-//       .map(
-//         ({ categoryData: { name } }: { categoryData: { name: string } }) => ({
-//           category: name.toLowerCase(),
-//         })
-//       )
-//       .concat(settingsNavs)
-//     : [];
-// }
-
-export default async function RootLayout({ children }: Props) {
+const getMainNavigation = async () => {
   const FOOTER_NAVIGATION = "footer_navigation";
   const HEADER_NAVIGATION = "header";
 
-  const crFooterLinks = [".title", ".link"].map(
-    (link) => "categorylink" + link
-  );
-  const crHeaderLinks = [".title", ".link"].map(
-    (link) => "categorylink" + link
-  );
+  const crLinks = [".title", ".link"].map((link) => "categorylink" + link);
 
   const client = createClient();
   const {
     results: [{ data: footerNavs }],
-  } = await client.getByType(FOOTER_NAVIGATION, { fetchLinks: crFooterLinks });
+  } = await client.getByType<Content.FooterNavigationDocument & Navs>(
+    FOOTER_NAVIGATION,
+    { fetchLinks: crLinks }
+  );
   const {
     results: [{ data: headerNavs }],
-  } = await client.getByType(HEADER_NAVIGATION, { fetchLinks: crHeaderLinks });
+  } = await client.getByType<Content.HeaderDocument & Navs>(HEADER_NAVIGATION, {
+    fetchLinks: crLinks,
+  });
+
+  return {
+    headerNavs: headerNavs.navs.map(({ nav }) => nav),
+    footerNavs: footerNavs.navs.map(({ nav }) => nav),
+  };
+};
+
+type Props = AppProps & {};
+
+export default async function RootLayout({ children }: Readonly<Props>) {
   const { objects: categoryObjects = [] } = await getCatalogObjects("CATEGORY");
   const { objects: apparelObjects = [] } = await getCatalogObjects(
     "ITEM,IMAGE,CATEGORY"
   );
+
+  const { headerNavs, footerNavs } = await getMainNavigation();
 
   const mappedCatalogItems = mapArrayToMap(
     apparelObjects.concat(categoryObjects)
@@ -75,7 +71,7 @@ export default async function RootLayout({ children }: Props) {
     <html lang="en" className="h-screen">
       <body className="h-full">
         <Providers data={mappedCatalogItems}>
-          <LayoutB children={children} navs={{ footerNavs, headerNavs }} />
+          <LayoutB navs={{ footerNavs, headerNavs }}>{children}</LayoutB>
         </Providers>
 
         <PrismicPreview repositoryName={repositoryName} />
@@ -84,33 +80,44 @@ export default async function RootLayout({ children }: Props) {
   );
 }
 
-const LayoutA = ({ children, navs: { headerNavs, footerNavs } }) => (
-  <main className="h-full flex flex-col">
-    <Header />
-    <div className="grid grid-cols-6 h-full overflow-hidden">
-      <div className="col-span-1 p-4 pr-8 flex flex-col pt-8 h-full sidebar-box-shadow">
-        <div className="h-full flex flex-col justify-center">
-          <SideNav />
-        </div>
-        <div className="">
-          <Footer />
-        </div>
-      </div>
-      <div className="col-span-5 py-8 overflow-y-scroll max-h-full">
-        {children}
-      </div>
-    </div>
-  </main>
-);
+type LayoutProps = AppProps & {
+  navs: {
+    headerNavs: Nav[];
+    footerNavs: Nav[];
+  };
+};
 
-const LayoutB = ({ children, navs: { headerNavs, footerNavs } }) => (
+// const LayoutA = ({
+//   children,
+//   navs: { headerNavs, footerNavs },
+// }: LayoutProps) => (
+//   <main className="h-full flex flex-col">
+//     <Header />
+//     <div className="grid grid-cols-6 h-full overflow-hidden">
+//       <div className="col-span-1 p-4 pr-8 flex flex-col pt-8 h-full sidebar-box-shadow">
+//         <div className="h-full flex flex-col justify-center">
+//           <SideNav />
+//         </div>
+//         <div className="">
+//           <Footer />
+//         </div>
+//       </div>
+//       <div className="col-span-5 py-8 overflow-y-scroll max-h-full">
+//         {children}
+//       </div>
+//     </div>
+//   </main>
+// );
+
+const LayoutB = ({
+  children,
+  navs: { headerNavs, footerNavs },
+}: LayoutProps) => (
   <main className="h-full">
-    <Header navs={headerNavs.navs} />
+    <Header navs={headerNavs} />
     <div className="max-h-full">
       {children}
-      <div className="">
-        <Footer navs={footerNavs.navs} />
-      </div>
+      <div className=""><Footer navs={footerNavs} /></div>
     </div>
   </main>
 );

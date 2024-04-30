@@ -2,14 +2,15 @@
 import { useFormState } from "react-dom";
 import { callToActionCreateForm } from "api/customerApi";
 import Link from "next/link";
+import { AppProps } from "types";
 
-type CallToActionProps = {
+type CallToActionProps = AppProps & {
   buttonText: string | null;
   // description: any;
   // onSuccessDescription?: any;
   // onFailDescription?: any;
   // variation: any;
-  
+
   type: string;
   id: string;
   name: string;
@@ -23,7 +24,7 @@ const CallToActionForm = ({
   placeholder,
   name,
   id,
-  url
+  url,
 }: CallToActionProps) => {
   const [{ isSubmitted }, formAction] = useFormState(callToActionCreateForm, {
     isSubmitted: false,
@@ -39,13 +40,15 @@ const CallToActionForm = ({
       </h6> */}
       {isSubmitted || (
         <form className="text-black">
-          {placeholder && <input
-            type={type}
-            id={id}
-            name={name}
-            className="p-2 rounded w-64 border"
-            placeholder={placeholder?.toString()}
-          />}
+          {placeholder && (
+            <input
+              type={type}
+              id={id}
+              name={name}
+              className="p-2 rounded w-64 border"
+              placeholder={placeholder?.toString()}
+            />
+          )}
           <button
             // aria-disabled={pending}
             type="submit"

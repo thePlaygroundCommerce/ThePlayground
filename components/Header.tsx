@@ -1,41 +1,14 @@
-import HeaderNavigation from "./HeaderNavigation";
 import HeaderActions from "./HeaderActions";
 import Link from "next/link";
 import Image from "next/image";
-import { createClient } from "prismicio";
-import { HeaderDocumentDataNavsItem, Simplify } from "prismicio-types";
+import { Nav } from "app/layout";
+import HeaderNavigation from "./HeaderNavigation";
+import { AppProps } from "types";
 
-async function Header() {
-  let navs:
-    | [
-        Simplify<HeaderDocumentDataNavsItem>,
-        ...Simplify<HeaderDocumentDataNavsItem>[],
-      ]
-    | never[] = [];
-  try {
-    const doc = await createClient().getSingle("header", {
-      graphQuery: `
-      {
-        header {
-          navs {
-            nav {
-              ... on categorylink {
-                ...categorylinkFields
-              }
-            }
-          }
-        }
-      }
-      `,
-    });
+type Props = AppProps & { navs: Nav[]}
 
-    navs = doc.data.navs;
-  } catch (error) {
-    console.log(error);
-  }
-
-  console.log(navs);
-
+async function Header({ navs }: Props) {
+  
   return (
     <header className="sticky border-b z-10 bg-white w-full grid grid-cols-6">
       <div className="w-full mx-8 my-3 h-full col-span-1">
