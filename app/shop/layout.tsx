@@ -1,8 +1,4 @@
-import { AppProps } from "types";
-
-type Props = AppProps & {};
-
-export default async function Layout({ children }: Readonly<Props>) {  
+export default function Layout({ children }: any) {  
   return (
     <div className="h-full my-8 mx-4">{children}</div>
   );
