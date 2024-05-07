@@ -2,6 +2,7 @@ import Link from "next/link";
 import ProductItem from "./ProductGridItem";
 
 const ProductGrid = ({ catalogItems, catalogImages }) => {
+  console.log(catalogItems)
   return catalogItems == undefined ? (
     <EmptyProductGrid />
     ) : (

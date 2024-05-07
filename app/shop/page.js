@@ -38,6 +38,7 @@ export default async function Page({ params }) {
     products = objects;
   }
   mappedCatalogItems = mapArrayToMap([...products, ...relatedObjects, ...categories]);
+  
 
   return (
     <ProductGrid

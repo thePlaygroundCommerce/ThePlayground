@@ -17,7 +17,7 @@ function HeaderActions() {
   const handleCartToggle = (e, bool = !toggleCartOverlay) => setToggleCartOverlay(bool);
 
   return (
-    <div className="">
+    <div className="flex justify-center">
       <button onClick={handleCartToggle} className="p-1">
         <Cart />
       </button>

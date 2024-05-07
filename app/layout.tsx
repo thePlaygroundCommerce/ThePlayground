@@ -68,7 +68,7 @@ export default async function RootLayout({ children }: Readonly<Props>) {
   );
 
   return (
-    <html lang="en" className="h-screen">
+    <html lang="en" className="h-auto md:h-screen">
       <body className="h-full">
         <Providers data={mappedCatalogItems}>
           <LayoutB navs={{ footerNavs, headerNavs }}>{children}</LayoutB>
@@ -113,11 +113,15 @@ const LayoutB = ({
   children,
   navs: { headerNavs, footerNavs },
 }: LayoutProps) => (
-  <main className="h-full">
+  <>
     <Header navs={headerNavs} />
-    <div className="max-h-full h-full">
-      {children}
-      <div className=""><Footer navs={footerNavs} /></div>
-    </div>
-  </main>
+    <main className="h-full">
+      <div className="max-h-full h-full">
+        {children}
+        <div className="">
+          <Footer navs={footerNavs} />
+        </div>
+      </div>
+    </main>
+  </>
 );
