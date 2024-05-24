@@ -87,7 +87,7 @@ const Hero = ({
     sliceContainer: clsx("overflow-hidden bgimg w-full h-screen relative"),
     heroContainer: "",
     // @ts-ignore
-    textContainerWidth: clsx("w-1/3", "absolute", contentPositions[primary.text_content_position], "text-black", "text-" + content_alignment?.toLowerCase())
+    textContainerWidth: clsx("w-full", "md:w-1/3", "absolute", contentPositions[primary.text_content_position], "text-black", "text-" + content_alignment?.toLowerCase())
   }
 
   return (

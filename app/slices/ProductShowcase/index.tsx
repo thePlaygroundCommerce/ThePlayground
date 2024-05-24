@@ -5,21 +5,18 @@ import {
   EmptyImageFieldImage,
   FilledImageFieldImage,
 } from "@prismicio/client";
-import { PrismicNextLink, PrismicNextImage } from "@prismicio/next";
+import { PrismicNextImage } from "@prismicio/next";
 import { SliceComponentProps, PrismicRichText } from "@prismicio/react";
-import Button from "components/Button";
 import { alignToFlexMapping } from "util/styles";
 import CallToActionForm from "components/forms/CallToActionForm";
 import {
-  AllDocumentTypes,
   CtaEmailDocument,
   Hero2Slice,
 } from "prismicio-types";
 import { ReactNode, createElement } from "react";
-import { Form } from "rsuite";
 import { createClient } from "../../../prismicio";
-import { redirect } from "next/navigation";
 import { AppProps } from "types";
+import clsx from "clsx";
 
 export type Hero2Props = SliceComponentProps<Content.Hero2Slice>;
 type PrismicImageProps =
@@ -28,18 +25,18 @@ type PrismicImageProps =
   | null
   | undefined;
 
-const Compact = ({ children }: { children: ReactNode }) => (
-  <div className="w-full h-full flex justify-end items-center">
+const Compact = ({ children, makeFirst }: { children: ReactNode, makeFirst: boolean }) => (
+  <div className="w-full h-screen flex justify-center md:justify-end items-center">
     <div className="h-3/4 w-3/4 overflow-hidden rounded-lg border-2">
       {children}
     </div>
   </div>
 );
-const Window = ({ children }: { children: ReactNode }) => (
+const Window = ({ children, makeFirst }: { children: ReactNode, makeFirst: boolean }) => (
   <div className="h-full w-full p-48">{children}</div>
 );
-const Default = ({ children }: { children: ReactNode }) => (
-  <div className="w-full h-full">{children}</div>
+const Default = ({ children, makeFirst }: { children: ReactNode, makeFirst: boolean }) => (
+  <div className={clsx("h-screen", makeFirst && "order-first")}>{children}</div>
 );
 const List = ({ children, key }: AppProps) => (
   <ul className="m-4 list-disc" key={key}>
@@ -81,7 +78,7 @@ const ProductShowcase = async ({
   const determineVariation = ({ variation, primary }: Hero2Slice) => {
     let image;
     const renderImage = (image: PrismicImageProps) => (
-      <div className="relative w-full h-full">
+      <div className={clsx("relative h-full")}>
         {isFilled.image(image) && (
           <PrismicNextImage
             field={image}
@@ -92,9 +89,14 @@ const ProductShowcase = async ({
     );
 
     if (variation !== "textContentLeft") image = primary.image;
-    return createElement(
+    return createElement<{
+      makeFirst: boolean;
+    }>(
+      //@ts-ignore
       componentToVariationMap[variation] || <div />,
-      null,
+      {
+        makeFirst: false
+      },
       renderImage(image)
     );
   };
@@ -104,9 +106,9 @@ const ProductShowcase = async ({
 
     let left = determineVariation(slice);
     let right = (
-      <div className="w-full">
+      <div className={clsx("w-full", slice.variation == "imageRight" && "md:order-first")}>
         <div
-          className={`p-8 flex flex-col justify-center h-full items-${alignToFlexMapping[descriptionAlignment]}`}
+          className={`p-8 flex flex-col justify-center h-full items-center md:items-${alignToFlexMapping[descriptionAlignment]}`}
         >
           {isFilled.keyText(slice.primary.eyebrowHeadline) && (
             <p>{slice.primary.eyebrowHeadline}</p>
@@ -159,16 +161,14 @@ const ProductShowcase = async ({
       </div>
     );
 
-    return slice.variation !== "imageRight"
-      ? [left, right]
-      : [left, right].reverse();
+      return <>{left}{right}</>
   };
 
   return (
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="flex justify-center product-showcase-container"
+      className="grid min-h-screen md:grid-cols-2"
     >
       {prepareVisuals()}
     </section>

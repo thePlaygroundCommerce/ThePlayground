@@ -16,7 +16,7 @@ const WindowPanels = ({ slice }: WindowPanelsProps): JSX.Element => {
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="flex h-screen"
+      className="flex fit-content gap-4 flex-nowrap p-6 py-12 overflow-scroll"
     >
       {slice.items.map(
         (
@@ -25,7 +25,7 @@ const WindowPanels = ({ slice }: WindowPanelsProps): JSX.Element => {
         ) => {
 
           const imageProps = {
-            className: "h-full object-cover w-full",
+            className: "w-full h-full object-cover",
             alt: window_bg.alt || "",
             id: window_bg.id || "",
             src: window_bg.url || "",
@@ -36,7 +36,7 @@ const WindowPanels = ({ slice }: WindowPanelsProps): JSX.Element => {
           return (
             <div
               key={window_bg.id}
-              className="p-6 py-12 basis-1/3 overflow-hidden"
+              className="flex-none w-full"
             >
               <Window
                 imageProps={{ ...imageProps }}
@@ -55,7 +55,7 @@ const WindowPanels = ({ slice }: WindowPanelsProps): JSX.Element => {
 const Window = ({
   imageProps
 }: { imageProps: any}) => (
-  <div className="relative h-full">
+  <div className="relative h-full pb-[100%]">
     <div className="-z-10 w-full h-full absolute rounded-lg">
       <Image {...imageProps} />
     </div>
