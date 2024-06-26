@@ -25,7 +25,7 @@ const ProductDetailsModifyPresenter = (props: Props) => {
         <div className="basis-full">
           <p className="mb-1 h4">SWaNK</p>
           <p className="mb-1 h4 fw-bold">{props.itemData?.name}</p>
-          <p>$ {props.amount}</p>
+          <p>$ {parseFloat(props.amount).toFixed(2)}</p>
         </div>
         <div className="basis-full grow flex flex-col items-center">
           <div className="">

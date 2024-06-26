@@ -17,7 +17,7 @@ export default function ProductGridItem({ itemData, images }) {
       />
       <div className="p-3">
         <div>{name}</div>
-        <div>$ {variations[0].itemVariationData.priceMoney.amount}</div>
+        <div>$ {parseFloat(variations[0].itemVariationData.priceMoney.amount).toFixed(2)}</div>
       </div>
     </div>
   );
