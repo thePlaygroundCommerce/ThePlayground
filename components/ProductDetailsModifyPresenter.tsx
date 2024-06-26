@@ -21,14 +21,14 @@ type Props = AppProps & {
 const ProductDetailsModifyPresenter = (props: Props) => {
   return (
     <div className="m-auto">
-      <div className="flex mb-7 p-3">
+      <div className="grid grid-cols-2 mb-7 p-3">
         <div className="basis-full">
           <p className="mb-1 h4">SWaNK</p>
           <p className="mb-1 h4 fw-bold">{props.itemData?.name}</p>
           <p>$ {props.amount}</p>
         </div>
         <div className="basis-full grow flex flex-col items-center">
-          <div className="w-3/4">
+          <div className="">
             <Counter
               count={+props.quantity}
               onCountChange={props.setQuantity}
@@ -47,8 +47,8 @@ const ProductDetailsModifyPresenter = (props: Props) => {
           />
         </div>
       </div>
-      <div className="flex pb-7 border-b justify-around">
-        <Button onClick={props.handleBuyNow}>Buy Now</Button>
+      <div className="grid grid-cols-1 gap-1 pb-7 border-b justify-around">
+        <Button className="" onClick={props.handleBuyNow}>Buy Now</Button>
         <Button onClick={props.handleAddToCart}>
           {!(+(props.isProductInCart()?.quantity ?? 0) > 0)
             ? "Add To Cart"

@@ -4,13 +4,14 @@ import Header from "components/Header";
 import Providers from "components/Providers";
 import { mapArrayToMap } from "../util";
 
-import "rsuite/dist/rsuite.min.css";
+import "rsuite/dist/rsuite-no-reset.min.css"
 import "styles/globals.scss";
 
 import { PrismicPreview } from "@prismicio/next";
 import { createClient, repositoryName } from "prismicio";
 import { AppProps } from "types";
 import { Content } from "@prismicio/client";
+import { CustomProvider } from "rsuite";
 
 export const metadata = {
   title: "The Playground",
@@ -70,9 +71,11 @@ export default async function RootLayout({ children }: Readonly<Props>) {
   return (
     <html lang="en" className="h-auto md:h-screen">
       <body className="h-full">
-        <Providers data={mappedCatalogItems}>
-          <LayoutB navs={{ footerNavs, headerNavs }}>{children}</LayoutB>
-        </Providers>
+        <CustomProvider>
+          <Providers data={mappedCatalogItems}>
+            <LayoutB navs={{ footerNavs, headerNavs }}>{children}</LayoutB>
+          </Providers>
+        </CustomProvider>
 
         <PrismicPreview repositoryName={repositoryName} />
       </body>
@@ -111,11 +114,12 @@ type LayoutProps = AppProps & {
 
 const LayoutB = ({
   children,
-  navs: { headerNavs, footerNavs },
+  navs,
+  navs: { footerNavs },
 }: LayoutProps) => (
   <>
-    <Header navs={headerNavs} />
-    <main className="h-full">
+    <Header navs={navs} />
+    <main className="h-full mt-12">
       <div className="max-h-full h-full">
         {children}
         <div className="">

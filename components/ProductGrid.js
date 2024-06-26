@@ -2,11 +2,10 @@ import Link from "next/link";
 import ProductItem from "./ProductGridItem";
 
 const ProductGrid = ({ catalogItems, catalogImages }) => {
-  console.log(catalogItems)
   return catalogItems == undefined ? (
     <EmptyProductGrid />
     ) : (
-      <div className="grid grid-cols-4 w-full">
+      <div className="grid  grid-cols-1 md:grid-cols-4 w-full">
       {catalogItems?.map(({ itemData, id }) => {
         const itemImages = itemData.imageIds;
         const images = catalogImages?.filter(({ id }) => itemImages.includes(id) );

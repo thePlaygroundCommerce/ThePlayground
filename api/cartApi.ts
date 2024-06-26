@@ -1,9 +1,8 @@
-"use server";
-
 import { processRes } from "api";
 import { DEFAULT_FETCH_INIT, SQUARE_URL } from "../constants";
 
 import logger from "util/logger";
+import { revalidatePath } from "next/cache";
 
 const BASE_PATH = SQUARE_URL + "carts";
 const SQUARE_ORDER_CACHE_REVALIDATION = {
@@ -11,7 +10,7 @@ const SQUARE_ORDER_CACHE_REVALIDATION = {
 };
 
 export async function callGetCart(orderId: string) {
-  return fetch(`${BASE_PATH}/${orderId}`)
+  return fetch(`${BASE_PATH}/${orderId}`, { cache: "no-store"})
     .then((res) => res.json())
     .then(({ result }) => {
       processRes(
@@ -25,10 +24,10 @@ export async function callGetCart(orderId: string) {
 }
 
 export async function callUpdateCart(
-  { orderID, order, fieldsToClear }: any,
+  { orderId, order, fieldsToClear }: any,
   init = DEFAULT_FETCH_INIT
 ) {
-  return fetch(`${BASE_PATH}/update/${orderID}`, {
+  return fetch(`${BASE_PATH}/update/${orderId}`, {
     ...DEFAULT_FETCH_INIT,
     ...init,
     body: JSON.stringify({ order, fieldsToClear }),

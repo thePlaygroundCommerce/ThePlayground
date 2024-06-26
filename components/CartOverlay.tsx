@@ -19,10 +19,10 @@ const CartOverlay = ({ handleCartToggle, getCheckoutUrl }: Props) => {
 
   return (
     <div>
-      <div>
-        <Button onClick={() => handleCartToggle(null, false)}>
+      <div className="flex justify-end px-4">
+        <button className="p-3" onClick={() => handleCartToggle(null, false)}>
           <IoClose />
-        </Button>
+        </button>
       </div>
 
       <div className="py-3 border-b">

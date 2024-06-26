@@ -32,11 +32,12 @@
     "react-hook-form": "^7.47.0",
     "react-icons": "^4.10.1",
     "react-image-magnifiers": "^1.4.0",
-    "rsuite": "^5.41.0",
+    "rsuite": "^5.64.1",
     "sass": "^1.26.10",
     "sharp": "^0.32.5",
     "square": "^30.0.0",
     "typescript": "^5.4.5",
+    "use-debounce": "^10.0.1",
     "uuid": "^9.0.0",
     "whatwg-fetch": "^3.6.20"
   },

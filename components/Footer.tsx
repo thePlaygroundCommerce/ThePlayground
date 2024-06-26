@@ -2,8 +2,6 @@
 
 import { AppProps } from "types";
 import SocialMediaButtons from "./SocialMediaButtons.js";
-import { FooterNavigationDocumentDataNavsItem } from "prismicio-types.js";
-import { createClient } from "prismicio";
 import Link from "next/link";
 import Image from "next/image";
 import { Nav } from "app/layout.jsx";
@@ -11,7 +9,7 @@ import { Accordion, Placeholder } from "rsuite";
 
 type Props = AppProps & { navs: Nav[] };
 
-async function Footer({ navs }: Props) {
+function Footer({ navs }: Props) {
   const { leftNavs, rightNavs } = navs.reduce(
     (navs, nav) => {
       if (navs.leftNavs.length === navs.rightNavs.length)
@@ -32,7 +30,7 @@ async function Footer({ navs }: Props) {
     <footer className="border-t flex flex-col items-center w-full">
       <div className="w-full py-4">
         <Accordion>
-          <Accordion.Panel header="Shop" defaultExpanded>
+          <Accordion.Panel header="Shop">
             <nav className="flex flex-col justify-center">
               {leftNavs.map(renderLink)}
               {rightNavs.map(renderLink)}

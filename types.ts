@@ -27,11 +27,11 @@ export type SplitCategoryNameWithId = {
 export type NavigationContextType = {
   accountNavigation: [
     AccountNavigation,
-    Dispatch<SetStateAction<AccountNavigation>>
+    Dispatch<SetStateAction<AccountNavigation>>,
   ];
   apparelNavigation: [
     ApparelNavigation,
-    Dispatch<SetStateAction<ApparelNavigation>>
+    Dispatch<SetStateAction<ApparelNavigation>>,
   ];
   apparelCategories: CatalogObject[];
   handleNavigationChange: React.ChangeEventHandler<HTMLInputElement>;
@@ -51,13 +51,20 @@ export type ApparelNavigation = {
   currentCategoryId: string;
 };
 
-
-
 export type CartContextType = {
   cart: Order;
+  cartItemImages: any[];
   updateCart: () => void;
   createCart: () => void;
   addCartItem: (lineItem: OrderLineItem, lineItemImage?: CatalogImage) => void;
   deleteCartItem: () => void;
+  CartQuantityCounter: (lineItem: OrderLineItem) => JSX.Element;
   toggleCartOverlay: () => void;
+};
+
+export type UIKitContextType = {
+  drawerKit: {
+    open: boolean;
+  };
+  handleUIChange: ({ open }: { open: boolean }, e?: any) => void;
 };

@@ -6,6 +6,7 @@ import NavigationProvider from "context/navigationContext";
 import CheckoutProvider from "context/checkoutContext";
 import InventoryProvider from "../context/inventoryContext";
 import { AppProps } from "types";
+import UIKitProvider from "context/UIKitContext";
 
 type Props = AppProps & {
   data: any
@@ -13,18 +14,20 @@ type Props = AppProps & {
 
 const Providers = ({ data, children }: Props) => {
   return (
-    <NavigationProvider apparelCategories={data.categories}>
-      <CookiesProvider>
-        <InventoryProvider
-          apparelData={{ apparelItems: data.items, apparelImages: data.images }}
+    <UIKitProvider>
+      <NavigationProvider apparelCategories={data.categories}>
+        <CookiesProvider>
+          <InventoryProvider
+            apparelData={{ apparelItems: data.items, apparelImages: data.images }}
           // handleCategoryChange={handleCategoryChange}
-        >
-          <CartProvider apparelData={data.items}>
-            <CheckoutProvider>{children}</CheckoutProvider>
-          </CartProvider>
-        </InventoryProvider>
-      </CookiesProvider>
-    </NavigationProvider>
+          >
+            <CartProvider apparelData={data.items}>
+              <CheckoutProvider>{children}</CheckoutProvider>
+            </CartProvider>
+          </InventoryProvider>
+        </CookiesProvider>
+      </NavigationProvider>
+    </UIKitProvider>
   );
 };
 

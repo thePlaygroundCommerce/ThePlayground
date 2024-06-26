@@ -3,7 +3,6 @@ import { useCart } from "context/cartContext";
 import { SetStateAction, useState } from "react";
 import { AppProps } from "types";
 import { CatalogObject, OrderLineItem } from "square";
-import { ItemDataType } from "rsuite/esm/@types/common";
 import { getCheckoutUrl } from "api/checkoutApi";
 import ProductDetailsModifyPresenter from "./ProductDetailsModifyPresenter";
 
@@ -50,16 +49,12 @@ const ProductDetailsModify = ({ catalogItemObject, catalogImageObject }: Props) 
     addCartItem(lineItem, catalogImageObject[0].imageData);
   };
 
-  const handleBuyNow = async () => {
+  const handleBuyNow = () => {
     const itemVariationID = itemData.variations![selectedVariation].id;
     const lineItem = {
       quantity: quantity.toString(),
       catalogObjectId: itemVariationID,
     };
-
-    const checkoutUrl = await getCheckoutUrl([lineItem]);
-
-    window.location.assign(checkoutUrl);
   };
 
   const handleSelectChange = (value: SetStateAction<number> | null) =>
@@ -69,7 +64,7 @@ const ProductDetailsModify = ({ catalogItemObject, catalogImageObject }: Props) 
     itemData?.variations![0].itemVariationData?.priceMoney?.amount ?? 50
   ).toString();
 
-  const data: ItemDataType<number>[] = itemData?.variations!.map(
+  const data: any[] = itemData?.variations!.map(
     ({ itemVariationData }, i) => ({
       label: itemVariationData?.name?.slice(0, 1).toUpperCase(),
       value: i,

@@ -27,9 +27,9 @@ const SocialMediaButtons = ({ align = "left" }) => {
           <Button className="border-0">
             <FaYoutube />
           </Button>
-          {/* <Button className="border-0">
+          <Button className="border-0">
             <FaTiktok />
-          </Button> */}
+          </Button>
         </div>
       </IconContext.Provider>
     </div>

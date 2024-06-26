@@ -24,12 +24,12 @@ const Page = async (props: Props) => {
           <Breadcrumbs categoryId={catalogObject.object.itemData.categoryId} />
         </div> */}
 
-        <div className="h-full grid grid-cols-3">
-          <div className="flex col-span-2 border-r">
+        <div className="min-h-screen grid grid-rows-8 grid-col-1 md:grid-cols-3">
+          <div className="row-span-4">
             <ProductImageGallery images={filteredRelatedImages} />
           </div>
 
-          <div>
+          <div className="row-span-4">
             <ProductDetailsModify
               catalogItemObject={catalogObject.object}
               catalogImageObject={filteredRelatedImages}
@@ -41,7 +41,7 @@ const Page = async (props: Props) => {
   };
 
   return (
-    <div className="px-8 ">
+    <div className="">
       {catalogObject ? renderProductDetails() : renderProductError()}
     </div>
   );
