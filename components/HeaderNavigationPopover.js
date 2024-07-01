@@ -40,7 +40,6 @@ const HeaderNavigationPopover = () => {
           </div>
         )
       )}
-      <div></div>
     </div>
   );
 };

@@ -1,15 +1,8 @@
 "use client";
-import { Person } from "react-bootstrap-icons";
-import { Menu, Popover } from "@headlessui/react";
 import Cart from "./Cart";
-import Link from "next/link";
-import Button from "./Button";
-import { useContext, useEffect, useState } from "react";
-import { useCart } from "context/cartContext";
+import React, { useEffect, useState } from "react";
 import CartOverlay from "./CartOverlay.tsx";
-import { CheckoutContext } from "context/checkoutContext";
 import { Drawer } from "rsuite";
-import { createPortal } from "react-dom";
 import { useUIKit } from "context/UIKitContext";
 import Portal from "./Portal";
 import { usePathname } from "next/navigation";
@@ -17,10 +10,10 @@ import { usePathname } from "next/navigation";
 function HeaderActions() {
   const path = usePathname();
   const {
-    drawerKit: { open, ref },
+    drawerKit: { open },
     handleUIChange,
   } = useUIKit();
-  const { getCheckoutUrl } = useContext(CheckoutContext);
+  // const { getCheckoutUrl } = useContext(CheckoutContext);
   const [show, setShow] = useState(false);
 
   const handleCartOnClick = () => {
@@ -44,10 +37,12 @@ function HeaderActions() {
             closeButton={false}
             size={325}
             open={open && show}
+            className="h-full overflow-hidden"
             // onClose={handleCartOnClick}
+            enforceFocus
             onExited={() => handleUIChange({open: !open})}
           >
-            <Drawer.Body className="py-2 p-0">
+            <Drawer.Body className="py-2 p-0 h-full overflow-hidden" style={{ maxHeight: undefined }}>
               <div className="bg-white h-screen">
                 <CartOverlay
                   handleCartToggle={handleCartOnClick}

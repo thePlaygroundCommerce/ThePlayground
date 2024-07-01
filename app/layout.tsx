@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { getCatalogObjects } from "api/catalogApi";
 import Footer from "components/Footer";
 import Header from "components/Header";

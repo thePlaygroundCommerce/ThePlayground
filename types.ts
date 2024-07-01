@@ -53,13 +53,16 @@ export type ApparelNavigation = {
 
 export type CartContextType = {
   cart: Order;
-  cartItemImages: any[];
-  updateCart: () => void;
-  createCart: () => void;
-  addCartItem: (lineItem: OrderLineItem, lineItemImage?: CatalogImage) => void;
-  deleteCartItem: () => void;
-  CartQuantityCounter: (lineItem: OrderLineItem) => JSX.Element;
-  toggleCartOverlay: () => void;
+  cartItemImages: {
+    [index: string]: CatalogImage;
+  };
+  updateCart: (
+    lineItems?: OrderLineItem[],
+    fieldsToClear?: string[],
+    lineItemImageData?: CatalogImage
+  ) => void;
+  createCart: (catalogOrder: any, lineItemImageData?: CatalogImage, checkout?: boolean) => void;
+  toggleCartOverlay: [boolean, Dispatch<SetStateAction<boolean>>];
 };
 
 export type UIKitContextType = {

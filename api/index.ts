@@ -1,20 +1,20 @@
-import { ApiResponse } from "square";
+import { ApiError, ApiResponse } from "square";
 import logger from "util/logger";
 
-export const processRes = async (
-  response: any,
+export const processRes = async <T> (
+  res: ApiResponse<T> | ApiError,
   successLog?: string,
   errorLog?: string
 ) => {
-  if (response.errors) {
+  if ("errors" in res) {
     logger.error({
       msg: errorLog,
-      result: response,
+      result: res.errors,
     });
   } else {
     logger.info({
       msg: successLog,
-      result: response,
+      result: res.result,
     });
   }
 

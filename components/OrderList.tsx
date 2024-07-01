@@ -1,5 +1,6 @@
+/* eslint-disable react/react-in-jsx-scope */
 "use client";
-import { useCart } from "context/cartContext";
+import { useCartModifier } from "context/cartContext";
 import Image from "next/image";
 import { IconContext } from "react-icons";
 import { AiOutlineMinusCircle } from "react-icons/ai";
@@ -14,27 +15,24 @@ const OrderList = ({ allowOrderItemDeletion = true, ...rest }) => {
   const {
     cart: { lineItems = [] },
     cartItemImages,
-    addCartItem,
     CartQuantityCounter,
-    deleteCartItem,
-  } = useCart();
-
+  } = useCartModifier();
 
   if (lineItems && lineItems.length === 0)
     return <p className="text-center">There are no items in the cart.</p>;
-  
+
   return (
     <div {...rest}>
       {lineItems?.map((item) => {
-        const catalogObjectId = +(item.catalogObjectId ?? "0")
+        const catalogObjectId = item.catalogObjectId as string
         const lineItemImage = cartItemImages[catalogObjectId];
         return (
           <div key={item.uid} className="grid grid-cols-5">
             <div className="col-span-2 relative">
-              {lineItemImage && (
+              {lineItemImage?.url && (
                 <Image
                   src={lineItemImage.url}
-                  alt={lineItemImage.caption}
+                  alt={lineItemImage.caption ?? ""}
                   objectFit="contain"
                   fill
                 />

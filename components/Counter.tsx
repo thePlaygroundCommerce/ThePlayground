@@ -5,13 +5,13 @@ import { AppProps } from "types";
 type Props = AppProps & {
   count: number;
   allowDeletion?: boolean;
-  onCountChange: Dispatch<SetStateAction<number>>;
+  onCountChange: any;
 };
 
 const Counter = ({ count: initialCount = 1, onCountChange, allowDeletion = false }: Props) => {
   const [count, setCount] = useState(initialCount);
-  const handleIncrement = () => { setCount(count + 1); onCountChange(count + 1)};
-  const handleDecrement = () => { setCount(count - 1); onCountChange(count - 1)};
+  const handleIncrement = () => { setCount(count => count + 1); onCountChange(count + 1)};
+  const handleDecrement = () => { setCount(count => count - 1); onCountChange(count - 1)};
   const handleTextChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const value = +e.target.value;
     const valueToSet = value < 2 ? 1 : value;

@@ -1,9 +1,7 @@
 "use client";
 
-import _ from "lodash";
 import { usePathname } from "next/navigation";
-import { createContext, useState, useMemo, useContext, useRef, useEffect } from "react";
-import { Drawer } from "rsuite";
+import React, { createContext, useState, useMemo, useContext, useRef, useEffect } from "react";
 import { UIKitContextType } from "types";
 
 export const UIKitContext = createContext<UIKitContextType | null>(null);
@@ -32,7 +30,7 @@ const UIKitProvider = ({ children }: any) => {
       handleUIChange
     }), [uiState])}>
       {children}
-      <div id="drawerContainer" />
+      <div id="drawerContainer" className="h-screen" />
     </UIKitContext.Provider>
   )
 

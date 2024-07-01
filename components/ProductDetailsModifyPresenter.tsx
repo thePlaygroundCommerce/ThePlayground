@@ -48,7 +48,7 @@ const ProductDetailsModifyPresenter = (props: Props) => {
         </div>
       </div>
       <div className="grid grid-cols-1 gap-1 pb-7 border-b justify-around">
-        <Button className="" onClick={props.handleBuyNow}>Buy Now</Button>
+        <Button onClick={props.handleBuyNow}>Buy Now</Button>
         <Button onClick={props.handleAddToCart}>
           {!(+(props.isProductInCart()?.quantity ?? 0) > 0)
             ? "Add To Cart"

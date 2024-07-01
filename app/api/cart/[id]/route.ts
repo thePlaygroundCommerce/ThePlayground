@@ -4,13 +4,13 @@ import { Order } from "square";
 
 export const dynamic = 'force-dynamic' // defaults to auto
 export async function GET(
-  request: Request,
+  _: Request,
   { params }: { params: { id: string } }
 ) {
-  const { signal } = new AbortController()
+  
   const id = params.id;
-  const order: Order = await callGetCart(id);
+  const { result } = await callGetCart(id);
 
-  return Response.json(order);
+  return Response.json(result);
 }
 

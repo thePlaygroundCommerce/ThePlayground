@@ -13,15 +13,15 @@ const ProductImageViewer = ({ imageData }: any) => {
       alt="picture of shirt"
     />  
   );
-  return (
-    <GlassMagnifier
-      // className="max-h-full"
-      // alwaysInPlace={true}
-      className="object-cover w-full"
-      imageSrc={imageData?.url}
-      imageAlt="picture of shirt"
-    />  
-  );
 };
 
 export default ProductImageViewer;
+
+// return (
+//   <GlassMagnifier
+//     // className="max-h-full"
+//     // alwaysInPlace={true}
+//     className="object-cover w-full"
+//     imageSrc={imageData?.url}
+//     imageAlt="picture of shirt"
+//   />  

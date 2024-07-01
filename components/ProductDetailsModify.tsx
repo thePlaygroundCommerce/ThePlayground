@@ -1,10 +1,12 @@
+/* eslint-disable react/react-in-jsx-scope */
 "use client";
-import { useCart } from "context/cartContext";
+import { useCart, useCartModifier } from "context/cartContext";
 import { SetStateAction, useState } from "react";
 import { AppProps } from "types";
 import { CatalogObject, OrderLineItem } from "square";
 import { getCheckoutUrl } from "api/checkoutApi";
 import ProductDetailsModifyPresenter from "./ProductDetailsModifyPresenter";
+import { useRouter } from "next/navigation";
 
 type Props = AppProps & {
   catalogItemObject: CatalogObject;
@@ -12,10 +14,11 @@ type Props = AppProps & {
 };
 
 const ProductDetailsModify = ({ catalogItemObject, catalogImageObject }: Props) => {
+  const { push } = useRouter();
   const {
     cart: { lineItems = [] },
-    addCartItem,
-  } = useCart();
+    modifyCart,
+  } = useCartModifier();
 
   const itemData = catalogItemObject.itemData!;
 
@@ -46,7 +49,7 @@ const ProductDetailsModify = ({ catalogItemObject, catalogImageObject }: Props) 
     } else {
       lineItem.catalogObjectId = itemVariationId;
     }
-    addCartItem(lineItem, catalogImageObject[0].imageData);
+    modifyCart(lineItem, catalogImageObject[0].imageData);
   };
 
   const handleBuyNow = () => {
@@ -55,6 +58,8 @@ const ProductDetailsModify = ({ catalogItemObject, catalogImageObject }: Props) 
       quantity: quantity.toString(),
       catalogObjectId: itemVariationID,
     };
+
+    push("/checkout")
   };
 
   const handleSelectChange = (value: SetStateAction<number> | null) =>
