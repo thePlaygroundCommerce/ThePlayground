@@ -26,6 +26,7 @@ const OrderList = ({ allowOrderItemDeletion = true, ...rest }) => {
       {lineItems?.map((item) => {
         const catalogObjectId = item.catalogObjectId as string
         const lineItemImage = cartItemImages[catalogObjectId];
+
         return (
           <div key={item.uid} className="grid grid-cols-5">
             <div className="col-span-2 relative">

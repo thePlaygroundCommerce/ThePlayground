@@ -7,6 +7,8 @@ import { useCookies } from "react-cookie";
 import { CatalogApi, CatalogImage, Order, OrderLineItem } from "square";
 import { CartContextType } from "types";
 import { useDebounce, useDebouncedCallback } from "use-debounce";
+import { getCatalogItemsAndImages } from "api/catalogApi";
+import { consoleIntegration } from "@sentry/nextjs";
 
 
 type CartState = {
@@ -15,15 +17,15 @@ type CartState = {
 }
 
 type ModifiedCartData = {
-  lineItems?: OrderLineItem[],
+  lineItems: OrderLineItem[],
   fieldsToClear?: string[],
-  lineItemImageData: { [id: string]: CatalogImage }
+  lineItemImageData?: { [id: string]: CatalogImage }
 }
 type OrUndefined<T> = T | undefined
 
 export const CartContext = createContext<CartContextType | null>(null);
 
-const CartProvider = ({ children }: any) => {
+const CartProvider = ({ _cart, children }: { children: any, _cart?: Order }) => {
   const [cookies, setCookie] = useCookies();
   const [openCart, setOpenCart] = useState<boolean>(false);
   const [cartItemImages, setCartItemImages] = useState<{
@@ -34,28 +36,30 @@ const CartProvider = ({ children }: any) => {
     lineItems: [],
     locationId: "",
   }
-  const [{ order: _cart, errors }, setCart] = useState<CartState>({
-    order: initialCart,
+  const [{ order: cart, errors }, setCart] = useState<CartState>({
+    order: _cart || initialCart,
     errors: []
   });
-  const [cart] = useDebounce(_cart, 1500);
+
+  useEffect(() => {
+    if (cart) {
+      console.log(cart)
+      getCatalogItemsAndImages(cart.lineItems?.map((item) => item.catalogObjectId ?? "") ?? []).then(data => populateCartAndImages({ order: cart, errors: [] }, data));
+    }
+  }, []);
+
+  // const getCart = () => {
+  //   apiRouteHandlerAdapter({
+  //     method: "GET",
+  //     url: `/api/cart/${cookies.cartId}`
+  //   }).then(data => populateCartAndImages(data))
+  // };
+
 
   const drawerRef = useRef(null);
   const handleDrawerToggle = (e: any, bool = !openCart) => {
     setOpenCart(bool);
   }
-  useEffect(() => {
-    if (cookies.cartId) {
-      getCart();
-    }
-  }, []);
-
-  const getCart = () => {
-    apiRouteHandlerAdapter({
-      method: "GET",
-      url: `/api/cart/${cookies.cartId}`
-    }).then(data => populateCartAndImages(data))
-  };
 
   const updateCart = ({
     lineItems,
@@ -83,7 +87,7 @@ const CartProvider = ({ children }: any) => {
     }
   };
 
-  const createCart = (catalogOrder: any, lineItemImageData?: CatalogImage, checkout?: boolean) => {
+  const createCart = (catalogOrder: any, lineItemImageData?: { [id: string]: CatalogImage }, checkout?: boolean) => {
     const state = checkout ? "OPEN" : "DRAFT";
     apiRouteHandlerAdapter({
       method: "POST",
@@ -107,6 +111,7 @@ const CartProvider = ({ children }: any) => {
   return (
     <CartContext.Provider
 
+      //@ts-ignore
       value={useMemo(
         () => ({
           cart, cartItemImages,
@@ -116,7 +121,7 @@ const CartProvider = ({ children }: any) => {
           createCart,
           toggleCartOverlay: [openCart, setOpenCart],
         }),
-        [cart, openCart]
+        [cart, cartItemImages, openCart]
       )}
     >
       {children}
@@ -132,7 +137,7 @@ export const useCartModifier = () => {
   const convertData = ([lineItems, fieldsToClear, lineItemImageData]: [OrUndefined<OrderLineItem[]>, OrUndefined<string[]>, OrUndefined<CatalogImage>]): ModifiedCartData => ({
     lineItems: lineItems as OrderLineItem[],
     fieldsToClear: fieldsToClear as string[],
-    lineItemImageData: lineItemImageData as CatalogImage
+    lineItemImageData: lineItemImageData as { [id: string]: CatalogImage }
   })
 
   const addCartItem = (
@@ -158,7 +163,7 @@ export const useCartModifier = () => {
   const modifyCartItem = (
     existingCartItemIndex: number,
     newCartItem: OrderLineItem
-  ): [OrderLineItem[] | undefined, string[] | undefined, CatalogImage | undefined] => {
+  ): [OrderLineItem[] | undefined, string[] | undefined, CatalogImage | undefined] | any => {
     if (!Array.isArray(cart.lineItems)) {
       throw new Error("Cart line items must be an Array!");
     }
@@ -191,7 +196,7 @@ export const useCartModifier = () => {
       modifiedCartItemData = convertData(modifyCartItem(isExistingItemIndex, lineItem))
     else
       modifiedCartItemData = convertData(addCartItem(lineItem, lineItemImageData))
-
+      //@ts-ignore
     updateCart(modifiedCartItemData)
   }
 

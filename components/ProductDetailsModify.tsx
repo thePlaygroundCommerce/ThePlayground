@@ -7,6 +7,7 @@ import { CatalogObject, OrderLineItem } from "square";
 import { getCheckoutUrl } from "api/checkoutApi";
 import ProductDetailsModifyPresenter from "./ProductDetailsModifyPresenter";
 import { useRouter } from "next/navigation";
+import { apiRouteHandlerAdapter } from "apiRouteHandler";
 
 type Props = AppProps & {
   catalogItemObject: CatalogObject;
@@ -52,14 +53,25 @@ const ProductDetailsModify = ({ catalogItemObject, catalogImageObject }: Props) 
     modifyCart(lineItem, catalogImageObject[0].imageData);
   };
 
-  const handleBuyNow = () => {
+  const handleBuyNow = async ( order: any ) => {
     const itemVariationID = itemData.variations![selectedVariation].id;
     const lineItem = {
       quantity: quantity.toString(),
       catalogObjectId: itemVariationID,
     };
 
-    push("/checkout")
+    apiRouteHandlerAdapter({
+      method: "POST",
+      url: `/api/cart`,
+      payload: { order }
+    }).then((a) => {
+      // if(order)
+      //   push(`/checkout/${order.id}`)
+      // else {
+      //   // todo do something
+      // }
+    })
+
   };
 
   const handleSelectChange = (value: SetStateAction<number> | null) =>

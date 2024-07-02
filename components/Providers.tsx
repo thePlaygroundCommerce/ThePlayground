@@ -7,12 +7,14 @@ import CheckoutProvider from "context/checkoutContext";
 import InventoryProvider from "../context/inventoryContext";
 import { AppProps } from "types";
 import UIKitProvider from "context/UIKitContext";
+import { Order } from "square";
 
 type Props = AppProps & {
-  data: any
+  data: any,
+  cart?: Order
 };
 
-const Providers = ({ data, children }: Props) => {
+const Providers = ({ data, cart, children }: Props) => {
   return (
     <UIKitProvider>
       <NavigationProvider apparelCategories={data.categories}>
@@ -21,7 +23,7 @@ const Providers = ({ data, children }: Props) => {
             apparelData={{ apparelItems: data.items, apparelImages: data.images }}
           // handleCategoryChange={handleCategoryChange}
           >
-            <CartProvider apparelData={data.items}>
+            <CartProvider _cart={cart}>
               <CheckoutProvider>{children}</CheckoutProvider>
             </CartProvider>
           </InventoryProvider>

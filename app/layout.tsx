@@ -13,6 +13,8 @@ import { createClient, repositoryName } from "prismicio";
 import { AppProps } from "types";
 import { Content } from "@prismicio/client";
 import { CustomProvider } from "rsuite";
+import { cookies } from "next/headers";
+import { callGetCart } from "api/cartApi";
 
 export const metadata = {
   title: "The Playground",
@@ -58,6 +60,13 @@ const getMainNavigation = async () => {
 type Props = AppProps & {};
 
 export default async function RootLayout({ children }: Readonly<Props>) {
+  let cart;
+  const cookiesStore = cookies();
+  const cartId = cookiesStore.get("cartId");
+  if(cartId) cart = await callGetCart(cartId.value);
+
+
+  
   const { objects: categoryObjects = [] } = await getCatalogObjects("CATEGORY");
   const { objects: apparelObjects = [] } = await getCatalogObjects(
     "ITEM,IMAGE,CATEGORY"
@@ -73,7 +82,7 @@ export default async function RootLayout({ children }: Readonly<Props>) {
     <html lang="en" className="h-auto md:h-screen">
       <body className="h-full">
         <CustomProvider>
-          <Providers data={mappedCatalogItems}>
+          <Providers data={mappedCatalogItems} cart={cart?.result.order}>
             <LayoutB navs={{ footerNavs, headerNavs }}>{children}</LayoutB>
           </Providers>
         </CustomProvider>

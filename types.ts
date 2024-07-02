@@ -57,11 +57,15 @@ export type CartContextType = {
     [index: string]: CatalogImage;
   };
   updateCart: (
-    lineItems?: OrderLineItem[],
+    lineItems: OrderLineItem[],
     fieldsToClear?: string[],
-    lineItemImageData?: CatalogImage
+    lineItemImageData?: { [id: string]: CatalogImage }
   ) => void;
-  createCart: (catalogOrder: any, lineItemImageData?: CatalogImage, checkout?: boolean) => void;
+  createCart: (
+    catalogOrder: any,
+    lineItemImageData?: CatalogImage,
+    checkout?: boolean
+  ) => void;
   toggleCartOverlay: [boolean, Dispatch<SetStateAction<boolean>>];
 };
 
