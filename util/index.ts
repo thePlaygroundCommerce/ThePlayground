@@ -1,6 +1,14 @@
 import { CatalogObject } from "square";
 import { SplitCategoryNameWithId, CategoryTree } from "types";
 
+export const doesContextExist = <T,>(context: T | null) => {
+  if (!context) {
+    throw new Error("Hooks have to be used within Providers");
+  }
+
+  return context;
+}
+
 export function splitCategoryNames(arr: CatalogObject[]): string[][] {
   return arr?.map(({ categoryData }) =>
     categoryData?.name ? categoryData.name.split(" ") : [""]

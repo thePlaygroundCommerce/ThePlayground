@@ -13,8 +13,11 @@ import { createClient, repositoryName } from "prismicio";
 import { AppProps } from "types";
 import { Content } from "@prismicio/client";
 import { CustomProvider } from "rsuite";
-import { cookies } from "next/headers";
-import { callGetCart } from "api/cartApi";
+import { cookies, headers } from "next/headers";
+import { callGetCart, callUpdateCart } from "api/cartApi";
+import { Order } from "square";
+import { getCheckoutUrl } from "api/checkoutApi";
+import { redirect } from "next/navigation";
 
 export const metadata = {
   title: "The Playground",
@@ -61,28 +64,29 @@ type Props = AppProps & {};
 
 export default async function RootLayout({ children }: Readonly<Props>) {
   let cart;
-  const cookiesStore = cookies();
-  const cartId = cookiesStore.get("cartId");
-  if(cartId) cart = await callGetCart(cartId.value);
+  const pathname = headers().get("x-current-path")
+  const cookieCartId = cookies().get("cartId")?.value ?? ""
 
-
-  
+  cart = await callGetCart(cookieCartId).then(({ result: { order } = { order: undefined } }) => order);
   const { objects: categoryObjects = [] } = await getCatalogObjects("CATEGORY");
   const { objects: apparelObjects = [] } = await getCatalogObjects(
     "ITEM,IMAGE,CATEGORY"
   );
-
   const { headerNavs, footerNavs } = await getMainNavigation();
 
   const mappedCatalogItems = mapArrayToMap(
     apparelObjects.concat(categoryObjects)
   );
 
+  if (pathname?.includes("checkout")) {
+    cart = await processCheckout(cookieCartId, pathname.slice(pathname.lastIndexOf("/") + 1)).then(order => order)
+  }
+
   return (
     <html lang="en" className="h-auto md:h-screen">
       <body className="h-full">
         <CustomProvider>
-          <Providers data={mappedCatalogItems} cart={cart?.result.order}>
+          <Providers data={mappedCatalogItems} cart={cart}>
             <LayoutB navs={{ footerNavs, headerNavs }}>{children}</LayoutB>
           </Providers>
         </CustomProvider>
@@ -139,3 +143,27 @@ const LayoutB = ({
     </main>
   </>
 );
+
+
+const processCheckout = async (cookieId: string, cartId: string) => {
+  let cartInCookie;
+  let cartInQuestion;
+  if (cookieId != cartId) {
+    console.log(cookieId, cartId)
+    cartInQuestion = await callGetCart(cartId).then(({ result: { order } }) => order)
+    if (!cartInQuestion) redirect("/shop")
+    const isShippingFulfillmentPresent = cartInQuestion?.fulfillments && cartInQuestion.fulfillments.length > 0
+
+    if (isShippingFulfillmentPresent) {
+      const { result: { order } } = await callGetCart(cookieId);
+      cartInCookie = order
+      return await callUpdateCart({
+        orderId: cartInCookie?.id,
+        order: {
+          version: cartInCookie?.version
+        },
+        fieldsToClear: ["line_items"]
+      }, { method: "PUT" }).then(({ result: { order } }) => order)
+    }
+  }
+}

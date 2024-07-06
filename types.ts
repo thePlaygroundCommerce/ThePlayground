@@ -69,6 +69,10 @@ export type CartContextType = {
   toggleCartOverlay: [boolean, Dispatch<SetStateAction<boolean>>];
 };
 
+export type CheckoutContextType = {
+  checkout: () => void
+};
+
 export type UIKitContextType = {
   drawerKit: {
     open: boolean;

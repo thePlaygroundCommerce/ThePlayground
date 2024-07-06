@@ -3,7 +3,7 @@
 import clsx from "clsx";
 import { useFormStatus } from "react-dom";
 
-const Button = ({ children, onClick, className, type }: any) => {
+const Button = ({ children, onClick, className, type, ...rest }: any) => {
   let pending = false;
   if (type == "submit") pending = useFormStatus().pending;
 
@@ -12,6 +12,7 @@ const Button = ({ children, onClick, className, type }: any) => {
       aria-disabled={pending}
       className={clsx("border p-3 rounded-lg", className)}
       onClick={onClick}
+      {...rest}
     >
       {children}
     </button>

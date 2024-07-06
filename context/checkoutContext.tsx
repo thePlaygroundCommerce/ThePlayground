@@ -1,33 +1,32 @@
 "use client";
 
-import { createContext, useState, useEffect, useContext } from "react";
+import { useRouter } from "next/navigation";
+import { createContext, useContext } from "react";
+import { AppProps, CheckoutContextType } from "types";
+import { doesContextExist } from "util/";
 import { useCart } from "./cartContext";
-import { getCheckoutUrl } from "api/checkoutApi";
-import { AppProps } from "types";
-import { OrderLineItem } from "square";
 
-export const CheckoutContext = createContext({});
+export const CheckoutContext = createContext<CheckoutContextType | null>(null);
 
 const CheckoutProvider = ({ children }: AppProps) => {
-  const {
-    cart,
-  } = useCart();
+  const { cart } = useCart()
+  const { push } = useRouter()
 
-  const _getCheckoutUrl = (lineItems: OrderLineItem[]) => {
-    // lineItems
-    //   ? getCheckoutUrl(lineItems)
-    //   : getCheckoutUrl(
-    //       lineItems.map(({ catalogObjectId }) => ({
-    //         catalogObjectId,
-    //         quantity: "1",
-    //       }))
-  };
-
+  const checkout = () => {
+    push("/checkout/" + cart.id)
+  }
+  
   return (
-    <CheckoutContext.Provider value={{ getCheckoutUrl: _getCheckoutUrl }}>
+    <CheckoutContext.Provider value={{ checkout }}>
       {children}
     </CheckoutContext.Provider>
   );
+};
+
+export const useCheckout = () => {
+  const currentContent = doesContextExist(useContext(CheckoutContext));
+
+  return currentContent;
 };
 
 export default CheckoutProvider;

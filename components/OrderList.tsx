@@ -6,26 +6,31 @@ import { IconContext } from "react-icons";
 import { AiOutlineMinusCircle } from "react-icons/ai";
 import { AppProps } from "types";
 import Counter from "./Counter";
+import { OrderLineItem } from "square";
 
 // type Props = AppProps & {
 //   params: { slug: string };
 // };
 
-const OrderList = ({ allowOrderItemDeletion = true, ...rest }) => {
+const OrderList = ({ allowOrderItemDeletion = true, lineItems, lineItemImages, ...rest }: any)=> {
   const {
-    cart: { lineItems = [] },
+    cart: { lineItems: _lineItems = [] },
     cartItemImages,
     CartQuantityCounter,
   } = useCartModifier();
 
-  if (lineItems && lineItems.length === 0)
+  const items = lineItems ?? _lineItems 
+  const images = lineItemImages ?? cartItemImages 
+    
+
+  if (items.length === 0)
     return <p className="text-center">There are no items in the cart.</p>;
 
   return (
     <div {...rest}>
-      {lineItems?.map((item) => {
+      {items?.map((item: OrderLineItem) => {
         const catalogObjectId = item.catalogObjectId as string
-        const lineItemImage = cartItemImages[catalogObjectId];
+        const lineItemImage = images[catalogObjectId];
 
         return (
           <div key={item.uid} className="grid grid-cols-5">

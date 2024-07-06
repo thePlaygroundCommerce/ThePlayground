@@ -53,7 +53,6 @@ export async function getCatalogItemsAndImages(ids: string[]) {
   if(ids.length === 0 ) return
   const fetchUrl = `${SQUARE_URL}catalog`;
   const payload = { objectIds: ids, includeRelatedObjects: true }
-  console.log(payload)
 
   return await fetch(fetchUrl, {
     method: "POST",

@@ -58,17 +58,17 @@ export async function getOrderAndCatalogObjects(orderId: string): Promise<
   }
 }
 
-export async function getCheckoutUrl(lineItems: any) {
+export async function getCheckoutUrl(order: any, redirectUrl: string = "http://localhost:3005/checkout/") {
   return await fetch(SQUARE_URL + "checkout", {
     next: { revalidate: 0 },
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      order: { lineItems },
-      checkoutOptions: { redirectUrl: "http://localhost:3005/shop/checkout/" },
+      order,
+      checkoutOptions: { redirectUrl },
     }),
   })
     .then((res) => res.json())
-    .then(({ result }) => result.paymentLink.url)
+    .then(({ result }) => result)
     .catch((err) => console.error(err));
 }

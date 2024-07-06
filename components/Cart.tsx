@@ -4,7 +4,7 @@ import { useCart } from "context/cartContext";
 
 const Cart = () => {
   const {
-    cart: { lineItems },
+    cart: { lineItems } = { lineItems: [] },
   } = useCart();
   const cartSize = lineItems?.length ?? 0;
 

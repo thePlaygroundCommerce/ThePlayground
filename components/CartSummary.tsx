@@ -14,7 +14,7 @@ const CartSummary = ({ order }: Props) => {
         style={{ minHeight: 100, maxHeight: 200, overflowX: "hidden" }}
         className="p-2 border-bottom"
       >
-        <OrderList orders={order?.lineItems} />
+        <OrderList lineItems={order?.lineItems} />
       </div>
       <div>
         <CartFooter />

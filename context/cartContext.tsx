@@ -8,7 +8,8 @@ import { CatalogApi, CatalogImage, Order, OrderLineItem } from "square";
 import { CartContextType } from "types";
 import { useDebounce, useDebouncedCallback } from "use-debounce";
 import { getCatalogItemsAndImages } from "api/catalogApi";
-import { consoleIntegration } from "@sentry/nextjs";
+import { doesContextExist } from "util/";
+import { usePathname } from "next/navigation";
 
 
 type CartState = {
@@ -43,18 +44,10 @@ const CartProvider = ({ _cart, children }: { children: any, _cart?: Order }) => 
 
   useEffect(() => {
     if (cart) {
-      console.log(cart)
-      getCatalogItemsAndImages(cart.lineItems?.map((item) => item.catalogObjectId ?? "") ?? []).then(data => populateCartAndImages({ order: cart, errors: [] }, data));
+      getCatalogItemsAndImages(cart.lineItems?.map((item) => item.catalogObjectId ?? "") ?? [])
+      .then(data => populateCartAndImages({ order: cart, errors: [] }, data));
     }
   }, []);
-
-  // const getCart = () => {
-  //   apiRouteHandlerAdapter({
-  //     method: "GET",
-  //     url: `/api/cart/${cookies.cartId}`
-  //   }).then(data => populateCartAndImages(data))
-  // };
-
 
   const drawerRef = useRef(null);
   const handleDrawerToggle = (e: any, bool = !openCart) => {
@@ -196,7 +189,7 @@ export const useCartModifier = () => {
       modifiedCartItemData = convertData(modifyCartItem(isExistingItemIndex, lineItem))
     else
       modifiedCartItemData = convertData(addCartItem(lineItem, lineItemImageData))
-      //@ts-ignore
+    //@ts-ignore
     updateCart(modifiedCartItemData)
   }
 
@@ -221,11 +214,3 @@ export const useCart = () => {
 };
 
 export default CartProvider;
-
-const doesContextExist = <T,>(context: T | null) => {
-  if (!context) {
-    throw new Error("Hooks have to be used within Providers");
-  }
-
-  return context;
-}

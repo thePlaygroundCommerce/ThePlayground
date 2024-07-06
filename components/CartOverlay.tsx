@@ -4,18 +4,21 @@ import Button from "./Button";
 import { IoClose } from "react-icons/io5";
 import Link from "next/link";
 import { AppProps } from "types";
-import { boolean } from "square/dist/types/schema";
+import { useCheckout } from "context/checkoutContext";
+import { useCart } from "context/cartContext";
 
 type Props = AppProps & {
   handleCartToggle: (e: any, bool: boolean) => void;
   getCheckoutUrl: () => string;
 };
 
-const CartOverlay = ({ handleCartToggle, getCheckoutUrl }: Props) => {
-  const handleCheckoutClick = async () => {
-    const url = getCheckoutUrl();
-    window.location.assign(url);
-  };
+const CartOverlay = ({ handleCartToggle }: Props) => {
+  const { cart } = useCart();
+  const { checkout } = useCheckout();
+
+  const handleCheckoutClick = () => {
+    checkout()
+  }
 
   return (
     <div>
@@ -26,7 +29,7 @@ const CartOverlay = ({ handleCartToggle, getCheckoutUrl }: Props) => {
       </div>
 
       <div className="py-3 border-b">
-        <OrderList orders={undefined} />
+        <OrderList />
       </div>
 
       <div className="px-3">
@@ -34,7 +37,7 @@ const CartOverlay = ({ handleCartToggle, getCheckoutUrl }: Props) => {
           <p>Subtotal</p>
           <p>$ 0.00</p>
         </div>
-        <Button className="w-full" onClick={handleCheckoutClick}>
+        <Button className="w-full" disabled={cart.lineItems?.length === 0} onClick={handleCheckoutClick}>
           Checkout Now
         </Button>
         <Button className="w-full">
