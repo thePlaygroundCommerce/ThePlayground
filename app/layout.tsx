@@ -149,7 +149,6 @@ const processCheckout = async (cookieId: string, cartId: string) => {
   let cartInCookie;
   let cartInQuestion;
   if (cookieId != cartId) {
-    console.log(cookieId, cartId)
     cartInQuestion = await callGetCart(cartId).then(({ result: { order } }) => order)
     if (!cartInQuestion) redirect("/shop")
     const isShippingFulfillmentPresent = cartInQuestion?.fulfillments && cartInQuestion.fulfillments.length > 0
