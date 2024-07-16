@@ -4,10 +4,11 @@ import { useCart, useCartModifier } from "context/cartContext";
 import { SetStateAction, useState } from "react";
 import { AppProps } from "types";
 import { CatalogObject, OrderLineItem } from "square";
-import { getCheckoutUrl } from "api/checkoutApi";
+import { getCheckoutOrderUrl } from "api/checkoutApi";
 import ProductDetailsModifyPresenter from "./ProductDetailsModifyPresenter";
 import { useRouter } from "next/navigation";
 import { apiRouteHandlerAdapter } from "apiRouteHandler";
+import { useCheckout } from "context/checkoutContext";
 
 type Props = AppProps & {
   catalogItemObject: CatalogObject;
@@ -15,7 +16,7 @@ type Props = AppProps & {
 };
 
 const ProductDetailsModify = ({ catalogItemObject, catalogImageObject }: Props) => {
-  const { push } = useRouter();
+  const { checkoutItem } = useCheckout()
   const {
     cart: { lineItems = [] },
     modifyCart,
@@ -53,25 +54,9 @@ const ProductDetailsModify = ({ catalogItemObject, catalogImageObject }: Props) 
     modifyCart(lineItem, catalogImageObject[0].imageData);
   };
 
-  const handleBuyNow = async ( order: any ) => {
+  const handleBuyNow = async (order: any) => {
     const itemVariationID = itemData.variations![selectedVariation].id;
-    const lineItem = {
-      quantity: quantity.toString(),
-      catalogObjectId: itemVariationID,
-    };
-
-    apiRouteHandlerAdapter({
-      method: "POST",
-      url: `/api/cart`,
-      payload: { order }
-    }).then((a) => {
-      // if(order)
-      //   push(`/checkout/${order.id}`)
-      // else {
-      //   // todo do something
-      // }
-    })
-
+    checkoutItem(itemVariationID, quantity.toString())
   };
 
   const handleSelectChange = (value: SetStateAction<number> | null) =>

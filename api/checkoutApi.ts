@@ -1,12 +1,14 @@
-"use server"
+"use server";
 
 import {
   ApiError,
   ApiResponse,
   BatchRetrieveCatalogObjectsResponse,
+  Order,
+  OrderLineItem,
   RetrieveOrderResponse,
 } from "square";
-import { SQUARE_URL } from "../constants";
+import { DEFAULT_FETCH_INIT, SQUARE_URL } from "../constants";
 
 export async function getOrderAndCatalogObjects(orderId: string): Promise<
   | {
@@ -16,10 +18,9 @@ export async function getOrderAndCatalogObjects(orderId: string): Promise<
   | undefined
 > {
   try {
-    const { order } = await fetch(
-      SQUARE_URL + "checkout/order/" + orderId,
-      { next: { revalidate: 0 } }
-    )
+    const { order } = await fetch(SQUARE_URL + "checkout/order/" + orderId, {
+      next: { revalidate: 0 },
+    })
       .then((res) => res.json())
       .then(({ result }) => result)
       .catch((err) => err);
@@ -28,20 +29,17 @@ export async function getOrderAndCatalogObjects(orderId: string): Promise<
       (item: any) => item.catalogObjectId
     );
 
-    const objects = await fetch(
-      SQUARE_URL + "catalog",
-      {
-        next: { revalidate: 0 },
-        method: "POST",
-        body: JSON.stringify({
-          objectIds: lineItemsCatalogIdList,
-          includeRelatedObjects: true,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
+    const objects = await fetch(SQUARE_URL + "catalog", {
+      next: { revalidate: 0 },
+      method: "POST",
+      body: JSON.stringify({
+        objectIds: lineItemsCatalogIdList,
+        includeRelatedObjects: true,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
       .then((res) => res.json())
       .catch((err) => err);
     return {
@@ -58,15 +56,31 @@ export async function getOrderAndCatalogObjects(orderId: string): Promise<
   }
 }
 
-export async function getCheckoutUrl(order: any, redirectUrl: string = "http://localhost:3005/checkout/") {
-  return await fetch(SQUARE_URL + "checkout", {
+export async function getCheckoutOrderUrl(
+  id: string,
+  redirectUrl: string = "http://localhost:3005/checkout"
+) {
+  return await fetch(
+    SQUARE_URL + `checkout/order/${id}?redirect=${redirectUrl}`,
+    {
+      next: { revalidate: 0 },
+      method: "GET",
+    }
+  )
+    .then((res) => res.json())
+    .then(({ result }) => result)
+    .catch((err) => console.error(err));
+}
+
+export async function getCheckoutItemUrl(
+  lineItems: OrderLineItem[],
+  redirectUrl: string = "http://localhost:3005/checkout"
+) {
+  return await fetch(SQUARE_URL + `checkout/item?redirect=${redirectUrl}`, {
+    ...DEFAULT_FETCH_INIT,
     next: { revalidate: 0 },
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      order,
-      checkoutOptions: { redirectUrl },
-    }),
+    body: JSON.stringify(lineItems),
   })
     .then((res) => res.json())
     .then(({ result }) => result)

@@ -1,5 +1,5 @@
 
-import { getCheckoutUrl } from 'api/checkoutApi'
+import { getCheckoutOrderUrl } from 'api/checkoutApi'
 import { callGetCart, callUpdateCart } from 'api/cartApi'
 import React from 'react'
 import { redirect } from 'next/navigation'
@@ -16,12 +16,25 @@ type PageProps = {
     searchParams: { [key: string]: string | string[] | undefined }
 }
 
-const Page = async ({ params: { id } }: PageProps) => {
-    let oldCartImages;
-    let newCart;
-
+const Page = async ({ params: { id }, searchParams: { quantity = "1", quick = "false" } }: PageProps) => {
+    let processedCartImages;
+    let processedCart;
+    let oldCart;
+    
     const cartId = cookies().get("cartId")?.value
-    const oldCart = (await callGetCart(cartId ?? "")).result.order
+    
+    if(Boolean(quick)){
+        oldCart = {
+            lineItems: [
+                {
+                    catalogObjectId: id,
+                    quantity: Array.isArray(quantity) ? quantity[0] : quantity
+                }
+            ]
+        }
+    } else {
+        oldCart = (await callGetCart(cartId ?? "")).result.order
+    }
     if (!oldCart) throw Error("Order missing!")
 
     const isOrderUnprocessed = id === cartId
@@ -30,7 +43,7 @@ const Page = async ({ params: { id } }: PageProps) => {
         oldCart.lineItems = oldCart?.lineItems?.map(
             ({ catalogObjectId, quantity }) => ({ catalogObjectId, quantity })
         );
-        const { paymentLink, errors } = await getCheckoutUrl(oldCart);
+        const { paymentLink } = await getCheckoutOrderUrl(id);
 
         if (paymentLink) redirect(paymentLink.url);
         else {
@@ -38,16 +51,16 @@ const Page = async ({ params: { id } }: PageProps) => {
             redirect("/shop")
         }
     } else {
-        newCart = await callGetCart(id).then(({ result: { order } }) => order)
-        if (!newCart) redirect("/shop")
-
-        oldCartImages = await getCatalogItemsAndImages(oldCart?.lineItems?.map((item) => item.catalogObjectId ?? "") ?? [])
+        processedCart = await callGetCart(id).then(({ result: { order } }) => order)
+        if (!processedCart) redirect("/shop")
+            
+        processedCartImages = await getCatalogItemsAndImages(processedCart?.lineItems?.map((item) => item.catalogObjectId ?? "") ?? [])
     }
 
     return isOrderUnprocessed ? (<div>Loading</div>) : (
         <div className="h-full grid grid-cols-1">
             <div className="md:col-span-7 min-h-48 pt-4">
-                <OrderList lineItems={oldCart?.lineItems} lineItemImages={oldCartImages} />
+                <OrderList lineItems={processedCart?.lineItems} lineItemImages={processedCartImages} />
             </div>
             <div className="md:col-span-5 px-4 h-full md:border-l">
                 <div className="flex flex-col gap-6 mt-5 md:w-3/4">

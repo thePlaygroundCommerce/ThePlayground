@@ -16,7 +16,7 @@ import { CustomProvider } from "rsuite";
 import { cookies, headers } from "next/headers";
 import { callGetCart, callUpdateCart } from "api/cartApi";
 import { Order } from "square";
-import { getCheckoutUrl } from "api/checkoutApi";
+import { getCheckoutOrderUrl } from "api/checkoutApi";
 import { redirect } from "next/navigation";
 
 export const metadata = {
@@ -77,10 +77,6 @@ export default async function RootLayout({ children }: Readonly<Props>) {
   const mappedCatalogItems = mapArrayToMap(
     apparelObjects.concat(categoryObjects)
   );
-
-  if (pathname?.includes("checkout")) {
-    cart = await processCheckout(cookieCartId, pathname.slice(pathname.lastIndexOf("/") + 1)).then(order => order)
-  }
 
   return (
     <html lang="en" className="h-auto md:h-screen">
@@ -143,26 +139,3 @@ const LayoutB = ({
     </main>
   </>
 );
-
-
-const processCheckout = async (cookieId: string, cartId: string) => {
-  let cartInCookie;
-  let cartInQuestion;
-  if (cookieId != cartId) {
-    cartInQuestion = await callGetCart(cartId).then(({ result: { order } }) => order)
-    if (!cartInQuestion) redirect("/shop")
-    const isShippingFulfillmentPresent = cartInQuestion?.fulfillments && cartInQuestion.fulfillments.length > 0
-
-    if (isShippingFulfillmentPresent) {
-      const { result: { order } } = await callGetCart(cookieId);
-      cartInCookie = order
-      return await callUpdateCart({
-        orderId: cartInCookie?.id,
-        order: {
-          version: cartInCookie?.version
-        },
-        fieldsToClear: ["line_items"]
-      }, { method: "PUT" }).then(({ result: { order } }) => order)
-    }
-  }
-}

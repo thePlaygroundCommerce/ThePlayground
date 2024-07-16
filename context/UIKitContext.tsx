@@ -30,7 +30,7 @@ const UIKitProvider = ({ children }: any) => {
       handleUIChange
     }), [uiState])}>
       {children}
-      <div id="drawerContainer" className="h-screen" />
+      <div id="drawerContainer" className="" />
     </UIKitContext.Provider>
   )
 

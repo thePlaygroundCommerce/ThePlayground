@@ -20,27 +20,31 @@ function Footer({ navs }: Props) {
     },
     { leftNavs: [] as Nav[], rightNavs: [] as Nav[] }
   );
-  const renderLink = ({ data: { title } }: Nav) => (
-    <ul className="w-full m-auto flex justify-center" key={title}>
-      {title}
-    </ul>
+  const renderLink = ({ data: { title, link } }: Nav) => (
+    <Link key={title} href={link ?? ""}>
+      <ul className="w-full m-auto flex justify-center" key={title}>
+        {title}
+      </ul>
+    </Link>
   );
 
   return (
     <footer className="border-t flex flex-col items-center w-full">
       <div className="w-full py-4">
         <Accordion>
-          <Accordion.Panel header="Shop">
+          {/* <Accordion.Panel header="Shop">
             <nav className="flex flex-col justify-center">
               {leftNavs.map(renderLink)}
               {rightNavs.map(renderLink)}
             </nav>
-          </Accordion.Panel>
-          <Accordion.Panel header="About">
+          </Accordion.Panel> */}
+          {/* <Accordion.Panel header="About">
             <Placeholder.Paragraph />
-          </Accordion.Panel>
+          </Accordion.Panel> */}
           <Accordion.Panel header="Help">
-            <Placeholder.Paragraph />
+            <nav>
+              {[{ data: { title: "Contact Us", link: "/contact" } }].map(renderLink)}
+            </nav>
           </Accordion.Panel>
         </Accordion>
         <div className="flex justify-center">

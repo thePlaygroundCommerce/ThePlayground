@@ -70,7 +70,8 @@ export type CartContextType = {
 };
 
 export type CheckoutContextType = {
-  checkout: () => void
+  checkout: () => void;
+  checkoutItem: (catalogObjectId: string, quantity: string) => void;
 };
 
 export type UIKitContextType = {

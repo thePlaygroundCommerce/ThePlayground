@@ -43,7 +43,7 @@ function HeaderActions() {
             onExited={() => handleUIChange({open: !open})}
           >
             <Drawer.Body className="py-2 p-0 h-full overflow-hidden" style={{ maxHeight: undefined }}>
-              <div className="bg-white h-screen">
+              <div className="bg-white">
                 <CartOverlay
                   handleCartToggle={handleCartOnClick}
                   // getCheckoutUrl={getCheckoutUrl}
