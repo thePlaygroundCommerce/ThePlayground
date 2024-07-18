@@ -6,7 +6,7 @@ const Page = (props: Props) => {
     return (
         <div>
             <div>
-                <h3>Terms of Service</h3>
+                <Heading>Terms of Service</Heading>
                 <div>
                     <p><strong>Terms</strong></p>
                     <p>By accessing this web site, you are agreeing to be bound by these web site Terms and Conditions of Use, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this web site are protected by applicable copyright and trade mark law.</p>

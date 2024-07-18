@@ -5,6 +5,7 @@ import {
   PrismicText,
   SliceComponentProps,
 } from "@prismicio/react";
+import Heading from "components/typography/Heading";
 
 /**
  * Props for `CallToAction2`.
@@ -33,9 +34,9 @@ const CallToAction2 = ({ slice }: CallToAction2Props): JSX.Element => {
         )}
         <div className="es-call-to-action__content">
           {isFilled.richText(slice.primary.title) && (
-            <h2 className="es-call-to-action__content__heading">
+            <Heading className="es-call-to-action__content__heading">
               <PrismicText field={slice.primary.title} />
-            </h2>
+            </Heading>
           )}
           {isFilled.richText(slice.primary.paragraph) && (
             <div className="es-call-to-action__content__paragraph">

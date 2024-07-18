@@ -17,6 +17,7 @@ import SocialMediaComponentMap, {
 } from "../../../constants/SocialMediaComponentMap";
 import { Carousel } from "rsuite";
 import { contentPositions } from "util/styles";
+import Heading from "components/typography/Heading";
 
 /**
  * Props for `Hero`.
@@ -113,9 +114,9 @@ const Hero = ({
               />
             </div>
           )}
-          <h1 className="w3-animate-top">{hero_title}</h1>
+          <Heading level={2} className="w3-animate-top">{hero_title}</Heading>
           <div>
-            <p className="font-bold">{hero_description}</p>
+            <p>{hero_description}</p>
           </div>
           {(slice.variation == "withCta" || slice.variation == "handlesCta") &&
             hasContentRelationshipData(slice.primary.cta) && (

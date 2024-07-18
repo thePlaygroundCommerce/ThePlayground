@@ -1,3 +1,4 @@
+import Heading from 'components/typography/Heading'
 import React from 'react'
 
 type Props = {}
@@ -6,12 +7,12 @@ const Page = (props: Props) => {
     return (
         <div>
             <div>
-                <h1>Returns</h1>
+                <Heading>Returns</Heading>
                 <p>If you're not happy with your purchase, we accept returns within 30 days from the delivery date for all US orders. All returned items must be unused and in their original condition. For orders $99 and over, a $10 return label fee will be deducted from the refund amount to cover the cost of return shipping.</p>
                 <p>Unfortunately, we do not offer international returns or exchanges at this time.</p>
             </div>
             <div>
-                <h1>Standard Policy</h1>
+                <Heading>Standard Policy</Heading>
                 <div>
                     <p>You have 30 calendar days to return an item from the date you received it.</p>
                     <p>All returns must be unused and received in its brand new, original condition.</p>
@@ -24,7 +25,7 @@ const Page = (props: Props) => {
             </div>
             <div>
                 <div >
-                    <h3>Start Your Return</h3>
+                    <Heading level={3}>Start Your Return</Heading>
                     <div>
                         <p>Please email us at <a href="">support@aersf.com</a>, with your order number to start your return. You’ll hear from us within 1 business day with next steps.</p>
                     </div>

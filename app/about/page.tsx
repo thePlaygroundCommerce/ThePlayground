@@ -1,16 +1,17 @@
+import Heading from "components/typography/Heading"
 
 const Page = () => {
   return (
     <div className="p-4">
-      <h2>Welcome to The Playground</h2>
+      <Heading>Welcome to The Playground</Heading>
 
       <p>At The Playground, we are passionate about making travel accessible, enjoyable, and hassle-free. Whether you're planning a quick getaway or a luxurious vacation, we're here to help you every step of the way.</p>
 
-      <h2>Our Mission</h2>
+      <Heading>Our Mission</Heading>
 
       <p>Our mission is to redefine the way you experience travel. We believe that travel is not just about reaching a destination but about the journey itself. That's why we curate experiences that inspire and connect you with the world around you.</p>
 
-      <h2>What We Offer</h2>
+      <Heading>What We Offer</Heading>
 
       <ol className="list-decimal p-4">
         <li>**Wide Range of Destinations:** From exotic beaches to bustling cities, we offer a diverse selection of destinations to suit every traveler's taste.</li>
@@ -23,7 +24,7 @@ const Page = () => {
       </ol>
 
 
-      <h2>Why Choose Us?</h2>
+      <Heading>Why Choose Us?</Heading>
       <p>
         - **Trustworthy:** With years of experience in the travel industry, we've built a reputation for reliability and customer satisfaction.
 
@@ -32,7 +33,7 @@ const Page = () => {
         - **Innovation:** We leverage technology to innovate and improve our services continuously, ensuring that you have access to the latest tools and resources.
       </p>
 
-      <h2>Join Us on Your Next Adventure</h2>
+      <Heading>Join Us on Your Next Adventure</Heading>
 
       <p>
 

@@ -1,5 +1,6 @@
 'use client' // Error components must be Client Components
  
+import Heading from 'components/typography/Heading'
 import { useEffect } from 'react'
  
 export default function PageError({
@@ -16,7 +17,7 @@ export default function PageError({
  
   return (
     <div>
-      <h2>Oops, something went wrong!</h2>
+      <Heading>Oops, something went wrong!</Heading>
       <button
         onClick={
           // Attempt to recover by trying to re-render the segment

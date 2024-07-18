@@ -14,10 +14,9 @@ import { AppProps } from "types";
 import { Content } from "@prismicio/client";
 import { CustomProvider } from "rsuite";
 import { cookies, headers } from "next/headers";
-import { callGetCart, callUpdateCart } from "api/cartApi";
-import { Order } from "square";
-import { getCheckoutOrderUrl } from "api/checkoutApi";
-import { redirect } from "next/navigation";
+import { callGetCart } from "api/cartApi";
+import clsx from "clsx";
+import { lato400 } from "./fonts";
 
 export const metadata = {
   title: "The Playground",
@@ -64,7 +63,6 @@ type Props = AppProps & {};
 
 export default async function RootLayout({ children }: Readonly<Props>) {
   let cart;
-  const pathname = headers().get("x-current-path")
   const cookieCartId = cookies().get("cartId")?.value ?? ""
 
   cart = await callGetCart(cookieCartId).then(({ result: { order } = { order: undefined } }) => order);
@@ -79,7 +77,7 @@ export default async function RootLayout({ children }: Readonly<Props>) {
   );
 
   return (
-    <html lang="en" className="h-auto md:h-screen">
+    <html lang="en" className={clsx("h-auto md:h-screen", lato400.className)}>
       <body className="h-full">
         <CustomProvider>
           <Providers data={mappedCatalogItems} cart={cart}>
