@@ -4,6 +4,7 @@ import { Tab } from "@headlessui/react";
 import Button from "./Button";
 import { Placeholder, SelectPicker } from "rsuite";
 import { AppProps } from "types";
+import Money from "./Money";
 
 type Props = AppProps & {
   amount: any;
@@ -25,7 +26,7 @@ const ProductDetailsModifyPresenter = (props: Props) => {
         <div className="basis-full">
           <p className="mb-1 h4">SWaNK</p>
           <p className="mb-1 h4 fw-bold">{props.itemData?.name}</p>
-          <p>$ {parseFloat(props.amount).toFixed(2)}</p>
+          <Money number={props.amount} />
         </div>
         <div className="basis-full grow flex flex-col items-center">
           <div className="">

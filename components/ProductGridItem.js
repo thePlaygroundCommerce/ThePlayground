@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Money from "./Money";
 import Unavailable from "public/unavailable-image.jpeg";
 
 export default function ProductGridItem({ itemData, images }) {
@@ -17,7 +18,9 @@ export default function ProductGridItem({ itemData, images }) {
       />
       <div className="p-3">
         <div>{name}</div>
-        <div>$ {parseFloat(variations[0].itemVariationData.priceMoney.amount).toFixed(2)}</div>
+        <div>
+          <Money number={variations[0].itemVariationData.priceMoney.amount} />
+        </div>
       </div>
     </div>
   );

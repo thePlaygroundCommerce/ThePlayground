@@ -62,9 +62,11 @@ const ProductDetailsModify = ({ catalogItemObject, catalogImageObject }: Props) 
   const handleSelectChange = (value: SetStateAction<number> | null) =>
     setSelectedVariation(value === null ? 0 : value);
 
-  const amount = BigInt(
-    itemData?.variations![0].itemVariationData?.priceMoney?.amount ?? 50
-  ).toString();
+  // const amount = BigInt(
+  //   itemData?.variations![0].itemVariationData?.priceMoney?.amount ?? 50
+  // ).toString();
+  console.log(itemData)
+  const amount = itemData?.variations![0].itemVariationData?.priceMoney?.amount
 
   const data: any[] = itemData?.variations!.map(
     ({ itemVariationData }, i) => ({

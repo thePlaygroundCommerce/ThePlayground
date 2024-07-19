@@ -69,7 +69,9 @@ export async function getCatalogItemsAndImages(ids: string[]) {
 
 export async function getProductDetails({ params: { slug } }: any) {
   try {
-    const catalogObject = await fetch(SQUARE_URL + "catalog/" + slug)
+    const catalogObject = await fetch(SQUARE_URL + "catalog/" + slug, {
+      next: { revalidate: 0 }
+    })
       .then((res) => res.json())
       .catch((err) => err);
 

@@ -7,21 +7,22 @@ import { AiOutlineMinusCircle } from "react-icons/ai";
 import { AppProps } from "types";
 import Counter from "./Counter";
 import { OrderLineItem } from "square";
+import Money from "./Money";
 
 // type Props = AppProps & {
 //   params: { slug: string };
 // };
 
-const OrderList = ({ allowOrderItemDeletion = true, lineItems, lineItemImages, ...rest }: any)=> {
+const OrderList = ({ allowOrderItemDeletion = true, lineItems, lineItemImages, ...rest }: any) => {
   const {
     cart: { lineItems: _lineItems = [] },
     cartItemImages,
     CartQuantityCounter,
   } = useCartModifier();
 
-  const items = lineItems ?? _lineItems 
-  const images = lineItemImages ?? cartItemImages 
-    
+  const items = lineItems ?? _lineItems
+  const images = lineItemImages ?? cartItemImages
+
 
   if (items.length === 0)
     return <p className="text-center">There are no items in the cart.</p>;
@@ -55,7 +56,7 @@ const OrderList = ({ allowOrderItemDeletion = true, lineItems, lineItemImages, .
                   <p className="m-0">
                     SIZE : {item.variationName && item.variationName[0].toUpperCase()}
                   </p>
-                  <p className="m-0">$ {item.basePriceMoney && item.basePriceMoney.amount}</p>
+                  <Money className="m-0" number={item.basePriceMoney?.amount ?? 0} />
                 </div>
                 <div className="m-3">
                   {CartQuantityCounter(item)}
