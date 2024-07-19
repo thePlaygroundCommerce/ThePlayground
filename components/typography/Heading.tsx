@@ -3,7 +3,6 @@ import clsx from 'clsx'
 import { Heading as HeadingComponent } from 'rsuite'
 
 const Heading = ({ children, className, ...rest }: any) => {
-    console.log(rest)
     return (
         <HeadingComponent {...rest} className={clsx(lato900.className, className)}>{children}</HeadingComponent>
     )
