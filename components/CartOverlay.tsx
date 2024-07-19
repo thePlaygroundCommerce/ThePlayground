@@ -6,6 +6,7 @@ import Link from "next/link";
 import { AppProps } from "types";
 import { useCheckout } from "context/checkoutContext";
 import { useCart } from "context/cartContext";
+import Money from "./Money";
 
 type Props = AppProps & {
   handleCartToggle: (e: any, bool: boolean) => void;
@@ -35,13 +36,10 @@ const CartOverlay = ({ handleCartToggle }: Props) => {
       <div className="px-3">
         <div className="py-5 flex justify-between">
           <p>Subtotal</p>
-          <p>$ 0.00</p>
+          <Money number={0}/>
         </div>
         <Button className="w-full" disabled={cart.lineItems?.length === 0} onClick={handleCheckoutClick}>
           Checkout Now
-        </Button>
-        <Button className="w-full">
-          <Link href="/cart">Go to Cart</Link>
         </Button>
       </div>
     </div>

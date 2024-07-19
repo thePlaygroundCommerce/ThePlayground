@@ -1,6 +1,5 @@
 import Button from "components/Button";
 import CartPricing from "components/CartPricing";
-import CartSummary from "components/CartSummary";
 import React from "react";
 
 const CartLayout = ({ children }) => {
