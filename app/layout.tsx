@@ -128,11 +128,9 @@ const LayoutB = ({
   <>
     <Header navs={navs} />
     <main className="h-full mt-12">
-      <div className="max-h-full h-full">
-        {children}
-        <div className="">
-          <Footer navs={footerNavs} />
-        </div>
+      {children}
+      <div className="">
+        <Footer navs={footerNavs} />
       </div>
     </main>
   </>
