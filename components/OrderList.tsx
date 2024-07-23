@@ -8,12 +8,13 @@ import { AppProps } from "types";
 import Counter from "./Counter";
 import { OrderLineItem } from "square";
 import Money from "./Money";
+import clsx from "clsx";
 
 // type Props = AppProps & {
 //   params: { slug: string };
 // };
 
-const OrderList = ({ allowOrderItemDeletion = true, lineItems, lineItemImages, ...rest }: any) => {
+const OrderList = ({ allowOrderItemDeletion = true, allowOrderModify = false, lineItems, lineItemImages, ...rest }: any) => {
   const {
     cart: { lineItems: _lineItems = [] },
     cartItemImages,
@@ -23,19 +24,21 @@ const OrderList = ({ allowOrderItemDeletion = true, lineItems, lineItemImages, .
   const items = lineItems ?? _lineItems
   const images = lineItemImages ?? cartItemImages
 
+  console.log(images)
+
 
   if (items.length === 0)
     return <p className="text-center">There are no items in the cart.</p>;
 
   return (
     <div {...rest}>
-      {items?.map((item: OrderLineItem) => {
+      {items?.map((item: OrderLineItem, i: number) => {
         const catalogObjectId = item.catalogObjectId as string
         const lineItemImage = images[catalogObjectId];
 
         return (
-          <div key={item.uid} className="grid grid-cols-5">
-            <div className="col-span-2 relative">
+          <div key={item.uid} className={clsx("min-h-48 grid grid-cols-5 py-4", i > 0 && "border-t")}>
+            <div className="col-span-2 relative border-r">
               {lineItemImage?.url && (
                 <Image
                   src={lineItemImage.url}
@@ -58,9 +61,11 @@ const OrderList = ({ allowOrderItemDeletion = true, lineItems, lineItemImages, .
                   </p>
                   <Money className="m-0" number={item.basePriceMoney?.amount ?? 0} />
                 </div>
-                <div className="m-3">
-                  {CartQuantityCounter(item)}
-                </div>
+                {allowOrderModify && (
+                  <div className="m-3">
+                    {CartQuantityCounter(item)}
+                  </div>
+                )}
               </div>
 
               {/* <div className="flex justify-around">

@@ -21,47 +21,48 @@ type Props = AppProps & {
 
 const ProductDetailsModifyPresenter = (props: Props) => {
   return (
-    <div className="m-auto">
-      <div className="grid grid-cols-2 mb-7 p-3">
-        <div className="basis-full">
-          <p className="mb-1 h4">SWaNK</p>
-          <p className="mb-1 h4 fw-bold">{props.itemData?.name}</p>
-          <Money number={props.amount} />
-        </div>
-        <div className="basis-full grow flex flex-col items-center">
-          <div className="">
-            <Counter
-              count={+props.quantity}
-              onCountChange={props.setQuantity}
-              childrenElement={<></>}
+    <div className="m-auto flex flex-col h-full">
+      <div className="md:w-2/3 md:m-auto flex flex-col justify-end h-full">
+        <div className="grid grid-cols-2 w-full mb-7 p-3">
+          <div className="basis-full">
+            <p className="mb-1 h4">SWaNK</p>
+            <p className="mb-1 h4 fw-bold">{props.itemData?.name}</p>
+            <Money number={props.amount} />
+          </div>
+          <div className="basis-full grow flex flex-col items-center">
+            <div className="">
+              <Counter
+                count={+props.quantity}
+                onCountChange={props.setQuantity}
+                childrenElement={<></>}
+              />
+            </div>
+            <SelectPicker
+              data={props.data}
+              onChange={props.handleSelectChange}
+              searchable={false}
+              cleanable={false}
+              placeholder={props.itemData?.variations![
+                props.selectedVariation
+              ].itemVariationData?.name?.slice(0, 1)}
+              defaultValue={props.selectedVariation}
             />
           </div>
-          <SelectPicker
-            data={props.data}
-            onChange={props.handleSelectChange}
-            searchable={false}
-            cleanable={false}
-            placeholder={props.itemData?.variations![
-              props.selectedVariation
-            ].itemVariationData?.name?.slice(0, 1)}
-            defaultValue={props.selectedVariation}
-          />
+        </div>
+        <div className="grid grid-cols-1 gap-1 pb-7 justify-around  w-full">
+          <Button onClick={props.handleBuyNow}>Buy Now</Button>
+          <Button onClick={props.handleAddToCart}>
+            {!(+(props.isProductInCart()?.quantity ?? 0) > 0)
+              ? "Add To Cart"
+              : "Update Cart"}
+          </Button>
         </div>
       </div>
-      <div className="grid grid-cols-1 gap-1 pb-7 border-b justify-around">
-        <Button onClick={props.handleBuyNow}>Buy Now</Button>
-        <Button onClick={props.handleAddToCart}>
-          {!(+(props.isProductInCart()?.quantity ?? 0) > 0)
-            ? "Add To Cart"
-            : "Update Cart"}
-        </Button>
-      </div>
-      <div className="mb-7">
+      <div className="mb-7 border-t h-full">
         <Tab.Group defaultIndex={0}>
           <Tab.List className="mb-3 pb-2 p-3 border-b">
             <Tab className="pe-3">Details</Tab>
             <Tab className="pe-3">Mission</Tab>
-            <Tab className="pe-3">Shop The Style</Tab>
           </Tab.List>
           <Tab.Panel className="px-3">
             <div>

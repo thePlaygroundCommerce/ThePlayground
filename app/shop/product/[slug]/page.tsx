@@ -1,5 +1,6 @@
 import { getProductDetails } from "api/catalogApi";
 import Breadcrumbs from "components/Breadcrumbs";
+import ProductActions from "components/ProductActions";
 import ProductDetailsModify from "components/ProductDetailsModify";
 import ProductImageGallery from "components/ProductImageGallery";
 import { AppProps } from "next/app";
@@ -24,12 +25,9 @@ const Page = async (props: Props) => {
           <Breadcrumbs categoryId={catalogObject.object.itemData.categoryId} />
         </div> */}
 
-        <div className="min-h-screen grid grid-rows-8 grid-col-1 md:grid-cols-3">
-          <div className="row-span-4">
+        <div className="min-h-screen md:p-4">
+          <div className="block md:grid md:grid-col-1 md:grid-cols-2 md:h-screen">
             <ProductImageGallery images={filteredRelatedImages} />
-          </div>
-
-          <div className="row-span-4">
             <ProductDetailsModify
               catalogItemObject={catalogObject.object}
               catalogImageObject={filteredRelatedImages}
@@ -40,11 +38,7 @@ const Page = async (props: Props) => {
     );
   };
 
-  return (
-    <div className="">
-      {catalogObject ? renderProductDetails() : renderProductError()}
-    </div>
-  );
+  return catalogObject ? renderProductDetails() : renderProductError();
 };
 
 export default Page;

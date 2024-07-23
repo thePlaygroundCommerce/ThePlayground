@@ -7,6 +7,7 @@ import { AppProps } from "types";
 import { useCheckout } from "context/checkoutContext";
 import { useCart } from "context/cartContext";
 import Money from "./Money";
+import Heading from "./typography/Heading";
 
 type Props = AppProps & {
   handleCartToggle: (e: any, bool: boolean) => void;
@@ -21,22 +22,25 @@ const CartOverlay = ({ handleCartToggle }: Props) => {
     checkout()
   }
 
+  const subtotal = cart.lineItems?.reduce((acc, cur) => acc + (Number(cur.basePriceMoney?.amount ?? 0)), 0) ?? 0
+
   return (
     <div>
-      <div className="flex justify-end px-4">
+      <div className="flex justify-between items-center px-4 border-b">
+        <Heading level={5}>Cart</Heading>
         <button className="p-3" onClick={() => handleCartToggle(null, false)}>
           <IoClose />
         </button>
       </div>
 
       <div className="py-3 border-b">
-        <OrderList />
+        <OrderList allowOrderModify />
       </div>
 
       <div className="px-3">
         <div className="py-5 flex justify-between">
           <p>Subtotal</p>
-          <Money number={0}/>
+          <Money number={subtotal} />
         </div>
         <Button className="w-full" disabled={cart.lineItems?.length === 0} onClick={handleCheckoutClick}>
           Checkout Now

@@ -1,14 +1,14 @@
 import { Lato } from "next/font/google";
 
-export const lato400 = Lato({
-  weight: "700",
+export const latoRegular = Lato({
+  weight: "400",
   style: ["normal", "italic"],
   subsets: ["latin"],
   display: "swap",
 });
 
-export const lato900 = Lato({
-  weight: "900",
+export const latoHeavy = Lato({
+  weight: "700",
   style: ["normal", "italic"],
   subsets: ["latin"],
   display: "swap",
