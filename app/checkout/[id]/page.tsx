@@ -58,7 +58,7 @@ const Page = async ({ params: { id }, searchParams: { quantity = "1", quick = "f
     }
 
     return isOrderUnprocessed ? (<div>Loading</div>) : (
-        <div className="h-full block md:grid grid-cols-1 p-4">
+        <div className="h-full block md:pt-8 p-4">
             <div className="m-auto text-center">
                 <div className="flex mb-5 justify-center">
                     <span className='mr-2'><BsFillCheckCircleFill size={25} color="green" /></span>
@@ -67,9 +67,9 @@ const Page = async ({ params: { id }, searchParams: { quantity = "1", quick = "f
                     </p>
                 </div>
             </div>
-            <div className="md:col-span-5 h-full md:border-l">
+            <div className="md:col-span-5 h-full">
                 <div className="md:col-span-7 min-h-48 pt-4">
-                    <OrderList lineItems={processedCart?.lineItems} lineItemImages={processedCartImages} />
+                    <OrderList className="min-h-24 md:w-3/4 mx-auto border" allowOrderModify={false} lineItems={processedCart?.lineItems} lineItemImages={processedCartImages} />
                 </div>
                 <div className="flex flex-col gap-6 mt-5 md:w-3/4">
                     <div className="text-center m-auto">

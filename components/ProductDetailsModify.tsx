@@ -60,7 +60,7 @@ const ProductDetailsModify = ({ catalogItemObject, catalogImageObject }: Props) 
   };
 
   const handleSelectChange = (value: SetStateAction<number> | null) =>
-    setSelectedVariation(value === null ? 0 : value);
+    setSelectedVariation(value ?? 0);
 
   const amount = itemData?.variations![0].itemVariationData?.priceMoney?.amount
 

@@ -31,22 +31,15 @@ function Footer({ navs }: Props) {
   return (
     <footer className="border-t flex flex-col items-center w-full">
       <div className="w-full py-4">
-        <Accordion>
-          {/* <Accordion.Panel header="Shop">
-            <nav className="flex flex-col justify-center">
-              {leftNavs.map(renderLink)}
-              {rightNavs.map(renderLink)}
-            </nav>
-          </Accordion.Panel> */}
-          {/* <Accordion.Panel header="About">
-            <Placeholder.Paragraph />
-          </Accordion.Panel> */}
-          <Accordion.Panel header="Help">
-            <nav>
-              {[{ data: { title: "Contact Us", link: "/contact" } }].map(renderLink)}
-            </nav>
-          </Accordion.Panel>
-        </Accordion>
+        <div className="md:hidden">
+          <Accordion>
+            <Accordion.Panel header="Help">
+              <nav>
+                {[{ data: { title: "Contact Us", link: "/contact" } }].map(renderLink)}
+              </nav>
+            </Accordion.Panel>
+          </Accordion>
+        </div>
         <div className="flex justify-center">
           <Link href="/">
             <Image
@@ -57,7 +50,9 @@ function Footer({ navs }: Props) {
             />
           </Link>
         </div>
-
+        <div className="hidden md:block w-3/4 m-auto mt-6">
+          {[...leftNavs, ...rightNavs].map(renderLink)}
+        </div>
       </div>
       {/* <div className="w-2/3 border-b-2 p-4">
         <nav className="flex justify-center">

@@ -16,7 +16,7 @@ import { CustomProvider } from "rsuite";
 import { cookies, headers } from "next/headers";
 import { callGetCart } from "api/cartApi";
 import clsx from "clsx";
-import { lato400 } from "./fonts";
+import { latoRegular } from "./fonts";
 
 export const metadata = {
   title: "The Playground",
@@ -77,7 +77,7 @@ export default async function RootLayout({ children }: Readonly<Props>) {
   );
 
   return (
-    <html lang="en" className={clsx("h-auto md:h-screen", lato400.className)}>
+    <html lang="en" className={clsx("h-auto md:h-screen", latoRegular.className)}>
       <body className="h-full">
         <CustomProvider>
           <Providers data={mappedCatalogItems} cart={cart}>
@@ -127,11 +127,9 @@ const LayoutB = ({
 }: LayoutProps) => (
   <>
     <Header navs={navs} />
-    <main className="h-full mt-12">
+    <main className="min-h-full mt-12">
       {children}
-      <div className="">
-        <Footer navs={footerNavs} />
-      </div>
     </main>
+    <Footer navs={footerNavs} />
   </>
 );
