@@ -2,10 +2,6 @@
 "use client";
 import { useCartModifier } from "context/cartContext";
 import Image from "next/image";
-import { IconContext } from "react-icons";
-import { AiOutlineMinusCircle } from "react-icons/ai";
-import { AppProps } from "types";
-import Counter from "./Counter";
 import { OrderLineItem } from "square";
 import Money from "./Money";
 import clsx from "clsx";
@@ -23,9 +19,6 @@ const OrderList = ({ allowOrderItemDeletion = true, allowOrderModify = false, li
 
   const items = lineItems ?? _lineItems
   const images = lineItemImages ?? cartItemImages
-
-  console.log(images)
-
 
   if (items.length === 0)
     return <p className="text-center">There are no items in the cart.</p>;

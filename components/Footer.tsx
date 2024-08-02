@@ -1,7 +1,7 @@
 "use client"
 
 import { AppProps } from "types";
-import SocialMediaButtons from "./SocialMediaButtons.js";
+import SocialMediaButtons from "./SocialMediaButtons";
 import Link from "next/link";
 import Image from "next/image";
 import { Nav } from "app/layout.jsx";
@@ -70,7 +70,7 @@ function Footer({ navs }: Props) {
           {rightNavs.map(renderLink)}
         </nav>
       </div> */}
-      <div>
+      <div className="p-4 w-full">
         <SocialMediaButtons align="center" />
       </div>
     </footer>
