@@ -22,6 +22,7 @@ const ProductDetailsModify = ({ catalogItemObject, catalogImageObjects: catalogI
     modifyCart,
   } = useCartModifier();
 
+
   const itemData = catalogItemObject.itemData!;
 
   const isProductInCart = (itemVariationId?: string) =>

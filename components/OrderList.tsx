@@ -24,9 +24,6 @@ const OrderList = ({ allowOrderItemDeletion = true, allowOrderModify = false, li
   const items = lineItems ?? _lineItems
   const images = lineItemImages ?? cartItemImages
 
-  console.log(images)
-
-
   if (items.length === 0)
     return <p className="text-center">There are no items in the cart.</p>;
 
