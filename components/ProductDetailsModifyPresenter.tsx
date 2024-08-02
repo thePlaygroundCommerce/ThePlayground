@@ -61,18 +61,14 @@ const ProductDetailsModifyPresenter = (props: Props) => {
       </div>
       <div className="mb-7 border-t h-full">
         {props.itemData.description && (
-
           <Tab.Group defaultIndex={0}>
             <Tab.List className="mb-3 pb-2 p-3 border-b">
               <Tab className="pe-3">Details</Tab>
             </Tab.List>
             <Tab.Panel className="px-3">
-              <div>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Est
-                placerat in egestas erat imperdiet sed. Neque laoreet suspendisse
-                interdum consectetur.
-              </div>
+              <p>
+                {props.itemData.description}
+              </p>
             </Tab.Panel>
           </Tab.Group>
         )}
