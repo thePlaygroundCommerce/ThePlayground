@@ -1,7 +1,12 @@
-'use server';
+"use server";
 
 import { URLSearchParams } from "url";
 import { DEFAULT_FETCH_INIT, SQUARE_URL } from "../constants";
+import {
+  ApiResponse,
+  CatalogObject,
+  RetrieveCatalogObjectResponse,
+} from "square";
 
 const checkForErrors = (data: any) => {
   if (data.errors) {
@@ -21,12 +26,10 @@ export async function getCatalogItemsByCategory(request: any) {
     next: { revalidate: 0 }, // TODO must set to appropriate value in prod
   };
 
-  const result = await fetch(fetchUrl, init)
+  return await fetch(fetchUrl, init)
     .then((res) => res.json())
     .then(checkForErrors)
     .catch((err) => err);
-
-  return result;
 }
 
 export async function getCatalogObjects(types: any) {
@@ -50,14 +53,14 @@ export async function getCatalogImages(types: any) {
 }
 
 export async function getCatalogItemsAndImages(ids: string[]) {
-  if(ids.length === 0 ) return
+  if (ids.length === 0) return;
   const fetchUrl = `${SQUARE_URL}catalog`;
-  const payload = { objectIds: ids, includeRelatedObjects: true }
+  const payload = { objectIds: ids, includeRelatedObjects: true };
 
   return await fetch(fetchUrl, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(payload),
     next: { revalidate: 0 },
@@ -67,20 +70,12 @@ export async function getCatalogItemsAndImages(ids: string[]) {
     .catch((err) => console.log(err));
 }
 
-export async function getProductDetails({ params: { slug } }: any) {
-  try {
-    const catalogObject = await fetch(SQUARE_URL + "catalog/" + slug, {
-      next: { revalidate: 0 }
-    })
-      .then((res) => res.json())
-      .catch((err) => err);
-
-    return {
-      catalogObject: catalogObject.result,
-    };
-  } catch (error: any) {
-    return {
-      error: error.result,
-    };
-  }
+export async function getProductDetails({
+  params: { slug },
+}: any): Promise<ApiResponse<RetrieveCatalogObjectResponse>> {
+  return await fetch(SQUARE_URL + "catalog/" + slug, {
+    next: { revalidate: 0 },
+  })
+    .then((res) => res.json())
+    .catch((err) => err);
 }

@@ -12,10 +12,10 @@ import { useCheckout } from "context/checkoutContext";
 
 type Props = AppProps & {
   catalogItemObject: CatalogObject;
-  catalogImageObject: CatalogObject[];
+  catalogImageObjects: CatalogObject[];
 };
 
-const ProductDetailsModify = ({ catalogItemObject, catalogImageObject }: Props) => {
+const ProductDetailsModify = ({ catalogItemObject, catalogImageObjects: catalogImageObject }: Props) => {
   const { checkoutItem } = useCheckout()
   const {
     cart: { lineItems = [] },
