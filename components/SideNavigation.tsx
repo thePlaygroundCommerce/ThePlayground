@@ -45,7 +45,7 @@ export default function SideNavigation({ onClose, navs: { footerNavs, headerNavs
             ))}
           </List>
         </nav>
-        <nav className="">
+        {/* <nav className="">
           <List size="sm" bordered={false}>
             {footerNavs.map(({ data: { title, link } }) => (
               <List.Item key={title} className="text-black w-full ">
@@ -55,7 +55,7 @@ export default function SideNavigation({ onClose, navs: { footerNavs, headerNavs
               </List.Item>
             ))}
           </List>
-        </nav>
+        </nav> */}
       </div>
       <div className="p-4">
         <SocialMediaButtons align="around" />

@@ -1,23 +1,18 @@
 import { getProductDetails } from "api/catalogApi";
-import Breadcrumbs from "components/Breadcrumbs";
-import ProductActions from "components/ProductActions";
 import ProductDetailsModify from "components/ProductDetailsModify";
 import ProductImageGallery from "components/ProductImageGallery";
-import { AppProps } from "next/app";
 
 type Props = {
   params: { slug: string };
 };
 
 const Page = async (props: Props) => {
-  const { catalogObject } = await getProductDetails(props);
+  const { result: { object: catalogObject, relatedObjects, errors } } = await getProductDetails(props);
 
-  const renderProductError = () => <p>Something went wrong!</p>;
+  if (!catalogObject) return <p>Something went wrong!</p>;
+
   const renderProductDetails = () => {
-    const { relatedObjects } = catalogObject;
-    const filteredRelatedImages = relatedObjects.filter(
-      ({ type }: { type: any }) => type == "IMAGE"
-    );
+    const filteredRelatedImages = catalogObject.itemData?.imageIds?.map(id => relatedObjects?.find((obj => obj.id === id))).filter(obj => obj !== undefined) ?? [];
 
     return (
       <>
@@ -26,11 +21,11 @@ const Page = async (props: Props) => {
         </div> */}
 
         <div className="min-h-screen md:p-4">
-          <div className="block md:grid md:grid-col-1 md:grid-cols-2 md:h-screen">
+          <div className="block md:grid grid-col-1 md:grid-cols-2 md:h-screen">
             <ProductImageGallery images={filteredRelatedImages} />
             <ProductDetailsModify
-              catalogItemObject={catalogObject.object}
-              catalogImageObject={filteredRelatedImages}
+              catalogItemObject={catalogObject}
+              catalogImageObjects={filteredRelatedImages}
             />
           </div>
         </div>
@@ -38,7 +33,7 @@ const Page = async (props: Props) => {
     );
   };
 
-  return catalogObject ? renderProductDetails() : renderProductError();
+  return renderProductDetails();
 };
 
 export default Page;

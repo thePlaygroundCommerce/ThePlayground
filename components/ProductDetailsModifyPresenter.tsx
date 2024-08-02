@@ -5,10 +5,11 @@ import Button from "./Button";
 import { Placeholder, SelectPicker } from "rsuite";
 import { AppProps } from "types";
 import Money from "./Money";
+import { CatalogItem, CatalogObject } from "square";
 
 type Props = AppProps & {
   amount: any;
-  itemData: any;
+  itemData: CatalogItem;
   quantity: any;
   setQuantity: any;
   data: any;
@@ -21,7 +22,7 @@ type Props = AppProps & {
 
 const ProductDetailsModifyPresenter = (props: Props) => {
   return (
-    <div className="m-auto flex flex-col h-full">
+    <div className="flex flex-col h-full">
       <div className="md:w-2/3 md:m-auto flex flex-col justify-end h-full">
         <div className="grid grid-cols-2 w-full mb-7 p-3">
           <div className="basis-full">
@@ -59,40 +60,22 @@ const ProductDetailsModifyPresenter = (props: Props) => {
         </div>
       </div>
       <div className="mb-7 border-t h-full">
-        <Tab.Group defaultIndex={0}>
-          <Tab.List className="mb-3 pb-2 p-3 border-b">
-            <Tab className="pe-3">Details</Tab>
-            <Tab className="pe-3">Mission</Tab>
-          </Tab.List>
-          <Tab.Panel className="px-3">
-            <div>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Est
-              placerat in egestas erat imperdiet sed. Neque laoreet suspendisse
-              interdum consectetur.
-            </div>
-          </Tab.Panel>
-          <Tab.Panel className="px-3">
-            <div>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </div>
-            <div>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </div>
-          </Tab.Panel>
-        </Tab.Group>
+        {props.itemData.description && (
+
+          <Tab.Group defaultIndex={0}>
+            <Tab.List className="mb-3 pb-2 p-3 border-b">
+              <Tab className="pe-3">Details</Tab>
+            </Tab.List>
+            <Tab.Panel className="px-3">
+              <div>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Est
+                placerat in egestas erat imperdiet sed. Neque laoreet suspendisse
+                interdum consectetur.
+              </div>
+            </Tab.Panel>
+          </Tab.Group>
+        )}
       </div>
     </div>
   );
