@@ -1,13 +1,10 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
-import { useCart, useCartModifier } from "context/cartContext";
+import { useCartModifier } from "context/cartContext";
 import { SetStateAction, useState } from "react";
 import { AppProps } from "types";
 import { CatalogObject, OrderLineItem } from "square";
-import { getCheckoutOrderUrl } from "api/checkoutApi";
 import ProductDetailsModifyPresenter from "./ProductDetailsModifyPresenter";
-import { useRouter } from "next/navigation";
-import { apiRouteHandlerAdapter } from "apiRouteHandler";
 import { useCheckout } from "context/checkoutContext";
 
 type Props = AppProps & {

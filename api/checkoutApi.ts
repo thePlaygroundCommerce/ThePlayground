@@ -58,7 +58,7 @@ export async function getOrderAndCatalogObjects(orderId: string): Promise<
 
 export async function getCheckoutOrderUrl(
   id: string,
-  redirectUrl: string = "http://localhost:3005/checkout"
+  redirectUrl: string = process.env.CHECKOUT_REDIRECT ?? ""
 ) {
   return await fetch(
     SQUARE_URL + `checkout/order/${id}?redirect=${redirectUrl}`,
@@ -74,7 +74,7 @@ export async function getCheckoutOrderUrl(
 
 export async function getCheckoutItemUrl(
   lineItems: OrderLineItem[],
-  redirectUrl: string = "http://localhost:3005/checkout"
+  redirectUrl: string = process.env.CHECKOUT_REDIRECT ?? ""
 ) {
   return await fetch(SQUARE_URL + `checkout/item?redirect=${redirectUrl}`, {
     ...DEFAULT_FETCH_INIT,
