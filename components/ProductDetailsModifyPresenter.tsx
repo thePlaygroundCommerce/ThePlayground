@@ -26,7 +26,6 @@ const ProductDetailsModifyPresenter = (props: Props) => {
       <div className="md:w-2/3 md:m-auto flex flex-col justify-end h-full">
         <div className="grid grid-cols-2 w-full mb-7 p-3">
           <div className="basis-full">
-            <p className="mb-1 h4">SWaNK</p>
             <p className="mb-1 h4 fw-bold">{props.itemData?.name}</p>
             <Money number={props.amount} />
           </div>
