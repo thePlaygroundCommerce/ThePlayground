@@ -1,6 +1,6 @@
 import { AppProps } from "types"
 
-type Props = {} & AppProps
+type Props = { children: any }
 
 const Layout = ({ children }: Props) => {
   return (

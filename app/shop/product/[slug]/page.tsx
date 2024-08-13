@@ -2,12 +2,10 @@ import { getProductDetails } from "api/catalogApi";
 import ProductDetailsModify from "components/ProductDetailsModify";
 import ProductImageGallery from "components/ProductImageGallery";
 
-type Props = {
-  params: { slug: string };
-};
+type Props = {};
 
 const Page = async (props: Props) => {
-  const { result: { object: catalogObject, relatedObjects, errors } } = await getProductDetails(props);
+  const { result: { object: catalogObject, relatedObjects } } = await getProductDetails(props);
 
   if (!catalogObject) return <p>Something went wrong!</p>;
 
