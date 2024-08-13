@@ -1,13 +1,13 @@
 import React from "react";
 import OrderList from "./OrderList";
 import Button from "./Button";
-import { IoClose } from "react-icons/io5";
 import Link from "next/link";
 import { AppProps } from "types";
 import { useCheckout } from "context/checkoutContext";
 import { useCart } from "context/cartContext";
 import Money from "./Money";
-import Heading from "./typography/Heading";
+
+import _ from "lodash";
 
 type Props = AppProps & {
   handleCartToggle: (e: any, bool: boolean) => void;
@@ -26,14 +26,7 @@ const CartOverlay = ({ handleCartToggle }: Props) => {
 
   return (
     <div>
-      <div className="flex justify-between items-center px-4 border-b">
-        <Heading level={5}>Cart</Heading>
-        <button className="p-3" onClick={() => handleCartToggle(null, false)}>
-          <IoClose />
-        </button>
-      </div>
-
-      <div className="py-3 border-b">
+      <div className="py-4 border-b">
         <OrderList allowOrderModify />
       </div>
 

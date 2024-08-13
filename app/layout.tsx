@@ -17,6 +17,8 @@ import { cookies, headers } from "next/headers";
 import { callGetCart } from "api/cartApi";
 import clsx from "clsx";
 import { latoRegular } from "./fonts";
+import { ClerkProvider } from "@clerk/nextjs";
+import { auth, currentUser } from "@clerk/nextjs/server";
 
 export const metadata = {
   title: "The Playground",
@@ -77,17 +79,18 @@ export default async function RootLayout({ children }: Readonly<Props>) {
   );
 
   return (
-    <html lang="en" className={clsx("h-auto md:h-screen", latoRegular.className)}>
-      <body className="h-full">
-        <CustomProvider>
-          <Providers data={mappedCatalogItems} cart={cart}>
-            <LayoutB navs={{ footerNavs, headerNavs }}>{children}</LayoutB>
-          </Providers>
-        </CustomProvider>
-
-        <PrismicPreview repositoryName={repositoryName} />
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" className={clsx("h-auto md:h-screen", latoRegular.className)}>
+        <body className="h-full">
+          <CustomProvider>
+            <Providers data={mappedCatalogItems} cart={cart}>
+              <LayoutB navs={{ footerNavs, headerNavs }}>{children}</LayoutB>
+            </Providers>
+          </CustomProvider>
+          <PrismicPreview repositoryName={repositoryName} />
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
 

@@ -78,7 +78,7 @@ const Page = async ({ params: { id }, searchParams: { quantity = "1", quick = "f
                                 Log in to your account and keep track of or change your order.
                             </p> */}
                             <div className='flex flex-col gap-4'>
-                                {/* <Link href="/authenticate">
+                                {/* <Link href="/account">
                                     <Button onClick={undefined} className={undefined}>Login</Button>
                                 </Link> */}
                                 <Link href="/apparel">

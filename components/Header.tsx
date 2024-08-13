@@ -13,7 +13,7 @@ type Props = AppProps & { navs: { headerNavs: Nav[], footerNavs: Nav[] } };
 
 function Header({ navs }: Props) {
   return (
-    <header className="fixed h-12 top-0 md:h-auto md:px-8 px-4 md:py-2 drop-shadow-lg py-1 border-b z-10 bg-white w-full grid grid-cols-6">
+    <header className="fixed h-12 top-0 md:h-auto md:px-8 px-4 md:py-2 drop-shadow-lg py-1 border-b z-20 bg-white w-full grid grid-cols-6">
       <div className="w-full h-full flex col-span-1">
         <div className="sm:hidden h-full flex items-center">
           <MobileSideNav navs={navs} />
@@ -38,8 +38,8 @@ function Header({ navs }: Props) {
         </div>
       </div>
       <div className="w-full h-full col-span-1 flex">
-        <div className="w-full my-auto"></div>
-        <div className="px-8 my-auto">
+        {/* <div className="w-full my-auto"></div> */}
+        <div className="w-full my-auto">
           <HeaderActions />
         </div>
       </div>
