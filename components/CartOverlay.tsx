@@ -35,7 +35,7 @@ const CartOverlay = ({ handleCartToggle }: Props) => {
     taxes: cart.totalTaxMoney?.amount ?? 0,
   };
 
-  const sortedBreakdown = Object.entries(breakdown).toSorted(([_, val1], [__, val2]) => Number(val1) - Number(val2))
+  const sortedBreakdown = Object.entries(breakdown).sort(([_, val1], [__, val2]) => Number(val1) - Number(val2))
 
   return (
     <div>

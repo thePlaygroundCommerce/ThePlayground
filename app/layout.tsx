@@ -4,6 +4,7 @@ import Footer from "components/Footer";
 import Header from "components/Header";
 import Providers from "components/Providers";
 import { mapArrayToMap } from "../util";
+import { Analytics } from '@vercel/analytics/react';
 
 import "rsuite/dist/rsuite-no-reset.min.css"
 import "styles/globals.scss";
@@ -13,12 +14,11 @@ import { createClient, repositoryName } from "prismicio";
 import { AppProps } from "types";
 import { Content } from "@prismicio/client";
 import { CustomProvider } from "rsuite";
-import { cookies, headers } from "next/headers";
+import { cookies } from "next/headers";
 import { callGetCart } from "api/cartApi";
 import clsx from "clsx";
-import { latoRegular } from "./fonts";
+import { latoHeavy, latoRegular } from "./fonts";
 import { ClerkProvider } from "@clerk/nextjs";
-import { auth, currentUser } from "@clerk/nextjs/server";
 
 export const metadata = {
   title: "The Playground",
@@ -88,6 +88,7 @@ export default async function RootLayout({ children }: Readonly<Props>) {
             </Providers>
           </CustomProvider>
           <PrismicPreview repositoryName={repositoryName} />
+          <Analytics />
         </body>
       </html>
     </ClerkProvider>
