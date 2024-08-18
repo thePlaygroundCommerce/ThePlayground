@@ -88,6 +88,5 @@ export type UIKitContextType = {
 declare global {
   interface UserPrivateMetadata {
     squareId: string | undefined;
-    [k: string]: unknown;
   }
 }
