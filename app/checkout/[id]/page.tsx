@@ -10,6 +10,7 @@ import Link from 'next/link'
 import { apiRouteHandlerAdapter } from 'apiRouteHandler'
 import { cookies } from 'next/headers'
 import { getCatalogItemsAndImages } from 'api/catalogApi'
+import { IconContext } from 'react-icons'
 
 type PageProps = {
     params: { id: string }
@@ -56,52 +57,129 @@ const Page = async ({ params: { id }, searchParams: { quantity = "1", quick = "f
 
         processedCartImages = await getCatalogItemsAndImages(processedCart?.lineItems?.map((item) => item.catalogObjectId ?? "") ?? [])
     }
-
+    console.log(processedCart, processedCartImages)
+    
     return isOrderUnprocessed ? (<div>Loading</div>) : (
-        <div className="h-full block md:pt-8 p-4">
-            <div className="m-auto text-center">
-                <div className="flex mb-5 justify-center">
-                    <span className='mr-2'><BsFillCheckCircleFill size={25} color="green" /></span>
-                    <p>
-                        We thank you for your purchase.
-                    </p>
-                </div>
-            </div>
-            <div className="md:col-span-5 h-full">
-                <div className="md:col-span-7 min-h-48 pt-4">
-                    <OrderList className="min-h-24 md:w-3/4 mx-auto border" allowOrderModify={false} lineItems={processedCart?.lineItems} lineItemImages={processedCartImages} />
-                </div>
-                <div className="flex flex-col gap-6 mt-5 md:w-3/4">
-                    <div className="text-center m-auto">
-                        <div className="mb-5">
-                            {/* <p className='mb-4'>
-                                Log in to your account and keep track of or change your order.
-                            </p> */}
-                            <div className='flex flex-col gap-4'>
-                                {/* <Link href="/account">
-                                    <Button onClick={undefined} className={undefined}>Login</Button>
-                                </Link> */}
-                                <Link href="/apparel">
-                                    <Button>Continue Shopping</Button>
-                                </Link>
-                            </div>
-                        </div>
-                        <div className="text-left flex mb-4">
-                            <div className="border px-3 py-1 w-full">
-                                <textarea
-                                    id="experience"
-                                    name="experience"
-                                    className="w-full bg-white"
-                                    placeholder="How was your shopping experience?"
-                                ></textarea>
-                            </div>
-                            <Button>Send</Button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div className="min-h-screen h-full block md:pt-8 p-4">
+            <MobileCheckoutConfirmation processedCart={processedCart} processedCartImages={processedCart} />
         </div>
     )
 }
 
 export default Page
+
+const NonMobileCheckoutConfirmation = () => (
+    <>
+        <div className="m-auto text-center">
+            <div className="flex mb-5 justify-center">
+                <span className='mr-2'><BsFillCheckCircleFill size={25} color="green" /></span>
+                <p>
+                    Thank you for your purchase.
+                </p>
+            </div>
+            <p>
+                Your order # has been submitted.
+            </p>
+            <p>
+                An email has been sent to .... with your order receipt.
+            </p>
+            <div className="mb-5">
+                {/* <p className='mb-4'>
+                                Log in to your account and keep track of or change your order.
+                            </p> */}
+                <div className='flex flex-col gap-4'>
+                    {/* <Link href="/account">
+                                    <Button onClick={undefined} className={undefined}>Login</Button>
+                                </Link> */}
+                    <Link href="/apparel">
+                        <Button>Continue Shopping</Button>
+                    </Link>
+                </div>
+            </div>
+        </div>
+        <div className="md:col-span-5 h-full">
+            <div className="md:col-span-7 min-h-48 pt-4">
+                <OrderList className="min-h-24 md:w-3/4 mx-auto border" allowOrderModify={false} lineItems={processedCart?.lineItems} lineItemImages={processedCartImages} />
+            </div>
+            <div className="flex flex-col gap-6 mt-5 md:w-3/4">
+                <div className="text-center m-auto">
+                    <div className="text-left flex mb-4">
+                        <div className="border px-3 py-1 w-full">
+                            <textarea
+                                id="experience"
+                                name="experience"
+                                className="w-full bg-white"
+                                placeholder="How was your shopping experience?"
+                            ></textarea>
+                        </div>
+                        <Button>Send</Button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </>
+)
+
+const MobileCheckoutConfirmation = ({ processedCart, processedCartImages }: any) => (
+    <>
+        <div className='text-center'>
+            <BsFillCheckCircleFill size="50%" className='my-12 m-auto' color="green" />
+            <p className='mb-6'>Your order reference id {processedCart.id} has been submitted.</p>
+            <p>An email has been sent to .... with your order receipt. To review any details of your order, please <Link className='' href="/account/sign-in">create or log into your account.</Link></p>
+        </div>
+        <div className='my-12'>
+            <p>Shipping Details</p>
+            {Object.values(processedCart.fulfillments[0].shipmentDetails.recipient).map((detail => <p key={detail}>{detail}</p>))}
+        </div>
+        {/* <div>
+            <p>Payment Details</p>
+        </div> */}
+        <div className="md:col-span-5 h-full">
+            <div className="md:col-span-7 min-h-48 pt-4">
+                <OrderList className="min-h-24 md:w-3/4 mx-auto border" allowOrderModify={false} lineItems={processedCart?.lineItems} lineItemImages={processedCartImages} />
+            </div>
+            <div className="flex flex-col gap-6 mt-5 md:w-3/4">
+                <div className="text-center m-auto">
+                    <div className="text-left flex mb-4">
+                        <div className="border px-3 py-1 w-full">
+                            <textarea
+                                id="experience"
+                                name="experience"
+                                className="w-full bg-white"
+                                placeholder="How was your shopping experience?"
+                            ></textarea>
+                        </div>
+                        <Button>Send</Button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </>
+)
+// <div className="m-auto text-center">
+//     <div className="flex mb-5 justify-center">
+//         <p>
+//             Thank you for your purchase.
+//         </p>
+//     </div>
+//     <p>
+//         Your order # has been submitted.
+//     </p>
+//     <p>
+//         An email has been sent to .... with your order receipt.
+//     </p>
+//     <div className="mb-5">
+//         {/* <p className='mb-4'>
+//                         Log in to your account and keep track of or change your order.
+//                     </p> */}
+//         <div className='flex flex-col gap-4'>
+//             {/* <Link href="/account">
+//                             <Button onClick={undefined} className={undefined}>Login</Button>
+//                         </Link> */}
+//             <Link href="/apparel">
+//                 <Button>Continue Shopping</Button>
+//             </Link>
+//         </div>
+//     </div>
+// </div>

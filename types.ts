@@ -81,3 +81,10 @@ export type UIKitContextType = {
   };
   handleUIChange: ({ open }: { open: boolean }, e?: any) => void;
 };
+
+declare global {
+  interface UserPrivateMetadata {
+    squareId: string | undefined;
+    [k: string]: unknown;
+  }
+}

@@ -60,18 +60,6 @@ const OrderList = ({ allowOrderItemDeletion = true, allowOrderModify = false, li
                   </div>
                 )}
               </div>
-
-              {/* <div className="flex justify-around">
-                {allowOrderItemDeletion && (
-                  <div className="ml-5">
-                    <IconContext.Provider value={{ size: "1.5em" }}>
-                      <AiOutlineMinusCircle
-                        onClick={() => deleteCartItem(item.uid)}
-                      />
-                    </IconContext.Provider>
-                  </div>
-                )}
-              </div> */}
             </div>
           </div>
         );
