@@ -9,7 +9,6 @@ import { useUIKit } from "context/UIKitContext";
 import { IoClose } from "react-icons/io5";
 import Portal from "./Portal";
 import { usePathname } from "next/navigation";
-import Auth from "./Auth";
 import Link from "next/link";
 import { useAuth } from "@clerk/nextjs";
 
