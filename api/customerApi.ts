@@ -1,8 +1,9 @@
 "use server"
 
+import { ApiResponse, CreateCustomerRequest, CreateCustomerResponse, Customer, RetrieveCustomerResponse } from "square";
 import { DEFAULT_FETCH_INIT, SQUARE_URL } from "../constants"
 
-export async function createCustomer(request: Record<string, FormDataEntryValue>) {
+export async function createCustomer(request: CreateCustomerRequest): Promise<ApiResponse<CreateCustomerResponse>> {
   const fetchUrl = `${
     SQUARE_URL
   }customers/create`;
@@ -14,7 +15,18 @@ export async function createCustomer(request: Record<string, FormDataEntryValue>
 
   return await fetch(fetchUrl, init)
     .then((res) => res.json())
-    .then((data) => data.result)
+    .then((data) => data)
+    .catch((err) => err);
+}
+
+export async function getCustomer(id: string): Promise<ApiResponse<RetrieveCustomerResponse>> {
+  const fetchUrl = `${
+    SQUARE_URL
+  }customers/${id}`
+
+  return await fetch(fetchUrl)
+    .then((res) => res.json())
+    .then((data) => data)
     .catch((err) => err);
 }
 

@@ -2,10 +2,6 @@
 "use client";
 import { useCartModifier } from "context/cartContext";
 import Image from "next/image";
-import { IconContext } from "react-icons";
-import { AiOutlineMinusCircle } from "react-icons/ai";
-import { AppProps } from "types";
-import Counter from "./Counter";
 import { OrderLineItem } from "square";
 import Money from "./Money";
 import clsx from "clsx";
@@ -64,18 +60,6 @@ const OrderList = ({ allowOrderItemDeletion = true, allowOrderModify = false, li
                   </div>
                 )}
               </div>
-
-              {/* <div className="flex justify-around">
-                {allowOrderItemDeletion && (
-                  <div className="ml-5">
-                    <IconContext.Provider value={{ size: "1.5em" }}>
-                      <AiOutlineMinusCircle
-                        onClick={() => deleteCartItem(item.uid)}
-                      />
-                    </IconContext.Provider>
-                  </div>
-                )}
-              </div> */}
             </div>
           </div>
         );

@@ -10,6 +10,8 @@
     "slicemachine": "start-slicemachine"
   },
   "dependencies": {
+    "@clerk/clerk-js": "^5.14.0",
+    "@clerk/nextjs": "^5.3.0",
     "@headlessui/react": "^1.7.15",
     "@prismicio/client": "latest",
     "@prismicio/next": "latest",
@@ -36,7 +38,7 @@
     "sass": "^1.26.10",
     "sharp": "^0.32.5",
     "square": "^30.0.0",
-    "typescript": "^5.4.5",
+    "typescript": "^5.5.4",
     "use-debounce": "^10.0.1",
     "uuid": "^9.0.0",
     "whatwg-fetch": "^3.6.20"
