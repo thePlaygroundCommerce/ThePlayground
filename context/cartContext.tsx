@@ -4,7 +4,7 @@ import Counter from "components/Counter";
 import _ from "lodash";
 import React, { createContext, useState, useEffect, useMemo, useContext, useRef } from "react";
 import { useCookies } from "react-cookie";
-import { CatalogApi, CatalogImage, Order, OrderLineItem } from "square";
+import { CalculateOrderRequest, CatalogApi, CatalogImage, Order, OrderLineItem } from "square";
 import { CartContextType } from "types";
 import { useDebounce, useDebouncedCallback } from "use-debounce";
 import { getCatalogItemsAndImages } from "api/catalogApi";
@@ -45,7 +45,7 @@ const CartProvider = ({ _cart, children }: { children: any, _cart?: Order }) => 
   useEffect(() => {
     if (cart) {
       getCatalogItemsAndImages(cart.lineItems?.map((item) => item.catalogObjectId ?? "") ?? [])
-      .then(data => populateCartAndImages({ order: cart, errors: [] }, data));
+        .then(data => populateCartAndImages({ order: cart, errors: [] }, data));
     }
   }, []);
 
@@ -53,6 +53,17 @@ const CartProvider = ({ _cart, children }: { children: any, _cart?: Order }) => 
   const handleDrawerToggle = (e: any, bool = !openCart) => {
     setOpenCart(bool);
   }
+  const calculateCart = (req: CalculateOrderRequest) => {
+    if (cart?.id) {
+      apiRouteHandlerAdapter({
+        method: "POST",
+        url: `/api/cart/calculate`,
+        payload: req
+      }).then(data => {
+        populateCartAndImages(data, cartItemImages);
+      })
+    }
+  };
 
   const updateCart = ({
     lineItems,
@@ -112,6 +123,7 @@ const CartProvider = ({ _cart, children }: { children: any, _cart?: Order }) => 
           handleDrawerToggle,
           updateCart,
           createCart,
+          calculateCart,
           toggleCartOverlay: [openCart, setOpenCart],
         }),
         [cart, cartItemImages, openCart]

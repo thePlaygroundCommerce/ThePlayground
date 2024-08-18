@@ -1,6 +1,7 @@
 import { getProductDetails } from "api/catalogApi";
 import ProductDetailsModify from "components/ProductDetailsModify";
 import ProductImageGallery from "components/ProductImageGallery";
+import { CatalogObject } from "square";
 
 type Props = {};
 
@@ -23,7 +24,7 @@ const Page = async (props: Props) => {
             <ProductImageGallery images={filteredRelatedImages} />
             <ProductDetailsModify
               catalogItemObject={catalogObject}
-              catalogImageObjects={filteredRelatedImages}
+              catalogImageObjects={filteredRelatedImages as CatalogObject[]}
             />
           </div>
         </div>

@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { CatalogImage, CatalogObject, Order, OrderLineItem } from "square";
+import { CalculateOrderRequest, CatalogImage, CatalogObject, Order, OrderLineItem } from "square";
 
 export declare interface AppProps {
   className?: string;
@@ -66,6 +66,9 @@ export type CartContextType = {
     catalogOrder: any,
     lineItemImageData?: CatalogImage,
     checkout?: boolean
+  ) => void;
+  calculateCart: (
+    req: CalculateOrderRequest
   ) => void;
   toggleCartOverlay: [boolean, Dispatch<SetStateAction<boolean>>];
 };

@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useMemo } from "react";
 import OrderList from "./OrderList";
 import Button from "./Button";
-import Link from "next/link";
 import { AppProps } from "types";
 import { useCheckout } from "context/checkoutContext";
 import { useCart } from "context/cartContext";
 import Money from "./Money";
 
 import _ from "lodash";
+import clsx from "clsx";
 
 type Props = AppProps & {
   handleCartToggle: (e: any, bool: boolean) => void;
@@ -15,14 +15,27 @@ type Props = AppProps & {
 };
 
 const CartOverlay = ({ handleCartToggle }: Props) => {
-  const { cart } = useCart();
+  const { cart, calculateCart } = useCart();
   const { checkout } = useCheckout();
+
+
+  useMemo(() => {
+    calculateCart({ order: cart })
+  }, [])
 
   const handleCheckoutClick = () => {
     checkout()
   }
 
-  const subtotal = cart.lineItems?.reduce((acc, cur) => acc + (Number(cur.basePriceMoney?.amount ?? 0)), 0) ?? 0
+  const subtotal = cart.netAmountDueMoney?.amount ?? 0;
+
+  const breakdown = {
+    discounts: cart.totalDiscountMoney?.amount ?? 0,
+    shipping: cart.serviceCharges?.find(service => service.name === 'shipping')?.amountMoney?.amount ?? 0,
+    taxes: cart.totalTaxMoney?.amount ?? 0,
+  };
+
+  const sortedBreakdown = Object.entries(breakdown).toSorted(([_, val1], [__, val2]) => Number(val1) - Number(val2))
 
   return (
     <div>
@@ -31,7 +44,20 @@ const CartOverlay = ({ handleCartToggle }: Props) => {
       </div>
 
       <div className="px-3">
-        <div className="py-5 flex justify-between">
+        {
+          sortedBreakdown.map(([name, val], i) => {
+            if (name === "discount" && val === 0) return null
+            return (
+              <>
+                <div key={name} className={clsx(i == 0 && "pt-5", "flex justify-between")}>
+                  <p>{_.capitalize(name)}</p>
+                  <Money number={val} />
+                </div>
+              </>
+            )
+          })
+        }
+        <div className="pb-5 flex justify-between">
           <p>Subtotal</p>
           <Money number={subtotal} />
         </div>

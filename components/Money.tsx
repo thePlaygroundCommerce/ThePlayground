@@ -6,10 +6,11 @@ type Props = {
 } & AppProps
 
 const Money = ({ number, className }: Props) => {
-    const num = Number(number)
+    number = Number(number);
+    const num = (number / 100)
 
     return (
-        <p className={className}>${num / 100}</p>
+        <p className={className}>${(number % 100) === 0 ? num + ".00" : num}</p>
     )
 }
 

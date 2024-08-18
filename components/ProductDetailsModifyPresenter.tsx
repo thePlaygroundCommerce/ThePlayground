@@ -26,7 +26,6 @@ const ProductDetailsModifyPresenter = (props: Props) => {
       <div className="md:w-2/3 md:m-auto flex flex-col justify-end h-full">
         <div className="grid grid-cols-2 w-full mb-7 p-3">
           <div className="basis-full">
-            <p className="mb-1 h4">SWaNK</p>
             <p className="mb-1 h4 fw-bold">{props.itemData?.name}</p>
             <Money number={props.amount} />
           </div>
@@ -61,18 +60,14 @@ const ProductDetailsModifyPresenter = (props: Props) => {
       </div>
       <div className="mb-7 border-t h-full">
         {props.itemData.description && (
-
           <Tab.Group defaultIndex={0}>
             <Tab.List className="mb-3 pb-2 p-3 border-b">
               <Tab className="pe-3">Details</Tab>
             </Tab.List>
             <Tab.Panel className="px-3">
-              <div>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Est
-                placerat in egestas erat imperdiet sed. Neque laoreet suspendisse
-                interdum consectetur.
-              </div>
+              <p>
+                {props.itemData.description}
+              </p>
             </Tab.Panel>
           </Tab.Group>
         )}

@@ -6,6 +6,8 @@ import { revalidatePath } from "next/cache";
 
 import {
   ApiResponse,
+  CalculateOrderRequest,
+  CalculateOrderResponse,
   CreateOrderResponse,
   RetrieveOrderResponse,
   UpdateOrderRequest,
@@ -30,7 +32,36 @@ export async function callGetCart(
       );
       return result;
     })
-    .catch((err) => {logger.error(err); throw err});
+    .catch((err) => {
+      logger.error(err);
+      throw err;
+    });
+}
+
+export async function calculateCart(
+  req: CalculateOrderRequest,
+  init = DEFAULT_FETCH_INIT,
+): Promise<ApiResponse<CalculateOrderResponse>> {
+  console.log("calculating cart")
+
+  return fetch(`${BASE_PATH}/calculate`, {
+    ...DEFAULT_FETCH_INIT,
+    ...init,
+    body: JSON.stringify(req),
+  })
+    .then((res) => res.json())
+    .then((result) => {
+      processRes(
+        result,
+        "Cart Successfully Calculated",
+        "Cart Calculation Failed"
+      );
+      return result;
+    })
+    .catch((err) => {
+      logger.error(err);
+      throw err;
+    });
 }
 
 export async function callUpdateCart(
@@ -47,7 +78,10 @@ export async function callUpdateCart(
       processRes(result, "Cart Successfully Updated", "Cart Update Failed");
       return result;
     })
-    .catch((err) => {logger.error(err); throw err});
+    .catch((err) => {
+      logger.error(err);
+      throw err;
+    });
 }
 
 export async function callCreateCart(
@@ -65,5 +99,8 @@ export async function callCreateCart(
       processRes(result, "Cart Successfully Created", "Cart Creation Failed");
       return result;
     })
-    .catch((err) => {logger.error(err); throw err});
+    .catch((err) => {
+      logger.error(err);
+      throw err;
+    });
 }
