@@ -9,7 +9,6 @@ import { useUIKit } from "context/UIKitContext";
 import { IoClose } from "react-icons/io5";
 import Portal from "./Portal";
 import { usePathname } from "next/navigation";
-import Auth from "./Auth";
 import Link from "next/link";
 import { useAuth } from "@clerk/nextjs";
 
@@ -25,7 +24,7 @@ function HeaderActions() {
     handleUIChange,
   } = useUIKit();
 
-  const accountHref = !useAuth().isSignedIn ? "/account/sign-in" : "/account"
+  const accountHref = !useAuth().isSignedIn ? "/account/sign-in" : "/account";
 
   const [show, setShow] = useState(intialShowState);
 
@@ -50,17 +49,15 @@ function HeaderActions() {
     Object.values(show).find((showing) => showing.active)?.id ?? ""
   );
 
-
-
   return (
-    <div className="flex justify-around">
-      <button onClick={handleCartOnClick} className="">
-        <Cart />
-      </button>
+    <div className="flex justify-end md:mr-4 gap-5">
       <button>
         <Link href={accountHref}>
           <VscAccount />
         </Link>
+      </button>
+      <button onClick={handleCartOnClick} className="">
+        <Cart />
       </button>
       <Portal rootId="drawerContainer">
         <Drawer

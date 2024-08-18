@@ -1,7 +1,6 @@
 import { getCatalogObjects, getCatalogItemsByCategory } from "api/catalogApi";
 import ProductGrid from "components/ProductGrid";
 import { mapArrayToMap } from "../../util";
-import { Console } from "console";
 
 export default async function Page({ params }) {
   let products = [],
