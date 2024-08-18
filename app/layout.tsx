@@ -84,7 +84,7 @@ export default async function RootLayout({ children }: Readonly<Props>) {
         <body className="h-full">
           <CustomProvider>
             <Providers data={mappedCatalogItems} cart={cart}>
-              <LayoutB navs={{ footerNavs, headerNavs }}>{children}</LayoutB>
+              <Layout navs={{ footerNavs, headerNavs }}>{children}</Layout>
             </Providers>
           </CustomProvider>
           <PrismicPreview repositoryName={repositoryName} />
@@ -102,29 +102,7 @@ type LayoutProps = AppProps & {
   };
 };
 
-// const LayoutA = ({
-//   children,
-//   navs: { headerNavs, footerNavs },
-// }: LayoutProps) => (
-//   <main className="h-full flex flex-col">
-//     <Header />
-//     <div className="grid grid-cols-6 h-full overflow-hidden">
-//       <div className="col-span-1 p-4 pr-8 flex flex-col pt-8 h-full sidebar-box-shadow">
-//         <div className="h-full flex flex-col justify-center">
-//           <SideNav />
-//         </div>
-//         <div className="">
-//           <Footer />
-//         </div>
-//       </div>
-//       <div className="col-span-5 py-8 overflow-y-scroll max-h-full">
-//         {children}
-//       </div>
-//     </div>
-//   </main>
-// );
-
-const LayoutB = ({
+const Layout = ({
   children,
   navs,
   navs: { footerNavs },
