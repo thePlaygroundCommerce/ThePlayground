@@ -165,9 +165,9 @@ const ProductDetailsModify = ({
 export default ProductDetailsModify;
 
 const transformOptionId = (
-  list: [string, any][],
+  list: [string, (CatalogObject | undefined)[]][],
   itemOptions: CatalogObject[]
-) =>
+): [string, (CatalogObject | undefined)[]][] =>
   list.map(([key, val]) => [
     itemOptions.find(({ id }) => id === key)?.itemOptionData?.name ?? "",
     val,

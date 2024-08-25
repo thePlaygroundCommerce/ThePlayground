@@ -13,7 +13,9 @@ type Props = AppProps & {
   amount: any;
   itemData: CatalogItem;
   quantity: any;
-  productOptions: any;
+  productOptions: {
+    [k: string]: (CatalogObject | undefined)[];
+  };
   selectedOptions: any;
   setQuantity: any;
   data: any;
@@ -43,9 +45,17 @@ const ProductDetailsModifyPresenter = (props: Props) => {
             </div>
             <SelectPicker
               data={props.productOptions.size.map(
-                ({ id, itemOptionValueData: { name, itemOptionId } }) => ({
+                (
+                  {
+                    id,
+                    itemOptionValueData: { name, itemOptionId } = {
+                      name: "",
+                      itemOptionId: "",
+                    },
+                  } = { id: "", type: "" }
+                ) => ({
                   value: { optionId: itemOptionId, optionValueId: id },
-                  label: _.capitalize(name).slice(0, 1),
+                  label: _.capitalize(name ?? "").slice(0, 1),
                 })
               )}
               onChange={props.handleOptionChange}
