@@ -28,6 +28,7 @@ type Props = AppProps & {
 };
 
 const ProductDetailsModifyPresenter = (props: Props) => {
+  console.log(props.productOptions)
   return (
     <div className="flex flex-col h-full">
       <div className="md:w-2/3 md:m-auto flex flex-col justify-end h-full">
@@ -44,7 +45,7 @@ const ProductDetailsModifyPresenter = (props: Props) => {
               />
             </div>
             <SelectPicker
-              data={props.productOptions.size.map(
+              data={props.productOptions.size?.map(
                 (
                   {
                     id,
@@ -61,7 +62,7 @@ const ProductDetailsModifyPresenter = (props: Props) => {
               onChange={props.handleOptionChange}
               searchable={false}
               cleanable={false}
-              placeholder={_.capitalize(props.selectedOptions.size.slice(0, 1))}
+              placeholder={_.capitalize(props.selectedOptions?.size?.slice(0, 1))}
               defaultValue={props.selectedVariation}
             />
           </div>

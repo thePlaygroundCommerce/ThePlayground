@@ -103,9 +103,11 @@ const ProductDetailsModify = ({
     })
   );
 
+  
   const selectedOptions =
-    variations[selectedVariation].itemVariationData?.itemOptionValues;
-
+  variations[selectedVariation].itemVariationData?.itemOptionValues;
+  
+  console.log(variations, productOptions, selectedOptions)
   const handleOptionChange = ({
     optionId,
     optionValueId,
