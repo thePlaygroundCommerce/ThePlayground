@@ -28,7 +28,6 @@ type Props = AppProps & {
 };
 
 const ProductDetailsModifyPresenter = (props: Props) => {
-  console.log(props.productOptions)
   return (
     <div className="flex flex-col h-full">
       <div className="md:w-2/3 md:m-auto flex flex-col justify-end h-full">
