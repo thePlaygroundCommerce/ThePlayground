@@ -4,13 +4,19 @@ import { Tab } from "@headlessui/react";
 import Button from "./Button";
 import { Placeholder, SelectPicker } from "rsuite";
 import { AppProps } from "types";
+import _ from "lodash";
 import Money from "./Money";
 import { CatalogItem, CatalogObject } from "square";
+import { useInventory } from "context/inventoryContext";
 
 type Props = AppProps & {
   amount: any;
   itemData: CatalogItem;
   quantity: any;
+  productOptions: {
+    [k: string]: (CatalogObject | undefined)[];
+  };
+  selectedOptions: any;
   setQuantity: any;
   optionData: any[];
   handleSelectChange: any;
@@ -18,6 +24,7 @@ type Props = AppProps & {
   handleBuyNow: any;
   handleAddToCart: any;
   isProductInCart: any;
+  handleOptionChange: any;
 };
 
 const ProductDetailsModifyPresenter = (props: Props) => {
@@ -34,7 +41,6 @@ const ProductDetailsModifyPresenter = (props: Props) => {
               <Counter
                 count={+props.quantity}
                 onCountChange={props.setQuantity}
-                childrenElement={<></>}
               />
             </div>
             {props.optionData.length > 0 && (
@@ -67,9 +73,7 @@ const ProductDetailsModifyPresenter = (props: Props) => {
               <Tab className="pe-3">Details</Tab>
             </Tab.List>
             <Tab.Panel className="px-3">
-              <p>
-                {props.itemData.description}
-              </p>
+              <p>{props.itemData.description}</p>
             </Tab.Panel>
           </Tab.Group>
         )}

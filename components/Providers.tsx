@@ -20,6 +20,7 @@ const Providers = ({ data, cart, children }: Props) => {
       <NavigationProvider apparelCategories={data.categories}>
         <CookiesProvider>
           <InventoryProvider
+            _itemOptions={data.item_options}
             apparelData={{ apparelItems: data.items, apparelImages: data.images }}
           // handleCategoryChange={handleCategoryChange}
           >

@@ -1,11 +1,17 @@
 "use client";
 
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
+import { CatalogItem, CatalogItemOption, CatalogItemOptionForItem, CatalogObject } from "square";
 import { AppProps } from "types";
 
-export const InventoryContext = createContext({});
+export const InventoryContext = createContext<{
+  itemOptions: CatalogObject[]
+}>({
+  itemOptions: []
+});
 
 type Props = AppProps & {
+  _itemOptions: CatalogObject[];
   apparelData: {
     apparelImages: any;
     apparelItems: any;
@@ -16,9 +22,12 @@ type Props = AppProps & {
 const InventoryProvider = ({
   children,
   apparelData,
-  handleCategoryChange = () => {},
+  _itemOptions,
+  handleCategoryChange = () => { },
 }: Props) => {
-  const [catalogImages, setCatalogImages] = useState(apparelData.apparelImages);
+  const [{ itemOptions }] = useState({
+    itemOptions: _itemOptions
+  })
   const [catalogItems, setCatalogItems] = useState(apparelData.apparelItems);
 
   const onCategoryChange = () => {
@@ -27,11 +36,20 @@ const InventoryProvider = ({
 
   return (
     <InventoryContext.Provider
-      value={{ catalogItems, catalogImages, onCategoryChange }}
+      value={{ itemOptions }}
     >
       {children}
     </InventoryContext.Provider>
   );
+};
+
+export const useInventory = () => {
+  const currentInventory = useContext(InventoryContext);
+  if (!currentInventory) {
+    throw new Error("Hooks have to be used within Providers");
+  }
+
+  return currentInventory;
 };
 
 export default InventoryProvider;
