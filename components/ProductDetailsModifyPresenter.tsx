@@ -18,8 +18,6 @@ type Props = AppProps & {
   };
   selectedOptions: any;
   setQuantity: any;
-  data: any;
-  handleSelectChange: any;
   selectedVariation: any;
   handleBuyNow: any;
   handleAddToCart: any;
