@@ -62,7 +62,7 @@ const ProductDetailsModify = ({ catalogItemObject, catalogImageObjects: catalogI
 
   const amount = itemData?.variations![0].itemVariationData?.priceMoney?.amount
 
-  const data: any[] = itemData?.variations!.map(
+  const optionData: any[] = itemData?.variations!.map(
     ({ itemVariationData }, i) => ({
       label: itemVariationData?.name?.slice(0, 1).toUpperCase(),
       value: i,
@@ -75,7 +75,7 @@ const ProductDetailsModify = ({ catalogItemObject, catalogImageObjects: catalogI
       itemData={itemData}
       quantity={quantity}
       setQuantity={setQuantity}
-      data={data}
+      optionData={optionData}
       handleSelectChange={handleSelectChange}
       selectedVariation={selectedVariation}
       handleBuyNow={handleBuyNow}

@@ -12,7 +12,7 @@ type Props = AppProps & {
   itemData: CatalogItem;
   quantity: any;
   setQuantity: any;
-  data: any;
+  optionData: any[];
   handleSelectChange: any;
   selectedVariation: any;
   handleBuyNow: any;
@@ -37,16 +37,18 @@ const ProductDetailsModifyPresenter = (props: Props) => {
                 childrenElement={<></>}
               />
             </div>
-            <SelectPicker
-              data={props.data}
-              onChange={props.handleSelectChange}
-              searchable={false}
-              cleanable={false}
-              placeholder={props.itemData?.variations![
-                props.selectedVariation
-              ].itemVariationData?.name?.slice(0, 1)}
-              defaultValue={props.selectedVariation}
-            />
+            {props.optionData.length > 0 && (
+              <SelectPicker
+                data={props.optionData}
+                onChange={props.handleSelectChange}
+                searchable={false}
+                cleanable={false}
+                placeholder={props.itemData?.variations![
+                  props.selectedVariation
+                ].itemVariationData?.name?.slice(0, 1)}
+                defaultValue={props.selectedVariation}
+              />
+            )}
           </div>
         </div>
         <div className="grid grid-cols-1 gap-1 pb-7 justify-around  w-full">
