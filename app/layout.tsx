@@ -68,22 +68,18 @@ export default async function RootLayout({ children }: Readonly<Props>) {
   const cookieCartId = cookies().get("cartId")?.value ?? ""
 
   cart = await callGetCart(cookieCartId).then(({ result: { order } = { order: undefined } }) => order);
-  const { objects: categoryObjects = [] } = await getCatalogObjects("CATEGORY");
   const { objects: apparelObjects = [] } = await getCatalogObjects(
-    "ITEM,IMAGE,CATEGORY"
+    "ITEM,IMAGE,CATEGORY,ITEM_OPTION"
   );
   const { headerNavs, footerNavs } = await getMainNavigation();
-
-  const mappedCatalogItems = mapArrayToMap(
-    apparelObjects.concat(categoryObjects)
-  );
+  const mappedCatalogObjects = mapArrayToMap(apparelObjects);
 
   return (
     <ClerkProvider>
       <html lang="en" className={clsx("h-auto md:h-screen", latoRegular.className)}>
         <body className="h-full">
           <CustomProvider>
-            <Providers data={mappedCatalogItems} cart={cart}>
+            <Providers data={mappedCatalogObjects} cart={cart}>
               <Layout navs={{ footerNavs, headerNavs }}>{children}</Layout>
             </Providers>
           </CustomProvider>

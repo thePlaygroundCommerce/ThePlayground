@@ -4,13 +4,19 @@ import { Tab } from "@headlessui/react";
 import Button from "./Button";
 import { Placeholder, SelectPicker } from "rsuite";
 import { AppProps } from "types";
+import _ from "lodash";
 import Money from "./Money";
 import { CatalogItem, CatalogObject } from "square";
+import { useInventory } from "context/inventoryContext";
 
 type Props = AppProps & {
   amount: any;
   itemData: CatalogItem;
   quantity: any;
+  productOptions: {
+    [k: string]: (CatalogObject | undefined)[];
+  };
+  selectedOptions: any;
   setQuantity: any;
   data: any;
   handleSelectChange: any;
@@ -18,6 +24,7 @@ type Props = AppProps & {
   handleBuyNow: any;
   handleAddToCart: any;
   isProductInCart: any;
+  handleOptionChange: any;
 };
 
 const ProductDetailsModifyPresenter = (props: Props) => {
@@ -34,17 +41,27 @@ const ProductDetailsModifyPresenter = (props: Props) => {
               <Counter
                 count={+props.quantity}
                 onCountChange={props.setQuantity}
-                childrenElement={<></>}
               />
             </div>
             <SelectPicker
-              data={props.data}
-              onChange={props.handleSelectChange}
+              data={props.productOptions.size?.map(
+                (
+                  {
+                    id,
+                    itemOptionValueData: { name, itemOptionId } = {
+                      name: "",
+                      itemOptionId: "",
+                    },
+                  } = { id: "", type: "" }
+                ) => ({
+                  value: { optionId: itemOptionId, optionValueId: id },
+                  label: _.capitalize(name ?? "").slice(0, 1),
+                })
+              )}
+              onChange={props.handleOptionChange}
               searchable={false}
               cleanable={false}
-              placeholder={props.itemData?.variations![
-                props.selectedVariation
-              ].itemVariationData?.name?.slice(0, 1)}
+              placeholder={_.capitalize(props.selectedOptions?.size?.slice(0, 1))}
               defaultValue={props.selectedVariation}
             />
           </div>
@@ -65,9 +82,7 @@ const ProductDetailsModifyPresenter = (props: Props) => {
               <Tab className="pe-3">Details</Tab>
             </Tab.List>
             <Tab.Panel className="px-3">
-              <p>
-                {props.itemData.description}
-              </p>
+              <p>{props.itemData.description}</p>
             </Tab.Panel>
           </Tab.Group>
         )}

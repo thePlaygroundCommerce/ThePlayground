@@ -50,7 +50,7 @@ const OrderList = ({ allowOrderItemDeletion = true, allowOrderModify = false, li
               <div className="text-center">
                 <div>
                   <p className="m-0">
-                    SIZE : {item.variationName && item.variationName[0].toUpperCase()}
+                    SIZE : {item.variationName?.split(", ")[1].slice(0,1).toUpperCase()}
                   </p>
                   <Money className="m-0" number={item.basePriceMoney?.amount ?? 0} />
                 </div>
