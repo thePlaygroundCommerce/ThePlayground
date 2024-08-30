@@ -41,27 +41,29 @@ const ProductDetailsModifyPresenter = (props: Props) => {
                 onCountChange={props.setQuantity}
               />
             </div>
-            <SelectPicker
-              data={props.productOptions.size?.map(
-                (
-                  {
-                    id,
-                    itemOptionValueData: { name, itemOptionId } = {
-                      name: "",
-                      itemOptionId: "",
-                    },
-                  } = { id: "", type: "" }
-                ) => ({
-                  value: { optionId: itemOptionId, optionValueId: id },
-                  label: _.capitalize(name ?? "").slice(0, 1),
-                })
-              )}
-              onChange={props.handleOptionChange}
-              searchable={false}
-              cleanable={false}
-              placeholder={_.capitalize(props.selectedOptions?.size?.slice(0, 1))}
-              defaultValue={props.selectedVariation}
-            />
+            {props.productOptions.size && (
+              <SelectPicker
+                data={props.productOptions.size?.map(
+                  (
+                    {
+                      id,
+                      itemOptionValueData: { name, itemOptionId } = {
+                        name: "",
+                        itemOptionId: "",
+                      },
+                    } = { id: "", type: "" }
+                  ) => ({
+                    value: { optionId: itemOptionId, optionValueId: id },
+                    label: _.capitalize(name ?? "").slice(0, 1),
+                  })
+                )}
+                onChange={props.handleOptionChange}
+                searchable={false}
+                cleanable={false}
+                placeholder={_.capitalize(props.selectedOptions?.size?.slice(0, 1))}
+                defaultValue={props.selectedVariation}
+              />
+            )}
           </div>
         </div>
         <div className="grid grid-cols-1 gap-1 pb-7 justify-around  w-full">
