@@ -6,7 +6,7 @@ import clsx from "clsx";
 
 function ProductImageGallery({ images }) {
   const [activeImageIndex, setActiveVariationIndex] = useState(0);
-  let imgList = [...images, images[0], images[0], images[0]];
+  let imgList = images;
   if (imgList.length > 4) imgList = imgList.slice(0, 4);
 
   return (
