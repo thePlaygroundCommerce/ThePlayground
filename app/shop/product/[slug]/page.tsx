@@ -20,12 +20,16 @@ const Page = async (props: Props) => {
         </div> */}
 
         <div className="min-h-screen md:p-4">
-          <div className="block md:grid grid-col-1 md:grid-cols-2 md:h-screen">
-            <ProductImageGallery images={filteredRelatedImages} />
-            <ProductDetailsModify
-              catalogItemObject={catalogObject}
-              catalogImageObjects={filteredRelatedImages as CatalogObject[]}
-            />
+          <div className="block md:grid md:grid-cols-12 md:h-screen">
+            <div className="col-span-6 md:pt-20 pt-12 md:pl-14">
+              <ProductImageGallery images={filteredRelatedImages} />
+            </div>
+            <div className="col-span-6 pt-6">
+              <ProductDetailsModify
+                catalogItemObject={catalogObject}
+                catalogImageObjects={filteredRelatedImages as CatalogObject[]}
+              />
+            </div>
           </div>
         </div>
       </>

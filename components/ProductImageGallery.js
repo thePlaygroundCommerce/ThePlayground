@@ -6,26 +6,18 @@ import clsx from "clsx";
 
 function ProductImageGallery({ images }) {
   const [activeImageIndex, setActiveVariationIndex] = useState(0);
-  let imgList = images;
+  let imgList = [...images, images[0], images[0], images[0]];
   if (imgList.length > 4) imgList = imgList.slice(0, 4);
 
   return (
-    <div className="grid gap-2 grid-rows-4 grid-col-3 auto-rows-auto w-full h-[75vh]">
-      <div
-        className={clsx(
-          "overflow-hidden col-span-3 relative w-full h-full",
-          imgList.length > 1 ? "row-span-3" : "row-span-4"
-        )}
-      >
-        <ProductImageViewer {...images[activeImageIndex]} />
-      </div>
-      <div className="w-full h-full flex justify-center row-span-1 col-span-3">
+    <div className="md:flex-row flex-col flex gap-5 w-full h-[75vh]">
+      <div className="md:w-1/6 order-2 md:order-1 md:h-full flex md:flex-col justify-center col-span-1 gap-4">
         {imgList.map(
           ({ imageData, id }, i) =>
             i != activeImageIndex && (
-              <div key={id} className=" w-full h-full relative">
+              <div key={id} className=" overflow-hidden w-full aspect-square rounded-lg relative">
                 <Image
-                  className="w-full h-full"
+                  className="w-full"
                   src={imageData.url}
                   objectFit="contain"
                   fill
@@ -35,6 +27,14 @@ function ProductImageGallery({ images }) {
               </div>
             )
         )}
+      </div>
+      <div
+        className={clsx(
+          "overflow-hidden flex relative w-full h-full order-1 md:order-2",
+          imgList.length > 1 ? "row-span-3" : "row-span-4"
+        )}
+      >
+        <ProductImageViewer {...images[activeImageIndex]} />
       </div>
     </div>
   );
