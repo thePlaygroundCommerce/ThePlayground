@@ -28,6 +28,7 @@ const OrderList = ({ allowOrderItemDeletion = true, allowOrderModify = false, li
       {items?.map((item: OrderLineItem, i: number) => {
         const catalogObjectId = item.catalogObjectId as string
         const lineItemImage = images[catalogObjectId];
+        const optionInitial = item.variationName?.split(", ").pop()!.slice(0,1).toUpperCase()
 
         return (
           <div key={item.uid} className={clsx("min-h-48 grid grid-cols-5 py-4", i > 0 && "border-t")}>
@@ -50,7 +51,7 @@ const OrderList = ({ allowOrderItemDeletion = true, allowOrderModify = false, li
               <div className="text-center">
                 <div>
                   <p className="m-0">
-                    SIZE : {item.variationName?.split(", ")[1].slice(0,1).toUpperCase()}
+                    SIZE : {optionInitial}
                   </p>
                   <Money className="m-0" number={item.basePriceMoney?.amount ?? 0} />
                 </div>

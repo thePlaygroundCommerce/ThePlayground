@@ -72,14 +72,14 @@ function HeaderActions() {
             className="py-2 p-0 h-full overflow-hidden"
             style={{ maxHeight: undefined }}
           >
-            <div className="bg-white">
-              <div className="flex justify-between items-center px-4 border-b">
+            <div className="bg-white h-full flex flex-col">
+              <div className="overflow-hidden flex justify-between items-center px-4 border-b">
                 <Heading level={5}>{title}</Heading>
                 <button className="p-3" onClick={closeDrawer}>
                   <IoClose />
                 </button>
               </div>
-              {show.cart.active && <CartOverlay />}
+              <div className="h-full overflow-hidden">{show.cart.active && <CartOverlay />}</div>
             </div>
           </Drawer.Body>
         </Drawer>

@@ -38,8 +38,8 @@ const CartOverlay = ({ handleCartToggle }: Props) => {
   const sortedBreakdown = Object.entries(breakdown).sort(([_, val1], [__, val2]) => Number(val1) - Number(val2))
 
   return (
-    <div>
-      <div className="py-4 border-b">
+    <div className="h-full flex flex-col">
+      <div className="py-4 border-b h-full overflow-scroll">
         <OrderList allowOrderModify />
       </div>
 

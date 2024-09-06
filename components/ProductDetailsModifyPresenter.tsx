@@ -38,8 +38,6 @@ const ProductDetailsModifyPresenter = ({
   handleAddToCart,
   isProductInCart,
 }: Props) => {
-  const optionalFields = [""]
-
   return (
     <div className="flex flex-col h-full">
       <div className="md:w-2/3 md:m-auto flex flex-col justify-end h-full">
@@ -55,29 +53,28 @@ const ProductDetailsModifyPresenter = ({
                 onCountChange={setQuantity}
               />
             </div>
-            {productOptions.size && (
-              <SelectPicker
-                data={productOptions.size?.map(
-                  (
-                    {
-                      id,
-                      itemOptionValueData: { name, itemOptionId } = {
-                        name: "",
-                        itemOptionId: "",
-                      },
-                    } = { id: "", type: "" }
-                  ) => ({
-                    value: { optionId: itemOptionId, optionValueId: id },
-                    label: _.capitalize(name ?? "").slice(0, 1),
-                  })
-                )}
-                onChange={handleOptionChange}
-                searchable={false}
-                cleanable={false}
-                placeholder={_.capitalize(selectedOptions?.size?.slice(0, 1))}
-                defaultValue={selectedVariation}
-              />
-            )}
+            <SelectPicker
+              data={productOptions.size?.map(
+                (
+                  {
+                    id,
+                    itemOptionValueData: { name, itemOptionId } = {
+                      name: "",
+                      itemOptionId: "",
+                    },
+                  } = { id: "", type: "" }
+                ) => ({
+                  value: { optionId: itemOptionId, optionValueId: id },
+                  label: _.capitalize(name ?? "").slice(0, 1),
+                })
+              )}
+              onChange={handleOptionChange}
+              disabled={productOptions.size?.length > 0}
+              searchable={false}
+              cleanable={false}
+              placeholder={_.capitalize((selectedOptions?.size || itemData.variations![selectedVariation].itemVariationData?.name).slice(0, 1))}
+              defaultValue={selectedVariation}
+            />
           </div>
         </div>
         <div className="grid grid-cols-1 gap-1 pb-7 justify-around  w-full">

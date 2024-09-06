@@ -15,7 +15,7 @@ function ProductImageGallery({ images }) {
         {imgList.map(
           ({ imageData, id }, i) =>
             i != activeImageIndex && (
-              <div key={id} className=" overflow-hidden w-full aspect-square rounded-lg relative">
+              <button key={id} className=" overflow-hidden w-full aspect-square rounded-lg relative">
                 <Image
                   className="w-full"
                   src={imageData.url}
@@ -24,7 +24,7 @@ function ProductImageGallery({ images }) {
                   alt="picture of shirt"
                   onClick={() => setActiveVariationIndex(i)}
                 />
-              </div>
+              </button>
             )
         )}
       </div>

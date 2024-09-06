@@ -22,14 +22,14 @@ function Footer({ navs }: Props) {
   );
   const renderLink = ({ data: { title, link } }: Nav) => (
     <Link key={title} href={link ?? ""}>
-      <ul className="w-full m-auto flex justify-center" key={title}>
+      <ul className="w-full m-auto flex" key={title}>
         {title}
       </ul>
     </Link>
   );
 
   return (
-    <footer className="border-t flex flex-col items-center w-full">
+    <footer className="border-t grid md:grid-cols-2 grid-cols-1 w-full md:p-4">
       <div className="w-full py-4">
         <div className="md:hidden">
           <Accordion>
@@ -40,6 +40,11 @@ function Footer({ navs }: Props) {
             </Accordion.Panel>
           </Accordion>
         </div>
+        <div className="hidden md:block w-3/4 m-auto mt-6">
+          {[...leftNavs, ...rightNavs].map(renderLink)}
+        </div>
+      </div>
+      <div className="p-4 w-full">
         <div className="flex justify-center">
           <Link href="/">
             <Image
@@ -50,28 +55,9 @@ function Footer({ navs }: Props) {
             />
           </Link>
         </div>
-        <div className="hidden md:block w-3/4 m-auto mt-6">
-          {[...leftNavs, ...rightNavs].map(renderLink)}
+        <div className="w-48 m-auto mt-4">
+          <SocialMediaButtons align="around" />
         </div>
-      </div>
-      {/* <div className="w-2/3 border-b-2 p-4">
-        <nav className="flex justify-center">
-          {leftNavs.map(renderLink)}
-          <ul className="m-auto flex justify-center">
-            <Link href="/">
-              <Image
-                alt="Logo"
-                src="/The Playground Logo_Black.svg"
-                height={75}
-                width={75}
-              />
-            </Link>
-          </ul>
-          {rightNavs.map(renderLink)}
-        </nav>
-      </div> */}
-      <div className="p-4 w-full">
-        <SocialMediaButtons align="center" />
       </div>
     </footer>
   );
