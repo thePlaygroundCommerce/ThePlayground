@@ -13,10 +13,13 @@ type Props = AppProps & {
   amount: any;
   itemData: CatalogItem;
   quantity: any;
-  productOptions: {
-    [k: string]: (CatalogObject | undefined)[];
-  };
-  selectedOptions: any;
+  options: {
+    [key: string]: {
+      placeholder: string | undefined;
+      productOptionValues: (CatalogObject | undefined)[];
+      selectedOptions: any;
+    } | undefined
+  }
   setQuantity: any;
   selectedVariation: any;
   handleBuyNow: any;
@@ -30,8 +33,7 @@ const ProductDetailsModifyPresenter = ({
   amount,
   quantity,
   setQuantity,
-  selectedOptions,
-  productOptions,
+  options,
   handleOptionChange,
   selectedVariation,
   handleBuyNow,
@@ -54,7 +56,7 @@ const ProductDetailsModifyPresenter = ({
               />
             </div>
             <SelectPicker
-              data={productOptions.size?.map(
+              data={options.size?.productOptionValues?.map(
                 (
                   {
                     id,
@@ -67,12 +69,12 @@ const ProductDetailsModifyPresenter = ({
                   value: { optionId: itemOptionId, optionValueId: id },
                   label: _.capitalize(name ?? "").slice(0, 1),
                 })
-              )}
+              ) ?? []}
               onChange={handleOptionChange}
-              disabled={productOptions.size?.length > 0}
+              disabled={(options.size?.productOptionValues?.length ?? 0) === 0 }
               searchable={false}
               cleanable={false}
-              placeholder={_.capitalize((selectedOptions?.size || itemData.variations![selectedVariation].itemVariationData?.name).slice(0, 1))}
+              placeholder={_.capitalize(options.size?.placeholder).slice(0, 1)}
               defaultValue={selectedVariation}
             />
           </div>

@@ -15,6 +15,8 @@ type Props = AppProps & {
   catalogImageObjects: CatalogObject[];
 };
 
+type Lookup<T> = { [key: string | number]: undefined | null | T };
+
 const ProductDetailsModify = ({
   catalogItemObject: { itemData = {} },
   catalogImageObjects: catalogImageObject,
@@ -103,10 +105,9 @@ const ProductDetailsModify = ({
     })
   );
 
-  
   const selectedOptions =
-  variations[selectedVariation].itemVariationData?.itemOptionValues;
-  
+    variations[selectedVariation].itemVariationData?.itemOptionValues;
+
   const handleOptionChange = ({
     optionId,
     optionValueId,
@@ -114,41 +115,68 @@ const ProductDetailsModify = ({
     optionId: string;
     optionValueId: string;
   }) => {
+    const newVariantId = variations
+      .filter(({ itemVariationData: { itemOptionValues } = {} }) => {
+        const otherSelectedOptions =
+          selectedOptions?.filter(
+            ({ itemOptionId }) => itemOptionId !== optionId
+          ) ?? [];
 
-    const newVariantId = variations.filter(
-      ({ itemVariationData: { itemOptionValues } = {} }) => {
-        const otherSelectedOptions = selectedOptions?.filter(
-          ({ itemOptionId }) => itemOptionId !== optionId
-        ) ?? [];
+        return (
+          _.differenceWith(itemOptionValues, otherSelectedOptions, _.isEqual)
+            .length < 2
+        );
+      })
+      .find(({ itemVariationData: { itemOptionValues } = {} }) => {
+        return itemOptionValues?.some(
+          ({ itemOptionId, itemOptionValueId }) =>
+            itemOptionId === optionId && itemOptionValueId === optionValueId
+        );
+      })?.id;
 
-        return _.differenceWith(itemOptionValues, otherSelectedOptions, _.isEqual).length < 2
-      }
-    ).find(({ itemVariationData: { itemOptionValues } = {} }) => {
-      return itemOptionValues?.some(({ itemOptionId, itemOptionValueId }) => itemOptionId === optionId && itemOptionValueId === optionValueId)
-    })?.id
-
-    setSelectedVariation(variations.findIndex(({ id }) => newVariantId === id))
+    setSelectedVariation(variations.findIndex(({ id }) => newVariantId === id));
   };
+
+  const options = itemOptions.reduce(
+    (acc, { id, itemOptionData: { name, values } = {} }) =>
+      name
+        ? {
+          ...acc,
+          [name]: {
+            placeholder: values?.map(({ itemOptionValueData: { name } = {} }) =>
+              name!.toLowerCase()
+            )
+              .filter((name) => {
+                return _.words(
+                  itemData.variations![selectedVariation].itemVariationData!
+                    .name!.toLowerCase()
+                ).includes(name?.toLowerCase() ?? "");
+              })[0],
+            selectedOptions: selectedOptions?.reduce((acc, cur) => {
+              const itemOptionData = itemOptions.find(
+                ({ id }) => id === cur.itemOptionId
+              )?.itemOptionData;
+              return {
+                ...acc,
+                [itemOptionData?.name ?? ""]: itemOptionData?.values?.find(
+                  ({ id }) => id === cur.itemOptionValueId
+                )?.itemOptionValueData?.name,
+              };
+            }, {} as Lookup<string>) ?? {},
+            productOptionValues: productOptions[id],
+          },
+        }
+        : acc,
+    {}
+  );
+
 
   return (
     <ProductDetailsModifyPresenter
       {...{
-        productOptions: Object.fromEntries(
-          transformOptionId(Object.entries(productOptions), itemOptions)
-        ),
-        selectedOptions: selectedOptions?.reduce((acc, cur) => {
-          const itemOptionData = itemOptions.find(
-            ({ id }) => id === cur.itemOptionId
-          )?.itemOptionData;
-          return {
-            ...acc,
-            [itemOptionData?.name ?? ""]: itemOptionData?.values?.find(
-              ({ id }) => id === cur.itemOptionValueId
-            )?.itemOptionValueData?.name,
-          };
-        }, {}),
         handleOptionChange,
         amount,
+        options,
         itemData,
         quantity,
         setQuantity,
