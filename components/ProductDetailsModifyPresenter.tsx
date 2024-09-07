@@ -55,28 +55,31 @@ const ProductDetailsModifyPresenter = ({
                 onCountChange={setQuantity}
               />
             </div>
-            <SelectPicker
-              data={options.size?.productOptionValues?.map(
-                (
-                  {
-                    id,
-                    itemOptionValueData: { name, itemOptionId } = {
-                      name: "",
-                      itemOptionId: "",
-                    },
-                  } = { id: "", type: "" }
-                ) => ({
-                  value: { optionId: itemOptionId, optionValueId: id },
-                  label: _.capitalize(name ?? "").slice(0, 1),
-                })
-              ) ?? []}
-              onChange={handleOptionChange}
-              disabled={(options.size?.productOptionValues?.length ?? 0) === 0 }
-              searchable={false}
-              cleanable={false}
-              placeholder={_.capitalize(options.size?.placeholder).slice(0, 1)}
-              defaultValue={selectedVariation}
-            />
+            {options.size && (
+
+              <SelectPicker
+                data={options.size.productOptionValues?.map(
+                  (
+                    {
+                      id,
+                      itemOptionValueData: { name, itemOptionId } = {
+                        name: "",
+                        itemOptionId: "",
+                      },
+                    } = { id: "", type: "" }
+                  ) => ({
+                    value: { optionId: itemOptionId, optionValueId: id },
+                    label: _.capitalize(name ?? "").slice(0, 1),
+                  })
+                ) ?? []}
+                onChange={handleOptionChange}
+                disabled={(options.size.productOptionValues?.length ?? 0) === 0}
+                searchable={false}
+                cleanable={false}
+                placeholder={_.capitalize(options.size.placeholder).slice(0, 1)}
+                defaultValue={selectedVariation}
+              />
+            )}
           </div>
         </div>
         <div className="grid grid-cols-1 gap-1 pb-7 justify-around  w-full">

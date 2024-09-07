@@ -17,7 +17,7 @@ import { CustomProvider } from "rsuite";
 import { cookies } from "next/headers";
 import { callGetCart } from "api/cartApi";
 import clsx from "clsx";
-import { latoHeavy, latoRegular } from "./fonts";
+import { latoRegular } from "./fonts";
 import { ClerkProvider } from "@clerk/nextjs";
 import Script from "next/script";
 
