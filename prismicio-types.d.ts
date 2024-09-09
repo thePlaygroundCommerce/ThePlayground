@@ -518,6 +518,38 @@ export type SocialMediaLinksDocument<Lang extends string = string> =
     Lang
   >;
 
+/**
+ * Content for The Playground Display Logo documents
+ */
+interface ThePlaygroundDisplayLogoDocumentData {
+  /**
+   * image field in *The Playground Display Logo*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: the_playground_display_logo.image
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+}
+
+/**
+ * The Playground Display Logo document from Prismic
+ *
+ * - **API ID**: `the_playground_display_logo`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type ThePlaygroundDisplayLogoDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<ThePlaygroundDisplayLogoDocumentData>,
+    "the_playground_display_logo",
+    Lang
+  >;
+
 export type AllDocumentTypes =
   | CategorylinkDocument
   | ComingSoonDocument
@@ -527,7 +559,8 @@ export type AllDocumentTypes =
   | HeaderDocument
   | HomepageDocument
   | SocialMediaHandleDocument
-  | SocialMediaLinksDocument;
+  | SocialMediaLinksDocument
+  | ThePlaygroundDisplayLogoDocument;
 
 /**
  * Primary content in *CallToAction → Primary*
@@ -2008,6 +2041,8 @@ declare module "@prismicio/client" {
       SocialMediaLinksDocument,
       SocialMediaLinksDocumentData,
       SocialMediaLinksDocumentDataSlicesSlice,
+      ThePlaygroundDisplayLogoDocument,
+      ThePlaygroundDisplayLogoDocumentData,
       AllDocumentTypes,
       CallToActionSlice,
       CallToActionSliceDefaultPrimary,

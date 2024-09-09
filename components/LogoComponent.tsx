@@ -1,17 +1,24 @@
 import React from "react";
 import Image from "next/image";
+import { createClient } from "prismicio";
 
-type Props = { height: number; width: number };
+type Props = { height?: number; width?: number };
 
-const LogoComponent = ({ height = 25, width = 25 , ...rest }: Props) => {
+const LogoComponent = async ({ height = 25, width = 25, ...rest }: Props) => {
+  const { results: [{ data: { image: { dimensions, alt, url } } }] } = await createClient().getByType("the_playground_display_logo");
+
   return (
-    <Image
-      src="/The Playground Logo_Black.svg"
-      alt="The Playground Logo"
-      className="h-full w-16 md:w-20"
-      height={height}
-      width={width}
-    />
+    <div className="max-w-40 w-96 h-full overflow-hidden relative">
+      <Image
+        src={url ?? ""}
+        alt="The Playground Logo"
+        objectFit="contain"
+        fill
+        className="w-full h-full"
+      // height={dimensions?.height ?? height}
+      // width={dimensions?.height ?? width}
+      />
+    </div>
   );
 };
 

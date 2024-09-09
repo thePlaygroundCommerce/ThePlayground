@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Nav } from "app/layout.jsx";
 import { Accordion, Placeholder } from "rsuite";
+import LogoComponent from "./LogoComponent";
 
 type Props = AppProps & { navs: Nav[] };
 
@@ -46,14 +47,11 @@ function Footer({ navs }: Props) {
       </div>
       <div className="p-4 w-full">
         <div className="flex justify-center">
-          <Link href="/">
-            <Image
-              alt="Logo"
-              src="/The Playground Logo_Black.svg"
-              height={75}
-              width={75}
-            />
-          </Link>
+          <div className="min-w-1 min-h-6 relative">
+            <Link href="/">
+              <LogoComponent />
+            </Link> 
+          </div>
         </div>
         <div className="w-48 m-auto mt-4">
           <SocialMediaButtons align="around" />

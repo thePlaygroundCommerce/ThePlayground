@@ -28,7 +28,7 @@ function Header({ navs }: Props) {
         {/* <p className=" h-full text-black px-4 p-2">
             Free Shipping on Orders over $100!
           </p> */}
-        <div className="sm:hidden">
+        <div className="sm:hidden max-w-44 relative ">
           <Link href="/">
             <LogoComponent height={25} width={25} />
           </Link>

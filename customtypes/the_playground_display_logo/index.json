@@ -1,0 +1,19 @@
+{
+  "format": "custom",
+  "id": "the_playground_display_logo",
+  "label": "The Playground Display Logo",
+  "repeatable": false,
+  "status": true,
+  "json": {
+    "Main": {
+      "image": {
+        "type": "Image",
+        "config": {
+          "label": "image",
+          "constraint": {},
+          "thumbnails": []
+        }
+      }
+    }
+  }
+}
