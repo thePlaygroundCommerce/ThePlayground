@@ -16,7 +16,7 @@ function Header({ navs }: Props) {
     <header className="fixed h-12 top-0 md:h-auto md:px-8 px-4 md:py-2 drop-shadow-lg py-1 border-b z-20 bg-white w-full grid grid-cols-6">
       <div className="w-full h-full flex col-span-1">
         <div className="sm:hidden h-full flex items-center">
-          <MobileSideNav navs={navs} />
+          <MobileSideNav logo={<LogoComponent height={25} width={25} />} navs={navs} />
         </div>
         <div className="hidden sm:block">
           <Link href="/">

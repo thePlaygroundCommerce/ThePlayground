@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import LogoComponent from "./LogoComponent";
 import { Nav } from "app/layout";
 import { IoClose } from "react-icons/io5";
 import { List } from "rsuite";
@@ -10,6 +9,7 @@ import { AppProps } from "types";
 import { KeyTextField } from "@prismicio/client";
 
 type Props = AppProps & {
+  logo: JSX.Element
   onClose: any;
   navs: {
     footerNavs: Nav[],
@@ -17,7 +17,7 @@ type Props = AppProps & {
   }
 }
 
-export default function SideNavigation({ onClose, navs: { footerNavs, headerNavs } }: Props) {
+export default function SideNavigation({ logo, onClose, navs: { footerNavs, headerNavs } }: Props) {
   const removedLinks: KeyTextField[] = ["/log"]
   footerNavs = footerNavs.filter(({ data: { link } }) => !removedLinks.includes(link))
 
@@ -27,7 +27,7 @@ export default function SideNavigation({ onClose, navs: { footerNavs, headerNavs
     <div className="h-screen flex flex-col">
       <div className="flex justify-between px-4 p-2">
         <Link href="/">
-          <LogoComponent height={25} width={25} />
+          {logo}
         </Link>
         <button className="p-2 px-3" onClick={handleClose}>
           <IoClose />
