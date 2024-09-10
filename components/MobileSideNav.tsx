@@ -13,10 +13,11 @@ import { Nav } from 'app/layout';
 import { usePathname } from 'next/navigation';
 
 type Props = {
+  logo: JSX.Element
   navs: { headerNavs: Nav[], footerNavs: Nav[] };
 }
 
-const MobileSideNav = ({ navs }: Props) => {
+const MobileSideNav = ({ navs, logo }: Props) => {
   const path = usePathname()
   const { drawerKit: { open }, handleUIChange } = useUIKit();
   const [show, setShow] = useState(false);
@@ -41,7 +42,7 @@ const MobileSideNav = ({ navs }: Props) => {
             onClose={handleSideNavOnClick}
           >
             <Drawer.Body className="p-0 h-full" style={{ maxHeight: undefined }}>
-              <SideNav onClose={handleSideNavOnClick} navs={navs} />
+              <SideNav logo={logo} onClose={handleSideNavOnClick} navs={navs} />
             </Drawer.Body>
           </Drawer>
         </Portal>
