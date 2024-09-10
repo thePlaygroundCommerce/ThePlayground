@@ -9,6 +9,7 @@ import { useCheckout } from "context/checkoutContext";
 import { useInventory } from "context/inventoryContext";
 import { props } from "cypress/types/bluebird";
 import _ from "lodash";
+import Selector from "./ColorSelector";
 
 type Props = AppProps & {
   catalogItemObject: CatalogObject;
@@ -76,7 +77,9 @@ const ProductDetailsModify = ({
     value: i,
   }));
 
-  const productOptions = Object.fromEntries(
+  const productOptions: {
+    [k: string]: [string | null | undefined, (CatalogObject | {} | undefined)[]];
+  } = Object.fromEntries(
     Object.entries(
       variations.reduce(
         (a: { [key: string]: Set<string> }, { itemVariationData }) => {
@@ -84,7 +87,7 @@ const ProductDetailsModify = ({
 
           const { itemOptionValues } = itemVariationData;
           itemOptionValues.forEach(({ itemOptionId, itemOptionValueId }) => {
-            if (!(itemOptionId && itemOptionValueId)) return;
+            if (!(itemOptionId && itemOptionValueId)) return a;
 
             if (a[itemOptionId]) a[itemOptionId].add(itemOptionValueId);
             else a[itemOptionId] = new Set([itemOptionValueId]);
@@ -97,16 +100,17 @@ const ProductDetailsModify = ({
       const itemOptionData =
         itemOptions.find(({ id }) => id === key)?.itemOptionData ?? {};
 
-      const optionData = Array.from(val).map((optionValueId) =>
+      const optionValueData = Array.from(val).map((optionValueId) =>
         itemOptionData.values?.find(({ id }) => id === optionValueId)
       );
 
-      return [key, optionData];
+      return [key, [itemOptionData.name, optionValueData]];
     })
   );
 
   const selectedOptions =
     variations[selectedVariation].itemVariationData?.itemOptionValues;
+  console.log(selectedOptions, productOptions);
 
   const handleOptionChange = ({
     optionId,
@@ -115,6 +119,8 @@ const ProductDetailsModify = ({
     optionId: string;
     optionValueId: string;
   }) => {
+
+    console.log(optionId, optionValueId)
     const newVariantId = variations
       .filter(({ itemVariationData: { itemOptionValues } = {} }) => {
         const otherSelectedOptions =
@@ -137,39 +143,66 @@ const ProductDetailsModify = ({
     setSelectedVariation(variations.findIndex(({ id }) => newVariantId === id));
   };
 
+  const selectors = Object.entries(productOptions).reduce((acc, [id, [option, optionValues]], i) => {
+    const type = option === "colors" ? "RADIO": "DROPDOWN"
+    const data = option === "size" ? optionValues.map((obj) => {
+      let { itemOptionValueData: { name }} = obj
+
+      obj.itemOptionValueData.name = _.capitalize(name).slice(0,1)
+      return obj;
+    }) : optionValues
+
+    console.log(data)
+
+    return {
+      [option ?? i]:
+        <Selector
+          type={type}
+          data={data}
+          onChange={handleOptionChange}
+        />
+    }
+  }
+  , {})
+
   const options = itemOptions.reduce(
     (acc, { id, itemOptionData: { name, values } = {} }) =>
       name
         ? {
           ...acc,
           [name]: {
-            placeholder: values?.map(({ itemOptionValueData: { name } = {} }) =>
-              name!.toLowerCase()
-            )
+            placeholder: values
+              ?.map(({ itemOptionValueData: { name } = {} }) =>
+                name!.toLowerCase()
+              )
               .filter((name) => {
                 return _.words(
-                  itemData.variations![selectedVariation].itemVariationData!
-                    .name!.toLowerCase()
+                  itemData.variations![
+                    selectedVariation
+                  ].itemVariationData!.name!.toLowerCase()
                 ).includes(name?.toLowerCase() ?? "");
               })[0],
-            selectedOptions: selectedOptions?.reduce((acc, cur) => {
-              const itemOptionData = itemOptions.find(
-                ({ id }) => id === cur.itemOptionId
-              )?.itemOptionData;
-              return {
-                ...acc,
-                [itemOptionData?.name ?? ""]: itemOptionData?.values?.find(
-                  ({ id }) => id === cur.itemOptionValueId
-                )?.itemOptionValueData?.name,
-              };
-            }, {} as Lookup<string>) ?? {},
+            selectedOptions:
+              selectedOptions
+                ?.filter((opt) => opt.itemOptionId === id)
+                .reduce((acc, cur) => {
+                  const itemOptionData = itemOptions.find(
+                    ({ id }) => id === cur.itemOptionId
+                  )?.itemOptionData;
+                  return {
+                    ...acc,
+                    [itemOptionData?.name ?? ""]:
+                      itemOptionData?.values?.find(
+                        ({ id }) => id === cur.itemOptionValueId
+                      )?.itemOptionValueData?.name,
+                  };
+                }, {} as Lookup<string>) ?? {},
             productOptionValues: productOptions[id],
           },
         }
         : acc,
     {}
   );
-
 
   return (
     <ProductDetailsModifyPresenter
@@ -179,6 +212,7 @@ const ProductDetailsModify = ({
         options,
         itemData,
         quantity,
+        selectors,
         setQuantity,
         data,
         handleSelectChange,

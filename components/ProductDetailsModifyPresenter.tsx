@@ -8,18 +8,21 @@ import _ from "lodash";
 import Money from "./Money";
 import { CatalogItem, CatalogObject } from "square";
 import { useInventory } from "context/inventoryContext";
+import Selector from "./ColorSelector";
 
 type Props = AppProps & {
   amount: any;
   itemData: CatalogItem;
   quantity: any;
   options: {
-    [key: string]: {
-      placeholder: string | undefined;
-      productOptionValues: (CatalogObject | undefined)[];
-      selectedOptions: any;
-    } | undefined
-  }
+    [key: string]:
+      | {
+          placeholder: string | undefined;
+          productOptionValues: (CatalogObject | undefined)[];
+          selectedOptions: any;
+        }
+      | undefined;
+  };
   setQuantity: any;
   selectedVariation: any;
   handleBuyNow: any;
@@ -33,6 +36,7 @@ const ProductDetailsModifyPresenter = ({
   amount,
   quantity,
   setQuantity,
+  selectors,
   options,
   handleOptionChange,
   selectedVariation,
@@ -50,36 +54,14 @@ const ProductDetailsModifyPresenter = ({
           </div>
           <div className="basis-full grow flex flex-col items-center">
             <div className="">
-              <Counter
-                count={+quantity}
-                onCountChange={setQuantity}
-              />
+              <Counter count={+quantity} onCountChange={setQuantity} />
             </div>
-            {options.size && (
-
-              <SelectPicker
-                data={options.size.productOptionValues?.map(
-                  (
-                    {
-                      id,
-                      itemOptionValueData: { name, itemOptionId } = {
-                        name: "",
-                        itemOptionId: "",
-                      },
-                    } = { id: "", type: "" }
-                  ) => ({
-                    value: { optionId: itemOptionId, optionValueId: id },
-                    label: _.capitalize(name ?? "").slice(0, 1),
-                  })
-                ) ?? []}
-                onChange={handleOptionChange}
-                disabled={(options.size.productOptionValues?.length ?? 0) === 0}
-                searchable={false}
-                cleanable={false}
-                placeholder={_.capitalize(options.size.placeholder).slice(0, 1)}
-                defaultValue={selectedVariation}
-              />
-            )}
+            {selectors.size}
+          </div>
+        </div>
+        <div className="text-center">
+          <div className="pb-6 flex justify-center gap-5">
+            {selectors.colors}
           </div>
         </div>
         <div className="grid grid-cols-1 gap-1 pb-7 justify-around  w-full">
