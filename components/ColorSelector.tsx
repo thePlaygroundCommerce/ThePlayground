@@ -31,10 +31,7 @@ const Selector = <T,>({
     },
   }));
 
-  console.log(selectorData)
-
   const handleOnSelect = (value: any) => {
-    console.log(value)
     onChange(value);
   };
 
@@ -45,18 +42,19 @@ const Selector = <T,>({
 export default Selector;
 
 const RadioSelector = ({
-  selectedIndex = 0,
+  selectedIndex: selected = 0,
   data = [],
   onChange,
 }: Props<{
   label: string;
   value: {};
 }>) => {
-  const [selected, setSelected] = useState(selectedIndex);
   const { label } = data[selected];
-  const title = label
+  const hasHexColor = label.includes("#")
+  let title = !hasHexColor ? label : label
     .substring(0, label.indexOf("#"))
-    .split(" ")
+
+    title = title.split(" ")
     .map(_.capitalize)
     .join(" ");
 

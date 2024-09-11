@@ -28,7 +28,7 @@ const OrderList = ({ allowOrderItemDeletion = true, allowOrderModify = false, li
       {items?.map((item: OrderLineItem, i: number) => {
         const catalogObjectId = item.catalogObjectId as string
         const lineItemImage = images[catalogObjectId];
-        const optionInitial = item.variationName?.split(", ").pop()!.slice(0,1).toUpperCase()
+        const optionInitial = item.variationName?.split(", ").pop()!.slice(0, 1).toUpperCase()
 
         return (
           <div key={item.uid} className={clsx("min-h-48 grid grid-cols-5 py-4", i > 0 && "border-t")}>
@@ -50,9 +50,14 @@ const OrderList = ({ allowOrderItemDeletion = true, allowOrderModify = false, li
 
               <div className="text-center">
                 <div>
-                  <p className="m-0">
-                    SIZE : {optionInitial}
-                  </p>
+                  <div className="flex gap-3 justify-center">
+                    <p className="m-0">
+                      SIZE : {optionInitial}
+                    </p>
+                    <p className="m-0">
+                      COLOR : {optionInitial}
+                    </p>
+                  </div>
                   <Money className="m-0" number={item.basePriceMoney?.amount ?? 0} />
                 </div>
                 {allowOrderModify && (

@@ -29,9 +29,9 @@ function Header({ navs }: Props) {
             Free Shipping on Orders over $100!
           </p> */}
         <div className="sm:hidden max-w-44 relative ">
-          {/* <Link href="/">
+          <Link href="/">
             <LogoComponent height={25} width={25} />
-          </Link> */}
+          </Link>
         </div>
         <div className="hidden sm:block">
           <HeaderNavigation navs={navs.headerNavs} />
