@@ -14,6 +14,7 @@ type Props = AppProps & {
   amount: any;
   itemData: CatalogItem;
   quantity: any;
+  selectors: any;
   options: {
     [key: string]:
       | {

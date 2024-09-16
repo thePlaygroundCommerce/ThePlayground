@@ -80,7 +80,7 @@ const ProductDetailsModify = ({
   const productOptions: {
     [k: string]: [
       string | null | undefined,
-      (CatalogObject | {} | undefined)[],
+      (CatalogObject | undefined)[],
     ];
   } = Object.fromEntries(
     Object.entries(
@@ -150,16 +150,16 @@ const ProductDetailsModify = ({
         option === "size"
           ? optionValues.map((obj) => {
               let {
-                itemOptionValueData: { name },
-              } = obj;
+                itemOptionValueData: { name } = { name: ""},
+              } = obj as CatalogObject;
 
-              obj.itemOptionValueData.name = _.capitalize(name).slice(0, 1);
+              name = _.capitalize(name ?? "").slice(0, 1);
               return obj;
             })
           : optionValues;
 
       const selected = optionValues.findIndex(
-        ({ id }) =>
+        ({ id } = { id: "", type: "" }) =>
           id ===
           selectedOptions?.find(({ itemOptionId }) => itemOptionId === optionId)
             ?.itemOptionValueId

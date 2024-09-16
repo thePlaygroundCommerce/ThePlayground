@@ -6,6 +6,7 @@ import clsx from "clsx";
 import { CatalogObject } from "square";
 import Radio from "components/Radio";
 import { SelectPicker } from "rsuite";
+import { ItemDataType } from "rsuite/esm/MultiCascadeTree";
 
 type Props<Data> = {
   onChange: (a: any) => void;
@@ -23,7 +24,7 @@ const Selector = <T,>({
   const Component = selectorCompMap[type];
   if (!Component) throw Error("Selector type doesn't map to a Component");
 
-  const selectorData = data.map(({ id, itemOptionValueData }) => ({
+  const selectorData = data.map(({ id, itemOptionValueData } = { id: "", type: "" }) => ({
     label: itemOptionValueData?.name,
     value: {
       optionId: itemOptionValueData?.itemOptionId,
@@ -54,7 +55,7 @@ const RadioSelector = ({
   let title = !hasHexColor ? label : label
     .substring(0, label.indexOf("#"))
 
-    title = title.split(" ")
+  title = title.split(" ")
     .map(_.capitalize)
     .join(" ");
 
@@ -82,15 +83,15 @@ const DropdownSelector = ({
   selectedIndex = 0,
   data = [],
   onChange,
-}: Props) => {
+}: Props<ItemDataType>) => {
   return (
     <SelectPicker
       data={data}
       onChange={onChange}
       searchable={false}
       cleanable={false}
-    //   disabled={(options.size.productOptionValues?.length ?? 0) === 0}
-      placeholder={_.capitalize(data[selectedIndex].label).slice(0, 1)}
+      //   disabled={(options.size.productOptionValues?.length ?? 0) === 0}
+      placeholder={_.capitalize(data[selectedIndex].label as string).slice(0, 1)}
       defaultValue={data[selectedIndex].value}
     />
   );
