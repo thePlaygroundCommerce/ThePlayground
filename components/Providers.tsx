@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CartProvider from "context/cartContext";
 import { CookiesProvider } from "react-cookie";
 import NavigationProvider from "context/navigationContext";
@@ -8,6 +8,8 @@ import InventoryProvider from "../context/inventoryContext";
 import { AppProps } from "types";
 import UIKitProvider from "context/UIKitContext";
 import { Order } from "square";
+import { Modal, Placeholder, Button } from "rsuite";
+import Portal from "./Portal";
 
 type Props = AppProps & {
   data: any,
@@ -15,6 +17,12 @@ type Props = AppProps & {
 };
 
 const Providers = ({ data, cart, children }: Props) => {
+  const [show, setShow] =  useState(false);
+
+  useEffect(() => {
+    // setShow(true)
+  }, [])
+
   return (
     <UIKitProvider>
       <NavigationProvider apparelCategories={data.categories}>
@@ -30,6 +38,24 @@ const Providers = ({ data, cart, children }: Props) => {
           </InventoryProvider>
         </CookiesProvider>
       </NavigationProvider>
+      {/* <Portal rootId="modalContainer"> */}
+        <Modal id="aasdaassd" open={show} autoFocus className="a" onClose={() => { }}>
+          <Modal.Header>
+            <Modal.Title>Discounts Promotion</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Placeholder.Paragraph />
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={() => null} appearance="primary">
+              Ok
+            </Button>
+            <Button onClick={() => null} appearance="subtle">
+              Cancel
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      {/* </Portal> */}
     </UIKitProvider>
   );
 };
