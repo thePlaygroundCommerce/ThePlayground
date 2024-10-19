@@ -1,0 +1,84 @@
+{
+  "id": "sliders",
+  "type": "SharedSlice",
+  "name": "Sliders",
+  "description": "Sliders",
+  "variations": [
+    {
+      "id": "default",
+      "name": "product",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "slider_title": {
+          "type": "Text",
+          "config": {
+            "label": "Slider Title",
+            "placeholder": "Title"
+          }
+        },
+        "object_ids": {
+          "type": "Text",
+          "config": {
+            "label": "Object IDs",
+            "placeholder": "id"
+          }
+        },
+        "sliderheadline": {
+          "type": "Text",
+          "config": {
+            "label": "sliderHeadline",
+            "placeholder": ""
+          }
+        }
+      },
+      "items": {}
+    },
+    {
+      "id": "blog",
+      "name": "blog",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "slider_title": {
+          "type": "Text",
+          "config": {
+            "label": "Slider Title",
+            "placeholder": "Title"
+          }
+        },
+        "sliderheadline": {
+          "type": "Text",
+          "config": {
+            "label": "sliderHeadline",
+            "placeholder": ""
+          }
+        },
+        "items": {
+          "type": "Group",
+          "config": {
+            "label": "blogs",
+            "repeat": true,
+            "fields": {
+              "blog": {
+                "type": "Link",
+                "config": {
+                  "label": "blog",
+                  "select": "document",
+                  "customtypes": [
+                    "blog"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

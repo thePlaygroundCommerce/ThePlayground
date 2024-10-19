@@ -1,0 +1,66 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"object_ids": {
+				"__TYPE__": "FieldContent",
+				"type": "Text",
+				"value": "5ESYYXW25DKKOIWJTYWY2H7D,X3Y6FI5OQHYWNTSTAEEYASCE,SYY7FIS7MJHPPRUXQZ4R2WDM, IAD5DF3TIN2RYQDPGJEYVAM6"
+			},
+			"slider_title": {
+				"__TYPE__": "FieldContent",
+				"type": "Text",
+				"value": "New Arrivals"
+			},
+			"sliderheadline": {
+				"__TYPE__": "FieldContent",
+				"value": "done",
+				"type": "Text"
+			}
+		},
+		"items": []
+	},
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "blog",
+		"primary": {
+			"slider_title": {
+				"__TYPE__": "FieldContent",
+				"value": "studying",
+				"type": "Text"
+			},
+			"items": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"blog",
+								{
+									"__TYPE__": "LinkContent",
+									"value": {
+										"__TYPE__": "DocumentLink",
+										"id": "mock_document_id"
+									}
+								}
+							]
+						]
+					}
+				]
+			},
+			"sliderheadline": {
+				"__TYPE__": "FieldContent",
+				"value": "tin",
+				"type": "Text"
+			}
+		},
+		"items": [
+			{
+				"__TYPE__": "GroupItemContent",
+				"value": []
+			}
+		]
+	}
+]
