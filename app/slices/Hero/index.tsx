@@ -18,6 +18,7 @@ import SocialMediaComponentMap, {
 import { Carousel } from "rsuite";
 import { contentPositions } from "util/styles";
 import Heading from "components/typography/Heading";
+import Button from "components/Button";
 
 /**
  * Props for `Hero`.
@@ -32,7 +33,8 @@ const Hero = ({
   slice: {
     items,
     primary,
-    primary: {
+    primary: { 
+      link,
       hero_description,
       hero_title,
       content_alignment,
@@ -157,6 +159,7 @@ const Hero = ({
                 )}
               </div>
             )}
+          <Button>{link}</Button>
         </div>
       </div>
     </section>

@@ -58,11 +58,21 @@ const Page = async () => {
                 }
               }
             }
-            ... on window_panels {
+            ... on sliders {
               variation {
                 ... on default {
-                  items {
-                    ...itemsFields
+                  primary {
+                    ...primaryFields
+                  }
+                }
+                ... on blog {
+                  primary {
+                  ...primaryFields
+                    items {
+                      blog {
+                        ...blogFields
+                      }
+                    }
                   }
                 }
               }

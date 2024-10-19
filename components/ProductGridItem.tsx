@@ -20,8 +20,8 @@ export default function ProductGridItem({ itemData, images }: Props) {
     <div className="border-0 text-center ">
       <Image
         className={`mx-auto`}
-        width={250}
-        height={250}
+          width={250}
+          height={250}
         src={displayImage?.url || Unavailable}
         alt={displayImage?.caption || "Picture of shirt"}
       />

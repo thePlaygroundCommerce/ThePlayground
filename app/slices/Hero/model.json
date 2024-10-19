@@ -79,6 +79,13 @@
             "placeholder_true": "true",
             "placeholder_false": "false"
           }
+        },
+        "link": {
+          "type": "Text",
+          "config": {
+            "label": "link",
+            "placeholder": ""
+          }
         }
       },
       "items": {}

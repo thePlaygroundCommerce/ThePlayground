@@ -1,7 +1,8 @@
 import { Content, isFilled } from "@prismicio/client";
 import { PrismicRichText, SliceComponentProps } from "@prismicio/react";
 import Button from "components/Button";
-import Image from "next/image";
+import Image from "components/Image";
+import Money from "components/Money";
 
 /**
  * Props for `WindowPanels`.
@@ -40,9 +41,9 @@ const WindowPanels = ({ slice }: WindowPanelsProps): JSX.Element => {
             >
               <Window
                 imageProps={{ ...imageProps }}
-                // window_headline={window_headline}
-                // window_description={window_description}
-                // call_to_action={call_to_action}
+              // window_headline={window_headline}
+              // window_description={window_description}
+              // call_to_action={call_to_action}
               />
             </div>
           );
@@ -52,30 +53,53 @@ const WindowPanels = ({ slice }: WindowPanelsProps): JSX.Element => {
   );
 };
 
-const Window = ({
-  imageProps
-}: { imageProps: any}) => (
-  <div className="relative h-full pb-[100%]">
-    <div className="-z-10 w-full h-full absolute rounded-lg">
-      <Image {...imageProps} />
+export const Window = ({
+  ...rest
+}: Window) => {
+  return (
+    <div className="relative min-h-96">
+      <WindowContent {...rest} />
     </div>
-    <div className="p-6">
-      <div className="">
-        {/* <div className="">
-          <PrismicRichText field={window_headline} />
-        </div>
-        <div className="">
-          <PrismicRichText field={window_description} />
-        </div> */}
+  );
+}
+
+export const WindowContent = ({ imageData, contentData: { title, price } }: Window) => {
+  return (
+    <div className="p-6 grid grid-cols-1">
+      <div className="window-header">
       </div>
-      {/* {isFilled.link(call_to_action) && (
-        <div>
-          <Button>Learn More</Button>
+      <div className="window-body w-full rounded">
+        <div className="-z-10 w-full h-full relative rounded-lg min-h-96">
+          <Image {...{ ...imageData, className: "w-full h-full object-contain", fill: true }} />
         </div>
-      )} */}
+      </div>
+      <div className="window-footer">
+        <div>
+          {/* <PrismicRichText field={name} /> */}
+          <p>{title}</p>
+          {price && <Money number={price} />}
+        </div>
+        {/* {isFilled.link(call_to_action) && (
+          <div>
+            <Button>Learn More</Button>
+          </div>
+        )} */}
+      </div>
     </div>
-  </div>
-);
+  )
+}
+
+interface Window {
+  imageData: {
+    alt: string
+    url: string
+  }
+  contentData: {
+    title: string,
+    headline: string
+    price?: number
+  }
+}
 
 const Review = () => (
   <div></div>

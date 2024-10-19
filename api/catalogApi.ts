@@ -52,10 +52,10 @@ export async function getCatalogImages(types: any) {
     .catch((err) => console.log(err));
 }
 
-export async function getCatalogItemsAndImages(ids: string[]) {
-  if (ids.length === 0) return;
+export async function getCatalogItemsAndImages(ids: string[], includeRelatedObjects: boolean = true): Promise<CatalogObject[]> {
+  if (ids.length === 0) return [];
   const fetchUrl = `${SQUARE_URL}catalog`;
-  const payload = { objectIds: ids, includeRelatedObjects: true };
+  const payload = { objectIds: ids, includeRelatedObjects };
 
   return await fetch(fetchUrl, {
     method: "POST",
