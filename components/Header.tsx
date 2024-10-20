@@ -50,8 +50,7 @@ function Header({ navs }: Props) {
       <div className={clsx(latoLight.className, "text-sm bg-black text-white text-center p-2")}>
         <Blinking>
           {[
-            <p key={1}>Free Shipping & Returns <span className="italic">For A Limited Time</span></p>,
-            <p key={2}>Returns <span className="italic">For A Limited Time</span></p>
+            <p key={1}>Free Shipping & Returns <span className="italic">For A Limited Time</span></p>
           ]}
         </Blinking>
       </div>
