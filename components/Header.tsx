@@ -1,5 +1,3 @@
-'use client'
-
 /* eslint-disable react/react-in-jsx-scope */
 import HeaderActions from "./HeaderActions";
 import Link from "next/link";
@@ -9,10 +7,12 @@ import { AppProps } from "types";
 import LogoComponent from "./LogoComponent";
 import { latoLight } from "app/fonts";
 import clsx from "clsx";
+import Blinking from "./Blinking";
 
 type Props = AppProps & { navs: { headerNavs: Nav[], footerNavs: Nav[] } };
 
 function Header({ navs }: Props) {
+
 
   return (
     <header className="fixed h-12 top-0 md:h-auto drop-shadow-lg z-20 bg-white w-full">
@@ -47,8 +47,13 @@ function Header({ navs }: Props) {
           </div>
         </div>
       </div>
-      <div className={clsx(latoLight.className, "text-sm bg-black text-white text-center p-2 ")}>
-        <p>Free Shipping & Returns <span className="italic">For A Limited Time</span></p>
+      <div className={clsx(latoLight.className, "text-sm bg-black text-white text-center p-2")}>
+        <Blinking>
+          {[
+            <p key={1}>Free Shipping & Returns <span className="italic">For A Limited Time</span></p>,
+            <p key={2}>Returns <span className="italic">For A Limited Time</span></p>
+          ]}
+        </Blinking>
       </div>
     </header>
   );
