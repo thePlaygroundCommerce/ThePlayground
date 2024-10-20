@@ -123,7 +123,7 @@ const Layout = ({
 }: LayoutProps) => (
   <>
     <Header navs={navs} />
-    <main className="min-h-full mt-12">
+    <main className="min-h-full mt-20">
       {children}
     </main>
     <Footer navs={footerNavs} />
