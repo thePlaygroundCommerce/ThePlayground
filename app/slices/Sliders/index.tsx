@@ -24,7 +24,7 @@ const Sliders = async ({ slice, slice: { variation, primary: { slider_title, sli
     >
       <h3 className="text-center m-12">{slider_title}</h3>
       <h3 className="text-center m-6">{sliderheadline}</h3>
-      <div className="flex justify-around gap-24">
+      <div className="flex flex-col md:flex-row justify-around gap-18">
         {slides.map(
           (
             slide, i
@@ -47,25 +47,26 @@ const Sliders = async ({ slice, slice: { variation, primary: { slider_title, sli
 const determineVariation = async (variation, primary) => {
   switch (variation) {
     case "blog":
-      return primary.items.map(({ blog: { data: { title, headline, coverimage: { url: src, alt } } } }) => ({
+      return primary.items.map(({ blog: { data: { title, headline, coverimage: { url: src, alt } } }, ...rest }) => ({
         contentData: {
           title,
-          headline
+          headline,
         },
         imageData: {
+          imagefit: primary.imagefit,
           src,
           alt: alt ?? ""
         }
       }))
     case "default":
-      return await getProducts(primary.object_ids)
+      return await getProducts(primary.object_ids, primary.imagefit)
     default:
       break;
   }
 
 }
 
-const getProducts = async (object_ids: string): Promise<Window[]> => {
+const getProducts = async (object_ids: string, ...rest): Promise<Window[]> => {
   const ids = object_ids?.split(",").map(id => id.replace(" ", "")).filter(id => id !== null) ?? []
   const { objects = [], relatedObjects } = (await getCatalogItemsAndImages(ids)).result
 
@@ -73,6 +74,7 @@ const getProducts = async (object_ids: string): Promise<Window[]> => {
     const { url: src, caption: alt } = relatedObjects.find(({ id }) => imageIds.includes(id)).imageData
     return {
       imageData: {
+        imagefit: rest[0],
         src,
         alt
       },

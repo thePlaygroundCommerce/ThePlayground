@@ -1997,6 +1997,17 @@ export interface SlidersSliceDefaultPrimary {
    * - **Documentation**: https://prismic.io/docs/field#key-text
    */
   sliderheadline: prismic.KeyTextField;
+
+  /**
+   * imageFit field in *Sliders → product → Primary*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: *None*
+   * - **Default Value**: contain
+   * - **API ID Path**: sliders.default.primary.imagefit
+   * - **Documentation**: https://prismic.io/docs/field#select
+   */
+  imagefit: prismic.SelectField<"contain" | "cover", "filled">;
 }
 
 /**
@@ -2045,6 +2056,17 @@ export interface SlidersSliceBlogPrimary {
    * - **Documentation**: https://prismic.io/docs/field#group
    */
   items: prismic.GroupField<Simplify<SlidersSliceBlogPrimaryItemsItem>>;
+
+  /**
+   * imageFit field in *Sliders → blog → Primary*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: *None*
+   * - **Default Value**: contain
+   * - **API ID Path**: sliders.blog.primary.imagefit
+   * - **Documentation**: https://prismic.io/docs/field#select
+   */
+  imagefit: prismic.SelectField<"contain" | "cover", "filled">;
 }
 
 /**

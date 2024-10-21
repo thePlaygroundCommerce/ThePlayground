@@ -19,6 +19,7 @@ import { Carousel } from "rsuite";
 import { contentPositions } from "util/styles";
 import Heading from "components/typography/Heading";
 import Button from "components/Button";
+import Link from "next/link";
 
 /**
  * Props for `Hero`.
@@ -33,7 +34,7 @@ const Hero = ({
   slice: {
     items,
     primary,
-    primary: { 
+    primary: {
       link,
       hero_description,
       hero_title,
@@ -90,7 +91,7 @@ const Hero = ({
     sliceContainer: clsx("overflow-hidden bgimg w-full h-screen relative"),
     heroContainer: "",
     // @ts-ignore
-    textContainerWidth: clsx("w-full", "md:w-1/3", "absolute", contentPositions[primary.text_content_position], "text-black", "text-" + content_alignment?.toLowerCase())
+    textContainerWidth: clsx("px-4", "w-full", "md:w-1/4", "absolute", contentPositions[primary.text_content_position], "text-black", "text-" + content_alignment?.toLowerCase())
   }
 
   return (
@@ -118,7 +119,7 @@ const Hero = ({
           )}
           <Heading level={2} className="w3-animate-top">{hero_title}</Heading>
           <div>
-            <p>{hero_description}</p>
+            <p className="text-lg">{hero_description}</p>
           </div>
           {(slice.variation == "withCta" || slice.variation == "handlesCta") &&
             hasContentRelationshipData(slice.primary.cta) && (
@@ -159,7 +160,9 @@ const Hero = ({
                 )}
               </div>
             )}
-          <Button>{link}</Button>
+          {/* <div className="mt-6">
+            <Link href={link}><Button>SHOP NOW</Button></Link>
+          </div> */}
         </div>
       </div>
     </section>

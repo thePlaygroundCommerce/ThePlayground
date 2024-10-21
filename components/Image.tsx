@@ -1,11 +1,12 @@
-import { AppProps } from "types"
 import NextImage, { ImageLoaderProps } from "next/image"
 import { PlaceholderValue, OnLoadingComplete, StaticImport } from "next/dist/shared/lib/get-img-props";
 import React from "react";
+import clsx from "clsx";
 
 
 type Props = React.ForwardRefExoticComponent<Omit<React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>, "height" | "width" | "loading" | "ref" | "alt" | "src" | "srcSet"> & {
     src: string | StaticImport;
+    className: string;
     alt: string;
     width?: number | `${number}` | undefined;
     height?: number | `${number}` | undefined;
@@ -26,12 +27,8 @@ type Props = React.ForwardRefExoticComponent<Omit<React.DetailedHTMLProps<React.
     lazyRoot?: string | undefined;
 } & React.RefAttributes<HTMLImageElement | null>>;
 
-const Image = ({ ...rest }: Props) => {
-    return (
-        <div className="-z-10 w-full h-full absolute rounded-lg">
-            <NextImage {...rest} />
-        </div>
-    )
+const Image = ({ className, ...rest }: Props) => {
+    return <NextImage className={clsx("w-full max-w-full max-h-full", className)} {...rest} />
 }
 
 export default Image

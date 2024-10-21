@@ -17,6 +17,11 @@
 				"__TYPE__": "FieldContent",
 				"value": "done",
 				"type": "Text"
+			},
+			"imagefit": {
+				"__TYPE__": "FieldContent",
+				"value": "cover",
+				"type": "Select"
 			}
 		},
 		"items": []
@@ -54,6 +59,11 @@
 				"__TYPE__": "FieldContent",
 				"value": "tin",
 				"type": "Text"
+			},
+			"imagefit": {
+				"__TYPE__": "FieldContent",
+				"value": "contain",
+				"type": "Select"
 			}
 		},
 		"items": [

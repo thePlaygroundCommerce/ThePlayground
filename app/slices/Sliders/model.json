@@ -32,6 +32,18 @@
             "label": "sliderHeadline",
             "placeholder": ""
           }
+        },
+        "imagefit": {
+          "type": "Select",
+          "config": {
+            "label": "imageFit",
+            "placeholder": "",
+            "options": [
+              "contain",
+              "cover"
+            ],
+            "default_value": "contain"
+          }
         }
       },
       "items": {}
@@ -75,6 +87,18 @@
                 }
               }
             }
+          }
+        },
+        "imagefit": {
+          "type": "Select",
+          "config": {
+            "label": "imageFit",
+            "placeholder": "",
+            "options": [
+              "contain",
+              "cover"
+            ],
+            "default_value": "contain"
           }
         }
       },

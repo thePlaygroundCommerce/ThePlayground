@@ -3,6 +3,7 @@ import { PrismicRichText, SliceComponentProps } from "@prismicio/react";
 import Button from "components/Button";
 import Image from "components/Image";
 import Money from "components/Money";
+import Link from "next/link";
 
 /**
  * Props for `WindowPanels`.
@@ -63,22 +64,23 @@ export const Window = ({
   );
 }
 
-export const WindowContent = ({ imageData, contentData: { title, price } }: Window) => {
+export const WindowContent = ({ imageData, contentData: { title, price, headline, link } }: Window) => {
+  const { imagefit = "" } = imageData
   return (
     <div className="p-6 grid grid-cols-1">
       <div className="window-header">
       </div>
       <div className="window-body w-full rounded">
-        <div className="-z-10 w-full h-full relative rounded-lg min-h-96">
-          <Image {...{ ...imageData, className: "w-full h-full object-contain", fill: true }} />
+        <div className="-z-10 w-full h-full relative rounded-lg overflow-hidden min-h-96">
+          <Image {...{ ...imageData, className: `w-full h-full object-${imagefit}`, fill: true }} />
         </div>
       </div>
-      <div className="window-footer">
-        <div>
+      <div className="window-footer flex flex-col gap-4 mt-4">
           {/* <PrismicRichText field={name} /> */}
-          <p>{title}</p>
+          <p className=" font-black">{title}</p>
+          {headline && <p >{headline}</p>}
           {price && <Money number={price} />}
-        </div>
+          {/* {link && <Link href={link}><Button>READ NOW</Button></Link>} */}
         {/* {isFilled.link(call_to_action) && (
           <div>
             <Button>Learn More</Button>
@@ -98,6 +100,7 @@ interface Window {
     title: string,
     headline: string
     price?: number
+    link: string
   }
 }
 
