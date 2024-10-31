@@ -9,7 +9,7 @@ export async function GET(
 ) {
   
   const id = params.id;
-  const { result } = await callGetCart(id);
+  const result = await callGetCart(id);
 
   return Response.json(result);
 }

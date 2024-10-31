@@ -28,6 +28,13 @@
           }
         }
       },
+      "type": {
+        "type": "Text",
+        "config": {
+          "label": "type",
+          "placeholder": ""
+        }
+      },
       "slices": {
         "type": "Slices",
         "fieldset": "Slice Zone",
@@ -37,6 +44,15 @@
               "type": "SharedSlice"
             }
           }
+        }
+      }
+    },
+    "square": {
+      "object_ids": {
+        "type": "Text",
+        "config": {
+          "label": "object_ids",
+          "placeholder": ""
         }
       }
     }

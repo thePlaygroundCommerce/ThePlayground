@@ -21,7 +21,7 @@ function Footer({ navs }: Props) {
     },
     { leftNavs: [] as Nav[], rightNavs: [] as Nav[] }
   );
-  const renderLink = ({ data: { title, link } }: Nav) => (
+  const renderLink = ({ title, link }: Nav) => (
     <Link key={title} href={link ?? ""}>
       <ul className="w-full m-auto flex" key={title}>
         {title}
@@ -36,7 +36,7 @@ function Footer({ navs }: Props) {
           <Accordion>
             <Accordion.Panel header="Help">
               <nav>
-                {[{ data: { title: "Contact Us", link: "/contact" } }].map(renderLink)}
+                {[{ title: "Contact Us", link: "/contact", id: "contact" }].map(renderLink)}
               </nav>
             </Accordion.Panel>
           </Accordion>
@@ -50,7 +50,7 @@ function Footer({ navs }: Props) {
           <div className="min-w-1 min-h-6 relative">
             <Link href="/">
               <LogoComponent />
-            </Link> 
+            </Link>
           </div>
         </div>
         <div className="w-48 m-auto mt-4">

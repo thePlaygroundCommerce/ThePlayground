@@ -12,11 +12,12 @@ import { Modal, Placeholder, Button } from "rsuite";
 import Portal from "./Portal";
 
 type Props = AppProps & {
+  cartImageMap: any
   data: any,
   cart?: Order
 };
 
-const Providers = ({ data, cart, children }: Props) => {
+const Providers = ({ cartImageMap, data, cart, children }: Props) => {
   const [show, setShow] =  useState(false);
 
   useEffect(() => {
@@ -32,7 +33,7 @@ const Providers = ({ data, cart, children }: Props) => {
             apparelData={{ apparelItems: data.items, apparelImages: data.images }}
           // handleCategoryChange={handleCategoryChange}
           >
-            <CartProvider _cart={cart}>
+            <CartProvider _cart={cart} images={cartImageMap}>
               <CheckoutProvider>{children}</CheckoutProvider>
             </CartProvider>
           </InventoryProvider>

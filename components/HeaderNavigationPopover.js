@@ -3,6 +3,7 @@
 import { NavigationContext } from "context/navigationContext";
 import { useContext } from "react";
 import { useRouter } from "next/navigation";
+import Button from "./Button";
 
 const HeaderNavigationPopover = () => {
   const {
@@ -26,14 +27,14 @@ const HeaderNavigationPopover = () => {
               const itemName = Object.keys(item)[0];
               return (
                 <div>
-                  <button
+                  <Button
                     id={id}
                     name={itemName}
                     key={itemName}
                     onClick={handleNavigation}
                   >
                     {itemName}
-                  </button>
+                  </Button>
                 </div>
               );
             })}

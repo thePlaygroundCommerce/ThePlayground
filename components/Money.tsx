@@ -5,12 +5,12 @@ type Props = {
     number: number | bigint
 } & AppProps
 
-const Money = ({ number, className }: Props) => {
+const Money = ({ number, ...rest }: Props) => {
     number = Number(number);
     const num = (number / 100)
 
     return (
-        <p className={className}>${(number % 100) === 0 ? num + ".00" : num}</p>
+        <p {...rest}>${(number % 100) === 0 ? num + ".00" : num}</p>
     )
 }
 

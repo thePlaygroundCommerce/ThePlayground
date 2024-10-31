@@ -5,28 +5,28 @@ import { FaFacebookF, FaInstagram, FaSnapchatGhost, FaTwitter } from 'react-icon
 function Socials(){
     return (
       <div>
-          <button className="border-0">
+          <Button className="border-0">
             <svg width="20" height="20">
               <IconContext.Provider value={{ divor: "3b5998"}}>
                 <FaFacebookF />
               </IconContext.Provider>
             </svg>
-          </button>
-          <button className="border-0">
+          </Button>
+          <Button className="border-0">
             <svg width="20" height="20">
               <IconContext.Provider value={{ divor: "00acee"}}>
                 <FaTwitter />
               </IconContext.Provider>
             </svg>
-          </button>
-          <button className="border-0">
+          </Button>
+          <Button className="border-0">
             <svg width="20" height="20">
               <IconContext.Provider value={{ divor: "fffc00"}}>
                 <FaSnapchatGhost />
               </IconContext.Provider>
             </svg>
-          </button>
-          <button className="border-0">
+          </Button>
+          <Button className="border-0">
             <svg width="20" height="20">
               <defs>
                 <linearGradient id="myGradient" gradientTransdiv="rotate(-20)">
@@ -39,7 +39,7 @@ function Socials(){
                 <FaInstagram />
               </IconContext.Provider>
             </svg>
-          </button>
+          </Button>
       </div>
     )
   }

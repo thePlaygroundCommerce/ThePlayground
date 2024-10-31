@@ -40,7 +40,8 @@ const Page = async ({ params: { id }, searchParams: { quantity = "1", quick = "f
             ]
         }
     } else {
-        oldCart = (await callGetCart(cartId ?? "")).result.order
+        let { order, imageMap } = (await callGetCart(cartId ?? ""))
+        oldCart = order
     }
     if (!oldCart) throw Error("Order missing!")
 
@@ -58,12 +59,13 @@ const Page = async ({ params: { id }, searchParams: { quantity = "1", quick = "f
             redirect("/shop")
         }
     } else {
-        processedCart = await callGetCart(id).then(({ result: { order } }) => order)
-        if (!processedCart) redirect("/shop")
-
-        processedCartImages = await getCatalogItemsAndImages(processedCart?.lineItems?.map((item) => item.catalogObjectId ?? "") ?? [])
+        const { order, imageMap } = (await callGetCart(id))
+        processedCart = order
+        processedCartImages = imageMap    
     }
 
+    if (!processedCart) redirect("/shop")
+    
     return isOrderUnprocessed ? (<div>Loading</div>) : (
         <div className="min-h-screen h-full block md:pt-8 p-4 md:container mx-auto">
             <MobileCheckoutConfirmation processedCart={processedCart} processedCartImages={processedCartImages} />
@@ -160,15 +162,15 @@ const MobileCheckoutConfirmation = ({ processedCart, processedCartImages }: {
                 <div className='hidden md:block'>
                     <BsFillCheckCircleFill size="5rem" className='my-12 m-auto' color="green" />
                 </div>
-            <p className='mb-6'>Your order reference id <span className={latoHeavy.className}>{processedCart.id}</span> has been submitted.</p>
+                <p className='mb-6'>Your order reference id <span className={latoHeavy.className}>{processedCart.id}</span> has been submitted.</p>
                 <p>An email has been sent to <span className={latoHeavy.className}>{customerDetail.email}</span> with your order receipt. To review any other details of your order, please {reviewOrderLink}</p>
             </div>
             <div className='my-12'>
-                <p className={clsx("text-lg",latoHeavy.className)}>Shipping Details</p>
+                <p className={clsx("text-lg", latoHeavy.className)}>Shipping Details</p>
                 {(Object.values(customerDetail)).map((detail => <p key={detail}>{detail}</p>))}
             </div>
             <div>
-                <p className={clsx("text-lg",latoHeavy.className)}>Payment Details</p>
+                <p className={clsx("text-lg", latoHeavy.className)}>Payment Details</p>
                 {(Object.values(paymentDetails)).map((detail => <p key={detail}>{detail}</p>))}
             </div>
             <div className="h-full md:w-3/4 m-auto">

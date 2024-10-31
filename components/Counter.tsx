@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import { AppProps } from "types";
+import Button from "./Button";
 
 type Props = AppProps & {
   count: number;
@@ -21,13 +22,13 @@ const Counter = ({ count: initialCount = 1, onCountChange, allowDeletion = false
   return (
     <div className="flex rounded-full justify-around align-middle px-5 py-2">
       <div>
-        <button
+        <Button
           className="border p-3 rounded-full"
           disabled={!allowDeletion && initialCount < 2}
           onClick={handleDecrement}
         >
           <FaMinus size={6} />
-        </button>
+        </Button>
         <input
           className="text-center max-w-12"
           type="number"
@@ -36,9 +37,9 @@ const Counter = ({ count: initialCount = 1, onCountChange, allowDeletion = false
           onChange={handleTextChange}
           value={count}
         />
-        <button className="border p-3 rounded-full" onClick={handleIncrement}>
+        <Button className="border p-3 rounded-full" onClick={handleIncrement}>
           <FaPlus size={6} />
-        </button>
+        </Button>
       </div>
 
     </div>

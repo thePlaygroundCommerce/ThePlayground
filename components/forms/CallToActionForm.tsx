@@ -3,6 +3,7 @@ import { useFormState } from "react-dom";
 import { callToActionCreateForm } from "api/customerApi";
 import Link from "next/link";
 import { AppProps } from "types";
+import Button from "components/Button";
 
 type CallToActionProps = AppProps & {
   buttonText: string | null;
@@ -19,7 +20,7 @@ type CallToActionProps = AppProps & {
 };
 
 const CallToActionForm = ({
-  buttonText,
+  buttonText = "SHOP NOW",
   type,
   placeholder,
   name,
@@ -49,13 +50,9 @@ const CallToActionForm = ({
               placeholder={placeholder?.toString()}
             />
           )}
-          <button
-            // aria-disabled={pending}
-            type="submit"
-            className="text-white p-2 bg-slate-700"
-          >
-            <Link href={url}>{buttonText}</Link>
-          </button>
+          <Link href={url}>
+            <Button type="submit" variant="primary">{buttonText}</Button>
+          </Link>
         </form>
       )}
     </>

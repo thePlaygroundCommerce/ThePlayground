@@ -8,11 +8,14 @@ import {
   ApiResponse,
   CalculateOrderRequest,
   CalculateOrderResponse,
+  CatalogImage,
   CreateOrderResponse,
+  Order,
   RetrieveOrderResponse,
   UpdateOrderRequest,
   UpdateOrderResponse,
 } from "square";
+import { Simplify } from "prismicio-types";
 
 const BASE_PATH = SQUARE_URL + "carts";
 const SQUARE_ORDER_CACHE_REVALIDATION = {
@@ -21,7 +24,7 @@ const SQUARE_ORDER_CACHE_REVALIDATION = {
 
 export async function callGetCart(
   orderId: string
-): Promise<ApiResponse<RetrieveOrderResponse>> {
+): Promise<{ order?: Order, imageMap?: Simplify<CatalogImage> }> {
   return fetch(`${BASE_PATH}/${orderId}`, { cache: "no-store" })
     .then((res) => res.json())
     .then((result) => {

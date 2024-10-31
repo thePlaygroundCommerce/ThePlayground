@@ -1,9 +1,10 @@
 "use client"
 import React from 'react'
-import { SelectPicker, Button } from 'rsuite'
+import { SelectPicker } from 'rsuite'
 import Counter from './Counter'
 import Money from './Money'
 import { AppProps } from 'types'
+import Button from "./Button";
 
 type Props = AppProps & {
     amount: any;

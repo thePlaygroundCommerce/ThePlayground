@@ -11,6 +11,7 @@ import Portal from './Portal';
 import SideNav from './SideNavigation';
 import { Nav } from 'app/layout';
 import { usePathname } from 'next/navigation';
+import Button from "./Button";
 
 type Props = {
   logo: JSX.Element
@@ -23,29 +24,29 @@ const MobileSideNav = ({ navs, logo }: Props) => {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    if(show) setShow(false)
+    if (show) setShow(false)
   }, [path])
 
   const handleSideNavOnClick = () => { setShow(!show); handleUIChange({ open: !open }) };
 
   return (
     <>
-      <button onClick={handleSideNavOnClick}>
-        <LuMenu/>
-      </button>
-        <Portal rootId="drawerContainer">
-          <Drawer
-            placement="left"
-            closeButton={false}
-            size={325}
-            open={open && show}
-            onClose={handleSideNavOnClick}
-          >
-            <Drawer.Body className="p-0 h-full" style={{ maxHeight: undefined }}>
-              <SideNav logo={logo} onClose={handleSideNavOnClick} navs={navs} />
-            </Drawer.Body>
-          </Drawer>
-        </Portal>
+      <Button onClick={handleSideNavOnClick}>
+        <LuMenu />
+      </Button>
+      <Portal rootId="drawerContainer">
+        <Drawer
+          placement="left"
+          closeButton={false}
+          size={325}
+          open={open && show}
+          onClose={handleSideNavOnClick}
+        >
+          <Drawer.Body className="p-0 h-full" style={{ maxHeight: undefined }}>
+            <SideNav logo={logo} onClose={handleSideNavOnClick} navs={navs} />
+          </Drawer.Body>
+        </Drawer>
+      </Portal>
     </>
   )
 }

@@ -35,7 +35,7 @@ const Hero = ({
     items,
     primary,
     primary: {
-      link,
+      // link = "",
       hero_description,
       hero_title,
       content_alignment,
@@ -98,7 +98,7 @@ const Hero = ({
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className={clsx("", primary.fluid_container && "px-12")}
+      className={clsx(primary.fluid_container && "px-12")}
     >
       <div className={classNames.sliceContainer}>
         <div className="w-full absolute h-screen">
@@ -160,9 +160,9 @@ const Hero = ({
                 )}
               </div>
             )}
-          {/* <div className="mt-6">
-            <Link href={link}><Button>SHOP NOW</Button></Link>
-          </div> */}
+          <div className="mt-6">
+            <Link href={""}><Button variant="primary">SHOP NOW</Button></Link>
+          </div>
         </div>
       </div>
     </section>

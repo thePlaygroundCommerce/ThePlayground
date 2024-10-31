@@ -1,30 +1,48 @@
-import { PrismicNextLink } from "@prismicio/next"
-import { BlogFeedItem } from "components/BlogFeedItem"
+import { PrismicNextLink } from "@prismicio/next";
+import { BlogFeedItem } from "components/BlogFeedItem";
 import Hero from "components/Hero";
 import Image from "components/Image";
 import { createClient } from "prismicio";
 
-type Props = {}
+type Props = {};
 
 const Page = async ({ }: Props) => {
-  const blogs = await createClient().getAllByType('blog');
-  const showcaseBlogs = [blogs.shift()]
+  const blogs = await createClient().getAllByType("blog");
 
-  // blogs.push(blogs[0], blogs[0], blogs[0], blogs[0], blogs[0], blogs[0], blogs[0], blogs[0], blogs[0], blogs[0], blogs[0], blogs[0], blogs[0], blogs[0],)
-
-  {/* // <PrismicNextLink href="" key={i}>
+  {
+    /* // <PrismicNextLink href="" key={i}>
   //   <BlogFeedItem className="" blog={data} />
-  // </PrismicNextLink> */}
+  // </PrismicNextLink> */
+  }
+
   return (
     <div className="">
       <div className="">
-        <Hero items={showcaseBlogs.map(({ data: { coverimage: { dimensions, url, alt }, ...rest } }) => ({ imageProps: { ...dimensions, src: url }, ...rest }))} />
+        <Hero
+          type="static"
+          items={blogs.map(
+            ({
+              data: {
+                coverimage: { dimensions, url, alt },
+                ...rest
+              },
+              last_publication_date
+            }) => ({ imageProps: { ...dimensions, src: url ?? "", alt: alt ?? "" }, last_publication_date, cta: "", ...rest })
+          )}
+        />
       </div>
-      <div className="flex justify-center w-3/4 mx-auto flex-wrap gap-6 py-12">
+      <div className="flex flex-col md:flex-roww justify-center container mx-auto flex-wrap gap-6 py-12">
         {blogs.map(({ data: { coverimage, title, headline } }, i) => (
-          <div key={i} className="w-1/4 text-center flex flex-col gap-4">
+          <div key={i} className="md:w-1/4 text-center flex flex-col gap-4">
             <div className="w-full">
-              <Image {...{ src: coverimage.url, ...coverimage.dimensions, className: "h-auto rounded-lg" }} />
+              <Image
+                {...{
+                  alt: "",
+                  src: coverimage.url ?? "",
+                  ...coverimage.dimensions,
+                  className: "h-auto rounded-lg",
+                }}
+              />
             </div>
             <div>
               <p>{title}</p>
@@ -36,7 +54,7 @@ const Page = async ({ }: Props) => {
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Page
+export default Page;

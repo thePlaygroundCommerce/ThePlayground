@@ -6,7 +6,7 @@ import { GlassMagnifier } from "react-image-magnifiers";
 const ProductImageViewer = ({ imageData }: any) => {
   return (
     <Image
-      // className="h-auto w-full"
+      className="h-auto w-full"
       objectFit="contain"
       fill
       src={imageData?.url}

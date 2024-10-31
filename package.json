@@ -37,6 +37,7 @@
     "react-hook-form": "^7.47.0",
     "react-icons": "^4.10.1",
     "react-image-magnifiers": "^1.4.0",
+    "react-star-ratings": "^2.3.0",
     "rsuite": "^5.64.1",
     "sass": "^1.26.10",
     "sharp": "^0.32.5",

@@ -16,9 +16,9 @@ const Logindiv = () => {
         <div type="checkbox" label="Remember Me" />
       </div>
       <div className="text-center">
-        <button variant="" type="submit" className="w-25">
+        <Button variant="" type="submit" className="w-25">
           Submit
-        </button>
+        </Button>
       </div>
     </div>
   );

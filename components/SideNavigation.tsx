@@ -7,6 +7,7 @@ import { List } from "rsuite";
 import SocialMediaButtons from "./SocialMediaButtons";
 import { AppProps } from "types";
 import { KeyTextField } from "@prismicio/client";
+import Button from "./Button";
 
 type Props = AppProps & {
   logo: JSX.Element
@@ -19,7 +20,7 @@ type Props = AppProps & {
 
 export default function SideNavigation({ logo, onClose, navs: { footerNavs, headerNavs } }: Props) {
   const removedLinks: KeyTextField[] = ["/log"]
-  footerNavs = footerNavs.filter(({ data: { link } }) => !removedLinks.includes(link))
+  // footerNavs = footerNavs.filter(({ data: { link } }) => !removedLinks.includes(link))
 
   const handleClose = () => onClose(null, false)
 
@@ -29,16 +30,16 @@ export default function SideNavigation({ logo, onClose, navs: { footerNavs, head
         <Link href="/">
           {logo}
         </Link>
-        <button className="p-2 px-3" onClick={handleClose}>
+        <Button className="p-2 px-3" onClick={handleClose}>
           <IoClose />
-        </button>
+        </Button>
       </div>
       <div className="h-full flex flex-col justify-between">
         <nav className="text-end">
           <List size="md">
-            {headerNavs.map(({ data: { title, link } }) => (
+            {headerNavs.map(({ title, link }) => (
               <List.Item key={title} className="text-black w-full">
-                <Link onClick={handleClose} className="px-4 py-2 md:px-4 md:py-2 block w-full" href={link ?? ""}>
+                <Link onClick={handleClose} className="px-4 py-2 md:px-4 md:py-2 block w-full" href={`/shop${link ?? ""}`}>
                   {title}
                 </Link>
               </List.Item>

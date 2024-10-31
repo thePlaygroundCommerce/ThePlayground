@@ -11,6 +11,7 @@ import Portal from "./Portal";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@clerk/nextjs";
+import Button from "./Button";
 
 const intialShowState = {
   cart: { active: false, id: "cart" },
@@ -50,15 +51,15 @@ function HeaderActions() {
   );
 
   return (
-    <div className="flex justify-end md:mr-4 gap-5">
-      <button>
+    <div className="flex justify-end md:mr-4">
+      <Button>
         <Link href={accountHref}>
           <VscAccount />
         </Link>
-      </button>
-      <button onClick={handleCartOnClick} className="">
+      </Button>
+      <Button onClick={handleCartOnClick} className="">
         <Cart />
-      </button>
+      </Button>
       <Portal rootId="drawerContainer">
         <Drawer
           placement="right"
@@ -75,9 +76,9 @@ function HeaderActions() {
             <div className="bg-white h-full flex flex-col">
               <div className="overflow-hidden flex justify-between items-center px-4 border-b">
                 <Heading level={5}>{title}</Heading>
-                <button className="p-3" onClick={closeDrawer}>
+                <Button className="p-3" onClick={closeDrawer}>
                   <IoClose />
-                </button>
+                </Button>
               </div>
               <div className="h-full overflow-hidden">{show.cart.active && <CartOverlay />}</div>
             </div>

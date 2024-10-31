@@ -7,5 +7,4 @@ const Heading = ({ children, className, ...rest }: any) => {
         <HeadingComponent {...rest} className={clsx(latoHeavy.className, className)}>{children}</HeadingComponent>
     )
 }
-
 export default Heading

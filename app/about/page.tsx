@@ -14,20 +14,20 @@ const Page = () => {
       <div>
         <Heading>What We Offer</Heading>
         <ol className="list-decimal p-4">
-          <li>**Wide Range of Destinations:** From exotic beaches to bustling cities, we offer a diverse selection of destinations to suit every traveler's taste.</li>
-          <li>**Seamless Booking:** Our user-friendly platform allows you to book flights, hotels, and activities with ease, ensuring a stress-free planning process.</li>
-          <li>**Expert Advice:** Our team of travel experts is dedicated to providing you with personalized recommendations and insider tips to enhance your travel experience.</li>
-          <li>**Best Deals:** We negotiate with airlines, hotels, and tour operators to bring you the best deals and discounts, ensuring you get the most value for your money.</li>
+          <li className="mb-6"><p>Wide Range of Destinations</p> From exotic beaches to bustling cities, we offer a diverse selection of destinations to suit every traveler's taste.</li>
+          <li className="mb-6"><p>Seamless Booking</p> Our user-friendly platform allows you to book flights, hotels, and activities with ease, ensuring a stress-free planning process.</li>
+          <li className="mb-6"><p>Expert Advice</p> Our team of travel experts is dedicated to providing you with personalized recommendations and insider tips to enhance your travel experience.</li>
+          <li className="mb-6"><p>Best Deals</p> We negotiate with airlines, hotels, and tour operators to bring you the best deals and discounts, ensuring you get the most value for your money.</li>
         </ol>
       </div>
       <div>
         <Heading>Why Choose Us?</Heading>
         <p>
-          - **Trustworthy:** With years of experience in the travel industry, we've built a reputation for reliability and customer satisfaction.
+          - Trustworthy: With years of experience in the travel industry, we've built a reputation for reliability and customer satisfaction.
 
-          - **Customer-Centric:** Your satisfaction is our priority. We are committed to exceeding your expectations and creating unforgettable travel memories.
+          - Customer-Centric: Your satisfaction is our priority. We are committed to exceeding your expectations and creating unforgettable travel memories.
 
-          - **Innovation:** We leverage technology to innovate and improve our services continuously, ensuring that you have access to the latest tools and resources.
+          - Innovation: We leverage technology to innovate and improve our services continuously, ensuring that you have access to the latest tools and resources.
         </p>
       </div>
       <div>

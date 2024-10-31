@@ -424,6 +424,17 @@ interface HeaderDocumentData {
   navs: prismic.GroupField<Simplify<HeaderDocumentDataNavsItem>>;
 
   /**
+   * type field in *HeaderNavigation*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header.type
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  type: prismic.KeyTextField;
+
+  /**
    * Slice Zone field in *HeaderNavigation*
    *
    * - **Field Type**: Slice Zone
@@ -432,7 +443,16 @@ interface HeaderDocumentData {
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/field#slices
    */
-  slices: prismic.SliceZone<HeaderDocumentDataSlicesSlice>;
+  slices: prismic.SliceZone<HeaderDocumentDataSlicesSlice> /**
+   * object_ids field in *HeaderNavigation*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: header.object_ids
+   * - **Tab**: square
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  object_ids: prismic.KeyTextField;
 }
 
 /**

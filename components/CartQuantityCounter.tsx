@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import { AppProps } from "types";
+import Button from "./Button";
 
 type Props = AppProps & {
   count: number;
@@ -18,13 +19,13 @@ const CartQuantityCounter = ({ count = 1, onCountChange }: Props) => {
 
   return (
     <div className="flex rounded-full justify-around align-middle px-5 py-2">
-      <button
+      <Button
         className="border p-3 rounded-full"
         disabled={count < 2}
         onClick={handleDecrement}
       >
         <FaMinus />
-      </button>
+      </Button>
       <input
         className="text-center w-full "
         type="number"
@@ -33,9 +34,9 @@ const CartQuantityCounter = ({ count = 1, onCountChange }: Props) => {
         onChange={handleTextChange}
         value={count}
       />
-      <button className="border p-3 rounded-full" onClick={handleIncrement}>
+      <Button className="border p-3 rounded-full" onClick={handleIncrement}>
         <FaPlus />
-      </button>
+      </Button>
     </div>
   );
 };

@@ -1,9 +1,6 @@
-import { Content, isFilled } from "@prismicio/client";
-import { PrismicRichText, SliceComponentProps } from "@prismicio/react";
-import Button from "components/Button";
-import Image from "components/Image";
-import Money from "components/Money";
-import Link from "next/link";
+import { Content } from "@prismicio/client";
+import { SliceComponentProps } from "@prismicio/react";
+import Window from "components/Window";
 
 /**
  * Props for `WindowPanels`.
@@ -40,12 +37,12 @@ const WindowPanels = ({ slice }: WindowPanelsProps): JSX.Element => {
               key={window_bg.id}
               className="flex-none w-full"
             >
-              <Window
-                imageProps={{ ...imageProps }}
+              {/* <Window
+                { ...{ imageProps } }
               // window_headline={window_headline}
               // window_description={window_description}
               // call_to_action={call_to_action}
-              />
+              /> */}
             </div>
           );
         }
@@ -53,56 +50,6 @@ const WindowPanels = ({ slice }: WindowPanelsProps): JSX.Element => {
     </section>
   );
 };
-
-export const Window = ({
-  ...rest
-}: Window) => {
-  return (
-    <div className="relative min-h-96">
-      <WindowContent {...rest} />
-    </div>
-  );
-}
-
-export const WindowContent = ({ imageData, contentData: { title, price, headline, link } }: Window) => {
-  const { imagefit = "" } = imageData
-  return (
-    <div className="p-6 grid grid-cols-1">
-      <div className="window-header">
-      </div>
-      <div className="window-body w-full rounded">
-        <div className="-z-10 w-full h-full relative rounded-lg overflow-hidden min-h-96">
-          <Image {...{ ...imageData, className: `w-full h-full object-${imagefit}`, fill: true }} />
-        </div>
-      </div>
-      <div className="window-footer flex flex-col gap-4 mt-4">
-          {/* <PrismicRichText field={name} /> */}
-          <p className=" font-black">{title}</p>
-          {headline && <p >{headline}</p>}
-          {price && <Money number={price} />}
-          {/* {link && <Link href={link}><Button>READ NOW</Button></Link>} */}
-        {/* {isFilled.link(call_to_action) && (
-          <div>
-            <Button>Learn More</Button>
-          </div>
-        )} */}
-      </div>
-    </div>
-  )
-}
-
-interface Window {
-  imageData: {
-    alt: string
-    url: string
-  }
-  contentData: {
-    title: string,
-    headline: string
-    price?: number
-    link: string
-  }
-}
 
 const Review = () => (
   <div></div>

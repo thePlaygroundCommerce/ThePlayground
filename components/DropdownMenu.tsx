@@ -31,16 +31,16 @@ const DropdownMenu = () => {
           </Menu.Item>
         </Menu.Items>
       </Menu>
-      {/* <Dropdownbutton
+      {/* <DropdownButton
               variant="secondary"
-              id="dropdown-basic-button"
+              id="dropdown-basic-Button"
               title={variations[
                 activeVariationIndex
               ].itemVariationData.name[0].toUpperCase()}
             >
               {variations.map(({ id, itemVariationData }, i) => (
                 <Dropdown.Item
-                  onClick={handleDropDownbuttonChange}
+                  onClick={handleDropDownButtonChange}
                   name={i}
                   key={id}
                   href="#/action-1"
@@ -48,7 +48,7 @@ const DropdownMenu = () => {
                   {itemVariationData.name[0].toUpperCase()}
                 </Dropdown.Item>
               ))}
-            </Dropdownbutton> */}
+            </DropdownButton> */}
     </div>
   );
 };

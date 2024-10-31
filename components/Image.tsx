@@ -4,14 +4,14 @@ import React from "react";
 import clsx from "clsx";
 
 
-type Props = React.ForwardRefExoticComponent<Omit<React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>, "height" | "width" | "loading" | "ref" | "alt" | "src" | "srcSet"> & {
+type Props = Omit<React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>, "height" | "width" | "loading" | "ref" | "alt" | "src" | "srcSet"> & {
     src: string | StaticImport;
     className: string;
     alt: string;
     width?: number | `${number}` | undefined;
     height?: number | `${number}` | undefined;
     fill?: boolean | undefined;
-    loader?: (p: ImageLoaderProps) => string | undefined;
+    loader?: (p: ImageLoaderProps) => string;
     quality?: number | `${number}` | undefined;
     priority?: boolean | undefined;
     loading?: "eager" | "lazy" | undefined;
@@ -25,7 +25,7 @@ type Props = React.ForwardRefExoticComponent<Omit<React.DetailedHTMLProps<React.
     objectPosition?: string | undefined;
     lazyBoundary?: string | undefined;
     lazyRoot?: string | undefined;
-} & React.RefAttributes<HTMLImageElement | null>>;
+} & React.RefAttributes<HTMLImageElement | null>;
 
 const Image = ({ className, ...rest }: Props) => {
     return <NextImage className={clsx("w-full max-w-full max-h-full", className)} {...rest} />

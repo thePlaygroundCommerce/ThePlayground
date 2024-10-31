@@ -14,9 +14,10 @@ import {
   Hero2Slice,
 } from "prismicio-types";
 import { ReactNode, createElement } from "react";
-import { createClient } from "../../../prismicio";
+import prismic, { createClient } from "../../../prismicio";
 import { AppProps } from "types";
 import clsx from "clsx";
+import Heading from "components/typography/Heading";
 
 export type Hero2Props = SliceComponentProps<Content.Hero2Slice>;
 type PrismicImageProps =
@@ -114,12 +115,13 @@ const ProductShowcase = async ({
             <p>{slice.primary.eyebrowHeadline}</p>
           )}
           {isFilled.richText(slice.primary.title) && (
-            <div className="">
-              <PrismicRichText field={slice.primary.title} />
+            <div className="text-center">
+              <Heading>{prismic.asText(slice.primary.title)}</Heading>
+              {/* <PrismicRichText field={slice.primary.title} /> */}
             </div>
           )}
           {isFilled.richText(slice.primary.description) && (
-            <div className={`w-2/3 text-${slice.primary.description_align}`}>
+            <div className={`md:w-2/3 text-${slice.primary.description_align}`}>
               <PrismicRichText
                 field={slice.primary.description}
                 components={{

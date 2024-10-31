@@ -44,7 +44,7 @@ const NewsletterForm = ({
             />
           )}
           <Button type="submit" className="text-white p-2 bg-slate-700">
-            {primary?.action_button_text ?? "Join Now"}
+            {primary?.action_Button_text ?? "Join Now"}
           </Button>
         </form>
       )}

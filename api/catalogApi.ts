@@ -4,9 +4,15 @@ import { URLSearchParams } from "url";
 import { DEFAULT_FETCH_INIT, SQUARE_URL } from "../constants";
 import {
   ApiResponse,
+  BatchRetrieveCatalogObjectsRequest,
+  BatchRetrieveCatalogObjectsResponse,
   CatalogObject,
   RetrieveCatalogObjectResponse,
+  SearchCatalogItemsResponse,
+  SearchCatalogObjectsRequest,
+  SearchCatalogObjectsResponse,
 } from "square";
+import { batchRetrieveCatalogObjectsResponseSchema } from "square/dist/types/models/batchRetrieveCatalogObjectsResponse";
 
 const checkForErrors = (data: any) => {
   if (data.errors) {
@@ -52,8 +58,9 @@ export async function getCatalogImages(types: any) {
     .catch((err) => console.log(err));
 }
 
-export async function getCatalogItemsAndImages(ids: string[], includeRelatedObjects: boolean = true): Promise<CatalogObject[]> {
-  if (ids.length === 0) return [];
+export async function getCatalogItemsAndImages(ids: string[], includeRelatedObjects: boolean = true): Promise<BatchRetrieveCatalogObjectsResponse> {
+  if (ids.length === 0) {};
+  
   const fetchUrl = `${SQUARE_URL}catalog`;
   const payload = { objectIds: ids, includeRelatedObjects };
 
@@ -69,6 +76,23 @@ export async function getCatalogItemsAndImages(ids: string[], includeRelatedObje
     // .then(checkForErrors)
     .catch((err) => console.log(err));
 }
+
+export async function searchObjects(includeRelatedObjects: boolean = true, payload: SearchCatalogObjectsRequest): Promise<ApiResponse<SearchCatalogObjectsResponse>> {
+  const fetchUrl = `${SQUARE_URL}catalog/search/objects`;
+  return await fetch(fetchUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+    next: { revalidate: 0 },
+  }) // TODO must set to appropriate value in prod
+    .then((res) => res.json())
+    // .then(checkForErrors)
+    .catch((err) => console.log(err));
+}
+
+
 
 export async function getProductDetails({
   params: { slug },

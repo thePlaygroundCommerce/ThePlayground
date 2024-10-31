@@ -4,17 +4,18 @@ import Counter from "components/Counter";
 import _ from "lodash";
 import React, { createContext, useState, useEffect, useMemo, useContext, useRef } from "react";
 import { useCookies } from "react-cookie";
-import { CalculateOrderRequest, CatalogApi, CatalogImage, Order, OrderLineItem } from "square";
+import { CalculateOrderRequest, CatalogApi, CatalogImage, Error as SquareError, Order, OrderLineItem } from "square";
 import { CartContextType } from "types";
 import { useDebounce, useDebouncedCallback } from "use-debounce";
 import { getCatalogItemsAndImages } from "api/catalogApi";
 import { doesContextExist } from "util/";
 import { usePathname } from "next/navigation";
+import { Simplify } from "prismicio-types";
 
 
 type CartState = {
   order: Order
-  errors: Error[]
+  errors: SquareError[]
 }
 
 type ModifiedCartData = {
@@ -26,12 +27,10 @@ type OrUndefined<T> = T | undefined
 
 export const CartContext = createContext<CartContextType | null>(null);
 
-const CartProvider = ({ _cart, children }: { children: any, _cart?: Order }) => {
+const CartProvider = ({ _cart, images: cartImageMap, children }: { children: any, images: Simplify<CatalogImage>,  _cart?: Order }) => {
   const [cookies, setCookie] = useCookies();
   const [openCart, setOpenCart] = useState<boolean>(false);
-  const [cartItemImages, setCartItemImages] = useState<{
-    [catalogObjectId: string]: CatalogImage;
-  }>({});
+  const [cartItemImages, setCartItemImages] = useState<Simplify<CatalogImage>>(cartImageMap);
   const initialCart = {
     id: cookies.cartId,
     lineItems: [],
@@ -41,13 +40,6 @@ const CartProvider = ({ _cart, children }: { children: any, _cart?: Order }) => 
     order: _cart || initialCart,
     errors: []
   });
-
-  useEffect(() => {
-    if (cart) {
-      getCatalogItemsAndImages(cart.lineItems?.map((item) => item.catalogObjectId ?? "") ?? [])
-        .then(data => populateCartAndImages({ order: cart, errors: [] }, data));
-    }
-  }, []);
 
   const drawerRef = useRef(null);
   const handleDrawerToggle = (e: any, bool = !openCart) => {
@@ -107,7 +99,7 @@ const CartProvider = ({ _cart, children }: { children: any, _cart?: Order }) => 
     })
   };
 
-  const populateCartAndImages = ({ order, errors = [] }: { order: Order, errors: Error[] }, lineItemImageData: { [id: string]: CatalogImage } = {}) => {
+  const populateCartAndImages = ({ order, errors = [] }: { order: Order, errors: SquareError[] }, lineItemImageData: Simplify<CatalogImage> = {}): void => {
     setCart({ order, errors });
     setCartItemImages(lineItemImageData);
   };

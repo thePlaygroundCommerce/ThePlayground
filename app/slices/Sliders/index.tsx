@@ -1,9 +1,13 @@
-import { Content, GroupField } from "@prismicio/client";
+import { AnyRegularField, Content, GroupField, isFilled, KeyTextField, SharedSlice, SharedSliceModelVariation, SharedSliceVariation } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
-import { Window } from "../WindowPanels";
 import { getCatalogItemsAndImages } from "api/catalogApi";
 import { CatalogObject } from "square";
-import { Simplify } from "prismicio-types";
+import { BlogDocumentData, Simplify, SlidersSlice, SlidersSliceBlog, SlidersSliceDefault, SlidersSliceVariation } from "prismicio-types";
+import Window, { WindowProps } from "components/Window";
+import Heading from "components/typography/Heading";
+import Link from "next/link";
+import { PrismicNextImageProps } from "@prismicio/next";
+import prismic from "prismicio";
 
 /**
  * Props for `Sliders`.
@@ -13,29 +17,57 @@ export type SlidersProps = SliceComponentProps<Content.SlidersSlice>;
 /**
  * Component for "Sliders" Slices.
  */
-const Sliders = async ({ slice, slice: { variation, primary: { slider_title, sliderheadline, ...rest } } }: SlidersProps): Promise<JSX.Element> => {
-  let slides: any[] = await determineVariation(variation, rest);
+const Sliders = async ({ slice, slice: { primary, primary: { slider_title, sliderheadline } } }: SlidersProps): Promise<JSX.Element> => {
+  let slides: WindowProps[] = [];
+
+  switch (slice.variation) {
+    case "blog":
+      slice.primary.items.forEach(({ blog }) => {
+        if (!isFilled.contentRelationship<'blog', string, BlogDocumentData>(blog)) return
+        const { data: { title, headline, coverimage: { url = "", alt = "", dimensions = {} } = {} } = {} } = blog
+        slides.push({
+          contentData: {
+            link: "",
+            title: title ?? "",
+            headline: headline ?? "",
+          },
+          imageData: {
+            imagefit: primary.imagefit,
+            url: url ?? "",
+            alt: alt ?? ""
+          }
+        })
+      })
+      break;
+    case "default":
+      slides = await getProducts(slice.primary.object_ids, primary.imagefit)
+      break;
+  }
 
   return (
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="min-h-96 p-24"
+      className="min-h-96 p-8"
     >
-      <h3 className="text-center m-12">{slider_title}</h3>
-      <h3 className="text-center m-6">{sliderheadline}</h3>
-      <div className="flex flex-col md:flex-row justify-around gap-18">
+      <div className="text-center md:w-3/4 mx-auto">
+        <Heading>{slider_title}</Heading>
+        <p className="my-4">{sliderheadline}</p>
+      </div>
+      <div className="flex flex-col md:flex-row ">
         {slides.map(
           (
             slide, i
           ) => (
             <div
               key={i}
-              className=" w-full max-w-full"
+              className="max-w-full w-full flex-grow"
             >
-              <Window
-                {...slide}
-              />
+              <Link href={slide.contentData.link}>
+                <Window
+                  {...slide}
+                />
+              </Link>
             </div>
           )
         )}
@@ -44,43 +76,23 @@ const Sliders = async ({ slice, slice: { variation, primary: { slider_title, sli
   );
 };
 
-const determineVariation = async (variation, primary) => {
-  switch (variation) {
-    case "blog":
-      return primary.items.map(({ blog: { data: { title, headline, coverimage: { url: src, alt } } }, ...rest }) => ({
-        contentData: {
-          title,
-          headline,
-        },
-        imageData: {
-          imagefit: primary.imagefit,
-          src,
-          alt: alt ?? ""
-        }
-      }))
-    case "default":
-      return await getProducts(primary.object_ids, primary.imagefit)
-    default:
-      break;
-  }
-
-}
-
-const getProducts = async (object_ids: string, ...rest): Promise<Window[]> => {
+const getProducts = async (object_ids: string | KeyTextField, imagefit: WindowProps["imageData"]["imagefit"]): Promise<WindowProps[]> => {
   const ids = object_ids?.split(",").map(id => id.replace(" ", "")).filter(id => id !== null) ?? []
-  const { objects = [], relatedObjects } = (await getCatalogItemsAndImages(ids)).result
+  const { objects = [], relatedObjects } = (await getCatalogItemsAndImages(ids))
 
-  return objects.map(({ itemData: { name, imageIds, variations: [{ itemVariationData: { priceMoney: { amount } } }] } }) => {
-    const { url: src, caption: alt } = relatedObjects.find(({ id }) => imageIds.includes(id)).imageData
+  return objects.map(({ itemData: { name, imageIds, variations } = {} }) => {
+    const [{ itemVariationData: { priceMoney: { amount = BigInt(0) } = {} } = {} }] = variations ?? []
+    const { url, caption: alt } = relatedObjects?.find(({ id }) => imageIds?.includes(id))?.imageData ?? {}
     return {
       imageData: {
-        imagefit: rest[0],
-        src,
-        alt
+        imagefit,
+        url: url ?? "",
+        alt: alt ?? ""
       },
       contentData: {
-        title: name,
-        price: amount
+        title: name ?? undefined,
+        price: Number(amount) ?? undefined,
+        link: "/shop"
       }
     }
   })

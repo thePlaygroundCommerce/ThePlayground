@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from 'rsuite'
+import Button from "./Button";
 
 type Props = {}
 
@@ -19,7 +19,7 @@ const Feedback = (props: Props) => {
                         placeholder="How was your shopping experience?"
                     ></textarea>
                 </div>
-                <Button>Send</Button>
+                <Button type='button'>Send</Button>
             </div>
         </div>
     )
