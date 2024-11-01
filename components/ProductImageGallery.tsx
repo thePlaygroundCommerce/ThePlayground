@@ -73,7 +73,7 @@ function ProductImageGallery({ images }: { images: CatalogObject[] }) {
       <div className="hidden w-full order-2 md:order-1 md:grid grid-cols-2 gap-4">
         <div
           className={clsx(
-            "overflow-hidden flex relative w-full h-auto col-span-2 aspect-square",
+            "overflow-hidden flex relative w-full h-auto max-h-screen col-span-2 aspect-square",
             images.length > 1 ? "row-span-3" : "row-span-4"
           )}
         >

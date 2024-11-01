@@ -14,8 +14,8 @@ export default async function ProductsPageLayout({ children }: any) {
 
   return (
     <div className="pt-6">
-      <div className="grid grid-cols-2 md:grid-cols-4 w-full container mx-auto gap-4">
-        <div className="col-span-1 md:col-span-1">
+      <div className="grid grid-cols-2 md:grid-cols-8 w-full px-4 gap-4">
+        <div className="col-span-1 md:col-span-2">
           <ShopNavigation _navs={headerNavs} />
         </div>
         {/* <div className="col-span-1 flex justify-start">
@@ -24,7 +24,7 @@ export default async function ProductsPageLayout({ children }: any) {
           </Dropdown>
           <Button className="mr-12">Sort</Button>
         </div> */}
-        <div className="col-span-2 md:col-span-3 flex flex-wrap justify-center w-full max-w-full md:border-l">
+        <div className="col-span-2 md:col-span-6 w-full max-w-full md:border-l">
           {children}
         </div>
       </div>

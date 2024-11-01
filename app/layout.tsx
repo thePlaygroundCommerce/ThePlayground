@@ -41,8 +41,6 @@ export type Nav = {
   title?: string;
 }
 
-// | { data: Pick<Content.CategorylinkDocument["data"], "title" | "link"> }
-
 export const getMainNavigation: () => Promise<{
   headerNavs: Nav[];
   footerNavs: Nav[];
