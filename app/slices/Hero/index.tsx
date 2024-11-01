@@ -161,7 +161,7 @@ const Hero = ({
               </div>
             )}
           <div className="mt-6">
-            <Link href={""}><Button variant="primary">SHOP NOW</Button></Link>
+            <Link href="/shop"><Button variant="primary">SHOP NOW</Button></Link>
           </div>
         </div>
       </div>
