@@ -13,6 +13,7 @@ import { useInventory } from "context/inventoryContext";
 import Selector from "./ColorSelector";
 import Heading from "./typography/Heading";
 import Text from "./typography/Text";
+import clsx from "clsx";
 
 type Props = AppProps & {
   amount: any;
@@ -52,12 +53,11 @@ const ProductDetailsModifyPresenter = ({
   return (
     <Tab.Group defaultIndex={0}>
       <div className="relative flex flex-col h-full">
-        <div className="container md:m-auto flex flex-col justify-start">
-          <div className="grid grid-cols-2 w-full mb-7 p-3">
-            <div className="basis-full">
-              <Heading className="mb-1 fw-bold">{itemData?.name}</Heading>
-              <Money className="text-xl font-bold" number={amount} />
-              {/* <Text>Shipping calculated at checkout</Text>
+        <div className="container md:m-auto flex flex-col justify-start gap-4">
+          <div className="w-full py-3">
+            <Heading className="mb-1 fw-bold">{itemData?.name}</Heading>
+            <Money className="text-xl font-bold" number={amount} />
+            {/* <Text>Shipping calculated at checkout</Text>
             <div className="flex gap-4 items-end">
               <StarRatings rating={2.403}
                 starRatedColor="gold"
@@ -65,26 +65,37 @@ const ProductDetailsModifyPresenter = ({
                 starSpacing="3px" />
               <p>0 Reviews</p>
             </div> */}
-            </div>
-            <div className="basis-full grow flex flex-col items-center">
+          </div>
+          <div className="flex flex-col gap-2">
+            {selectors.colors && (
+              <div className=" flex text-left">
+                <Heading level={5}>Styles</Heading>
+                <div className="pb-6 flex justify-center gap-5">
+                  {selectors.colors}
+                </div>
+              </div>
+            )}
+            {selectors.size && (
+              <div className=" flex text-left">
+                <Heading level={5}>Sizes</Heading>
+                <div className="pb-6 flex justify-center gap-5">
+                  {selectors.size}
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="grid grid-cols-1 gap-1 pb-7 justify-around w-full">
+            <div className="flex items-center gap-2">
               <div className="">
                 <Counter count={+quantity} onCountChange={setQuantity} />
               </div>
-              {selectors.size}
+              <Button className="flex-grow" variant="outline" onClick={handleAddToCart}>
+                {!(+(isProductInCart()?.quantity ?? 0) > 0)
+                  ? "Add To Cart"
+                  : "Update Cart"}
+              </Button>
             </div>
-          </div>
-          <div className="text-center">
-            <div className="pb-6 flex justify-center gap-5">
-              {selectors.colors}
-            </div>
-          </div>
-          <div className="grid grid-cols-1 gap-1 pb-7 justify-around  w-full">
-            <Button variant="outline" onClick={handleBuyNow}>Buy Now</Button>
-            <Button variant="primary" onClick={handleAddToCart}>
-              {!(+(isProductInCart()?.quantity ?? 0) > 0)
-                ? "Add To Cart"
-                : "Update Cart"}
-            </Button>
+            <Button variant="primary" onClick={handleBuyNow}>Buy Now</Button>
           </div>
           <Tab.List className="mb-3 pb-2 p-3 flex justify-around">
             <Tab className="pe-3">Details</Tab>
@@ -92,10 +103,10 @@ const ProductDetailsModifyPresenter = ({
           </Tab.List>
         </div>
         <div className="border-t h-full pt-4">
-          <Tab.Panel className="px-3">
+          <Tab.Panel className={clsx("px-3", !itemData.description && "text-center")}>
             <p>{itemData.description || "No Details Available!"}</p>
           </Tab.Panel>
-          <Tab.Panel className="px-3">
+          <Tab.Panel className="px-3 text-center">
             <p>No Reviews Available. Be the first!</p>
           </Tab.Panel>
         </div>

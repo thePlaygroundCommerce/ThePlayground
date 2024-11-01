@@ -20,10 +20,10 @@ const Counter = ({ count: initialCount = 1, onCountChange, allowDeletion = false
   };
 
   return (
-    <div className="flex rounded-full justify-around align-middle px-5 py-2">
+    <div className="flex rounded-full items-center">
       <div>
         <Button
-          className="border p-3 rounded-full"
+          className=" rounded-full"
           disabled={!allowDeletion && initialCount < 2}
           onClick={handleDecrement}
         >
@@ -37,11 +37,10 @@ const Counter = ({ count: initialCount = 1, onCountChange, allowDeletion = false
           onChange={handleTextChange}
           value={count}
         />
-        <Button className="border p-3 rounded-full" onClick={handleIncrement}>
+        <Button className="rounded-full" onClick={handleIncrement}>
           <FaPlus size={6} />
         </Button>
       </div>
-
     </div>
   );
 };
