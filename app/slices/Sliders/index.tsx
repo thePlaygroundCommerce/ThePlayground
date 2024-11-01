@@ -48,20 +48,20 @@ const Sliders = async ({ slice, slice: { primary, primary: { slider_title, slide
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="min-h-96 p-8"
+      className=" p-8"
     >
-      <div className="text-center md:w-3/4 mx-auto">
+      <div className="text-center container mx-auto">
         <Heading>{slider_title}</Heading>
         <p className="my-4">{sliderheadline}</p>
       </div>
-      <div className="flex flex-col md:flex-row justify-center">
+      <div className="flex flex-col md:flex-row justify-center min-h-96">
         {slides.map(
           (
             slide, i
           ) => (
             <div
               key={i}
-              className="basis-full md:basis-1/3 md:flex-shrink"
+              className="basis-full md:basis-1/4 md:shrink"
             >
               <Link href={slide.contentData.link}>
                 <Window

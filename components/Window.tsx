@@ -6,24 +6,24 @@ export const Window = ({
     ...rest
 }: WindowProps) => {
     return (
-        <div className="relative min-h-96">
+        <div className="relative">
             <WindowContent {...rest} />
         </div>
     );
 }
 
-export const WindowContent = ({ imageData, contentData: { title, price, headline, link } }: WindowProps) => {
+export const WindowContent = ({ imageData, contentData: { title, price, headline } }: WindowProps) => {
     const { imagefit = "" } = imageData
     return (
-        <div className="p-6 grid grid-cols-1">
-            <div className="window-header">
-            </div>
-            <div className="window-body w-full rounded">
-                <div className="-z-10 w-full relative rounded-lg overflow-hidden aspect-square">
-                    <Image {...{ ...imageData, src: imageData.url, className: `object-${imagefit}`, fill: true }} />
+        <div className="p-6 grid grid-cols-1 grid-row-12 overflow-hidden">
+            {/* <div className="window-header">
+            </div> */}
+            <div className="window-body rounded">
+                <div className="-z-10 relative h-full rounded-lg overflow-hidden aspect-square">
+                    <Image {...{ ...imageData, src: imageData.url, className: `h-full object-${imagefit}`, fill: true }} />
                 </div>
             </div>
-            <div className="window-footer flex flex-col gap-4 mt-4">
+            <div className="window-footer flex flex-col gap-4 mt-4 row-span-1">
                 {/* <PrismicRichText field={name} /> */}
                 <div>
                     <p className="font-black">{title}</p>
