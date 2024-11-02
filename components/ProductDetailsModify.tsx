@@ -145,7 +145,7 @@ const ProductDetailsModify = ({
 
   const selectors = Object.entries(productOptions).reduce(
     (acc, [optionId, [option, optionValues]], i) => {
-      const type = option === "colors" ? "RADIO" : "DROPDOWN";
+      const type = option === "colors" ? "RADIO" : "CARD";
       const data =
         option === "size"
           ? optionValues.map((obj) => {

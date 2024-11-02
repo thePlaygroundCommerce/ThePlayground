@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import { AppProps } from "types";
 import Button from "./Button";
+import clsx from "clsx";
 
 type Props = AppProps & {
   count: number;
@@ -19,12 +20,14 @@ const Counter = ({ count: initialCount = 1, onCountChange, allowDeletion = false
     onCountChange(valueToSet);
   };
 
+  const isDisabled = !allowDeletion && initialCount < 2;
+
   return (
     <div className="flex rounded-full items-center">
       <div>
         <Button
-          className=" rounded-full"
-          disabled={!allowDeletion && initialCount < 2}
+          className={clsx(isDisabled && "opacity-0", "rounded-full")}
+          disabled={isDisabled}
           onClick={handleDecrement}
         >
           <FaMinus size={6} />

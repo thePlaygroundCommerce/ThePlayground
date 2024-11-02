@@ -66,19 +66,19 @@ const ProductDetailsModifyPresenter = ({
               <p>0 Reviews</p>
             </div> */}
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-4">
             {selectors.colors && (
-              <div className=" flex text-left">
+              <div className=" flex items-end text-left gap-12">
                 <Heading level={5}>Styles</Heading>
-                <div className="pb-6 flex justify-center gap-5">
+                <div className="flex justify-center gap-5 w-full">
                   {selectors.colors}
                 </div>
               </div>
             )}
             {selectors.size && (
-              <div className=" flex text-left">
+              <div className=" flex items-baseline text-left gap-12">
                 <Heading level={5}>Sizes</Heading>
-                <div className="pb-6 flex justify-center gap-5">
+                <div className="pb-6 flex justify-center gap-5 w-full">
                   {selectors.size}
                 </div>
               </div>
@@ -86,7 +86,7 @@ const ProductDetailsModifyPresenter = ({
           </div>
           <div className="grid grid-cols-1 gap-1 pb-7 justify-around w-full">
             <div className="flex items-center gap-2">
-              <div className="">
+              <div className="border-mintcream-600 border-2 text-mintcream-600 rounded h-auto p-2">
                 <Counter count={+quantity} onCountChange={setQuantity} />
               </div>
               <Button className="flex-grow" variant="outline" onClick={handleAddToCart}>
