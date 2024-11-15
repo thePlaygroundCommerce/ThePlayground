@@ -7,17 +7,18 @@ import CheckoutProvider from "context/checkoutContext";
 import InventoryProvider from "../context/inventoryContext";
 import { AppProps } from "types";
 import UIKitProvider from "context/UIKitContext";
-import { Order } from "square";
+import { CatalogObject, Order } from "square";
 import { Modal, Placeholder, Button } from "rsuite";
 import Portal from "./Portal";
+import { Simplify } from "prismicio-types";
 
 type Props = AppProps & {
   cartImageMap: any
   data: any,
-  cart?: Order
+  cartData?: {_cart: Order, _options: Simplify<CatalogObject[]>}
 };
 
-const Providers = ({ cartImageMap, data, cart, children }: Props) => {
+const Providers = ({ cartImageMap, data, cartData, children }: Props) => {
   const [show, setShow] =  useState(false);
 
   useEffect(() => {
@@ -33,7 +34,7 @@ const Providers = ({ cartImageMap, data, cart, children }: Props) => {
             apparelData={{ apparelItems: data.items, apparelImages: data.images }}
           // handleCategoryChange={handleCategoryChange}
           >
-            <CartProvider _cart={cart} images={cartImageMap}>
+            <CartProvider data={cartData} images={cartImageMap}>
               <CheckoutProvider>{children}</CheckoutProvider>
             </CartProvider>
           </InventoryProvider>

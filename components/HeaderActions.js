@@ -12,13 +12,15 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@clerk/nextjs";
 import Button from "./Button";
+import useBreakpoint from "hooks/useBreakpoints.tsx";
 
-const intialShowState = {
+const initialShowState = {
   cart: { active: false, id: "cart" },
   auth: { active: false, id: "account" },
 };
 
 function HeaderActions() {
+  const size = useBreakpoint();
   const path = usePathname();
   const {
     drawerKit: { open },
@@ -27,23 +29,23 @@ function HeaderActions() {
 
   const accountHref = !useAuth().isSignedIn ? "/account/sign-in" : "/account";
 
-  const [show, setShow] = useState(intialShowState);
+  const [show, setShow] = useState(initialShowState);
 
   const handleCartOnClick = () => {
     setShow({
-      ...intialShowState,
+      ...initialShowState,
       cart: { ...show.cart, active: !show.cart.active },
     });
     if (!open) handleUIChange({ open: !open });
   };
 
   const closeDrawer = () => {
-    setShow(intialShowState);
+    setShow(initialShowState);
     handleUIChange({ open: false });
   };
 
   useEffect(() => {
-    if (show.auth.active || show.cart.active) setShow(intialShowState);
+    if (show.auth.active || show.cart.active) setShow(initialShowState);
   }, [path]);
 
   const title = _.capitalize(
@@ -64,7 +66,7 @@ function HeaderActions() {
         <Drawer
           placement="right"
           closeButton={false}
-          size={325}
+          size={size == 'sm' ? "full" : "30%"}
           open={open && (show.auth.active || show.cart.active)}
           className="h-full overflow-hidden"
           enforceFocus

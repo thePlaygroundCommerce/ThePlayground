@@ -86,8 +86,8 @@ const ProductDetailsModifyPresenter = ({
           </div>
           <div className="grid grid-cols-1 gap-1 pb-7 justify-around w-full">
             <div className="flex items-center gap-2">
-              <div className="border-mintcream-600 border-2 text-mintcream-600 rounded h-auto p-2">
-                <Counter count={+quantity} onCountChange={setQuantity} />
+              <div className="h-auto">
+                <Counter className="p-2" count={+quantity} onCountChange={setQuantity} />
               </div>
               <Button className="flex-grow" variant="outline" onClick={handleAddToCart}>
                 {!(+(isProductInCart()?.quantity ?? 0) > 0)

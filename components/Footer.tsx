@@ -1,11 +1,10 @@
-"use client"
-
 import { AppProps } from "types";
 import SocialMediaButtons from "./SocialMediaButtons";
 import Link from "next/link";
 import Image from "next/image";
 import { Nav } from "app/layout.jsx";
-import { Accordion, Placeholder } from "rsuite";
+import Accordion from "rsuite/Accordion";
+import AccordionPanel from "rsuite/AccordionPanel";
 import LogoComponent from "./LogoComponent";
 
 type Props = AppProps & { navs: Nav[] };
@@ -34,11 +33,11 @@ function Footer({ navs }: Props) {
       <div className="w-full py-4">
         <div className="md:hidden">
           <Accordion>
-            <Accordion.Panel header="Help">
+            <AccordionPanel header="Help">
               <nav>
                 {[{ title: "Contact Us", link: "/contact", id: "contact" }].map(renderLink)}
               </nav>
-            </Accordion.Panel>
+            </AccordionPanel>
           </Accordion>
         </div>
         <div className="hidden md:block w-3/4 m-auto mt-6">

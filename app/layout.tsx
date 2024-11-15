@@ -1,5 +1,5 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { getCatalogItemsAndImages, getCatalogObjects } from "api/catalogApi";
+import { getCatalogInfo, getCatalogItemsAndImages, getCatalogObjects } from "api/catalogApi";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import Providers from "components/Providers";
@@ -106,15 +106,16 @@ export default async function RootLayout({ children }: Readonly<Props>) {
 
   const { order: cart = {
     locationId: ""
-  }, imageMap } = await callGetCart(cookieCartId);
+  }, imageMap = {}, options = [], relatedObjects = [] } = await callGetCart(cookieCartId);
 
   const { objects: apparelObjects = [] } = await getCatalogObjects(
     "ITEM,IMAGE,CATEGORY,ITEM_OPTION"
   );
 
   const { headerNavs, footerNavs } = await getMainNavigation();
-  const mappedCatalogObjects = mapArrayToMap(apparelObjects);
+  const mappedCatalogObjects = mapArrayToMap([...apparelObjects, ...relatedObjects]);
 
+  // TODO: duplicated item objs from mapArrayToMap 
   return (
     <ClerkProvider>
       <html
@@ -123,7 +124,7 @@ export default async function RootLayout({ children }: Readonly<Props>) {
       >
         <body className="h-full">
           <CustomProvider>
-            <Providers data={mappedCatalogObjects} cart={cart} cartImageMap={imageMap}>
+            <Providers data={mappedCatalogObjects} cartData={{_cart: cart, _options: options }} cartImageMap={imageMap}>
               <Layout navs={{ headerNavs, footerNavs }}>
                 {children}
               </Layout>

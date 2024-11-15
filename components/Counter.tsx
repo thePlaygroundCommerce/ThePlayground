@@ -10,10 +10,10 @@ type Props = AppProps & {
   onCountChange: any;
 };
 
-const Counter = ({ count: initialCount = 1, onCountChange, allowDeletion = false }: Props) => {
+const Counter = ({ className, count: initialCount = 1, onCountChange, allowDeletion = false }: Props) => {
   const [count, setCount] = useState(initialCount);
   const handleIncrement = () => { setCount(count => count + 1); onCountChange(count + 1) };
-  const handleDecrement = () => { setCount(count => count - 1); onCountChange(count - 1) };
+  const handleDecrement = () => { if (count > 0) { setCount(count => count - 1); onCountChange(count - 1) } };
   const handleTextChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const value = +e.target.value;
     const valueToSet = value < 2 ? 1 : value;
@@ -23,7 +23,7 @@ const Counter = ({ count: initialCount = 1, onCountChange, allowDeletion = false
   const isDisabled = !allowDeletion && initialCount < 2;
 
   return (
-    <div className="flex rounded-full items-center">
+    <div className={clsx("flex rounded items-center border-mintcream-600 border-2 text-mintcream-600 h-auto", className)}>
       <div>
         <Button
           className={clsx(isDisabled && "opacity-0", "rounded-full")}

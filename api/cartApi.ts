@@ -9,6 +9,7 @@ import {
   CalculateOrderRequest,
   CalculateOrderResponse,
   CatalogImage,
+  CatalogObject,
   CreateOrderResponse,
   Order,
   RetrieveOrderResponse,
@@ -24,7 +25,7 @@ const SQUARE_ORDER_CACHE_REVALIDATION = {
 
 export async function callGetCart(
   orderId: string
-): Promise<{ order?: Order, imageMap?: Simplify<CatalogImage> }> {
+): Promise<{ order?: Order, options: CatalogObject[], relatedObjects: CatalogObject[], imageMap?: Simplify<CatalogImage> }> {
   return fetch(`${BASE_PATH}/${orderId}`, { cache: "no-store" })
     .then((res) => res.json())
     .then((result) => {
@@ -45,8 +46,6 @@ export async function calculateCart(
   req: CalculateOrderRequest,
   init = DEFAULT_FETCH_INIT,
 ): Promise<ApiResponse<CalculateOrderResponse>> {
-  console.log("calculating cart")
-
   return fetch(`${BASE_PATH}/calculate`, {
     ...DEFAULT_FETCH_INIT,
     ...init,

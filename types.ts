@@ -1,10 +1,16 @@
 import { Dispatch, SetStateAction } from "react";
-import { CalculateOrderRequest, CatalogImage, CatalogObject, Order, OrderLineItem } from "square";
+import {
+  CalculateOrderRequest,
+  CatalogImage,
+  CatalogObject,
+  Order,
+  OrderLineItem,
+} from "square";
 
 export declare interface AppProps<T = HTMLElement> {
   className?: string;
   key?: React.Key;
-  children?: React.ReactNode ; // best, accepts everything React can render
+  children?: React.ReactNode; // best, accepts everything React can render
   childrenElement?: React.JSX.Element; // A single React element
   style?: React.CSSProperties; // to pass through style props
   onClick?: React.MouseEventHandler<T>; // form events! the generic parameter is the type of event.target
@@ -55,22 +61,25 @@ export type ApparelNavigation = {
 
 export type CartContextType = {
   cart: Order;
+  options: CatalogObject[];
   cartItemImages: {
     [index: string]: CatalogImage;
   };
-  updateCart: (
-    lineItems: OrderLineItem[],
-    fieldsToClear?: string[],
-    lineItemImageData?: { [id: string]: CatalogImage }
-  ) => void;
+  updateCart: ({
+    lineItems,
+    fieldsToClear,
+    lineItemImageData,
+  }: {
+    lineItems?: OrderLineItem[];
+    fieldsToClear?: string[];
+    lineItemImageData?: { [id: string]: CatalogImage };
+  }) => void;
   createCart: (
     catalogOrder: any,
     lineItemImageData?: CatalogImage,
     checkout?: boolean
   ) => void;
-  calculateCart: (
-    req: CalculateOrderRequest
-  ) => void;
+  calculateCart: (req: CalculateOrderRequest) => void;
   toggleCartOverlay: [boolean, Dispatch<SetStateAction<boolean>>];
 };
 

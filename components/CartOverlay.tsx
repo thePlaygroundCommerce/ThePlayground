@@ -1,4 +1,6 @@
-import React, { useMemo } from "react";
+'use client'
+
+import React, { Fragment, useMemo } from "react";
 import OrderList from "./OrderList";
 import Button from "./Button";
 import { AppProps } from "types";
@@ -8,16 +10,17 @@ import Money from "./Money";
 
 import _ from "lodash";
 import clsx from "clsx";
+import { getCatalogInfo } from "api/catalogApi";
 
 type Props = AppProps & {
   handleCartToggle: (e: any, bool: boolean) => void;
   getCheckoutUrl: () => string;
 };
 
-const CartOverlay = ({ handleCartToggle }: Props) => {
-  const { cart, calculateCart } = useCart();
-  const { checkout } = useCheckout();
 
+const CartOverlay = ({ handleCartToggle }: Props) => {
+  const { cart, options, calculateCart } = useCart();
+  const { checkout } = useCheckout();
 
   useMemo(() => {
     calculateCart({ order: cart })
@@ -40,20 +43,20 @@ const CartOverlay = ({ handleCartToggle }: Props) => {
   return (
     <div className="h-full flex flex-col">
       <div className="py-4 border-b h-full overflow-scroll">
-        <OrderList allowOrderModify />
+        <OrderList allowOrderModify options={options}/>
       </div>
 
-      <div className="px-3">
+      <div className="p-3">
         {
-          sortedBreakdown.map(([name, val], i) => {
-            if (name === "discount" && val === 0) return null
+          sortedBreakdown.map(([name, val]) => {
+            if (name === "discounts" && val === 0) return null
             return (
-              <>
-                <div key={name} className={clsx(i == 0 && "pt-5", "flex justify-between")}>
+              <Fragment key={name}>
+                <div className={clsx("flex justify-between")}>
                   <p>{_.capitalize(name)}</p>
                   <Money number={val} />
                 </div>
-              </>
+              </Fragment>
             )
           })
         }

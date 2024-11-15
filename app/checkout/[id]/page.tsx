@@ -10,12 +10,13 @@ import { cookies } from 'next/headers'
 import { getCatalogItemsAndImages } from 'api/catalogApi'
 import OrderBreakdown from 'components/OrderCostBreakdown'
 import { getCustomer } from 'api/customerApi'
-import { FulfillmentRecipient, Order } from 'square'
+import { CatalogObject, FulfillmentRecipient, Order } from 'square'
 import _ from 'lodash'
 import { SignedIn, SignedOut } from '@clerk/nextjs'
 import { latoHeavy } from 'app/fonts'
 import clsx from 'clsx'
 import Feedback from 'components/Feedback'
+import { Simplify } from 'prismicio-types'
 
 type PageProps = {
     params: { id: string }
@@ -26,6 +27,7 @@ const Page = async ({ params: { id }, searchParams: { quantity = "1", quick = "f
 
     let processedCartImages;
     let processedCart;
+    let options;
     let oldCart;
 
     const cartId = cookies().get("cartId")?.value
@@ -40,7 +42,7 @@ const Page = async ({ params: { id }, searchParams: { quantity = "1", quick = "f
             ]
         }
     } else {
-        let { order, imageMap } = (await callGetCart(cartId ?? ""))
+        let { order, imageMap } = await callGetCart(cartId ?? "")
         oldCart = order
     }
     if (!oldCart) throw Error("Order missing!")
@@ -59,16 +61,17 @@ const Page = async ({ params: { id }, searchParams: { quantity = "1", quick = "f
             redirect("/shop")
         }
     } else {
-        const { order, imageMap } = (await callGetCart(id))
+        const { order, imageMap, options: itemOpts } = await callGetCart(id)
+        options = itemOpts
         processedCart = order
-        processedCartImages = imageMap    
+        processedCartImages = imageMap
     }
 
     if (!processedCart) redirect("/shop")
-    
+
     return isOrderUnprocessed ? (<div>Loading</div>) : (
         <div className="min-h-screen h-full block md:pt-8 p-4 md:container mx-auto">
-            <MobileCheckoutConfirmation processedCart={processedCart} processedCartImages={processedCartImages} />
+            <MobileCheckoutConfirmation options={options} processedCart={processedCart} processedCartImages={processedCartImages} />
         </div>
     )
 }
@@ -127,8 +130,9 @@ export default Page
 //     </>
 // )
 
-const MobileCheckoutConfirmation = ({ processedCart, processedCartImages }: {
+const MobileCheckoutConfirmation = ({ processedCart, processedCartImages, options }: {
     processedCart: Order;
+    options: Simplify<Simplify<CatalogObject[]>>
     processedCartImages: any
 }) => {
     const recipient = processedCart.fulfillments?.find(fulfillment => fulfillment.type === "SHIPMENT")?.shipmentDetails?.recipient ?? {};
@@ -165,17 +169,19 @@ const MobileCheckoutConfirmation = ({ processedCart, processedCartImages }: {
                 <p className='mb-6'>Your order reference id <span className={latoHeavy.className}>{processedCart.id}</span> has been submitted.</p>
                 <p>An email has been sent to <span className={latoHeavy.className}>{customerDetail.email}</span> with your order receipt. To review any other details of your order, please {reviewOrderLink}</p>
             </div>
-            <div className='my-12'>
-                <p className={clsx("text-lg", latoHeavy.className)}>Shipping Details</p>
-                {(Object.values(customerDetail)).map((detail => <p key={detail}>{detail}</p>))}
-            </div>
-            <div>
-                <p className={clsx("text-lg", latoHeavy.className)}>Payment Details</p>
-                {(Object.values(paymentDetails)).map((detail => <p key={detail}>{detail}</p>))}
+            <div className='my-12 md:flex gap-8'>
+                <div className='basis-1/4'>
+                    <p className={clsx("text-lg", latoHeavy.className)}>Shipping Details</p>
+                    {(Object.values(customerDetail)).map((detail => <p key={detail}>{detail}</p>))}
+                </div>
+                <div>
+                    <p className={clsx("text-lg", latoHeavy.className)}>Payment Details</p>
+                    {(Object.values(paymentDetails)).map((detail => <p key={detail}>{detail}</p>))}
+                </div>
             </div>
             <div className="h-full md:w-3/4 m-auto">
                 <div className="min-h-48 pt-4">
-                    <OrderList className="min-h-24 mx-auto border" allowOrderModify={false} lineItems={processedCart?.lineItems} lineItemImages={processedCartImages} />
+                    <OrderList className="min-h-24 mx-auto" options={options} allowOrderModify={false} lineItems={processedCart?.lineItems} lineItemImages={processedCartImages} />
                 </div>
                 <div className='mt-6 md:w-1/3 ml-auto'>
                     <OrderBreakdown order={processedCart} sumObject={{ total: "totalMoney" }} />

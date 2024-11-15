@@ -48,6 +48,15 @@ export async function getCatalogObjects(types: any) {
     .catch((err) => console.log(err));
 }
 
+export async function getCatalogInfo() {
+  const fetchUrl = `${SQUARE_URL}catalog/info`;
+
+  return await fetch(fetchUrl, { next: { revalidate: 0 } }) // TODO must set to appropriate value in prod
+    .then((res) => res.json())
+    // .then(checkForErrors)
+    .catch((err) => console.log(err));
+}
+
 export async function getCatalogImages(types: any) {
   const queryParams = new URLSearchParams({ types });
   const fetchUrl = `${SQUARE_URL}catalog/objects?${queryParams}`;
@@ -91,8 +100,6 @@ export async function searchObjects(includeRelatedObjects: boolean = true, paylo
     // .then(checkForErrors)
     .catch((err) => console.log(err));
 }
-
-
 
 export async function getProductDetails({
   params: { slug },

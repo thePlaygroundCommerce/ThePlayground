@@ -2,66 +2,91 @@
 import { apiRouteHandlerAdapter } from "apiRouteHandler";
 import Counter from "components/Counter";
 import _ from "lodash";
-import React, { createContext, useState, useEffect, useMemo, useContext, useRef } from "react";
+import React, {
+  createContext,
+  useState,
+  useMemo,
+  useContext,
+  useRef,
+} from "react";
 import { useCookies } from "react-cookie";
-import { CalculateOrderRequest, CatalogApi, CatalogImage, Error as SquareError, Order, OrderLineItem } from "square";
+import {
+  CalculateOrderRequest,
+  CatalogImage,
+  Error as SquareError,
+  Order,
+  OrderLineItem,
+  CatalogObject,
+} from "square";
 import { CartContextType } from "types";
-import { useDebounce, useDebouncedCallback } from "use-debounce";
-import { getCatalogItemsAndImages } from "api/catalogApi";
+import { useDebouncedCallback } from "use-debounce";
 import { doesContextExist } from "util/";
-import { usePathname } from "next/navigation";
 import { Simplify } from "prismicio-types";
 
-
 type CartState = {
-  order: Order
-  errors: SquareError[]
-}
+  order: Order;
+  options?: CatalogObject[];
+  errors: SquareError[];
+};
 
 type ModifiedCartData = {
-  lineItems: OrderLineItem[],
-  fieldsToClear?: string[],
-  lineItemImageData?: { [id: string]: CatalogImage }
-}
-type OrUndefined<T> = T | undefined
+  lineItems?: OrderLineItem[];
+  fieldsToClear?: string[];
+  lineItemImageData?: { [id: string]: CatalogImage };
+};
+type OrUndefined<T> = T | undefined;
 
 export const CartContext = createContext<CartContextType | null>(null);
 
-const CartProvider = ({ _cart, images: cartImageMap, children }: { children: any, images: Simplify<CatalogImage>,  _cart?: Order }) => {
+const CartProvider = ({
+  data: { _cart, _options } = { _cart: { locationId: "" }, _options: [] },
+  images: cartImageMap,
+  children,
+}: {
+  children: any;
+  images: Simplify<CatalogImage>;
+  data?: {
+    _options: CatalogObject[];
+    _cart?: Order;
+  }
+}) => {
   const [cookies, setCookie] = useCookies();
   const [openCart, setOpenCart] = useState<boolean>(false);
-  const [cartItemImages, setCartItemImages] = useState<Simplify<CatalogImage>>(cartImageMap);
+  const [cartItemImages, setCartItemImages] =
+    useState<Simplify<CatalogImage>>(cartImageMap);
   const initialCart = {
     id: cookies.cartId,
     lineItems: [],
     locationId: "",
-  }
-  const [{ order: cart, errors }, setCart] = useState<CartState>({
+  };
+  const [{ order: cart, options, errors }, setCart] = useState<CartState>({
     order: _cart || initialCart,
-    errors: []
+    options: _options,
+    errors: [],
   });
 
   const drawerRef = useRef(null);
   const handleDrawerToggle = (e: any, bool = !openCart) => {
     setOpenCart(bool);
-  }
+  };
+
   const calculateCart = (req: CalculateOrderRequest) => {
     if (cart?.id) {
       apiRouteHandlerAdapter({
         method: "POST",
         url: `/api/cart/calculate`,
-        payload: req
-      }).then(data => {
+        payload: req,
+      }).then((data) => {
         populateCartAndImages(data, cartItemImages);
-      })
+      });
     }
   };
 
   const updateCart = ({
     lineItems,
     fieldsToClear,
-    lineItemImageData
-  }: ModifiedCartData) => {
+    lineItemImageData,
+  }: ModifiedCartData = {}) => {
     if (cart.id) {
       const body = {
         orderId: cart.id,
@@ -74,43 +99,51 @@ const CartProvider = ({ _cart, images: cartImageMap, children }: { children: any
       apiRouteHandlerAdapter({
         method: "PUT",
         url: `/api/cart`,
-        payload: body
-      }).then(data => {
+        payload: body,
+      }).then((data) => {
         populateCartAndImages(data, lineItemImageData);
-      })
+      });
     } else {
       createCart(lineItems, lineItemImageData, false);
     }
   };
 
-  const createCart = (catalogOrder: any, lineItemImageData?: { [id: string]: CatalogImage }, checkout?: boolean) => {
+  const createCart = (
+    catalogOrder: any,
+    lineItemImageData?: { [id: string]: CatalogImage },
+    checkout?: boolean
+  ) => {
     const state = checkout ? "OPEN" : "DRAFT";
     apiRouteHandlerAdapter({
       method: "POST",
       url: `/api/cart`,
-      payload: { order: { state, lineItems: catalogOrder } }
-    }).then(data => {
+      payload: { order: { state, lineItems: catalogOrder } },
+    }).then((data) => {
       if (data.order) {
         setCookie("cartId", data.order.id, {
           path: "/",
         });
       }
-      populateCartAndImages(data, lineItemImageData)
-    })
+      populateCartAndImages(data, lineItemImageData);
+    });
   };
 
-  const populateCartAndImages = ({ order, errors = [] }: { order: Order, errors: SquareError[] }, lineItemImageData: Simplify<CatalogImage> = {}): void => {
-    setCart({ order, errors });
+  const populateCartAndImages = (
+    { order, options, errors = [] }: { order: Order; options: CatalogObject[], errors: SquareError[] },
+    lineItemImageData: Simplify<CatalogImage> = {}
+  ): void => {
+    setCart({ order, options, errors });
     setCartItemImages(lineItemImageData);
   };
 
   return (
     <CartContext.Provider
-
       //@ts-ignore
       value={useMemo(
         () => ({
-          cart, cartItemImages,
+          cart,
+          options,
+          cartItemImages,
           drawerRef,
           handleDrawerToggle,
           updateCart,
@@ -127,40 +160,70 @@ const CartProvider = ({ _cart, images: cartImageMap, children }: { children: any
 };
 
 export const useCartModifier = () => {
-  const { cart, updateCart, cartItemImages } = doesContextExist<CartContextType>(useContext(CartContext));
-  const debounced = useDebouncedCallback((quantity: number, lineItem: OrderLineItem, lineItemImageData?: CatalogImage) => {
-    modifyCart({ ...lineItem, quantity: quantity.toString() }, lineItemImageData, quantity === 0)
-  }, 1500)
-  const convertData = ([lineItems, fieldsToClear, lineItemImageData]: [OrUndefined<OrderLineItem[]>, OrUndefined<string[]>, OrUndefined<CatalogImage>]): ModifiedCartData => ({
-    lineItems: lineItems as OrderLineItem[],
-    fieldsToClear: fieldsToClear as string[],
-    lineItemImageData: lineItemImageData as { [id: string]: CatalogImage }
-  })
+  const { cart, updateCart, cartItemImages } =
+    doesContextExist<CartContextType>(useContext(CartContext));
+  const debounced = useDebouncedCallback(
+    (
+      quantity: number,
+      lineItem: OrderLineItem,
+      lineItemImageData?: CatalogImage
+    ) => {
+      modifyCart(
+        { ...lineItem, quantity: quantity.toString() },
+        lineItemImageData,
+        quantity === 0
+      );
+    },
+    1500
+  );
 
   const addCartItem = (
     lineItem: OrderLineItem,
     lineItemImageData?: CatalogImage
-  ): [OrderLineItem[] | undefined, string[] | undefined, CatalogImage | undefined] => {
+  ): {
+    lineItems: OrderLineItem[];
+    fieldsToClear?: undefined;
+    lineItemImageData?: { [id: string]: CatalogImage };
+  } => {
     const lineItems = cart.lineItems ?? [];
-    return [lineItems.concat(lineItem), undefined, { ...cartItemImages, [lineItem.catalogObjectId ?? ""]: lineItemImageData }];
+    return {
+      lineItems: lineItems.concat(lineItem),
+      fieldsToClear: undefined,
+      lineItemImageData: {
+        ...cartItemImages,
+        [lineItem.catalogObjectId ?? ""]: lineItemImageData ?? {},
+      },
+    }
   };
 
-  const deleteCartItem = (lineItemUid: string): [undefined, string[] | undefined, CatalogImage | undefined] => {
+  const deleteCartItem = (
+    lineItemUid: string
+  ): {
+    lineItems: undefined;
+    fieldsToClear?: string[];
+    lineItemImageData?: { [id: string]: CatalogImage };
+  } => {
     const lineItems = undefined;
     const fieldsToClear = [`line_items[${lineItemUid}]`];
-    const key = cart.lineItems?.find((item) => item.uid == lineItemUid)?.catalogObjectId ?? "";
+    const key =
+      cart.lineItems?.find((item) => item.uid == lineItemUid)
+        ?.catalogObjectId ?? "";
     const lineItemImageData = {
-      ...cartItemImages
+      ...cartItemImages,
     };
 
-    delete lineItemImageData[key]
-    return [lineItems, fieldsToClear, lineItemImageData]
+    delete lineItemImageData[key];
+    return { lineItems, fieldsToClear, lineItemImageData };
   };
 
   const modifyCartItem = (
     existingCartItemIndex: number,
     newCartItem: OrderLineItem
-  ): [OrderLineItem[] | undefined, string[] | undefined, CatalogImage | undefined] | any => {
+  ): {
+    lineItems: OrderLineItem[];
+    fieldsToClear?: string[];
+    lineItemImageData?: { [id: string]: CatalogImage };
+  } | undefined => {
     if (!Array.isArray(cart.lineItems)) {
       throw new Error("Cart line items must be an Array!");
     }
@@ -180,22 +243,29 @@ export const useCartModifier = () => {
 
     lineItems[existingCartItemIndex] = mergedCartItem;
 
-    return [lineItems, undefined, cartItemImages];
+    return { lineItems, fieldsToClear: undefined, lineItemImageData: cartItemImages };
   };
 
-  const modifyCart = (lineItem: OrderLineItem, lineItemImageData: CatalogImage = {}, deletion: boolean = false) => {
-    let modifiedCartItemData: ModifiedCartData;
-    const isExistingItemIndex = cart.lineItems?.findIndex((item) => item.uid === lineItem.uid) ?? -1;
+  const modifyCart = (
+    lineItem: OrderLineItem,
+    lineItemImageData: CatalogImage = {},
+    deletion: boolean = false
+  ) => {
+    let modifiedCartItemData: OrUndefined<ModifiedCartData>;
+    const isExistingItemIndex =
+      (cart.lineItems?.findIndex((item) => item.uid === lineItem.uid) ?? -1);
 
     if (deletion)
-      modifiedCartItemData = convertData(deleteCartItem(lineItem.uid ?? ""))
-    else if (isExistingItemIndex > -1)
-      modifiedCartItemData = convertData(modifyCartItem(isExistingItemIndex, lineItem))
-    else
-      modifiedCartItemData = convertData(addCartItem(lineItem, lineItemImageData))
-    //@ts-ignore
-    updateCart(modifiedCartItemData)
-  }
+      modifiedCartItemData = deleteCartItem(lineItem.uid ?? "");
+    else if (isExistingItemIndex > -1) {
+      modifiedCartItemData = modifyCartItem(isExistingItemIndex, lineItem) ?? undefined;
+    } else
+      modifiedCartItemData = addCartItem(lineItem, lineItemImageData);
+
+    if (modifiedCartItemData === undefined) return
+
+    updateCart(modifiedCartItemData);
+  };
 
   return {
     cart,
@@ -204,9 +274,21 @@ export const useCartModifier = () => {
     deleteCartItem,
     modifyCartItem,
     modifyCart,
-    CartQuantityCounter: (lineItem: OrderLineItem, lineItemImageData?: CatalogImage) => <Counter allowDeletion={true} onCountChange={(quantity: number) => debounced(quantity, lineItem, lineItemImageData)} count={Number.parseInt(lineItem.quantity)} />,
-  }
-}
+    CartQuantityCounter: (
+      lineItem: OrderLineItem,
+      lineItemImageData?: CatalogImage
+    ) => (
+      <Counter
+        className="p-1 mx-auto"
+        allowDeletion={true}
+        onCountChange={(quantity: number) =>
+          debounced(quantity, lineItem, lineItemImageData)
+        }
+        count={Number.parseInt(lineItem.quantity)}
+      />
+    ),
+  };
+};
 
 export const useCart = () => {
   const currentCart = useContext(CartContext);
