@@ -28,7 +28,7 @@ function ProductImageGallery({ images }: { images: CatalogObject[] }) {
   const handleDecrement = () => carouselRef?.next()
 
   return (
-    <div className="md:flex-row flex-col flex gap-5 w-full">
+    <div className="md:flex-row flex-col flex gap-5 w-full min-h-full">
       <div className="order-1 md:order-2 md:hidden">
         <div className="text-center flex justify-center items-center gap-4">
           <div className="w-full">
@@ -73,8 +73,7 @@ function ProductImageGallery({ images }: { images: CatalogObject[] }) {
       <div className="hidden w-full order-2 md:order-1 md:grid grid-cols-2 gap-4">
         <div
           className={clsx(
-            "overflow-hidden flex relative w-full h-auto max-h-screen col-span-2 aspect-square",
-            images.length > 1 ? "row-span-3" : "row-span-4"
+            "overflow-hidden flex relative w-full aspect-square col-span-2 rounded-lg"
           )}
         >
           <ProductImageViewer {...images[activeImageIndex]} />
@@ -82,11 +81,11 @@ function ProductImageGallery({ images }: { images: CatalogObject[] }) {
         {images.map(
           ({ imageData, id }, i) =>
             i != activeImageIndex && (
-              <Button key={id + i} className=" overflow-hidden w-full aspect-square rounded-lg relative">
+              <Button key={id + i} padding={0} className="overflow-hidden w-full aspect-square rounded-lg relative">
                 <Image
                   className="w-full"
                   src={imageData?.url ?? ""}
-                  objectFit="contain"
+                  objectFit="cover"
                   fill
                   alt="picture of shirt"
                   onClick={() => setActiveVariationIndex(i)}

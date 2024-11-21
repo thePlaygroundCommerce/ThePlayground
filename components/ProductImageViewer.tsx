@@ -1,13 +1,11 @@
 "use client";
-import Image from "next/image";
-//@ts-ignore
-import { GlassMagnifier } from "react-image-magnifiers";
+import Image from "./Image";
 
 const ProductImageViewer = ({ imageData }: any) => {
   return (
     <Image
       className="h-auto w-full"
-      objectFit="contain"
+      objectFit="cover"
       fill
       src={imageData?.url}
       alt="picture of shirt"
@@ -16,12 +14,3 @@ const ProductImageViewer = ({ imageData }: any) => {
 };
 
 export default ProductImageViewer;
-
-// return (
-//   <GlassMagnifier
-//     // className="max-h-full"
-//     // alwaysInPlace={true}
-//     className="object-cover w-full"
-//     imageSrc={imageData?.url}
-//     imageAlt="picture of shirt"
-//   />  

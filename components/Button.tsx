@@ -7,6 +7,7 @@ import { AppProps } from "types";
 
 type Props = {
   variant?: keyof typeof variants
+  padding?: number;
 } & DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 
 const variants = {
@@ -19,6 +20,7 @@ const variants = {
 const Button = ({
   variant = 'link',
   children,
+  padding = 2,
   onClick,
   className,
   type = 'button',
@@ -32,7 +34,7 @@ const Button = ({
     <button
       type={type}
       aria-disabled={pending}
-      className={clsx("p-2 rounded", variants[variant], className)}
+      className={clsx(className, `p-${padding} rounded`, variants[variant])}
       onClick={onClick}
       {...rest}
     >

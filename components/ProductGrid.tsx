@@ -12,7 +12,7 @@ type Props = {
 
 const ProductGrid = ({ catalogItems, catalogImages }: Props) => {
   return (
-    <div className="flex flex-wrap max-w-full justify-center gap-y-16">
+    <div className="flex flex-wrap max-w-full gap-y-16">
       {!catalogItems ? (
         <EmptyProductGrid />
       ) : (
