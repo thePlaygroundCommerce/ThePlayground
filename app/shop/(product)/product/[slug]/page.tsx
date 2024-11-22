@@ -20,7 +20,7 @@ const Page = async (props: Props) => {
         </div> */}
 
         <div className="min-h-screen md:p-4">
-          <div className="block md:grid md:grid-cols-8 gap-4">
+          <div className="block md:grid md:grid-cols-8 gap-4 min-h-full">
             <div className="col-span-5 pt-6">
               <ProductImageGallery images={filteredRelatedImages} />
             </div>
