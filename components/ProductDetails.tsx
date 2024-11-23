@@ -14,41 +14,17 @@ import Selector from "./ColorSelector";
 import Heading from "./typography/Heading";
 import Text from "./typography/Text";
 import clsx from "clsx";
+import withProductModifiers, { WithProductModifiersProps } from "hocs/withProductModifiers";
 
-type Props = AppProps & {
-  amount: any;
-  itemData: CatalogItem;
-  quantity: any;
-  selectors: any;
-  options: {
-    [key: string]:
-    | {
-      placeholder: string | undefined;
-      productOptionValues: (CatalogObject | undefined)[];
-      selectedOptions: any;
-    }
-    | undefined;
-  };
-  setQuantity: any;
-  selectedVariation: any;
-  handleBuyNow: any;
-  handleAddToCart: any;
-  isProductInCart: any;
-  handleOptionChange: any;
+type Props = AppProps & WithProductModifiersProps & {
+
 };
 
-const ProductDetailsModifyPresenter = ({
+const ProductDetails = ({
   itemData,
   amount,
-  quantity,
-  setQuantity,
   selectors,
-  options,
-  handleOptionChange,
-  selectedVariation,
-  handleBuyNow,
-  handleAddToCart,
-  isProductInCart,
+  CartModifiers
 }: Props) => {
   return (
     <Tab.Group defaultIndex={0}>
@@ -85,17 +61,7 @@ const ProductDetailsModifyPresenter = ({
             )}
           </div>
           <div className="grid grid-cols-1 gap-1 pb-7 justify-around w-full">
-            <div className="flex items-center gap-2">
-              <div className="h-auto">
-                <Counter className="p-2" count={+quantity} onCountChange={setQuantity} />
-              </div>
-              <Button className="flex-grow" variant="outline" onClick={handleAddToCart}>
-                {!(+(isProductInCart()?.quantity ?? 0) > 0)
-                  ? "Add To Cart"
-                  : "Update Cart"}
-              </Button>
-            </div>
-            <Button variant="primary" onClick={handleBuyNow}>Buy Now</Button>
+            {CartModifiers}
           </div>
           <Tab.List className="mb-3 pb-2 p-3 flex justify-around">
             <Tab className="pe-3">Details</Tab>
@@ -115,4 +81,4 @@ const ProductDetailsModifyPresenter = ({
   );
 };
 
-export default ProductDetailsModifyPresenter;
+export default withProductModifiers(ProductDetails);

@@ -1,17 +1,17 @@
-import React from 'react'
-import { AppProps } from 'types'
+import React from "react";
+import { AppProps } from "types";
 
 type Props = {
-    number: number | bigint
-} & AppProps
+  number: number | bigint;
+} & AppProps;
 
-const Money = ({ number, ...rest }: Props) => {
-    number = Number(number);
-    const num = (number / 100)
+const Money = ({ number, ...rest }: Props) => (
+  <p {...rest}>
+    {new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    }).format(Number(number) / 100)}
+  </p>
+);
 
-    return (
-        <p {...rest}>${(number % 100) === 0 ? num + ".00" : num}</p>
-    )
-}
-
-export default Money
+export default Money;

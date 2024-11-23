@@ -1,5 +1,5 @@
 // import { mount } from "cypress/react18";
-import ProductDetailsModifyPresenter from "components/ProductDetailsModifyPresenter";
+import ProductDetails from "components/ProductDetails";
 
 const props = {
   amount: 50,
@@ -24,7 +24,7 @@ describe("<Stepper>", () => {
   it("mounts", () => {
     cy.mount(
       //@ts-ignore
-      <ProductDetailsModifyPresenter props={props}/>
+      <ProductDetails props={props}/>
     );
     
   });

@@ -262,7 +262,7 @@ export const useCartModifier = () => {
     } else
       modifiedCartItemData = addCartItem(lineItem, lineItemImageData);
 
-    if (modifiedCartItemData === undefined) return
+    if (modifiedCartItemData === undefined) return false
 
     updateCart(modifiedCartItemData);
   };
