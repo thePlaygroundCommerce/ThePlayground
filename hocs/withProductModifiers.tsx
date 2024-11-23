@@ -339,7 +339,7 @@ const CartModifierButtons = ({
         <Button
           loading={isCartLoading}
           disabled={isCartLoading}
-          className="flex-grow"
+          className="grow"
           variant="outline"
           onClick={handleAddToCart}
         >
