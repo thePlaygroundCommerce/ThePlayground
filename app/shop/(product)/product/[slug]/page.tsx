@@ -1,7 +1,6 @@
 import { getProductDetails } from "api/catalogApi";
-import ProductDetailsModify from "components/ProductDetailsModify";
+import ProductDetails from "components/ProductDetails";
 import ProductImageGallery from "components/ProductImageGallery";
-import { CatalogObject } from "square";
 
 type Props = {};
 
@@ -25,7 +24,7 @@ const Page = async (props: Props) => {
               <ProductImageGallery images={filteredRelatedImages} />
             </div>
             <div className="col-span-3 pt-6">
-              <ProductDetailsModify
+              <ProductDetails
                 catalogItemObject={catalogObject}
                 catalogImageObjects={filteredRelatedImages}
               />

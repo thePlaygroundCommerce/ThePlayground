@@ -24,26 +24,24 @@ const Counter = ({ className, count: initialCount = 1, onCountChange, allowDelet
 
   return (
     <div className={clsx("flex rounded items-center border-mintcream-600 border-2 text-mintcream-600 h-auto", className)}>
-      <div>
-        <Button
-          className={clsx(isDisabled && "opacity-0", "rounded-full")}
-          disabled={isDisabled}
-          onClick={handleDecrement}
-        >
-          <FaMinus size={6} />
-        </Button>
-        <input
-          className="text-center max-w-12"
-          type="number"
-          id="counterInput"
-          name="counterInput"
-          onChange={handleTextChange}
-          value={count}
-        />
-        <Button className="rounded-full" onClick={handleIncrement}>
-          <FaPlus size={6} />
-        </Button>
-      </div>
+      <Button
+        className={clsx(isDisabled && "opacity-0", "rounded-full")}
+        disabled={isDisabled}
+        onClick={handleDecrement}
+      >
+        <FaMinus size={6} />
+      </Button>
+      <input
+        className="text-center w-5 max-w-12"
+        type="number"
+        id="counterInput"
+        name="counterInput"
+        onChange={handleTextChange}
+        value={count}
+      />
+      <Button className="rounded-full" onClick={handleIncrement}>
+        <FaPlus size={6} />
+      </Button>
     </div>
   );
 };

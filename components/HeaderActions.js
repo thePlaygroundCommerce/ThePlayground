@@ -13,6 +13,7 @@ import Link from "next/link";
 import { useAuth } from "@clerk/nextjs";
 import Button from "./Button";
 import useBreakpoint from "hooks/useBreakpoints.tsx";
+import { useCart } from "context/cartContext.tsx";
 
 const initialShowState = {
   cart: { active: false, id: "cart" },
@@ -22,6 +23,7 @@ const initialShowState = {
 function HeaderActions() {
   const size = useBreakpoint();
   const path = usePathname();
+  const { cart: { lineItems = [] } } = useCart()
   const {
     drawerKit: { open },
     handleUIChange,
@@ -66,7 +68,7 @@ function HeaderActions() {
         <Drawer
           placement="right"
           closeButton={false}
-          size={size == 'sm' ? "full" : "30%"}
+          size={size == "sm" ? "full" : "30%"}
           open={open && (show.auth.active || show.cart.active)}
           className="h-full overflow-hidden"
           enforceFocus
@@ -77,12 +79,17 @@ function HeaderActions() {
           >
             <div className="bg-white h-full flex flex-col">
               <div className="overflow-hidden flex justify-between items-center px-4 border-b">
-                <Heading level={5}>{title}</Heading>
+                <div className="py-2">
+                  <Heading level={6}>You have {lineItems.length} items in your cart.</Heading>
+                  <p className="italic text-sm">Free Shipping</p>
+                </div>
                 <Button className="p-3" onClick={closeDrawer}>
                   <IoClose />
                 </Button>
               </div>
-              <div className="h-full overflow-hidden">{show.cart.active && <CartOverlay />}</div>
+              <div className="h-full overflow-hidden">
+                {show.cart.active && <CartOverlay />}
+              </div>
             </div>
           </Drawer.Body>
         </Drawer>

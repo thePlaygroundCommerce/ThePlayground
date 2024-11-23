@@ -3,11 +3,13 @@
 import clsx from "clsx";
 import { DetailedHTMLProps, ButtonHTMLAttributes } from "react";
 import { useFormStatus } from "react-dom";
+import { Loader } from "rsuite";
 import { AppProps } from "types";
 
 type Props = {
   variant?: keyof typeof variants
   padding?: number;
+  loading?: boolean;
 } & DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 
 const variants = {
@@ -20,6 +22,7 @@ const variants = {
 const Button = ({
   variant = 'link',
   children,
+  loading,
   padding = 2,
   onClick,
   className,
@@ -38,7 +41,9 @@ const Button = ({
       onClick={onClick}
       {...rest}
     >
-      {children}
+      {loading ? (
+        <Loader />
+      ) : children}
     </button>
   );
 };
