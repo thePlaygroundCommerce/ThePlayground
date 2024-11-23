@@ -31,19 +31,18 @@ type Props = AppProps & {
   catalogImageObjects: CatalogObject[];
 };
 
-export type WithProductModifiersProps = AppProps &
-  CartModifiyingProps & {
-    amount: any;
-    itemData: CatalogItem;
-    selectors: any;
-    CartModifiers: JSX.Element
-  };
+export type WithProductModifiersProps = AppProps & {
+  amount: any;
+  itemData: CatalogItem;
+  selectors: any;
+  CartModifiers: JSX.Element
+};
 
 type Lookup<T> = { [key: string | number]: undefined | null | T };
 
 const withProductModifiers =
-  <P extends object>(
-    Component: ComponentType<WithProductModifiersProps & P>
+  (
+    Component: ComponentType<WithProductModifiersProps>
   ): FC<Props> =>
     ({
       catalogItemObject: { itemData = {} },
