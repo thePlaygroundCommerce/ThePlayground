@@ -68,13 +68,13 @@ const OrderList = ({ allowOrderItemDeletion = true, allowOrderModify = false, li
                       </p>
                     </div>
                   </div>
-                  <div className="flex justify-between items-baseline">
+                  <div className="flex justify-between items-center gap-4">
                     {allowOrderModify && (
-                      <div className="m-3 flex-1">
+                      <div className="my-3">
                         {CartQuantityCounter(item)}
                       </div>
                     )}
-                    <div className="flex-1">
+                    <div className="grow">
                       <Money className="m-0" number={item.basePriceMoney?.amount ?? 0} />
                     </div>
 
