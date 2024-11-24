@@ -24,7 +24,7 @@ const ProductGrid = ({ catalogItems, catalogImages }: Props) => {
           return (
             <div key={id} className="basis-full md:basis-1/3">
               <Link href={`/shop/product/${encodeURIComponent(id)}`}>
-                <ProductItem itemData={itemData} images={images} className="rounded-lg overflow-hidden" />
+                <ProductItem itemData={itemData} images={images} />
               </Link>
             </div>
           );

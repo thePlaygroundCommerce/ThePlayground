@@ -20,7 +20,7 @@ export default function ProductGridItem({ itemData, images, className }: Props) 
   return (
     <div className={clsx(className, "border-0 text-center ")}>
       <Image
-        className={`mx-auto`}
+        className={`mx-auto rounded-lg overflow-hidden`}
           width={250}
           height={250}
         src={displayImage?.url || Unavailable}
