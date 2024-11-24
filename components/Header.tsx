@@ -14,8 +14,8 @@ type Props = AppProps & { navs: { headerNavs: Nav[], footerNavs: Nav[] } };
 
 function Header({ navs }: Props) {
   return (
-    <header className="fixed min-h-12 top-0 md:h-auto drop-shadow-lg z-20 bg-white w-full">
-      <div className={"grid grid-cols-6 border-b md:px-8 px-4 md:py-1 py-3"}>
+    <header className="fixed h-[90px] max-h-[90px] flex flex-col top-0 drop-shadow-lg z-20 bg-white w-full">
+      <div className={"grid grid-cols-6 border-b md:px-8 px-4 md:py-1 py-3 h-full"}>
         <div className="w-full h-full flex col-span-1">
           <div className="sm:hidden flex items-center">
             <MobileSideNav logo={<LogoComponent height={25} width={25} />} navs={navs} />
@@ -26,8 +26,8 @@ function Header({ navs }: Props) {
             </Link>
           </div>
         </div>
-        <div className="w-full h-full flex justify-center sm:justify-start col-span-4">
-          <div className="sm:hidden max-w-44 relative ">
+        <div className="w-full h-full flex justify-center items-center sm:justify-start col-span-4">
+          <div className="sm:hidden w-full max-w-44 relative h-full">
             <Link href="/">
               <LogoComponent height={25} width={25} />
             </Link>
@@ -42,7 +42,7 @@ function Header({ navs }: Props) {
           </div>
         </div>
       </div>
-      <div className={clsx(latoLight.className, "text-sm bg-mintcream-950 text-white text-center p-2")}>
+      <div className={clsx(latoLight.className, "text-sm bg-mintcream-950 text-white text-center p-2 ")}>
         <Blinking>
           {[
             <p key={1}>Free Shipping & Returns <span className="italic">For A Limited Time</span></p>

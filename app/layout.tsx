@@ -170,7 +170,7 @@ type LayoutProps = AppProps & {
 const Layout = ({ children, navs, navs: { footerNavs } }: LayoutProps) => (
   <>
     <Header navs={navs} />
-    <main className="min-h-full mt-20 box-border">{children}</main>
+    <main className="min-h-full mt-[90px] box-border">{children}</main>
     <Footer navs={footerNavs} />
   </>
 );

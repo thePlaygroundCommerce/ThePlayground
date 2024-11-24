@@ -53,13 +53,13 @@ function ProductImageGallery({ images }: { images: CatalogObject[] }) {
           </div>
         </div>
         <div className="">
-          <Carousel onSlide={handleImageChange} className="">
+          <Carousel onSlide={handleImageChange} className="h-[500px]">
             {instance => {
               setCarouselRef(instance);
               return images.map((image) => (
                 <div
                   className={clsx(
-                    "overflow-hidden flex relative w-full h-full",
+                    "overflow-hidden flex relative rounded-lg w-full h-full",
                     images.length > 1 ? "row-span-3" : "row-span-4"
                   )}
                 >

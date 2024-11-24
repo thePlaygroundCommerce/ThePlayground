@@ -31,7 +31,7 @@ const Page = async ({ }: Props) => {
           )}
         />
       </div>
-      <div className="flex flex-col md:flex-roww justify-center container mx-auto flex-wrap gap-6 py-12">
+      <div className="flex flex-col md:flex-row justify-center container mx-auto flex-wrap gap-6 py-12">
         {blogs.map(({ data: { coverimage, title, headline } }, i) => (
           <div key={i} className="md:w-1/4 text-center flex flex-col gap-4">
             <div className="w-full">
