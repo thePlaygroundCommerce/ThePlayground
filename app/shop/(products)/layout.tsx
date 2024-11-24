@@ -2,6 +2,7 @@ import { getMainNavigation } from "app/layout";
 import Button from "components/Button";
 import ShopNavigation from "components/ShopNavigation";
 import Link from "next/link";
+import { Divider } from "rsuite";
 import Dropdown from "rsuite/esm/Dropdown";
 import DropdownItem from "rsuite/esm/Dropdown/DropdownItem";
 
@@ -13,18 +14,13 @@ export default async function ProductsPageLayout({ children }: any) {
   const { headerNavs } = await getMainNavigation()
 
   return (
-    <div className="pt-6">
-      <div className="grid grid-cols-2 md:grid-cols-8 w-full px-4 gap-4">
-        <div className="col-span-1 md:col-span-2">
+    <div className="md:pt-6">
+      <div className="grid auto-rows-max grid-cols-2 md:grid-cols-6 w-full md:px-4 gap-4 min-h-screen">
+        <div className="col-span-2 md:col-span-1">
           <ShopNavigation _navs={headerNavs} />
         </div>
-        {/* <div className="col-span-1 flex justify-start">
-          <Dropdown title="Filter">
-            {['Price', 'Name'].map(nav => <DropdownItem as={Link} href={nav.link}>{nav.title}</DropdownItem>)}
-          </Dropdown>
-          <Button className="mr-12">Sort</Button>
-        </div> */}
-        <div className="col-span-2 md:col-span-6 w-full max-w-full md:border-l">
+        <div className="col-span-2 md:col-span-5 mt-12 md:mt-0 w-full max-w-full flex justify-center md:justify-start md:h-screen">
+          <Divider vertical className="hidden md:inline h-full ml-0" />
           {children}
         </div>
       </div>

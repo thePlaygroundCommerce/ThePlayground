@@ -1,7 +1,9 @@
 "use client";
 
+import clsx from "clsx";
 import "keen-slider/keen-slider.min.css";
 import { KeenSliderInstance, useKeenSlider } from "keen-slider/react";
+import { Simplify } from "prismicio-types";
 import React, { ReactNode, useEffect, useState } from "react";
 import { AppProps } from "types";
 
@@ -9,7 +11,12 @@ type Props = {
   active?: number;
   className?: string
   onSlide?: (index: number) => void;
-  children: (
+  items?: React.JSX.Element[];
+  itemStyles?: {
+    styles?: {},
+    className?: string
+  }
+  children?: (
     instance: KeenSliderInstance<
       {},
       {
@@ -23,7 +30,7 @@ type Props = {
   ) => JSX.Element[];
 };
 
-const Carousel = ({ children, onSlide = () => {} }: Props) => {
+const Carousel = ({ itemStyles, items, children, className, onSlide = () => { } }: Props) => {
   const [ready, setReady] = useState(false);
   const options = {
     slideChanged({
@@ -45,18 +52,23 @@ const Carousel = ({ children, onSlide = () => {} }: Props) => {
     });
   }, [ready]);
 
+  const render = () => {
+    const value = items ? items : (children &&
+      children(instanceRef.current)) ?? []
+
+    return value.map((child, i) => (
+      <div key={i} className={clsx(itemStyles?.className, "keen-slider__slide h-full")}>
+        {child}
+      </div>
+    ))
+  }
+
   return (
     <div
       ref={sliderRef}
-      className="keen-slider w-full h-[500px] overflow-hidden"
+      className={clsx(className, "keen-slider w-1/3 overflow-hidden")}
     >
-      {ready &&
-        instanceRef.current &&
-        (children(instanceRef.current) ?? []).map((child, i) => (
-          <div key={i} className="keen-slider__slide w-full h-full">
-            {child}
-          </div>
-        ))}
+      {ready && instanceRef.current && render()}
     </div>
   );
 };
