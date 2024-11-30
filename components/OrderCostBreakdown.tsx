@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import _ from 'lodash';
 import React from 'react'
 import { Order, Money as SquareMoney } from 'square';
-import { AppProps } from 'types';
+import { AppProps } from 'index';
 import Money from './Money';
 
 type Props = {

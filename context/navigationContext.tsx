@@ -7,7 +7,7 @@ import {
   AppProps,
   ApparelNavigation,
   NavigationContextType,
-} from "types";
+} from "index";
 import { makeCategoryTree, splitCategoryNamesWithId } from "../util";
 
 export const NavigationContext = createContext<NavigationContextType | null>(

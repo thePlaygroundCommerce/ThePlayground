@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa";
-import { AppProps } from "types";
+import { AppProps } from "index";
 import Button from "./Button";
 
 type Props = AppProps & {

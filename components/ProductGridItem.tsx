@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Money from "./Money";
 import Unavailable from "public/unavailable-image.jpeg";
-import { AppProps } from "types";
+import { AppProps } from "index";
 import { CatalogItem, CatalogObject } from "square";
 import clsx from "clsx";
 

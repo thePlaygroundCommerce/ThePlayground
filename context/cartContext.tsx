@@ -18,7 +18,7 @@ import {
   OrderLineItem,
   CatalogObject,
 } from "square";
-import { CartContextType } from "types";
+import { CartContextType } from "index";
 import { useDebouncedCallback } from "use-debounce";
 import { doesContextExist } from "util/";
 import { Simplify } from "prismicio-types";

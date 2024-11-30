@@ -54,8 +54,6 @@ export const getCategorizedObjects = async (resource: string) => {
 export default async function Page({ params: { resource = "" } }) {
   let { items, images } = await getCategorizedObjects(resource)
 
-  items = [items[0]]
-
   return (
     <ProductGrid
       catalogItems={items}

@@ -11,7 +11,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { AppProps } from "types";
+import { AppProps } from "index";
 import {
   CatalogItem,
   CatalogItemOptionForItem,

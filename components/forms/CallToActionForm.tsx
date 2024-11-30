@@ -2,7 +2,7 @@
 import { useFormState } from "react-dom";
 import { callToActionCreateForm } from "api/customerApi";
 import Link from "next/link";
-import { AppProps } from "types";
+import { AppProps } from "index";
 import Button from "components/Button";
 
 type CallToActionProps = AppProps & {

@@ -3,7 +3,7 @@ import HeaderActions from "./HeaderActions";
 import Link from "next/link";
 import { Nav } from "app/layout";
 import HeaderNavigation from "./HeaderNavigation";
-import { AppProps } from "types";
+import { AppProps } from "index";
 import LogoComponent from "./LogoComponent";
 import { latoLight } from "app/fonts";
 import clsx from "clsx";

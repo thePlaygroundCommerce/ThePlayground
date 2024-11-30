@@ -1,6 +1,6 @@
 import Link from "next/link";
 import ProductItem from "./ProductGridItem";
-import { AppProps } from "types";
+import { AppProps } from "index";
 import { CatalogObject } from "square";
 import ShopNavigation from "./ShopNavigation";
 import Button from "./Button";

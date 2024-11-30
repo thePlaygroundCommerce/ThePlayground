@@ -19,7 +19,7 @@ export default async function ProductsPageLayout({ children }: any) {
         <div className="col-span-2 md:col-span-1">
           <ShopNavigation _navs={headerNavs} />
         </div>
-        <div className="col-span-2 md:col-span-5 mt-12 md:mt-0 w-full max-w-full flex justify-center md:justify-start md:h-screen">
+        <div className="col-span-2 md:col-span-5 mt-12 md:mt-0 w-full max-w-full flex justify-center md:justify-start md:min-h-screen">
           <Divider vertical className="hidden md:inline h-full ml-0" />
           {children}
         </div>

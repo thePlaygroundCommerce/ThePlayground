@@ -5,7 +5,7 @@ import { Nav } from "app/layout";
 import { IoClose } from "react-icons/io5";
 import { List } from "rsuite";
 import SocialMediaButtons from "./SocialMediaButtons";
-import { AppProps } from "types";
+import { AppProps } from "index";
 import { KeyTextField } from "@prismicio/client";
 import Button from "./Button";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { AppProps } from "types";
+import { AppProps } from "index";
 
 type Props = {
   number: number | bigint;

@@ -1,5 +1,5 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { getCatalogInfo, getCatalogItemsAndImages, getCatalogObjects } from "api/catalogApi";
+import { getCatalogItemsAndImages, getCatalogObjects } from "api/catalogApi";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import Providers from "components/Providers";
@@ -11,8 +11,8 @@ import "styles/globals.scss";
 
 import { PrismicPreview } from "@prismicio/next";
 import prismic, { createClient, repositoryName } from "prismicio";
-import { AppProps } from "types";
-import { Client, Content } from "@prismicio/client";
+import { AppProps } from "index";
+import { Content } from "@prismicio/client";
 import { CustomProvider } from "rsuite";
 import { cookies } from "next/headers";
 import { callGetCart } from "api/cartApi";
@@ -20,8 +20,7 @@ import clsx from "clsx";
 import { latoRegular } from "./fonts";
 import { ClerkProvider } from "@clerk/nextjs";
 import Script from "next/script";
-import { CatalogImage, Order } from "square";
-import { FooterNavigationDocumentData, FooterNavigationDocumentDataNavsItem, Simplify } from "prismicio-types";
+import { FooterNavigationDocumentDataNavsItem } from "prismicio-types";
 
 export const metadata = {
   title: "The Playground | Home",

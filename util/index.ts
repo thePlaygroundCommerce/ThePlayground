@@ -1,5 +1,5 @@
 import { CatalogObject } from "square";
-import { SplitCategoryNameWithId, CategoryTree } from "types";
+import { SplitCategoryNameWithId, CategoryTree } from "index";
 
 export const doesContextExist = <T,>(context: T | null) => {
   if (!context) {

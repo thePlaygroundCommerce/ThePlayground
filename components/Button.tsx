@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { DetailedHTMLProps, ButtonHTMLAttributes } from "react";
 import { useFormStatus } from "react-dom";
 import { Loader } from "rsuite";
-import { AppProps } from "types";
+import { AppProps } from "index";
 
 type Props = {
   variant?: keyof typeof variants

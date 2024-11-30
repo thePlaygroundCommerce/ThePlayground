@@ -3,7 +3,7 @@ import Link from "next/link";
 import React, { useContext } from "react";
 import { NavigationContext, useNavigation } from "../context/navigationContext";
 import { IoIosArrowBack } from "react-icons/io";
-import { AppProps } from "types";
+import { AppProps } from "index";
 
 type Props = AppProps & {
   categoryId: string;

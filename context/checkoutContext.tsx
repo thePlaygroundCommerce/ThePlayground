@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { createContext, useContext } from "react";
-import { AppProps, CheckoutContextType } from "types";
+import { AppProps, CheckoutContextType } from "index";
 import { doesContextExist } from "util/";
 import { useCart } from "./cartContext";
 import { apiRouteHandlerAdapter } from "apiRouteHandler";

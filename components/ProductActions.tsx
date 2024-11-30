@@ -3,7 +3,7 @@ import React from 'react'
 import { SelectPicker } from 'rsuite'
 import Counter from './Counter'
 import Money from './Money'
-import { AppProps } from 'types'
+import { AppProps } from 'index'
 import Button from "./Button";
 
 type Props = AppProps & {

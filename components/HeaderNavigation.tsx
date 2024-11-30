@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Nav } from "app/layout";
-import { AppProps } from "types";
+import { AppProps } from "index";
 import { CatalogObject } from "square";
 
 type Props = AppProps & { navs: Nav[] };

@@ -1,4 +1,4 @@
-import { AppProps } from "types";
+import { AppProps } from "index";
 import SocialMediaButtons from "./SocialMediaButtons";
 import Link from "next/link";
 import Image from "next/image";

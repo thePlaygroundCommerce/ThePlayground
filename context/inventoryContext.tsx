@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState } from "react";
 import { CatalogItem, CatalogItemOption, CatalogItemOptionForItem, CatalogObject } from "square";
-import { AppProps } from "types";
+import { AppProps } from "index";
 
 export const InventoryContext = createContext<{
   itemOptions: CatalogObject[]

@@ -15,7 +15,7 @@ import {
 } from "prismicio-types";
 import { ReactNode, createElement } from "react";
 import prismic, { createClient } from "../../../prismicio";
-import { AppProps } from "types";
+import { AppProps } from "index";
 import clsx from "clsx";
 import Heading from "components/typography/Heading";
 

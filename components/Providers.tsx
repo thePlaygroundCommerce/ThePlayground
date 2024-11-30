@@ -5,7 +5,7 @@ import { CookiesProvider } from "react-cookie";
 import NavigationProvider from "context/navigationContext";
 import CheckoutProvider from "context/checkoutContext";
 import InventoryProvider from "../context/inventoryContext";
-import { AppProps } from "types";
+import { AppProps } from "index";
 import UIKitProvider from "context/UIKitContext";
 import { CatalogObject, Order } from "square";
 import { Modal, Placeholder, Button } from "rsuite";

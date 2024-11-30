@@ -5,7 +5,7 @@ import "keen-slider/keen-slider.min.css";
 import { KeenSliderInstance, useKeenSlider } from "keen-slider/react";
 import { Simplify } from "prismicio-types";
 import React, { ReactNode, useEffect, useState } from "react";
-import { AppProps } from "types";
+import { AppProps } from "index";
 
 type Props = {
   active?: number;

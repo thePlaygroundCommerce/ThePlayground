@@ -3,7 +3,7 @@
 import React, { Fragment, useMemo } from "react";
 import OrderList from "./OrderList";
 import Button from "./Button";
-import { AppProps } from "types";
+import { AppProps } from "index";
 import { useCheckout } from "context/checkoutContext";
 import { useCart } from "context/cartContext";
 import Money from "./Money";

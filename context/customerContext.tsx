@@ -1,6 +1,6 @@
 "use client"
 import React, { createContext, useContext } from 'react'
-import { AppProps } from 'types';
+import { AppProps } from 'index';
 import { doesContextExist } from 'util/';
 
 type Props = {} & AppProps

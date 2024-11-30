@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom';
-import { AppProps } from 'types';
+import { AppProps } from 'index';
 
 type Props = {
     rootId: string;

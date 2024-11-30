@@ -2,7 +2,7 @@
 
 import clsx from 'clsx'
 import React, { useEffect, useState } from 'react'
-import { AppProps } from 'types'
+import { AppProps } from 'index'
 
 type Props = {} & AppProps
 

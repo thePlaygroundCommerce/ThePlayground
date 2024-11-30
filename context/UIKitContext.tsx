@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import React, { createContext, useState, useMemo, useContext, useRef, useEffect } from "react";
-import { UIKitContextType } from "types";
+import { UIKitContextType } from "index";
 
 export const UIKitContext = createContext<UIKitContextType | null>(null);
 

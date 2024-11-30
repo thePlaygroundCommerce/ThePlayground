@@ -1,6 +1,6 @@
 import React from "react";
 import { Heading } from "rsuite";
-import { AppProps } from "types";
+import { AppProps } from "index";
 import Image from "./Image";
 import { PrismicNextImage } from "@prismicio/next";
 import Carousel from "./Carousel";

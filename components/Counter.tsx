@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa";
-import { AppProps } from "types";
+import { AppProps } from "index";
 import Button from "./Button";
 import clsx from "clsx";
 

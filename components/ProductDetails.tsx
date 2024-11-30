@@ -1,34 +1,38 @@
 "use client";
-import Counter from "./Counter";
 import { Tab } from "@headlessui/react";
-import Button from "./Button";
-import { Placeholder, SelectPicker } from "rsuite";
-import { AppProps } from "types";
+import { AppProps } from "index";
 import _ from "lodash";
 import Money from "./Money";
-import { CatalogItem, CatalogObject } from "square";
-// @ts-ignore
-import StarRatings from "react-star-ratings";
-import { useInventory } from "context/inventoryContext";
-import Selector from "./ColorSelector";
+import ReactHtmlParser from "react-html-parser";
 import Heading from "./typography/Heading";
-import Text from "./typography/Text";
+import styles from "../styles/product_details.module.scss";
 import clsx from "clsx";
-import withProductModifiers, { WithProductModifiersProps } from "hocs/withProductModifiers";
+import withProductModifiers, {
+  WithProductModifiersProps,
+} from "hocs/withProductModifiers";
 
-type Props = AppProps & WithProductModifiersProps & {
-
-};
+type Props = AppProps & WithProductModifiersProps & {};
 
 const ProductDetails = ({
   itemData,
   amount,
   selectors,
-  CartModifiers
+  CartModifiers,
 }: Props) => {
+  const productDesc = itemData.descriptionHtml ? (
+    ReactHtmlParser(itemData.descriptionHtml)
+  ) : (
+    <p>{itemData.description || "No Details Available!"}</p>
+  );
+
   return (
     <Tab.Group defaultIndex={0}>
-      <div className="relative flex flex-col h-full">
+      <div
+        className={clsx(
+          styles.product_details,
+          "relative flex flex-col h-full"
+        )}
+      >
         <div className="container md:m-auto flex flex-col justify-start gap-4">
           <div className="w-full py-3">
             <Heading className="mb-1 fw-bold">{itemData?.name}</Heading>
@@ -69,8 +73,10 @@ const ProductDetails = ({
           </Tab.List>
         </div>
         <div className="border-t h-full pt-4">
-          <Tab.Panel className={clsx("px-3", !itemData.description && "text-center")}>
-            <p>{itemData.description || "No Details Available!"}</p>
+          <Tab.Panel
+            className={clsx("px-3", !itemData.description && "text-center")}
+          >
+            {productDesc}
           </Tab.Panel>
           <Tab.Panel className="px-3 text-center">
             <p>No Reviews Available. Be the first!</p>

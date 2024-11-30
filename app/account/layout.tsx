@@ -1,4 +1,4 @@
-import { AppProps } from "types"
+import { AppProps } from "index"
 
 type Props = { children: any }
 

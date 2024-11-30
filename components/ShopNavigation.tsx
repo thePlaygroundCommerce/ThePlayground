@@ -3,7 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 import Dropdown from 'rsuite/Dropdown'
 import DropdownItem from 'rsuite/DropdownItem'
-import { AppProps } from 'types'
+import { AppProps } from 'index'
 import Carousel from './Carousel'
 
 type Props = {
