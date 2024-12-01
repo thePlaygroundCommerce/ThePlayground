@@ -2,8 +2,6 @@ import Link from "next/link";
 import ProductItem from "./ProductGridItem";
 import { AppProps } from "index";
 import { CatalogObject } from "square";
-import ShopNavigation from "./ShopNavigation";
-import Button from "./Button";
 
 type Props = {
   catalogItems: CatalogObject[];
@@ -12,7 +10,7 @@ type Props = {
 
 const ProductGrid = ({ catalogItems, catalogImages }: Props) => {
   return (
-    <div className="flex flex-wrap max-w-full gap-y-16">
+    <div className="grid grid-cols-1 grid-rows-1 md:grid-cols-3 md:grid-rows-3 gap-y-12 w-full max-w-full">
       {!catalogItems ? (
         <EmptyProductGrid />
       ) : (
@@ -22,7 +20,7 @@ const ProductGrid = ({ catalogItems, catalogImages }: Props) => {
             itemImages?.includes(id)
           );
           return (
-            <div key={id} className="basis-full md:basis-1/3">
+            <div key={id} className="md:col-span-1 row-auto">
               <Link href={`/shop/product/${encodeURIComponent(id)}`}>
                 <ProductItem itemData={itemData} images={images} />
               </Link>
