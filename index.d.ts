@@ -7,6 +7,12 @@ import {
   OrderLineItem,
 } from "square";
 
+declare global {
+  interface Window {
+      fbq: (...a) => void
+  }
+}
+
 export declare interface AppProps<T = HTMLElement> {
   className?: string;
   key?: React.Key;

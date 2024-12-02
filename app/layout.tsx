@@ -114,7 +114,7 @@ export default async function RootLayout({ children }: Readonly<Props>) {
   const { headerNavs, footerNavs } = await getMainNavigation();
   const mappedCatalogObjects = mapArrayToMap([...apparelObjects, ...relatedObjects]);
 
-  // TODO: duplicated item objs from mapArrayToMap 
+  // TODO: duplicated item objs from mapArrayToMap / maybe use Set
   return (
     <ClerkProvider>
       <html

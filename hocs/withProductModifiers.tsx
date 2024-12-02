@@ -25,6 +25,7 @@ import _ from "lodash";
 import Selector from "../components/ColorSelector";
 import Counter from "components/Counter";
 import Button from "components/Button";
+import { useTracking } from "context/TagManager";
 
 type Props = AppProps & {
   catalogItemObject: CatalogObject;
@@ -54,6 +55,7 @@ const withProductModifiers =
         cart: { lineItems = [] },
         modifyCart,
       } = useCartModifier();
+      const { track } = useTracking()
 
       useEffect(() => {
         toggleLoading();
@@ -82,7 +84,18 @@ const withProductModifiers =
       const [quantity, setQuantity] = useState(
         +(isProductInCart()?.quantity ?? 1)
       );
-      const [selectedVariation, setSelectedVariation] = useState(0);
+      const [selectedVariationIndex, setSelectedVariationIndex] = useState(0);
+      const { id: itemVariationId, itemVariationData: { itemId, name } = {} } = variations[selectedVariationIndex];
+      const lineItem = lineItems?.find(({ catalogObjectId }) => catalogObjectId === itemVariationId)
+      const trackingData = {
+        content_ids: [itemVariationId, itemId ?? ""],
+        content_name: name,
+        content_type: 'product',
+        content_category: null,
+        currency: lineItem?.totalMoney?.currency,
+        value: lineItem?.totalMoney?.amount,
+        num_items: lineItems?.length
+      }
 
       const toggleLoading = (btnType?: "cart" | "checkout") => {
         setLoadingState({
@@ -103,13 +116,13 @@ const withProductModifiers =
 
       const handleAddToCart = () => {
         toggleLoading('cart')
-        const itemVariationId = variations[selectedVariation].id;
+        track("AddToCart", trackingData)
         const lineItem: OrderLineItem = {
           quantity: quantity.toString(),
         };
 
         if (isProductInCart(itemVariationId) && lineItems !== null) {
-          lineItem.uid = lineItems[selectedVariation].uid;
+          lineItem.uid = lineItems[selectedVariationIndex].uid;
         } else {
           lineItem.catalogObjectId = itemVariationId;
         }
@@ -117,22 +130,14 @@ const withProductModifiers =
         if (isCartModified === false) toggleLoading()
       };
 
-      const handleBuyNow = async (order: any) => {
+      const handleBuyNow = async () => {
+        track("InitiateCheckout", trackingData)
         toggleLoading('checkout')
-        const itemVariationID = variations[selectedVariation].id;
+        const itemVariationID = variations[selectedVariationIndex].id;
         checkoutItem(itemVariationID, quantity.toString());
       };
-
-      const handleSelectChange = (value: SetStateAction<number> | null) =>
-        setSelectedVariation(value ?? 0);
-
       const amount =
         itemData?.variations![0].itemVariationData?.priceMoney?.amount;
-
-      const data: any[] = variations.map(({ itemVariationData }, i) => ({
-        label: itemVariationData?.name?.slice(0, 1).toUpperCase(),
-        value: i,
-      }));
 
       const productOptions: {
         [k: string]: [string | null | undefined, (CatalogObject | undefined)[]];
@@ -166,7 +171,7 @@ const withProductModifiers =
       );
 
       const selectedOptions =
-        variations[selectedVariation].itemVariationData?.itemOptionValues;
+        variations[selectedVariationIndex].itemVariationData?.itemOptionValues;
 
       const handleOptionChange = ({
         optionId,
@@ -194,7 +199,7 @@ const withProductModifiers =
             );
           })?.id;
 
-        setSelectedVariation(
+        setSelectedVariationIndex(
           variations.findIndex(({ id }) => newVariantId === id)
         );
       };
@@ -233,45 +238,6 @@ const withProductModifiers =
             ),
           };
         },
-        {}
-      );
-
-      const options = itemOptions.reduce(
-        (acc, { id, itemOptionData: { name, values } = {} }) =>
-          name
-            ? {
-              ...acc,
-              [name]: {
-                placeholder: values
-                  ?.map(({ itemOptionValueData: { name } = {} }) =>
-                    name!.toLowerCase()
-                  )
-                  .filter((name) => {
-                    return _.words(
-                      itemData.variations![
-                        selectedVariation
-                      ].itemVariationData!.name!.toLowerCase()
-                    ).includes(name?.toLowerCase() ?? "");
-                  })[0],
-                selectedOptions:
-                  selectedOptions
-                    ?.filter((opt) => opt.itemOptionId === id)
-                    .reduce((acc, cur) => {
-                      const itemOptionData = itemOptions.find(
-                        ({ id }) => id === cur.itemOptionId
-                      )?.itemOptionData;
-                      return {
-                        ...acc,
-                        [itemOptionData?.name ?? ""]:
-                          itemOptionData?.values?.find(
-                            ({ id }) => id === cur.itemOptionValueId
-                          )?.itemOptionValueData?.name,
-                      };
-                    }, {} as Lookup<string>) ?? {},
-                productOptionValues: productOptions[id],
-              },
-            }
-            : acc,
         {}
       );
 

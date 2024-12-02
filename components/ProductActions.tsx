@@ -17,7 +17,7 @@ type Props = AppProps & {
     handleBuyNow: any;
     handleAddToCart: any;
     isProductInCart: any;
-  };
+};
 
 const ProductActions = (props: Props) => {
     return (

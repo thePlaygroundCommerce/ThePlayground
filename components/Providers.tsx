@@ -11,36 +11,38 @@ import { CatalogObject, Order } from "square";
 import { Modal, Placeholder, Button } from "rsuite";
 import Portal from "./Portal";
 import { Simplify } from "prismicio-types";
+import TagManagerProvider from "context/TagManager";
 
 type Props = AppProps & {
   cartImageMap: any
   data: any,
-  cartData?: {_cart: Order, _options: Simplify<CatalogObject[]>}
+  cartData?: { _cart: Order, _options: Simplify<CatalogObject[]> }
 };
 
 const Providers = ({ cartImageMap, data, cartData, children }: Props) => {
-  const [show, setShow] =  useState(false);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     // setShow(true)
   }, [])
 
   return (
-    <UIKitProvider>
-      <NavigationProvider apparelCategories={data.categories}>
-        <CookiesProvider>
-          <InventoryProvider
-            _itemOptions={data.item_options}
-            apparelData={{ apparelItems: data.items, apparelImages: data.images }}
-          // handleCategoryChange={handleCategoryChange}
-          >
-            <CartProvider data={cartData} images={cartImageMap}>
-              <CheckoutProvider>{children}</CheckoutProvider>
-            </CartProvider>
-          </InventoryProvider>
-        </CookiesProvider>
-      </NavigationProvider>
-      {/* <Portal rootId="modalContainer"> */}
+    <TagManagerProvider>
+      <UIKitProvider>
+        <NavigationProvider apparelCategories={data.categories}>
+          <CookiesProvider>
+            <InventoryProvider
+              _itemOptions={data.item_options}
+              apparelData={{ apparelItems: data.items, apparelImages: data.images }}
+            // handleCategoryChange={handleCategoryChange}
+            >
+              <CartProvider data={cartData} images={cartImageMap}>
+                <CheckoutProvider>{children}</CheckoutProvider>
+              </CartProvider>
+            </InventoryProvider>
+          </CookiesProvider>
+        </NavigationProvider>
+        {/* <Portal rootId="modalContainer"> */}
         <Modal id="aasdaassd" open={show} autoFocus className="a" onClose={() => { }}>
           <Modal.Header>
             <Modal.Title>Discounts Promotion</Modal.Title>
@@ -57,8 +59,9 @@ const Providers = ({ cartImageMap, data, cartData, children }: Props) => {
             </Button>
           </Modal.Footer>
         </Modal>
-      {/* </Portal> */}
-    </UIKitProvider>
+        {/* </Portal> */}
+      </UIKitProvider>
+    </TagManagerProvider>
   );
 };
 
