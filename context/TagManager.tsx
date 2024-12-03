@@ -4,6 +4,8 @@ import React, {
     createContext,
     useMemo,
     useContext,
+    useEffect,
+    useState,
 } from "react";
 
 type OrUndefined<T> = T | undefined;
@@ -25,8 +27,12 @@ const TagManagerProvider = ({
 }: {
     children: any;
 }) => {
-    if (typeof window === undefined) return children;
-    const initialized = window.fbq !== undefined && window.fbq !== null
+    if (typeof window === 'undefined' || !window) return children;
+
+    const [initialized, setInit] = useState(false);
+    useEffect(() => {
+        setInit(true);
+    }, [])
     const fbq = window.fbq
     const verifyInit = () => {
         if (!initialized) {
@@ -42,7 +48,6 @@ const TagManagerProvider = ({
 
         fbq('track', title, data)
     }
-
 
     return (
         <TagManager.Provider

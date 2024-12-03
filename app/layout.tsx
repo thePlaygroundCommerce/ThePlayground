@@ -21,6 +21,8 @@ import { latoRegular } from "./fonts";
 import { ClerkProvider } from "@clerk/nextjs";
 import Script from "next/script";
 import { FooterNavigationDocumentDataNavsItem } from "prismicio-types";
+import FacebookPixel from "components/FacebookPixel";
+import TagManagerProvider from "context/TagManager";
 
 export const metadata = {
   title: "The Playground | Home",
@@ -116,46 +118,35 @@ export default async function RootLayout({ children }: Readonly<Props>) {
 
   // TODO: duplicated item objs from mapArrayToMap / maybe use Set
   return (
-    <ClerkProvider>
-      <html
-        lang="en"
-        className={clsx("h-auto md:h-screen", latoRegular.className)}
-      >
-        <body className="h-full">
-          <CustomProvider>
-            <Providers data={mappedCatalogObjects} cartData={{_cart: cart, _options: options }} cartImageMap={imageMap}>
-              <Layout navs={{ headerNavs, footerNavs }}>
-                {children}
-              </Layout>
-            </Providers>
-          </CustomProvider>
-          <PrismicPreview repositoryName={repositoryName} />
-          <Analytics />
-          <noscript>
-            <img
-              height="1"
-              width="1"
-              style={{ display: "none" }}
-              src="https://www.facebook.com/tr?id=1052870693055851&ev=PageView&noscript=1"
-            />
-          </noscript>
-        </body>
-        <Script>
-          {`
-          !function(f,b,e,v,n,t,s)
-          {if(f.fbq)return;n=f.fbq=function(){n.callMethod ?
-            n.callMethod.apply(n, arguments) : n.queue.push(arguments)};
-          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-          n.queue=[];t=b.createElement(e);t.async=!0;
-          t.src=v;s=b.getElementsByTagName(e)[0];
-          s.parentNode.insertBefore(t,s)}(window, document,'script',
-          'https://connect.facebook.net/en_US/fbevents.js');
-          fbq('init', '1052870693055851');
-          fbq('track', 'PageView');
-          `}
-        </Script>
-      </html>
-    </ClerkProvider>
+    <TagManagerProvider>
+      <ClerkProvider>
+        <html
+          lang="en"
+          className={clsx("h-auto md:h-screen", latoRegular.className)}
+        >
+          <body className="h-full">
+            <CustomProvider>
+              <Providers data={mappedCatalogObjects} cartData={{ _cart: cart, _options: options }} cartImageMap={imageMap}>
+                <Layout navs={{ headerNavs, footerNavs }}>
+                  {children}
+                </Layout>
+              </Providers>
+            </CustomProvider>
+            <PrismicPreview repositoryName={repositoryName} />
+            <Analytics />
+            <noscript>
+              <img
+                height="1"
+                width="1"
+                style={{ display: "none" }}
+                src="https://www.facebook.com/tr?id=1052870693055851&ev=PageView&noscript=1"
+              />
+            </noscript>
+          </body>
+          <FacebookPixel />
+        </html>
+      </ClerkProvider>
+    </TagManagerProvider>
   );
 }
 
