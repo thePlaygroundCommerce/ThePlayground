@@ -27,13 +27,10 @@ const TagManagerProvider = ({
 }: {
     children: any;
 }) => {
-    if (typeof window === 'undefined' || !window) return children;
-
     const [initialized, setInit] = useState(false);
     useEffect(() => {
         setInit(true);
     }, [])
-    const fbq = window.fbq
     const verifyInit = () => {
         if (!initialized) {
             console.warn(
@@ -45,8 +42,8 @@ const TagManagerProvider = ({
 
     const track = (title: string, data: {}) => {
         if (!verifyInit()) return;
-
-        fbq('track', title, data)
+        console.log('tracked')
+        window.fbq('track', title, data)
     }
 
     return (
@@ -56,7 +53,7 @@ const TagManagerProvider = ({
                 () => ({
                     track
                 }),
-                []
+                [initialized]
             )}
         >
             {children}
