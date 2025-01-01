@@ -101,8 +101,9 @@ export const getMainNavigation: () => Promise<{
 };
 
 type Props = AppProps & {};
+export type LayoutPageProps = { children: React.ReactNode };
 
-export default async function RootLayout({ children }: Readonly<Props>) {
+export default async function RootLayout({ children }: LayoutPageProps) {
   const cookieCartId = (await cookies()).get("cartId")?.value ?? "";
 
   const { order: cart = {

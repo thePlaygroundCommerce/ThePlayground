@@ -1,4 +1,4 @@
-import { getMainNavigation } from "app/layout";
+import { getMainNavigation, LayoutPageProps } from "app/layout";
 import Button from "components/Button";
 import ShopNavigation from "components/ShopNavigation";
 import { AppProps } from "index";
@@ -11,7 +11,7 @@ export const metadata = {
   title: "The Playground | Shop",
 };
 
-export default async function ProductsPageLayout({ children }: AppProps) {
+export default async function ProductsPageLayout({ children }: LayoutPageProps) {
   const { headerNavs } = await getMainNavigation()
 
   return (
