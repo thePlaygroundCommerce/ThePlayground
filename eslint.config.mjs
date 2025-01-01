@@ -13,7 +13,7 @@ export default [
   ...tseslint.configs.recommended,
   ...fixupConfigRules({...pluginReactConfig, settings: { react: { version: 'detect' } }}),
   ...new FlatCompat({}).config({
-    // extends: ["plugin:@next/next/recommended"],
+    extends: ["plugin:@next/next/recommended"],
     rules: {
       // suppress errors for missing 'import React' in files
       "react/no-unescaped-entities": "off",
