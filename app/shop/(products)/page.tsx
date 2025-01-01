@@ -16,44 +16,6 @@ export async function generateStaticParams() {
   }))
 }
 
-export const getCategorizedObjects = async (resource: string) => {
-  let products = [],
-    relatedObjects: CatalogObject[] = [];
-  const mappedCatalogItems = {
-    items: [],
-    images: [],
-  };
-  const { objects: categories } = await getCatalogObjects("CATEGORY");
-  const foundCategory = categories.find(
-    ({ categoryData: { name } }: { categoryData: { name: string } }) =>
-      name.split(" ").pop()?.toLowerCase() == resource.toLowerCase()
-  );
-
-  if (foundCategory) {
-    const backendReq = {
-      objectTypes: ["ITEM", "IMAGE"],
-      query: {
-        exactQuery: {
-          attributeName: "category_id",
-          attributeValue: foundCategory.id,
-        },
-      },
-      includeRelatedObjects: true,
-    };
-
-    const { objects = [], relatedObjects: relObjs = [] } =
-      (await searchObjects(false, backendReq)).result;
-
-    products = objects;
-    relatedObjects = relObjs;
-  } else {
-    const { objects } = await getCatalogObjects("ITEM,IMAGE");
-    products = objects;
-  }
-  return mapArrayToMap([...products, ...relatedObjects, ...categories]);
-
-}
-
 const searchCatalogItems = async (category: string) => {
   const formattedCategory = formatNavigationLinks(category)
   const id = (await getCatalogInfo()).categoryNameMap[formattedCategory]
