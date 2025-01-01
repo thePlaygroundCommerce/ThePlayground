@@ -59,6 +59,8 @@ const searchCatalogItems = async (category: string) => {
   const id = (await getCatalogInfo()).categoryNameMap[formattedCategory]
   const searchPayload: SearchCatalogItemsRequest = {};
 
+  console.log(category);
+
   if (!category) searchPayload.categoryIds = [];
   else if (!id) redirect('/shop')
   else searchPayload.categoryIds = [id];
