@@ -55,7 +55,7 @@ export type PageProps<
   A = { [slug: string]: any },
   B = { [slug: string]: any },
 > = {
-  params: Prmoise<A>;
+  params: Promise<A>;
   searchParams: Promise<B>;
 };
 
