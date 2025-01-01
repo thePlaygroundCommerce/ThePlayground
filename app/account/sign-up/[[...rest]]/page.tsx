@@ -1,8 +1,8 @@
 import { SignUp } from "@clerk/nextjs"
 
-type Props = {}
+type Props = unknown
 
-const Page = (props: Props) => {
+const Page = () => {
   return (
     <SignUp />
   )

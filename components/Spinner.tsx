@@ -1,8 +1,8 @@
 import React from "react";
 
-type Props = {};
+type Props = unknown;
 
-const Spinner = ({}: Props) => {
+const Spinner = () => {
   return (
     <div className="spinner-container">
       <div className="spinner"></div>

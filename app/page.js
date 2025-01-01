@@ -14,7 +14,7 @@ const Page = async () => {
           slices {
             ... on hero {
               variation {
-                ... on withCta {
+                ... on default {
                   primary {
                     ...primaryFields
                     cta {

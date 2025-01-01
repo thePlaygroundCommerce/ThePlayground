@@ -11,7 +11,7 @@ import Button from "./Button";
 
 type Props<Data> = {
   onChange: (a: any) => void;
-  type: keyof SelectorComponentMap;
+  type?: keyof SelectorComponentMap;
   selectedIndex?: number;
   data: Data[];
 };
@@ -22,11 +22,11 @@ const Selector = <T,>({
   onChange,
   ...rest
 }: Props<CatalogObject | undefined>) => {
-  const Component = selectorCompMap[type];
+  const Component = selectorCompMap[type ?? 'RADIO'];
   if (!Component) throw Error("Selector type doesn't map to a Component");
 
   const selectorData = data.map(({ id, itemOptionValueData } = { id: "", type: "" }) => ({
-    label: itemOptionValueData?.name,
+    label: itemOptionValueData?.name ?? "",
     value: {
       optionId: itemOptionValueData?.itemOptionId,
       optionValueId: id,
@@ -37,7 +37,6 @@ const Selector = <T,>({
     onChange(value);
   };
 
-  //@ts-ignore
   return <Component onChange={handleOnSelect} data={selectorData} {...rest} />;
 };
 
@@ -45,7 +44,7 @@ export default Selector;
 
 type SelectorProps = {
   label: string;
-  value: {};
+  value: unknown;
 }
 
 const RadioSelector = ({
@@ -86,7 +85,7 @@ const DropdownSelector = ({
   selectedIndex = 0,
   data = [],
   onChange,
-}: Props<ItemDataType>) => {
+}: Props<SelectorProps>) => {
   return (
     <SelectPicker
       data={data}
@@ -117,7 +116,7 @@ const CardSelector = ({
 type SelectorComponentMap = {
   RADIO: ({ selectedIndex, data, onChange, }: Props<{
     label: string;
-    value: {};
+    value: unknown;
   }>) => React.JSX.Element;
   DROPDOWN: ({ selectedIndex, data, onChange, }: Props<ItemDataType>) => React.JSX.Element;
   CARD: ({ selectedIndex, data, onChange, }: Props<ItemDataType>) => React.JSX.Element;

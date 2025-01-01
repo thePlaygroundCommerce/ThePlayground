@@ -1,6 +1,5 @@
 import { Content } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
-import Window from "components/Window";
 
 /**
  * Props for `WindowPanels`.
@@ -20,17 +19,7 @@ const WindowPanels = ({ slice }: WindowPanelsProps): JSX.Element => {
       {slice.items.map(
         (
           { window_bg },
-          i
         ) => {
-
-          const imageProps = {
-            className: "w-full h-full object-cover",
-            alt: window_bg.alt || "",
-            id: window_bg.id || "",
-            src: window_bg.url || "",
-            width: window_bg.dimensions?.width,
-            height: window_bg.dimensions?.height,
-          };
 
           return (
             <div
@@ -50,13 +39,5 @@ const WindowPanels = ({ slice }: WindowPanelsProps): JSX.Element => {
     </section>
   );
 };
-
-const Review = () => (
-  <div></div>
-)
-
-const Product = () => (
-  <div></div>
-)
 
 export default WindowPanels;

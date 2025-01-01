@@ -1,0 +1,24 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"title": {
+				"__TYPE__": "FieldContent",
+				"type": "Text",
+				"value": "Not finding exactly what your looking for?"
+			},
+			"description": {
+				"__TYPE__": "FieldContent",
+				"type": "Text",
+				"value": "Sign up to our newsletter to be notified of our new products, services, and flash discounts that will arrive in the future."
+			},
+			"cta_button_text": {
+				"__TYPE__": "FieldContent",
+				"type": "Text",
+				"value": "Sign Up"
+			}
+		},
+		"items": []
+	}
+]

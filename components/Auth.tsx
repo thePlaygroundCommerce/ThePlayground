@@ -2,7 +2,7 @@ import React from 'react'
 import { SignInButton, SignUpButton } from '@clerk/nextjs'
 import { Clerk } from '@clerk/clerk-js'
 
-type Props = {}
+type Props = unknown
 
 const SignIn = (props: Props) => {
     

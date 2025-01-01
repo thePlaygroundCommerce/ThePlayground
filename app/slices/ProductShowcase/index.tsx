@@ -26,17 +26,17 @@ type PrismicImageProps =
   | null
   | undefined;
 
-const Compact = ({ children, makeFirst }: { children: ReactNode, makeFirst: boolean }) => (
+const Compact = ({ children, makeFirst }: AppProps & { makeFirst: boolean}) => (
   <div className="w-full h-screen flex justify-center md:justify-end items-center">
     <div className="h-3/4 w-3/4 overflow-hidden rounded-lg border-2">
       {children}
     </div>
   </div>
 );
-const Window = ({ children, makeFirst }: { children: ReactNode, makeFirst: boolean }) => (
+const Window = ({ children, makeFirst }: AppProps & { makeFirst: boolean}) => (
   <div className="h-full w-full p-48">{children}</div>
 );
-const Default = ({ children, makeFirst }: { children: ReactNode, makeFirst: boolean }) => (
+const Default = ({ children, makeFirst }: AppProps & { makeFirst: boolean}) => (
   <div className={clsx("h-screen", makeFirst && "order-first")}>{children}</div>
 );
 const List = ({ children, key }: AppProps) => (
@@ -59,7 +59,7 @@ const componentToVariationMap = {
 
 const ProductShowcase = async ({
   slice,
-  slice: { variation, primary },
+  slice: { primary },
 }: Hero2Props): Promise<JSX.Element> => {
   let cta: Content.CtaEmailDocument;
 
@@ -91,10 +91,9 @@ const ProductShowcase = async ({
 
     if (variation !== "textContentLeft") image = primary.image;
     return createElement<{
-      makeFirst: boolean;
+      makeFirst: boolean
     }>(
-      //@ts-ignore
-      componentToVariationMap[variation] || <div />,
+      componentToVariationMap[variation] || "div",
       {
         makeFirst: false
       },
@@ -103,10 +102,10 @@ const ProductShowcase = async ({
   };
 
   const prepareVisuals = async () => {
-    let descriptionAlignment = slice.primary.description_align ?? "";
+    const descriptionAlignment = slice.primary.description_align ?? "";
 
-    let left = determineVariation(slice);
-    let right = (
+    const left = determineVariation(slice);
+    const right = (
       <div className={clsx("w-full", slice.variation == "imageRight" && "md:order-first")}>
         <div
           className={`p-8 flex flex-col justify-center h-full items-center md:items-${alignToFlexMapping[descriptionAlignment]}`}
@@ -163,7 +162,7 @@ const ProductShowcase = async ({
       </div>
     );
 
-      return <>{left}{right}</>
+    return <>{left}{right}</>
   };
 
   return (
@@ -181,7 +180,7 @@ export default ProductShowcase;
 
 const getCta = async (
   client: Client<CtaEmailDocument>,
-  type: any,
+  type: CtaEmailDocument['type'],
   uid: string
 ) => {
   const cta = await client.getByUID(type, uid);

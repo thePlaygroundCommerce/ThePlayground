@@ -1,6 +1,6 @@
 import { SignOutButton, UserProfile } from "@clerk/nextjs"
 
-type Props = {}
+type Props = unknown
 
 const Page = (props: Props) => {
   return (

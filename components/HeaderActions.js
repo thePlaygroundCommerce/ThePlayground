@@ -50,9 +50,9 @@ function HeaderActions() {
     if (show.auth.active || show.cart.active) setShow(initialShowState);
   }, [path]);
 
-  const title = _.capitalize(
-    Object.values(show).find((showing) => showing.active)?.id ?? ""
-  );
+  // const title = _.capitalize(
+  //   Object.values(show).find((showing) => showing.active)?.id ?? ""
+  // );
 
   return (
     <div className="flex justify-end md:mr-4">

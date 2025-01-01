@@ -997,37 +997,37 @@ export type HeaderSlice = prismic.SharedSlice<"header", HeaderSliceVariation>;
  */
 export interface HeroSliceDefaultPrimary {
   /**
-   * Hero Title field in *Hero → Default → Primary*
+   * title field in *Hero → Default → Primary*
    *
    * - **Field Type**: Text
    * - **Placeholder**: *None*
-   * - **API ID Path**: hero.default.primary.hero_title
+   * - **API ID Path**: hero.default.primary.title
    * - **Documentation**: https://prismic.io/docs/field#key-text
    */
-  hero_title: prismic.KeyTextField;
+  title: prismic.KeyTextField;
 
   /**
-   * Hero Description field in *Hero → Default → Primary*
+   * description field in *Hero → Default → Primary*
    *
    * - **Field Type**: Text
    * - **Placeholder**: *None*
-   * - **API ID Path**: hero.default.primary.hero_description
+   * - **API ID Path**: hero.default.primary.description
    * - **Documentation**: https://prismic.io/docs/field#key-text
    */
-  hero_description: prismic.KeyTextField;
+  description: prismic.KeyTextField;
 
   /**
-   * Hero BG Image field in *Hero → Default → Primary*
+   * background image field in *Hero → Default → Primary*
    *
    * - **Field Type**: Image
    * - **Placeholder**: *None*
-   * - **API ID Path**: hero.default.primary.hero_bg_image
+   * - **API ID Path**: hero.default.primary.bg_image
    * - **Documentation**: https://prismic.io/docs/field#image
    */
-  hero_bg_image: prismic.ImageField<never>;
+  bg_image: prismic.ImageField<"mobile">;
 
   /**
-   * Content Alignment field in *Hero → Default → Primary*
+   * content alignment field in *Hero → Default → Primary*
    *
    * - **Field Type**: Text
    * - **Placeholder**: *None*
@@ -1037,38 +1037,17 @@ export interface HeroSliceDefaultPrimary {
   content_alignment: prismic.KeyTextField;
 
   /**
-   * Use Logo field in *Hero → Default → Primary*
-   *
-   * - **Field Type**: Boolean
-   * - **Placeholder**: *None*
-   * - **Default Value**: false
-   * - **API ID Path**: hero.default.primary.use_logo
-   * - **Documentation**: https://prismic.io/docs/field#boolean
-   */
-  use_logo: prismic.BooleanField;
-
-  /**
-   * Embed Image field in *Hero → Default → Primary*
-   *
-   * - **Field Type**: Embed
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero.default.primary.embed_image
-   * - **Documentation**: https://prismic.io/docs/field#embed
-   */
-  embed_image: prismic.EmbedField;
-
-  /**
-   * Description Font Size field in *Hero → Default → Primary*
+   * font size field in *Hero → Default → Primary*
    *
    * - **Field Type**: Text
    * - **Placeholder**: *None*
-   * - **API ID Path**: hero.default.primary.description_font_size
+   * - **API ID Path**: hero.default.primary.font_size
    * - **Documentation**: https://prismic.io/docs/field#key-text
    */
-  description_font_size: prismic.KeyTextField;
+  font_size: prismic.KeyTextField;
 
   /**
-   * Text Content Position field in *Hero → Default → Primary*
+   * text content position field in *Hero → Default → Primary*
    *
    * - **Field Type**: Text
    * - **Placeholder**: *None*
@@ -1078,15 +1057,15 @@ export interface HeroSliceDefaultPrimary {
   text_content_position: prismic.KeyTextField;
 
   /**
-   * Fluid Container field in *Hero → Default → Primary*
+   * fluid field in *Hero → Default → Primary*
    *
    * - **Field Type**: Boolean
    * - **Placeholder**: *None*
    * - **Default Value**: false
-   * - **API ID Path**: hero.default.primary.fluid_container
+   * - **API ID Path**: hero.default.primary.fluid
    * - **Documentation**: https://prismic.io/docs/field#boolean
    */
-  fluid_container: prismic.BooleanField;
+  fluid: prismic.BooleanField;
 
   /**
    * link field in *Hero → Default → Primary*
@@ -1097,6 +1076,26 @@ export interface HeroSliceDefaultPrimary {
    * - **Documentation**: https://prismic.io/docs/field#key-text
    */
   link: prismic.KeyTextField;
+
+  /**
+   * social media handles field in *Hero → Default → Primary*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.default.primary.social_media_handles
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  social_media_handles: prismic.ContentRelationshipField<"social_media_links">;
+
+  /**
+   * cta field in *Hero → Default → Primary*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.default.primary.cta
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  cta: prismic.ContentRelationshipField<"cta_email">;
 }
 
 /**
@@ -1113,331 +1112,31 @@ export type HeroSliceDefault = prismic.SharedSliceVariation<
 >;
 
 /**
- * Primary content in *Hero → HeroWithSocialMediaHandles → Primary*
- */
-export interface HeroSliceHeroWithSocialMediaHandlesPrimary {
-  /**
-   * Hero Title field in *Hero → HeroWithSocialMediaHandles → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero.heroWithSocialMediaHandles.primary.hero_title
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  hero_title: prismic.KeyTextField;
-
-  /**
-   * Hero Description field in *Hero → HeroWithSocialMediaHandles → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero.heroWithSocialMediaHandles.primary.hero_description
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  hero_description: prismic.KeyTextField;
-
-  /**
-   * Content Alignment field in *Hero → HeroWithSocialMediaHandles → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero.heroWithSocialMediaHandles.primary.content_alignment
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  content_alignment: prismic.KeyTextField;
-
-  /**
-   * Hero BG Image field in *Hero → HeroWithSocialMediaHandles → Primary*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero.heroWithSocialMediaHandles.primary.hero_bg_image
-   * - **Documentation**: https://prismic.io/docs/field#image
-   */
-  hero_bg_image: prismic.ImageField<never>;
-
-  /**
-   * Use Logo field in *Hero → HeroWithSocialMediaHandles → Primary*
-   *
-   * - **Field Type**: Boolean
-   * - **Placeholder**: *None*
-   * - **Default Value**: false
-   * - **API ID Path**: hero.heroWithSocialMediaHandles.primary.use_logo
-   * - **Documentation**: https://prismic.io/docs/field#boolean
-   */
-  use_logo: prismic.BooleanField;
-
-  /**
-   * Fluid Container field in *Hero → HeroWithSocialMediaHandles → Primary*
-   *
-   * - **Field Type**: Boolean
-   * - **Placeholder**: *None*
-   * - **Default Value**: false
-   * - **API ID Path**: hero.heroWithSocialMediaHandles.primary.fluid_container
-   * - **Documentation**: https://prismic.io/docs/field#boolean
-   */
-  fluid_container: prismic.BooleanField;
-}
-
-/**
- * Primary content in *Hero → Items*
- */
-export interface HeroSliceHeroWithSocialMediaHandlesItem {
-  /**
-   * Social Media Handle field in *Hero → Items*
-   *
-   * - **Field Type**: Content Relationship
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero.items[].social_media_handle
-   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
-   */
-  social_media_handle: prismic.ContentRelationshipField;
-}
-
-/**
- * HeroWithSocialMediaHandles variation for Hero Slice
- *
- * - **API ID**: `heroWithSocialMediaHandles`
- * - **Description**: Default
- * - **Documentation**: https://prismic.io/docs/slice
- */
-export type HeroSliceHeroWithSocialMediaHandles = prismic.SharedSliceVariation<
-  "heroWithSocialMediaHandles",
-  Simplify<HeroSliceHeroWithSocialMediaHandlesPrimary>,
-  Simplify<HeroSliceHeroWithSocialMediaHandlesItem>
->;
-
-/**
- * Primary content in *Hero → Handles & CTA → Primary*
- */
-export interface HeroSliceHandlesCtaPrimary {
-  /**
-   * Hero Title field in *Hero → Handles & CTA → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero.handlesCta.primary.hero_title
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  hero_title: prismic.KeyTextField;
-
-  /**
-   * Hero Description field in *Hero → Handles & CTA → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero.handlesCta.primary.hero_description
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  hero_description: prismic.KeyTextField;
-
-  /**
-   * CTA field in *Hero → Handles & CTA → Primary*
-   *
-   * - **Field Type**: Content Relationship
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero.handlesCta.primary.cta
-   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
-   */
-  cta: prismic.ContentRelationshipField;
-
-  /**
-   * Hero BG Image field in *Hero → Handles & CTA → Primary*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero.handlesCta.primary.hero_bg_image
-   * - **Documentation**: https://prismic.io/docs/field#image
-   */
-  hero_bg_image: prismic.ImageField<never>;
-
-  /**
-   * Content Alignment field in *Hero → Handles & CTA → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero.handlesCta.primary.content_alignment
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  content_alignment: prismic.KeyTextField;
-
-  /**
-   * Use Logo field in *Hero → Handles & CTA → Primary*
-   *
-   * - **Field Type**: Boolean
-   * - **Placeholder**: *None*
-   * - **Default Value**: false
-   * - **API ID Path**: hero.handlesCta.primary.use_logo
-   * - **Documentation**: https://prismic.io/docs/field#boolean
-   */
-  use_logo: prismic.BooleanField;
-
-  /**
-   * Fluid Container field in *Hero → Handles & CTA → Primary*
-   *
-   * - **Field Type**: Boolean
-   * - **Placeholder**: *None*
-   * - **Default Value**: false
-   * - **API ID Path**: hero.handlesCta.primary.fluid_container
-   * - **Documentation**: https://prismic.io/docs/field#boolean
-   */
-  fluid_container: prismic.BooleanField;
-}
-
-/**
- * Primary content in *Hero → Items*
- */
-export interface HeroSliceHandlesCtaItem {
-  /**
-   * Social Media Handle field in *Hero → Items*
-   *
-   * - **Field Type**: Content Relationship
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero.items[].social_media_handle
-   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
-   */
-  social_media_handle: prismic.ContentRelationshipField;
-}
-
-/**
- * Handles & CTA variation for Hero Slice
- *
- * - **API ID**: `handlesCta`
- * - **Description**: Default
- * - **Documentation**: https://prismic.io/docs/slice
- */
-export type HeroSliceHandlesCta = prismic.SharedSliceVariation<
-  "handlesCta",
-  Simplify<HeroSliceHandlesCtaPrimary>,
-  Simplify<HeroSliceHandlesCtaItem>
->;
-
-/**
- * Primary content in *Hero → WithCta → Primary*
- */
-export interface HeroSliceWithCtaPrimary {
-  /**
-   * Hero Title field in *Hero → WithCta → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero.withCta.primary.hero_title
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  hero_title: prismic.KeyTextField;
-
-  /**
-   * Hero Description field in *Hero → WithCta → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero.withCta.primary.hero_description
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  hero_description: prismic.KeyTextField;
-
-  /**
-   * CTA field in *Hero → WithCta → Primary*
-   *
-   * - **Field Type**: Content Relationship
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero.withCta.primary.cta
-   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
-   */
-  cta: prismic.ContentRelationshipField;
-
-  /**
-   * Hero BG Image field in *Hero → WithCta → Primary*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero.withCta.primary.hero_bg_image
-   * - **Documentation**: https://prismic.io/docs/field#image
-   */
-  hero_bg_image: prismic.ImageField<never>;
-
-  /**
-   * Content Alignment field in *Hero → WithCta → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero.withCta.primary.content_alignment
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  content_alignment: prismic.KeyTextField;
-
-  /**
-   * Use Logo field in *Hero → WithCta → Primary*
-   *
-   * - **Field Type**: Boolean
-   * - **Placeholder**: *None*
-   * - **Default Value**: false
-   * - **API ID Path**: hero.withCta.primary.use_logo
-   * - **Documentation**: https://prismic.io/docs/field#boolean
-   */
-  use_logo: prismic.BooleanField;
-
-  /**
-   * Embed Image field in *Hero → WithCta → Primary*
-   *
-   * - **Field Type**: Embed
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero.withCta.primary.embed_image
-   * - **Documentation**: https://prismic.io/docs/field#embed
-   */
-  embed_image: prismic.EmbedField;
-
-  /**
-   * Fluid Container field in *Hero → WithCta → Primary*
-   *
-   * - **Field Type**: Boolean
-   * - **Placeholder**: *None*
-   * - **Default Value**: false
-   * - **API ID Path**: hero.withCta.primary.fluid_container
-   * - **Documentation**: https://prismic.io/docs/field#boolean
-   */
-  fluid_container: prismic.BooleanField;
-}
-
-/**
- * WithCta variation for Hero Slice
- *
- * - **API ID**: `withCta`
- * - **Description**: Default
- * - **Documentation**: https://prismic.io/docs/slice
- */
-export type HeroSliceWithCta = prismic.SharedSliceVariation<
-  "withCta",
-  Simplify<HeroSliceWithCtaPrimary>,
-  never
->;
-
-/**
  * Primary content in *Hero → Carousel → Primary*
  */
 export interface HeroSliceCarouselPrimary {
   /**
-   * Hero Title field in *Hero → Carousel → Primary*
+   * title field in *Hero → Carousel → Primary*
    *
    * - **Field Type**: Text
    * - **Placeholder**: *None*
-   * - **API ID Path**: hero.carousel.primary.hero_title
+   * - **API ID Path**: hero.carousel.primary.title
    * - **Documentation**: https://prismic.io/docs/field#key-text
    */
-  hero_title: prismic.KeyTextField;
+  title: prismic.KeyTextField;
 
   /**
-   * Hero Description field in *Hero → Carousel → Primary*
+   * description field in *Hero → Carousel → Primary*
    *
    * - **Field Type**: Text
    * - **Placeholder**: *None*
-   * - **API ID Path**: hero.carousel.primary.hero_description
+   * - **API ID Path**: hero.carousel.primary.description
    * - **Documentation**: https://prismic.io/docs/field#key-text
    */
-  hero_description: prismic.KeyTextField;
+  description: prismic.KeyTextField;
 
   /**
-   * Content Alignment field in *Hero → Carousel → Primary*
+   * content alignment field in *Hero → Carousel → Primary*
    *
    * - **Field Type**: Text
    * - **Placeholder**: *None*
@@ -1447,38 +1146,27 @@ export interface HeroSliceCarouselPrimary {
   content_alignment: prismic.KeyTextField;
 
   /**
-   * Use Logo field in *Hero → Carousel → Primary*
-   *
-   * - **Field Type**: Boolean
-   * - **Placeholder**: *None*
-   * - **Default Value**: false
-   * - **API ID Path**: hero.carousel.primary.use_logo
-   * - **Documentation**: https://prismic.io/docs/field#boolean
-   */
-  use_logo: prismic.BooleanField;
-
-  /**
-   * Call To Action field in *Hero → Carousel → Primary*
+   * cta field in *Hero → Carousel → Primary*
    *
    * - **Field Type**: Content Relationship
    * - **Placeholder**: *None*
    * - **API ID Path**: hero.carousel.primary.cta
    * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
    */
-  cta: prismic.ContentRelationshipField;
+  cta: prismic.ContentRelationshipField<"cta_email">;
 
   /**
-   * Description Font Size field in *Hero → Carousel → Primary*
+   * font_size field in *Hero → Carousel → Primary*
    *
    * - **Field Type**: Text
    * - **Placeholder**: *None*
-   * - **API ID Path**: hero.carousel.primary.description_font_size
+   * - **API ID Path**: hero.carousel.primary.font_size
    * - **Documentation**: https://prismic.io/docs/field#key-text
    */
-  description_font_size: prismic.KeyTextField;
+  font_size: prismic.KeyTextField;
 
   /**
-   * Text Content Position field in *Hero → Carousel → Primary*
+   * text content position field in *Hero → Carousel → Primary*
    *
    * - **Field Type**: Text
    * - **Placeholder**: *None*
@@ -1488,25 +1176,45 @@ export interface HeroSliceCarouselPrimary {
   text_content_position: prismic.KeyTextField;
 
   /**
-   * Font Color field in *Hero → Carousel → Primary*
+   * color field in *Hero → Carousel → Primary*
    *
    * - **Field Type**: Color
    * - **Placeholder**: *None*
-   * - **API ID Path**: hero.carousel.primary.font_color
+   * - **API ID Path**: hero.carousel.primary.color
    * - **Documentation**: https://prismic.io/docs/field#color
    */
-  font_color: prismic.ColorField;
+  color: prismic.ColorField;
 
   /**
-   * Fluid Container field in *Hero → Carousel → Primary*
+   * fluid field in *Hero → Carousel → Primary*
    *
    * - **Field Type**: Boolean
    * - **Placeholder**: *None*
    * - **Default Value**: false
-   * - **API ID Path**: hero.carousel.primary.fluid_container
+   * - **API ID Path**: hero.carousel.primary.fluid
    * - **Documentation**: https://prismic.io/docs/field#boolean
    */
-  fluid_container: prismic.BooleanField;
+  fluid: prismic.BooleanField;
+
+  /**
+   * social media handles field in *Hero → Carousel → Primary*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.carousel.primary.social_media_handles
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  social_media_handles: prismic.ContentRelationshipField<"social_media_links">;
+
+  /**
+   * link field in *Hero → Carousel → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.carousel.primary.link
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  link: prismic.KeyTextField;
 }
 
 /**
@@ -1514,14 +1222,14 @@ export interface HeroSliceCarouselPrimary {
  */
 export interface HeroSliceCarouselItem {
   /**
-   * Hero BG Image field in *Hero → Items*
+   * background image field in *Hero → Items*
    *
    * - **Field Type**: Image
    * - **Placeholder**: *None*
-   * - **API ID Path**: hero.items[].hero_bg_image
+   * - **API ID Path**: hero.items[].bg_image
    * - **Documentation**: https://prismic.io/docs/field#image
    */
-  hero_bg_image: prismic.ImageField<never>;
+  bg_image: prismic.ImageField<"mobile">;
 }
 
 /**
@@ -1540,12 +1248,7 @@ export type HeroSliceCarousel = prismic.SharedSliceVariation<
 /**
  * Slice variation for *Hero*
  */
-type HeroSliceVariation =
-  | HeroSliceDefault
-  | HeroSliceHeroWithSocialMediaHandles
-  | HeroSliceHandlesCta
-  | HeroSliceWithCta
-  | HeroSliceCarousel;
+type HeroSliceVariation = HeroSliceDefault | HeroSliceCarousel;
 
 /**
  * Hero Shared Slice
@@ -1970,6 +1673,71 @@ type Hero2SliceVariation =
 export type Hero2Slice = prismic.SharedSlice<"hero_2", Hero2SliceVariation>;
 
 /**
+ * Primary content in *Newsletter → Default → Primary*
+ */
+export interface NewsletterSliceDefaultPrimary {
+  /**
+   * title field in *Newsletter → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: newsletter.default.primary.title
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * description field in *Newsletter → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: newsletter.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  description: prismic.KeyTextField;
+
+  /**
+   * cta button text field in *Newsletter → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: newsletter.default.primary.cta_button_text
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  cta_button_text: prismic.KeyTextField;
+}
+
+/**
+ * Default variation for Newsletter Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type NewsletterSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<NewsletterSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Newsletter*
+ */
+type NewsletterSliceVariation = NewsletterSliceDefault;
+
+/**
+ * Newsletter Shared Slice
+ *
+ * - **API ID**: `newsletter`
+ * - **Description**: Newsletter
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type NewsletterSlice = prismic.SharedSlice<
+  "newsletter",
+  NewsletterSliceVariation
+>;
+
+/**
  * Item in *Sliders → blog → Primary → blogs*
  */
 export interface SlidersSliceBlogPrimaryItemsItem {
@@ -1982,6 +1750,31 @@ export interface SlidersSliceBlogPrimaryItemsItem {
    * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
    */
   blog: prismic.ContentRelationshipField<"blog">;
+}
+
+/**
+ * Item in *Sliders → icons → Primary → icons*
+ */
+export interface SlidersSliceIconsPrimaryIconsItem {
+  /**
+   * image field in *Sliders → icons → Primary → icons*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: sliders.icons.primary.icons[].image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * image description field in *Sliders → icons → Primary → icons*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: sliders.icons.primary.icons[].image_description
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  image_description: prismic.KeyTextField;
 }
 
 /**
@@ -2103,9 +1896,71 @@ export type SlidersSliceBlog = prismic.SharedSliceVariation<
 >;
 
 /**
+ * Primary content in *Sliders → icons → Primary*
+ */
+export interface SlidersSliceIconsPrimary {
+  /**
+   * Slider Title field in *Sliders → icons → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Title
+   * - **API ID Path**: sliders.icons.primary.slider_title
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  slider_title: prismic.KeyTextField;
+
+  /**
+   * sliderHeadline field in *Sliders → icons → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: sliders.icons.primary.sliderheadline
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  sliderheadline: prismic.KeyTextField;
+
+  /**
+   * imageFit field in *Sliders → icons → Primary*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: *None*
+   * - **Default Value**: contain
+   * - **API ID Path**: sliders.icons.primary.imagefit
+   * - **Documentation**: https://prismic.io/docs/field#select
+   */
+  imagefit: prismic.SelectField<"contain" | "cover", "filled">;
+
+  /**
+   * icons field in *Sliders → icons → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: sliders.icons.primary.icons[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  icons: prismic.GroupField<Simplify<SlidersSliceIconsPrimaryIconsItem>>;
+}
+
+/**
+ * icons variation for Sliders Slice
+ *
+ * - **API ID**: `icons`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type SlidersSliceIcons = prismic.SharedSliceVariation<
+  "icons",
+  Simplify<SlidersSliceIconsPrimary>,
+  never
+>;
+
+/**
  * Slice variation for *Sliders*
  */
-type SlidersSliceVariation = SlidersSliceDefault | SlidersSliceBlog;
+type SlidersSliceVariation =
+  | SlidersSliceDefault
+  | SlidersSliceBlog
+  | SlidersSliceIcons;
 
 /**
  * Sliders Shared Slice
@@ -2347,18 +2202,10 @@ declare module "@prismicio/client" {
       HeaderSliceDefault,
       HeroSlice,
       HeroSliceDefaultPrimary,
-      HeroSliceHeroWithSocialMediaHandlesPrimary,
-      HeroSliceHeroWithSocialMediaHandlesItem,
-      HeroSliceHandlesCtaPrimary,
-      HeroSliceHandlesCtaItem,
-      HeroSliceWithCtaPrimary,
       HeroSliceCarouselPrimary,
       HeroSliceCarouselItem,
       HeroSliceVariation,
       HeroSliceDefault,
-      HeroSliceHeroWithSocialMediaHandles,
-      HeroSliceHandlesCta,
-      HeroSliceWithCta,
       HeroSliceCarousel,
       Hero2Slice,
       Hero2SliceDefaultPrimary,
@@ -2370,13 +2217,20 @@ declare module "@prismicio/client" {
       Hero2SliceImageRight,
       Hero2SliceTextContentLeft,
       Hero2SliceCompact,
+      NewsletterSlice,
+      NewsletterSliceDefaultPrimary,
+      NewsletterSliceVariation,
+      NewsletterSliceDefault,
       SlidersSlice,
       SlidersSliceDefaultPrimary,
       SlidersSliceBlogPrimaryItemsItem,
       SlidersSliceBlogPrimary,
+      SlidersSliceIconsPrimaryIconsItem,
+      SlidersSliceIconsPrimary,
       SlidersSliceVariation,
       SlidersSliceDefault,
       SlidersSliceBlog,
+      SlidersSliceIcons,
       SocialMediaLinksSlice,
       SocialMediaLinksSliceDefaultItem,
       SocialMediaLinksSliceVariation,

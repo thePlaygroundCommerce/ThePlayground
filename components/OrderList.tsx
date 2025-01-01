@@ -1,4 +1,4 @@
-/* eslint-disable react/react-in-jsx-scope */
+ 
 "use client";
 import { useCartModifier } from "context/cartContext";
 import Image from "next/image";
@@ -8,10 +8,6 @@ import clsx from "clsx";
 import { Divider } from "rsuite";
 import Heading from "./typography/Heading";
 import { Fragment } from "react";
-
-// type Props = AppProps & {
-//   params: { slug: string };
-// };
 
 const OrderList = ({ allowOrderItemDeletion = true, allowOrderModify = false, lineItems, lineItemImages, options, ...rest }: any) => {
   const isEnvProd = process.env.NODE_ENV !== 'development'

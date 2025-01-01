@@ -11,7 +11,7 @@ import withProductModifiers, {
   WithProductModifiersProps,
 } from "hocs/withProductModifiers";
 
-type Props = AppProps & WithProductModifiersProps & {};
+type Props = AppProps & WithProductModifiersProps;
 
 const ProductDetails = ({
   itemData,

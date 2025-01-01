@@ -26,11 +26,10 @@ const HeaderNavigationPopover = () => {
             {categoryList.map((item) => {
               const itemName = Object.keys(item)[0];
               return (
-                <div>
+                <div key={itemName}>
                   <Button
                     id={id}
                     name={itemName}
-                    key={itemName}
                     onClick={handleNavigation}
                   >
                     {itemName}

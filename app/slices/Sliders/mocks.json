@@ -72,5 +72,76 @@
 				"value": []
 			}
 		]
+	},
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "icons",
+		"primary": {
+			"slider_title": {
+				"__TYPE__": "FieldContent",
+				"value": "appearance",
+				"type": "Text"
+			},
+			"sliderheadline": {
+				"__TYPE__": "FieldContent",
+				"value": "forgotten",
+				"type": "Text"
+			},
+			"imagefit": {
+				"__TYPE__": "FieldContent",
+				"value": "contain",
+				"type": "Select"
+			},
+			"icons": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"image",
+								{
+									"origin": {
+										"id": "main",
+										"url": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853",
+										"width": 5243,
+										"height": 3495
+									},
+									"url": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853",
+									"width": 5243,
+									"height": 3495,
+									"edit": {
+										"zoom": 1,
+										"crop": {
+											"x": 0,
+											"y": 0
+										},
+										"background": "transparent"
+									},
+									"credits": null,
+									"alt": null,
+									"__TYPE__": "ImageContent",
+									"thumbnails": {}
+								}
+							],
+							[
+								"image_description",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "needle",
+									"type": "Text"
+								}
+							]
+						]
+					}
+				]
+			}
+		},
+		"items": [
+			{
+				"__TYPE__": "GroupItemContent",
+				"value": []
+			}
+		]
 	}
 ]

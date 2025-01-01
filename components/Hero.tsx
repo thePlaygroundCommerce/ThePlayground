@@ -6,112 +6,164 @@ import { PrismicNextImage } from "@prismicio/next";
 import Carousel from "./Carousel";
 import Link from "next/link";
 import Button from "./Button";
-import { KeyTextField } from "@prismicio/client";
+import { ImageField, isFilled, KeyTextField } from "@prismicio/client";
+import { components } from "app/slices";
+import { SliceZone } from "@prismicio/react";
+import clsx from "clsx";
+import { contentPositions } from "util/styles";
+import { Description } from "@headlessui/react";
+import { ImageProps } from "next/image";
 
-type Props = {
+export type HeroProps = {
   type: "static" | "carousel";
-  items: {
-    imageProps: {
-      src: string;
-      alt: string;
-      width?: number;
-      height?: number;
-    };
-    title: KeyTextField;
-    headline: KeyTextField;
-    cta: {};
-    last_publication_date: string;
-  }[];
+  items: Content[];
+  content?: Content;
+  classes?: {
+    container?: string;
+    contentContainer?: string;
+  };
 } & AppProps;
 
-const Hero = ({ type = "static", items }: Props) => {
-  const ImageComponent = Image || PrismicNextImage;
+export type Content = {
+  image?: ImageProps;
+  content?: {
+    title: KeyTextField;
+    description?: KeyTextField;
+    headline?: KeyTextField;
+    social_media_handles?: unknown;
+    cta?: unknown;
+    link?: KeyTextField;
+    last_publication_date?: string;
+  }
+  contentStyles?: {
+    content_alignment?: KeyTextField;
+    text_content_position?: KeyTextField;
+  }
+};
+
+const Hero = ({
+  type = "static",
+  items,
+  items: [{ contentStyles: { text_content_position = "", content_alignment = "" } = {} }],
+  classes: { container: _container, contentContainer: _contentContainer } = {},
+}: HeroProps) => {
+  const { container, contentContainer } = {
+    container: clsx("overflow-hidden bgimg w-full h-screen relative", _container),
+    contentContainer: clsx(
+      "px-4",
+      "w-full",
+      "md:w-1/4",
+      "absolute",
+      isFilled.keyText(text_content_position)
+        ? contentPositions[text_content_position]
+        : null,
+      "text-black",
+      "text-" + content_alignment?.toLowerCase(),
+      _contentContainer
+    ),
+  };
 
   return (
-    <Carousel
-    itemStyles={{ className: "w-full" }}
-      items={items.map(({ imageProps, title, last_publication_date }, i) => (
-        <div key={i} className="w-full h-full relative">
-          <div className="w-full h-full absolute">
-            <ImageComponent
-              {...{
-                ...imageProps,
-                className: "z-10 h-full object-cover w-full",
-              }}
-            />
-          </div>
-          <div className="absolute z-20 w-full h-full flex justify-center text-center items-center">
-            <div>
-              <Heading level={2} className="w3-animate-top">
-                {title}
-              </Heading>
-              <p className="text-lg">
-                {new Date(last_publication_date).toDateString()}
-              </p>
-              <Link href="">
-                <Button variant="primary">READ MORE</Button>
-              </Link>
-            </div>
-            {/* {use_logo && (
-                <div className="w-3/4 m-auto">
-                    <Image
-                        src={Logo}
-                        alt="Logo"
-                        style={{ width: "100%", height: "auto" }}
-                        priority
-                    />
-                </div>
-            )} */}
-            {/* <div>
-                        <p className="text-lg">{headline}</p>
-                    </div> */}
-            {/* {(slice.variation == "withCta" || slice.variation == "handlesCta") &&
-                hasContentRelationshipData(slice.primary.cta) && (
-                    <div>
-                        <SliceZone
-                            slices={slice.primary.cta.data.slices}
-                            components={components}
-                        />
-                    </div>
-                )} */}
-            {/* {(slice.variation === "handlesCta" ||
-                slice.variation === "heroWithSocialMediaHandles") && (
-                    <div className="flex justify-center ">
-                        {slice.items.map(
-                            ({
-                                social_media_handle,
-                            }:
-                                | HeroSliceHandlesCtaItem
-                                | HeroSliceHeroWithSocialMediaHandlesItem) => {
-                                if (hasContentRelationshipData(social_media_handle)) {
-                                    const slug = social_media_handle.uid;
-                                    const IconComponent: IconType =
-                                        SocialMediaComponentMap[slug as keyof SocialMediaIcons];
+    <div className={container}>
+      <div className="h-full">
+        <Carousel
+          itemStyles={{ className: "w-full" }}
+          items={items.map(({ image, content }, i) => (
+            <HeroContent key={i} {...{
+              image: image,
+              content: type === 'static' ? undefined : content
+            }} />
+          ))}
+          className="min-h-[500px] h-full"
+        />
+      </div>
+      <div className={contentContainer}>
+        {type === "static" && <HeroContent {...items[0]} />}
+      </div>
+    </div>
+  );
+};
 
-                                    return (
-                                        <a
-                                            target="_blank"
-                                            id={social_media_handle.data.social_media_name}
-                                            href={social_media_handle.data.social_media_url}
-                                            className="m-2"
-                                            key={slug}
-                                        >
-                                            <IconComponent />
-                                        </a>
-                                    );
-                                }
-                            }
-                        )}
-                    </div>
-                )} */}
-            {/* <div className="mt-6">
-        <Link href={link}><Button>SHOP NOW</Button></Link>
-      </div> */}
-          </div>
+const HeroContent = ({
+  image,
+  content: {
+    description,
+    title,
+    last_publication_date,
+    cta,
+    social_media_handles,
+    link,
+  } = { title: "" }
+}: Content) => {
+
+  const ImageComponent = Image || PrismicNextImage;
+  return (
+    <div className="w-full h-full relative">
+      {image && (
+        <div className="w-full h-full absolute">
+          <ImageComponent
+            {...{
+              ...image,
+              className: "z-10 h-full object-cover w-full",
+            }}
+          />
         </div>
-      ))}
-      className="h-[500px]"
-    />
+      )}
+      <div className="absolute z-20 w-full h-full flex justify-center text-center items-center">
+        <div>
+          <Heading level={2} className="w3-animate-top">
+            {title}
+          </Heading>
+          <div>
+            <p className="text-lg">{description}</p>
+          </div>
+          {last_publication_date && (
+            <p className="text-lg">
+              {new Date(last_publication_date).toDateString()}
+            </p>
+          )}
+          {link && (
+            <Link href={link}>
+              <Button variant="primary">READ MORE</Button>
+            </Link>
+          )}
+        </div>
+        {/* {isFilled.contentRelationship<string, string, { slices: [] }>(cta) && (
+          <div>
+            <SliceZone slices={cta.data?.slices} components={components} />
+          </div>
+        )}
+        {isFilled.contentRelationship(social_media_handles) && (
+          <div className="flex justify-center ">
+            {slice.items.map(
+              ({
+                social_media_handle,
+              }:
+                | HeroSliceHandlesCtaItem
+                | HeroSliceHeroWithSocialMediaHandlesItem) => {
+                if (hasContentRelationshipData(social_media_handle)) {
+                  const slug = social_media_handle.uid;
+                  const IconComponent: IconType =
+                    SocialMediaComponentMap[slug as keyof SocialMediaIcons];
+
+                  return (
+                    <a
+                      target="_blank"
+                      id={social_media_handle.data.social_media_name}
+                      href={social_media_handle.data.social_media_url}
+                      className="m-2"
+                      key={slug}
+                    >
+                      <IconComponent />
+                    </a>
+                  );
+                }
+              }
+            )}
+          </div>
+        )} */}
+      </div>
+    </div>
   );
 };
 

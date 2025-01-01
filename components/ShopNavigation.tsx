@@ -18,15 +18,14 @@ const ShopNavigation = ({ _navs = DEFAULT_CATEGORIES }: Props) => {
     return (
         <div className='fixed bg-white md:relative py-2 md:pt-0 border md:border-0'>
             <div className='md:hidden flex justify-center gap-4 text-center'>
-                {/*// @ts-ignore */}
-                <Carousel items={navs?.map(nav => <Link href={nav.link}>{nav.title}</Link>)} className=""/>
+                <Carousel items={navs?.map(nav => <Link key={nav.link} href={nav.link}>{nav.title}</Link>)} className=""/>
                 
                 {/* <Dropdown title="Filter">
                     {navs?.map(nav => <DropdownItem as={Link} href={nav.link}>{nav.title}</DropdownItem>)}
                 </Dropdown> */}
             </div>
             <div className='hidden md:flex flex-col text-right'>
-                {navs?.map(nav => <Link href={nav.link}>{nav.title}</Link>)}
+                {navs?.map(nav => <Link key={nav.link} href={nav.link}>{nav.title}</Link>)}
             </div>
             <div></div>
         </div>

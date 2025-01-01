@@ -9,7 +9,7 @@ import {
 
 declare global {
   interface Window {
-      fbq: (...a) => void
+    fbq: (...a) => void;
   }
 }
 
@@ -20,7 +20,7 @@ export declare interface AppProps<T = HTMLElement> {
   childrenElement?: React.JSX.Element; // A single React element
   style?: React.CSSProperties; // to pass through style props
   onClick?: React.MouseEventHandler<T>; // form events! the generic parameter is the type of event.target
-  onChange?: React.FormEventHandler<HTMLInputElement>; // form events! the generic parameter is the type of event.target
+  onChange?: React.FormEventHandler<HTMLInputElement>; // form events! the generic parameter is the type of event.target 
   //  more info: https://react-typescript-cheatsheet.netlify.app/docs/advanced/patterns_by_usecase/#wrappingmirroring
   // props: Props & React.ComponentPropsWithoutRef<"button">; // to impersonate all the props of a button element and explicitly not forwarding its ref
   // props2: Props & React.ComponentPropsWithRef<MyButtonWithForwardRef>; // to impersonate all the props of MyButtonForwardedRef and explicitly forwarding its ref
@@ -49,6 +49,14 @@ export type NavigationContextType = {
   ];
   apparelCategories: CatalogObject[];
   handleNavigationChange: React.ChangeEventHandler<HTMLInputElement>;
+};
+
+export type PageProps<
+  A = { [slug: string]: any },
+  B = { [slug: string]: any },
+> = {
+  params: Prmoise<A>;
+  searchParams: Promise<B>;
 };
 
 export type AccountNavigation = {

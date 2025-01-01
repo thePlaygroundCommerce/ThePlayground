@@ -1,4 +1,4 @@
-/* eslint-disable react/react-in-jsx-scope */
+ 
 import HeaderActions from "./HeaderActions";
 import Link from "next/link";
 import { Nav } from "app/layout";

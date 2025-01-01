@@ -1,13 +1,10 @@
-import { AnyRegularField, Content, GroupField, isFilled, KeyTextField, SharedSlice, SharedSliceModelVariation, SharedSliceVariation } from "@prismicio/client";
+import { Content, isFilled, KeyTextField } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 import { getCatalogItemsAndImages } from "api/catalogApi";
-import { CatalogObject } from "square";
-import { BlogDocumentData, Simplify, SlidersSlice, SlidersSliceBlog, SlidersSliceDefault, SlidersSliceVariation } from "prismicio-types";
+import { BlogDocumentData } from "prismicio-types";
 import Window, { WindowProps } from "components/Window";
 import Heading from "components/typography/Heading";
 import Link from "next/link";
-import { PrismicNextImageProps } from "@prismicio/next";
-import prismic from "prismicio";
 
 /**
  * Props for `Sliders`.
@@ -21,6 +18,9 @@ const Sliders = async ({ slice, slice: { primary, primary: { slider_title, slide
   let slides: WindowProps[] = [];
 
   switch (slice.variation) {
+    case "icons":
+
+      break;
     case "blog":
       slice.primary.items.forEach(({ blog }) => {
         if (!isFilled.contentRelationship<'blog', string, BlogDocumentData>(blog)) return
@@ -82,7 +82,7 @@ const getProducts = async (object_ids: string | KeyTextField, imagefit: WindowPr
 
   return objects.map(({ itemData: { name, imageIds, variations } = {} }) => {
     const [{ itemVariationData: { priceMoney: { amount = BigInt(0) } = {} } = {} }] = variations ?? []
-    const { url, caption: alt } = relatedObjects?.find(({ id }) => imageIds?.includes(id))?.imageData ?? {}
+    const { url, caption: alt } = relatedObjects?.find(({ id }) => imageIds?.[0] === id)?.imageData ?? {}
     return {
       imageData: {
         imagefit,
@@ -91,7 +91,7 @@ const getProducts = async (object_ids: string | KeyTextField, imagefit: WindowPr
       },
       contentData: {
         title: name ?? undefined,
-        price: Number(amount) ?? undefined,
+        price: Number(amount),
         link: "/shop"
       }
     }

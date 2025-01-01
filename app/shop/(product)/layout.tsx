@@ -2,8 +2,8 @@ export const metadata = {
   title: "The Playground | Shop",
 };
 
-export default function Layout({ children }: any) {  
+export default function Layout({ children }: { children: React.ReactNode }) {  
   return (
-    <div className="my-8 mx-4">{children}</div>
+    <div className="my-4 mx-4">{children}</div>
   );
 }

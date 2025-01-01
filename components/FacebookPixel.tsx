@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import Script from 'next/script'
 import React, { useEffect, useState } from 'react'
 
-type Props = {}
+type Props = unknown
 
 const FacebookPixel = (props: Props) => {
     if (typeof window === 'undefined' || !window) return ;

@@ -15,7 +15,7 @@
 //   bottomThirdQuarter: "translate-x-full translate-y-3/4",
 //   bottomEnd: "translate-x-full translate-y-full",
 // };
-export const contentPositions = {
+export const contentPositions: {[id: string]: string} = {
   topStart: "left-0 top-0",
   topQuarter: "left-1/4 top-0 -translate-x-1/4",
   topCenter: "left-1/2 top-0 -translate-x-1/2",

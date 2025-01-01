@@ -4,6 +4,7 @@ import { callToActionCreateForm } from "api/customerApi";
 import Link from "next/link";
 import { AppProps } from "index";
 import Button from "components/Button";
+import { useActionState } from "react";
 
 type CallToActionProps = AppProps & {
   buttonText: string | null;
@@ -27,7 +28,7 @@ const CallToActionForm = ({
   id,
   url,
 }: CallToActionProps) => {
-  const [{ isSubmitted }, formAction] = useFormState(callToActionCreateForm, {
+  const [{ isSubmitted }, formAction] = useActionState(callToActionCreateForm, {
     isSubmitted: false,
     error: null,
   });

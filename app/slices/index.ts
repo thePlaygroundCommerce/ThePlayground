@@ -9,6 +9,7 @@ export const components = {
   header: dynamic(() => import("./Header")),
   hero: dynamic(() => import("./Hero")),
   hero_2: dynamic(() => import("./ProductShowcase")),
+  newsletter: dynamic(() => import("./Newsletter")),
   sliders: dynamic(() => import("./Sliders")),
   social_media_links: dynamic(() => import("./SocialMediaLinks")),
   window_panels: dynamic(() => import("./WindowPanels")),

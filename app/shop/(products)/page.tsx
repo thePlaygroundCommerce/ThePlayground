@@ -1,8 +1,11 @@
-import { getCatalogObjects, searchObjects } from "api/catalogApi";
+import { getCatalogInfo, getCatalogObjects, searchItems, searchObjects } from "api/catalogApi";
 import ProductGrid from "components/ProductGrid";
-import { mapArrayToMap } from "../../../util";
+import { formatNavigationLinks, mapArrayToMap } from "../../../util";
 import { getMainNavigation } from "app/layout";
-import { CatalogObject } from "square";
+import { CatalogObject, SearchCatalogItemsRequest } from "square";
+import { redirect } from "next/navigation";
+import { AppProps } from "next/app";
+import { PageProps } from "index";
 
 // Return a list of `params` to populate the [slug] dynamic segment
 export async function generateStaticParams() {
@@ -16,7 +19,7 @@ export async function generateStaticParams() {
 export const getCategorizedObjects = async (resource: string) => {
   let products = [],
     relatedObjects: CatalogObject[] = [];
-  let mappedCatalogItems = {
+  const mappedCatalogItems = {
     items: [],
     images: [],
   };
@@ -51,8 +54,26 @@ export const getCategorizedObjects = async (resource: string) => {
 
 }
 
-export default async function Page({ params: { resource = "" } }) {
-  let { items, images } = await getCategorizedObjects(resource)
+const searchCatalogItems = async (category: string) => {
+  const formattedCategory = formatNavigationLinks(category)
+  const id = (await getCatalogInfo()).categoryNameMap[formattedCategory]
+  const searchPayload: SearchCatalogItemsRequest = {};
+
+  if (!category) searchPayload.categoryIds = [];
+  else if (!id) redirect('/shop')
+  else searchPayload.categoryIds = [id];
+
+
+  const { objects = [] } =
+    (await searchItems(false, searchPayload));
+
+  return mapArrayToMap(objects);
+
+}
+
+export default async function Page({ params }: PageProps) {
+  const { category = "" } = await params
+  const { items, images } = await searchCatalogItems(category)
 
   return (
     <ProductGrid

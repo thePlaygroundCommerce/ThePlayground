@@ -15,7 +15,7 @@ function ProductImageGallery({ images }: { images: CatalogObject[] }) {
 
   const handleImageChange = (index: number) => setActiveVariationIndex(index)
   const [carouselRef, setCarouselRef] = useState<KeenSliderInstance<
-    {},
+    unknown,
     {
       track: {
         details: {
@@ -56,8 +56,9 @@ function ProductImageGallery({ images }: { images: CatalogObject[] }) {
           <Carousel onSlide={handleImageChange} className="h-[500px]">
             {instance => {
               setCarouselRef(instance);
-              return images.map((image) => (
+              return images.map((image, i) => (
                 <div
+                  key={i}
                   className={clsx(
                     "overflow-hidden flex relative rounded-lg w-full h-full",
                     images.length > 1 ? "row-span-3" : "row-span-4"

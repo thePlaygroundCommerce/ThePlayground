@@ -1,12 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  redirects: async () => [
-    // {
-    //   source: "/",
-    //   destination: "/shop",
-    //   permanent: false
-    // }
-  ],
+  eslint: {
+    // ignoreDuringBuilds: true,
+  },
   images: {
     remotePatterns: [
       {
@@ -40,9 +36,8 @@ const nextConfig = {
         pathname: "/theplaygroundmedia/**",
       },
     ],
-  }
+  },
 };
-
 
 // Injected content via Sentry wizard below
 
@@ -81,4 +76,3 @@ module.exports = withSentryConfig(
     disableLogger: true,
   }
 );
-

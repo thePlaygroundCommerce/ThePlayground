@@ -4,35 +4,31 @@ import React from 'react'
 import { redirect } from 'next/navigation'
 import OrderList from 'components/OrderList'
 import { BsFillCheckCircleFill } from 'react-icons/bs'
-import { Button } from 'rsuite'
 import Link from 'next/link'
 import { cookies } from 'next/headers'
-import { getCatalogItemsAndImages } from 'api/catalogApi'
 import OrderBreakdown from 'components/OrderCostBreakdown'
-import { getCustomer } from 'api/customerApi'
-import { CatalogObject, FulfillmentRecipient, Order } from 'square'
+import { CatalogObject, Order } from 'square'
 import _ from 'lodash'
 import { SignedIn, SignedOut } from '@clerk/nextjs'
 import { latoHeavy } from 'app/fonts'
 import clsx from 'clsx'
 import Feedback from 'components/Feedback'
 import { Simplify } from 'prismicio-types'
+import { PageProps } from 'index'
 
-type PageProps = {
-    params: { id: string }
-    searchParams: { [key: string]: string | string[] | undefined }
-}
 
-const Page = async ({ params: { id }, searchParams: { quantity = "1", quick = "false" } }: PageProps) => {
+const Page = async ({ params, searchParams }: PageProps) => {
 
     let processedCartImages;
     let processedCart;
     let options;
     let oldCart;
 
-    const cartId = cookies().get("cartId")?.value
+    const { id } = await params
+    const { quantity = "1", quick = "false" }  = await searchParams
+    const cartId = (await cookies()).get("cartId")?.value
 
-    if (Boolean(quick)) {
+    if (quick) {
         oldCart = {
             lineItems: [
                 {
@@ -42,7 +38,7 @@ const Page = async ({ params: { id }, searchParams: { quantity = "1", quick = "f
             ]
         }
     } else {
-        let { order, imageMap } = await callGetCart(cartId ?? "")
+        const { order, imageMap } = await callGetCart(cartId ?? "")
         oldCart = order
     }
     if (!oldCart) throw Error("Order missing!")

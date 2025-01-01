@@ -12,72 +12,62 @@
       "description": "Default",
       "imageUrl": "",
       "primary": {
-        "hero_title": {
+        "title": {
           "type": "Text",
           "config": {
-            "label": "Hero Title",
+            "label": "title",
             "placeholder": ""
           }
         },
-        "hero_description": {
+        "description": {
           "type": "Text",
           "config": {
-            "label": "Hero Description",
+            "label": "description",
             "placeholder": ""
           }
         },
-        "hero_bg_image": {
+        "bg_image": {
           "type": "Image",
           "config": {
-            "label": "Hero BG Image",
+            "label": "background image",
             "constraint": {},
-            "thumbnails": []
+            "thumbnails": [
+              {
+                "name": "mobile",
+                "width": 5040,
+                "height": 3360
+              }
+            ]
           }
         },
         "content_alignment": {
           "type": "Text",
           "config": {
-            "label": "Content Alignment",
+            "label": "content alignment",
             "placeholder": ""
           }
         },
-        "use_logo": {
-          "type": "Boolean",
-          "config": {
-            "label": "Use Logo",
-            "default_value": false,
-            "placeholder_true": "true",
-            "placeholder_false": "false"
-          }
-        },
-        "embed_image": {
-          "type": "Embed",
-          "config": {
-            "label": "Embed Image",
-            "placeholder": ""
-          }
-        },
-        "description_font_size": {
+        "font_size": {
           "type": "Text",
           "config": {
-            "label": "Description Font Size",
+            "label": "font size",
             "placeholder": ""
           }
         },
         "text_content_position": {
           "type": "Text",
           "config": {
-            "label": "Text Content Position",
+            "label": "text content position",
             "placeholder": ""
           }
         },
-        "fluid_container": {
+        "fluid": {
           "type": "Boolean",
           "config": {
-            "label": "Fluid Container",
-            "default_value": false,
+            "label": "fluid",
+            "placeholder_false": "false",
             "placeholder_true": "true",
-            "placeholder_false": "false"
+            "default_value": false
           }
         },
         "link": {
@@ -86,216 +76,25 @@
             "label": "link",
             "placeholder": ""
           }
-        }
-      },
-      "items": {}
-    },
-    {
-      "id": "heroWithSocialMediaHandles",
-      "name": "HeroWithSocialMediaHandles",
-      "docURL": "...",
-      "version": "initial",
-      "description": "Default",
-      "imageUrl": "",
-      "primary": {
-        "hero_title": {
-          "type": "Text",
-          "config": {
-            "label": "Hero Title",
-            "placeholder": ""
-          }
         },
-        "hero_description": {
-          "type": "Text",
-          "config": {
-            "label": "Hero Description",
-            "placeholder": ""
-          }
-        },
-        "content_alignment": {
-          "type": "Text",
-          "config": {
-            "label": "Content Alignment",
-            "placeholder": ""
-          }
-        },
-        "hero_bg_image": {
-          "type": "Image",
-          "config": {
-            "label": "Hero BG Image",
-            "constraint": {},
-            "thumbnails": []
-          }
-        },
-        "use_logo": {
-          "type": "Boolean",
-          "config": {
-            "label": "Use Logo",
-            "default_value": false,
-            "placeholder_true": "true",
-            "placeholder_false": "false"
-          }
-        },
-        "fluid_container": {
-          "type": "Boolean",
-          "config": {
-            "label": "Fluid Container",
-            "default_value": false,
-            "placeholder_true": "true",
-            "placeholder_false": "false"
-          }
-        }
-      },
-      "items": {
-        "social_media_handle": {
+        "social_media_handles": {
           "type": "Link",
           "config": {
-            "label": "Social Media Handle",
-            "select": "document"
-          }
-        }
-      }
-    },
-    {
-      "id": "handlesCta",
-      "name": "Handles & CTA",
-      "docURL": "...",
-      "version": "initial",
-      "description": "Default",
-      "imageUrl": "",
-      "primary": {
-        "hero_title": {
-          "type": "Text",
-          "config": {
-            "label": "Hero Title",
-            "placeholder": ""
-          }
-        },
-        "hero_description": {
-          "type": "Text",
-          "config": {
-            "label": "Hero Description",
-            "placeholder": ""
+            "label": "social media handles",
+            "select": "document",
+            "customtypes": [
+              "social_media_links"
+            ]
           }
         },
         "cta": {
           "type": "Link",
           "config": {
-            "label": "CTA",
-            "select": "document"
-          }
-        },
-        "hero_bg_image": {
-          "type": "Image",
-          "config": {
-            "label": "Hero BG Image",
-            "constraint": {},
-            "thumbnails": []
-          }
-        },
-        "content_alignment": {
-          "type": "Text",
-          "config": {
-            "label": "Content Alignment",
-            "placeholder": ""
-          }
-        },
-        "use_logo": {
-          "type": "Boolean",
-          "config": {
-            "label": "Use Logo",
-            "default_value": false,
-            "placeholder_true": "true",
-            "placeholder_false": "false"
-          }
-        },
-        "fluid_container": {
-          "type": "Boolean",
-          "config": {
-            "label": "Fluid Container",
-            "default_value": false,
-            "placeholder_true": "true",
-            "placeholder_false": "false"
-          }
-        }
-      },
-      "items": {
-        "social_media_handle": {
-          "type": "Link",
-          "config": {
-            "label": "Social Media Handle",
-            "select": "document"
-          }
-        }
-      }
-    },
-    {
-      "id": "withCta",
-      "name": "WithCta",
-      "docURL": "...",
-      "version": "initial",
-      "description": "Default",
-      "imageUrl": "",
-      "primary": {
-        "hero_title": {
-          "type": "Text",
-          "config": {
-            "label": "Hero Title",
-            "placeholder": ""
-          }
-        },
-        "hero_description": {
-          "type": "Text",
-          "config": {
-            "label": "Hero Description",
-            "placeholder": ""
-          }
-        },
-        "cta": {
-          "type": "Link",
-          "config": {
-            "label": "CTA",
-            "select": "document"
-          }
-        },
-        "hero_bg_image": {
-          "type": "Image",
-          "config": {
-            "label": "Hero BG Image",
-            "constraint": {},
-            "thumbnails": []
-          }
-        },
-        "content_alignment": {
-          "type": "Text",
-          "config": {
-            "label": "Content Alignment",
-            "placeholder": ""
-          }
-        },
-        "use_logo": {
-          "type": "Boolean",
-          "config": {
-            "label": "Use Logo",
-            "default_value": false,
-            "placeholder_true": "true",
-            "placeholder_false": "false"
-          }
-        },
-        "embed_image": {
-          "type": "Embed",
-          "config": {
-            "label": "Embed Image",
-            "placeholder": ""
-          }
-        },
-        "fluid_container": {
-          "type": "Boolean",
-          "config": {
-            "label": "Fluid Container",
-            "default_value": false,
-            "placeholder_true": "true",
-            "placeholder_false": "false"
+            "label": "cta",
+            "select": "document",
+            "customtypes": [
+              "cta_email"
+            ]
           }
         }
       },
@@ -309,81 +108,98 @@
       "description": "Default",
       "imageUrl": "",
       "primary": {
-        "hero_title": {
+        "title": {
           "type": "Text",
           "config": {
-            "label": "Hero Title",
+            "label": "title",
             "placeholder": ""
           }
         },
-        "hero_description": {
+        "description": {
           "type": "Text",
           "config": {
-            "label": "Hero Description",
+            "label": "description",
             "placeholder": ""
           }
         },
         "content_alignment": {
           "type": "Text",
           "config": {
-            "label": "Content Alignment",
+            "label": "content alignment",
             "placeholder": ""
-          }
-        },
-        "use_logo": {
-          "type": "Boolean",
-          "config": {
-            "label": "Use Logo",
-            "default_value": false,
-            "placeholder_true": "true",
-            "placeholder_false": "false"
           }
         },
         "cta": {
           "type": "Link",
           "config": {
-            "label": "Call To Action",
-            "select": "document"
+            "label": "cta",
+            "select": "document",
+            "customtypes": [
+              "cta_email"
+            ]
           }
         },
-        "description_font_size": {
+        "font_size": {
           "type": "Text",
           "config": {
-            "label": "Description Font Size",
+            "label": "font_size",
             "placeholder": ""
           }
         },
         "text_content_position": {
           "type": "Text",
           "config": {
-            "label": "Text Content Position",
+            "label": "text content position",
             "placeholder": ""
           }
         },
-        "font_color": {
+        "color": {
           "type": "Color",
           "config": {
-            "label": "Font Color",
+            "label": "color",
             "placeholder": ""
           }
         },
-        "fluid_container": {
+        "fluid": {
           "type": "Boolean",
           "config": {
-            "label": "Fluid Container",
-            "default_value": false,
+            "label": "fluid",
+            "placeholder_false": "false",
             "placeholder_true": "true",
-            "placeholder_false": "false"
+            "default_value": false
+          }
+        },
+        "social_media_handles": {
+          "type": "Link",
+          "config": {
+            "label": "social media handles",
+            "select": "document",
+            "customtypes": [
+              "social_media_links"
+            ]
+          }
+        },
+        "link": {
+          "type": "Text",
+          "config": {
+            "label": "link",
+            "placeholder": ""
           }
         }
       },
       "items": {
-        "hero_bg_image": {
+        "bg_image": {
           "type": "Image",
           "config": {
-            "label": "Hero BG Image",
+            "label": "background image",
             "constraint": {},
-            "thumbnails": []
+            "thumbnails": [
+              {
+                "name": "mobile",
+                "width": 5040,
+                "height": 3360
+              }
+            ]
           }
         }
       }

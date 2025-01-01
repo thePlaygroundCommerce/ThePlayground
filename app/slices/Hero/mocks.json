@@ -3,129 +3,36 @@
 		"__TYPE__": "SharedSliceContent",
 		"variation": "default",
 		"primary": {
-			"hero_title": {
-				"__TYPE__": "FieldContent",
-				"type": "Text",
-				"value": "What is the main difference"
-			},
-			"hero_description": {
-				"__TYPE__": "FieldContent",
-				"type": "Text",
-				"value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Morbi tincidunt ornare massa eget egestas purus viverra accumsan in. Integer malesuada nunc vel risus commodo. Adipiscing diam donec adipiscing tristique risus."
-			},
-			"content_alignment": {
-				"__TYPE__": "FieldContent",
-				"type": "Text",
-				"value": "center"
-			},
-			"use_logo": {
-				"__TYPE__": "BooleanContent",
-				"value": false
-			},
-			"embed_image": {
-				"embed_url": "https://twitter.com/prismicio/status/1354835716430319617",
-				"author_name": "Prismic",
-				"author_url": "https://twitter.com/prismicio",
-				"html": "<blockquote class=\"twitter-tweet\"><p lang=\"en\" dir=\"ltr\">Does anyone want to create a wildly popular website for discussing &#39;Wall Street Bets&#39; using Prismic?<br><br>It may or may not have to look a lot like <a href=\"https://twitter.com/hashtag/reddit?src=hash&amp;ref_src=twsrc%5Etfw\">#reddit</a> and we won&#39;t make it private.<br><br>Just asking for some friends...</p>&mdash; Prismic (@prismicio) <a href=\"https://twitter.com/prismicio/status/1354835716430319617?ref_src=twsrc%5Etfw\">January 28, 2021</a></blockquote>\n<script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script>\n",
-				"type": "rich",
-				"cache_age": "3153600000",
-				"provider_name": "Twitter",
-				"provider_url": "http://www.twitter.com/",
-				"version": "1.0",
-				"all": {
-					"embed_url": "https://twitter.com/prismicio/status/1354835716430319617",
-					"author_name": "Prismic",
-					"author_url": "https://twitter.com/prismicio",
-					"html": "<blockquote class=\"twitter-tweet\"><p lang=\"en\" dir=\"ltr\">Does anyone want to create a wildly popular website for discussing &#39;Wall Street Bets&#39; using Prismic?<br><br>It may or may not have to look a lot like <a href=\"https://twitter.com/hashtag/reddit?src=hash&amp;ref_src=twsrc%5Etfw\">#reddit</a> and we won&#39;t make it private.<br><br>Just asking for some friends...</p>&mdash; Prismic (@prismicio) <a href=\"https://twitter.com/prismicio/status/1354835716430319617?ref_src=twsrc%5Etfw\">January 28, 2021</a></blockquote>\n<script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script>\n",
-					"width": 550,
-					"height": null,
-					"type": "rich",
-					"cache_age": "3153600000",
-					"provider_name": "Twitter",
-					"provider_url": "http://www.twitter.com/",
-					"version": "1.0"
-				},
-				"__TYPE__": "EmbedContent"
-			},
-			"hero_bg_image": {
-				"url": "https://images.unsplash.com/photo-1592187270271-9a4b84faa228?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzc0NjN8MHwxfHNlYXJjaHw1fHxjaXRydXMlMjBmcnVpdHxlbnwwfHx8fDE3MTE4MzUzOTV8MA&ixlib=rb-4.0.3&q=85",
-				"alt": "sliced orange fruit on blue surface",
-				"origin": {
-					"id": "8ZGgg6rhzxs",
-					"url": "https://images.unsplash.com/photo-1592187270271-9a4b84faa228?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzc0NjN8MHwxfHNlYXJjaHw1fHxjaXRydXMlMjBmcnVpdHxlbnwwfHx8fDE3MTE4MzUzOTV8MA&ixlib=rb-4.0.3&q=85",
-					"width": 4000,
-					"height": 6000
-				},
-				"width": 4000,
-				"height": 6000,
-				"edit": {
-					"background": "transparent",
-					"zoom": 1,
-					"crop": {
-						"x": 0,
-						"y": 0
-					}
-				},
-				"credits": null,
-				"__TYPE__": "ImageContent",
-				"thumbnails": {}
-			},
-			"description_font_size": {
-				"__TYPE__": "FieldContent",
-				"type": "Text",
-				"value": "24"
-			},
 			"text_content_position": {
 				"__TYPE__": "FieldContent",
-				"type": "Text",
-				"value": "bottomCenter"
-			},
-			"fluid_container": {
-				"__TYPE__": "BooleanContent",
-				"value": false
+				"value": "crop",
+				"type": "Text"
 			},
 			"link": {
 				"__TYPE__": "FieldContent",
 				"value": "plan",
 				"type": "Text"
-			}
-		},
-		"items": [
-			{
-				"__TYPE__": "GroupItemContent",
-				"value": []
-			}
-		]
-	},
-	{
-		"__TYPE__": "SharedSliceContent",
-		"variation": "heroWithSocialMediaHandles",
-		"primary": {
-			"hero_title": {
-				"__TYPE__": "FieldContent",
-				"value": "exclaimed",
-				"type": "Text"
 			},
-			"hero_description": {
+			"title": {
 				"__TYPE__": "FieldContent",
-				"value": "wear",
-				"type": "Text"
+				"type": "Text",
+				"value": "Stay Focused And Enjoy Life"
 			},
-			"content_alignment": {
+			"description": {
 				"__TYPE__": "FieldContent",
-				"value": "pitch",
-				"type": "Text"
+				"type": "Text",
+				"value": "Come shop our Stay Focused And Enjoy Life gear with 30% off styles."
 			},
-			"hero_bg_image": {
+			"bg_image": {
 				"origin": {
 					"id": "main",
-					"url": "https://images.unsplash.com/photo-1593642532973-d31b6557fa68",
-					"width": 8640,
-					"height": 8640
+					"url": "https://images.unsplash.com/photo-1589321578146-4c1ba445cc88",
+					"width": 3168,
+					"height": 4752
 				},
-				"url": "https://images.unsplash.com/photo-1593642532973-d31b6557fa68",
-				"width": 8640,
-				"height": 8640,
+				"url": "https://images.unsplash.com/photo-1589321578146-4c1ba445cc88",
+				"width": 3168,
+				"height": 4752,
 				"edit": {
 					"zoom": 1,
 					"crop": {
@@ -137,192 +44,50 @@
 				"credits": null,
 				"alt": null,
 				"__TYPE__": "ImageContent",
-				"thumbnails": {}
+				"thumbnails": {
+					"mobile": {
+						"origin": {
+							"id": "mobile",
+							"url": "https://images.unsplash.com/photo-1448932223592-d1fc686e76ea",
+							"width": 3500,
+							"height": 2338
+						},
+						"url": "https://images.unsplash.com/photo-1448932223592-d1fc686e76ea?rect=0%2C2%2C3500%2C2333&w=5040&h=3360",
+						"width": 5040,
+						"height": 3360,
+						"edit": {
+							"zoom": 1,
+							"crop": {
+								"x": 0,
+								"y": 2
+							},
+							"background": "transparent"
+						},
+						"credits": null,
+						"alt": null
+					}
+				}
 			},
-			"use_logo": {
-				"__TYPE__": "BooleanContent",
-				"value": true
+			"font_size": {
+				"__TYPE__": "FieldContent",
+				"value": "earlier",
+				"type": "Text"
 			},
-			"fluid_container": {
+			"fluid": {
 				"__TYPE__": "BooleanContent",
 				"value": false
-			}
-		},
-		"items": [
-			{
-				"__TYPE__": "GroupItemContent",
-				"value": [
-					[
-						"social_media_handle",
-						{
-							"__TYPE__": "LinkContent",
-							"value": {
-								"__TYPE__": "DocumentLink",
-								"id": "mock_document_id"
-							}
-						}
-					]
-				]
-			}
-		]
-	},
-	{
-		"__TYPE__": "SharedSliceContent",
-		"variation": "handlesCta",
-		"primary": {
-			"hero_title": {
-				"__TYPE__": "FieldContent",
-				"value": "arrow",
-				"type": "Text"
 			},
-			"hero_description": {
-				"__TYPE__": "FieldContent",
-				"value": "animal",
-				"type": "Text"
-			},
-			"cta": {
+			"social_media_handles": {
 				"__TYPE__": "LinkContent",
 				"value": {
 					"__TYPE__": "DocumentLink",
 					"id": "mock_document_id"
 				}
 			},
-			"hero_bg_image": {
-				"origin": {
-					"id": "main",
-					"url": "https://images.unsplash.com/photo-1576662712957-9c79ae1280f8",
-					"width": 3456,
-					"height": 3456
-				},
-				"url": "https://images.unsplash.com/photo-1576662712957-9c79ae1280f8",
-				"width": 3456,
-				"height": 3456,
-				"edit": {
-					"zoom": 1,
-					"crop": {
-						"x": 0,
-						"y": 0
-					},
-					"background": "transparent"
-				},
-				"credits": null,
-				"alt": null,
-				"__TYPE__": "ImageContent",
-				"thumbnails": {}
-			},
 			"content_alignment": {
 				"__TYPE__": "FieldContent",
-				"value": "beginning",
-				"type": "Text"
-			},
-			"use_logo": {
-				"__TYPE__": "BooleanContent",
-				"value": false
-			},
-			"fluid_container": {
-				"__TYPE__": "BooleanContent",
-				"value": false
-			}
-		},
-		"items": [
-			{
-				"__TYPE__": "GroupItemContent",
-				"value": [
-					[
-						"social_media_handle",
-						{
-							"__TYPE__": "LinkContent",
-							"value": {
-								"__TYPE__": "DocumentLink",
-								"id": "mock_document_id"
-							}
-						}
-					]
-				]
-			}
-		]
-	},
-	{
-		"__TYPE__": "SharedSliceContent",
-		"variation": "withCta",
-		"primary": {
-			"hero_title": {
-				"__TYPE__": "FieldContent",
-				"value": "nature",
-				"type": "Text"
-			},
-			"hero_description": {
-				"__TYPE__": "FieldContent",
-				"value": "stared",
-				"type": "Text"
-			},
-			"cta": {
-				"__TYPE__": "LinkContent",
-				"value": {
-					"__TYPE__": "DocumentLink",
-					"id": "mock_document_id"
-				}
-			},
-			"hero_bg_image": {
-				"origin": {
-					"id": "main",
-					"url": "https://images.unsplash.com/photo-1547082299-de196ea013d6",
-					"width": 4272,
-					"height": 2848
-				},
-				"url": "https://images.unsplash.com/photo-1547082299-de196ea013d6",
-				"width": 4272,
-				"height": 2848,
-				"edit": {
-					"zoom": 1,
-					"crop": {
-						"x": 0,
-						"y": 0
-					},
-					"background": "transparent"
-				},
-				"credits": null,
-				"alt": null,
-				"__TYPE__": "ImageContent",
-				"thumbnails": {}
-			},
-			"content_alignment": {
-				"__TYPE__": "FieldContent",
-				"value": "pen",
-				"type": "Text"
-			},
-			"use_logo": {
-				"__TYPE__": "BooleanContent",
-				"value": false
-			},
-			"embed_image": {
-				"embed_url": "https://twitter.com/prismicio/status/1354112310252630016",
-				"author_name": "Prismic",
-				"author_url": "https://twitter.com/prismicio",
-				"html": "<blockquote class=\"twitter-tweet\"><p lang=\"en\" dir=\"ltr\">We&#39;re launching a new <a href=\"https://twitter.com/hashtag/SliceContest?src=hash&amp;ref_src=twsrc%5Etfw\">#SliceContest</a> tomorrow along with Slice Machine upgrades.<br><br>Want to know more? Join us at tomorrow&#39;s Product Meet-up👇<a href=\"https://t.co/prYSypiAvB\">https://t.co/prYSypiAvB</a><br><br>We can&#39;t tell you any further details for now, but here&#39;s a sneak peek at the prizes👀 <a href=\"https://t.co/fV1eoGlEBh\">pic.twitter.com/fV1eoGlEBh</a></p>&mdash; Prismic (@prismicio) <a href=\"https://twitter.com/prismicio/status/1354112310252630016?ref_src=twsrc%5Etfw\">January 26, 2021</a></blockquote>\n<script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script>\n",
-				"type": "rich",
-				"cache_age": "3153600000",
-				"provider_name": "Twitter",
-				"provider_url": "http://www.twitter.com/",
-				"version": "1.0",
-				"all": {
-					"embed_url": "https://twitter.com/prismicio/status/1354112310252630016",
-					"author_name": "Prismic",
-					"author_url": "https://twitter.com/prismicio",
-					"html": "<blockquote class=\"twitter-tweet\"><p lang=\"en\" dir=\"ltr\">We&#39;re launching a new <a href=\"https://twitter.com/hashtag/SliceContest?src=hash&amp;ref_src=twsrc%5Etfw\">#SliceContest</a> tomorrow along with Slice Machine upgrades.<br><br>Want to know more? Join us at tomorrow&#39;s Product Meet-up👇<a href=\"https://t.co/prYSypiAvB\">https://t.co/prYSypiAvB</a><br><br>We can&#39;t tell you any further details for now, but here&#39;s a sneak peek at the prizes👀 <a href=\"https://t.co/fV1eoGlEBh\">pic.twitter.com/fV1eoGlEBh</a></p>&mdash; Prismic (@prismicio) <a href=\"https://twitter.com/prismicio/status/1354112310252630016?ref_src=twsrc%5Etfw\">January 26, 2021</a></blockquote>\n<script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script>\n",
-					"width": 550,
-					"height": null,
-					"type": "rich",
-					"cache_age": "3153600000",
-					"provider_name": "Twitter",
-					"provider_url": "http://www.twitter.com/",
-					"version": "1.0"
-				},
-				"__TYPE__": "EmbedContent"
-			},
-			"fluid_container": {
-				"__TYPE__": "BooleanContent",
-				"value": false
+				"type": "Text",
+				"value": "bottom"
 			}
 		},
 		"items": [
@@ -336,24 +101,10 @@
 		"__TYPE__": "SharedSliceContent",
 		"variation": "carousel",
 		"primary": {
-			"hero_title": {
-				"__TYPE__": "FieldContent",
-				"value": "largest",
-				"type": "Text"
-			},
-			"hero_description": {
-				"__TYPE__": "FieldContent",
-				"value": "hearing",
-				"type": "Text"
-			},
 			"content_alignment": {
 				"__TYPE__": "FieldContent",
-				"value": "greatly",
+				"value": "directly",
 				"type": "Text"
-			},
-			"use_logo": {
-				"__TYPE__": "BooleanContent",
-				"value": true
 			},
 			"cta": {
 				"__TYPE__": "LinkContent",
@@ -362,24 +113,46 @@
 					"id": "mock_document_id"
 				}
 			},
-			"description_font_size": {
-				"__TYPE__": "FieldContent",
-				"value": "summer",
-				"type": "Text"
-			},
 			"text_content_position": {
 				"__TYPE__": "FieldContent",
-				"value": "frame",
+				"value": "next",
 				"type": "Text"
 			},
-			"font_color": {
+			"title": {
 				"__TYPE__": "FieldContent",
-				"value": "#5c4154",
+				"value": "skin",
+				"type": "Text"
+			},
+			"description": {
+				"__TYPE__": "FieldContent",
+				"value": "making",
+				"type": "Text"
+			},
+			"font_size": {
+				"__TYPE__": "FieldContent",
+				"value": "she",
+				"type": "Text"
+			},
+			"color": {
+				"__TYPE__": "FieldContent",
+				"value": "#22fdc0",
 				"type": "Color"
 			},
-			"fluid_container": {
+			"fluid": {
 				"__TYPE__": "BooleanContent",
 				"value": false
+			},
+			"social_media_handles": {
+				"__TYPE__": "LinkContent",
+				"value": {
+					"__TYPE__": "DocumentLink",
+					"id": "mock_document_id"
+				}
+			},
+			"link": {
+				"__TYPE__": "FieldContent",
+				"value": "branch",
+				"type": "Text"
 			}
 		},
 		"items": [
@@ -387,17 +160,18 @@
 				"__TYPE__": "GroupItemContent",
 				"value": [
 					[
-						"hero_bg_image",
+						"bg_image",
 						{
+							"__TYPE__": "ImageContent",
 							"origin": {
 								"id": "main",
-								"url": "https://images.unsplash.com/photo-1587840171670-8b850147754e",
-								"width": 4480,
-								"height": 4480
+								"url": "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2",
+								"width": 5616,
+								"height": 3744
 							},
-							"url": "https://images.unsplash.com/photo-1587840171670-8b850147754e",
-							"width": 4480,
-							"height": 4480,
+							"url": "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2",
+							"width": 5616,
+							"height": 3744,
 							"edit": {
 								"zoom": 1,
 								"crop": {
@@ -406,10 +180,27 @@
 								},
 								"background": "transparent"
 							},
-							"credits": null,
-							"alt": null,
-							"__TYPE__": "ImageContent",
-							"thumbnails": {}
+							"thumbnails": {
+								"mobile": {
+									"origin": {
+										"id": "mobile",
+										"url": "https://images.unsplash.com/photo-1593642633279-1796119d5482",
+										"width": 4016,
+										"height": 6016
+									},
+									"url": "https://images.unsplash.com/photo-1593642633279-1796119d5482?rect=0%2C1669%2C4016%2C2677&w=5040&h=3360",
+									"width": 5040,
+									"height": 3360,
+									"edit": {
+										"zoom": 1,
+										"crop": {
+											"x": 0,
+											"y": 1669
+										},
+										"background": "transparent"
+									}
+								}
+							}
 						}
 					]
 				]
@@ -418,29 +209,47 @@
 				"__TYPE__": "GroupItemContent",
 				"value": [
 					[
-						"hero_bg_image",
+						"bg_image",
 						{
-							"url": "https://images.unsplash.com/photo-1597714026720-8f74c62310ba?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzc0NjN8MHwxfHNlYXJjaHwxMHx8Y2l0cnVzJTIwZnJ1aXR8ZW58MHx8fHwxNzExODM1Mzk1fDA&ixlib=rb-4.0.3&q=85",
-							"alt": "orange fruits under blue sky during daytime",
+							"__TYPE__": "ImageContent",
 							"origin": {
-								"id": "eaOjEz8746k",
-								"url": "https://images.unsplash.com/photo-1597714026720-8f74c62310ba?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzc0NjN8MHwxfHNlYXJjaHwxMHx8Y2l0cnVzJTIwZnJ1aXR8ZW58MHx8fHwxNzExODM1Mzk1fDA&ixlib=rb-4.0.3&q=85",
-								"width": 5688,
-								"height": 3792
+								"id": "main",
+								"url": "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5",
+								"width": 5848,
+								"height": 3899
 							},
-							"width": 5688,
-							"height": 3792,
+							"url": "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5",
+							"width": 5848,
+							"height": 3899,
 							"edit": {
-								"background": "transparent",
 								"zoom": 1,
 								"crop": {
 									"x": 0,
 									"y": 0
-								}
+								},
+								"background": "transparent"
 							},
-							"credits": null,
-							"__TYPE__": "ImageContent",
-							"thumbnails": {}
+							"thumbnails": {
+								"mobile": {
+									"origin": {
+										"id": "mobile",
+										"url": "https://images.unsplash.com/photo-1589321599763-d66926c29613",
+										"width": 3168,
+										"height": 4752
+									},
+									"url": "https://images.unsplash.com/photo-1589321599763-d66926c29613?rect=0%2C1320%2C3168%2C2112&w=5040&h=3360",
+									"width": 5040,
+									"height": 3360,
+									"edit": {
+										"zoom": 1,
+										"crop": {
+											"x": 0,
+											"y": 1320
+										},
+										"background": "transparent"
+									}
+								}
+							}
 						}
 					]
 				]

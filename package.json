@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev -p 3005",
     "build": "next build",
+    "lint": "next lint --fix",
     "start": "next start -p 3005",
     "cypress:open": "cypress open",
     "slicemachine": "start-slicemachine"
@@ -12,9 +13,9 @@
   "dependencies": {
     "@clerk/clerk-js": "^5.14.0",
     "@clerk/nextjs": "^5.3.0",
-    "@headlessui/react": "^1.7.15",
+    "@headlessui/react": "latest",
     "@prismicio/client": "latest",
-    "@prismicio/next": "latest",
+    "@prismicio/next": "^1.7.1",
     "@prismicio/react": "latest",
     "@react-spring/web": "^9.7.4",
     "@sentry/nextjs": "^7.72.0",
@@ -27,7 +28,7 @@
     "fetch-intercept": "^2.4.0",
     "keen-slider": "^6.8.6",
     "lodash": "^4.17.21",
-    "next": "^14.2.15",
+    "next": "^15.1.0",
     "pino": "^8.15.0",
     "react": "^18.2.0",
     "react-bootstrap-icons": "^1.10.3",
@@ -42,7 +43,7 @@
     "rsuite": "^5.64.1",
     "sass": "^1.26.10",
     "sharp": "^0.32.5",
-    "square": "^30.0.0",
+    "square": "^39.0.0",
     "typescript": "^5.5.4",
     "use-debounce": "^10.0.1",
     "uuid": "^9.0.0",

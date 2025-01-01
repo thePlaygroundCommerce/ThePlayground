@@ -29,19 +29,10 @@ function Footer({ navs }: Props) {
   );
 
   return (
-    <footer className="border-t grid md:grid-cols-2 grid-cols-1 w-full md:p-4">
+    <footer className="border-t grid md:grid-cols-2 grid-cols-1 w-full p-4">
       <div className="w-full py-4">
-        <div className="md:hidden">
-          <Accordion>
-            <AccordionPanel header="Help">
-              <nav>
-                {[{ title: "Contact Us", link: "/contact", id: "contact" }].map(renderLink)}
-              </nav>
-            </AccordionPanel>
-          </Accordion>
-        </div>
-        <div className="hidden md:block w-3/4 m-auto mt-6">
-          {[...leftNavs, ...rightNavs].map(renderLink)}
+        <div className="">
+          {navs.map(renderLink)}
         </div>
       </div>
       <div className="p-4 w-full">

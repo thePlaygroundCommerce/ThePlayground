@@ -1,7 +1,7 @@
 import Heading from 'components/typography/Heading'
 import React from 'react'
 
-type Props = {}
+type Props = unknown
 
 const Page = (props: Props) => {
     return (

@@ -1,6 +1,4 @@
-// @ts-nocheck
-
-import { Content } from "@prismicio/client";
+import { Content, FilledContentRelationshipField, isFilled } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 
 /**
@@ -23,11 +21,18 @@ const FeaturedCategories = ({
       data-slice-variation={slice.variation}
       className="flex gap-24 p-16"
     >
-      {items.map(({ category: { data } }) => (
-        <div key={data.uid} style={{ width: 300, height: 300 }} className="bg-gray-400 flex justify-center items-end">
-          {data.title}
-        </div>
-      ))}
+      {items.map(({ category }) => {
+
+        if (!isFilled.contentRelationship<string, string, { uid: string, title: string }>(category)) return null
+
+        const { data: { uid, title } = {} } = category
+
+        return (
+          <div key={uid} style={{ width: 300, height: 300 }} className="bg-gray-400 flex justify-center items-end">
+            {title}
+          </div>
+        )
+      })}
     </section>
   );
 };

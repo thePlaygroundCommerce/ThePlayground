@@ -1,8 +1,7 @@
 "use client";
-// @ts-ignore
-import { useFormState } from "react-dom";
 import { callToActionCreateForm } from "api/customerApi";
 import Button from "components/Button";
+import { useActionState } from "react";
 
 const NewsletterForm = ({
   primary,
@@ -21,7 +20,7 @@ const NewsletterForm = ({
     callToActionCreateForm(previousState, formData);
     return { isSubmitted: true };
   };
-  const [{ isSubmitted }, formAction] = useFormState(submitForm, {
+  const [{ isSubmitted }, formAction] = useActionState(submitForm, {
     isSubmitted: false,
   });
 

@@ -8,11 +8,14 @@ import {
   BatchRetrieveCatalogObjectsResponse,
   CatalogObject,
   RetrieveCatalogObjectResponse,
+  SearchCatalogItemsRequest,
   SearchCatalogItemsResponse,
   SearchCatalogObjectsRequest,
   SearchCatalogObjectsResponse,
 } from "square";
 import { batchRetrieveCatalogObjectsResponseSchema } from "square/dist/types/models/batchRetrieveCatalogObjectsResponse";
+import { Simplify } from "prismicio-types";
+import { formatNavigationLinks } from "../util";
 
 const checkForErrors = (data: any) => {
   if (data.errors) {
@@ -48,11 +51,23 @@ export async function getCatalogObjects(types: any) {
     .catch((err) => console.log(err));
 }
 
-export async function getCatalogInfo() {
+export async function getCatalogInfo(): Promise<{
+  categoryNameMap: { [id: string]: string };
+  objects: { [type: string]: CatalogObject[] };
+}> {
   const fetchUrl = `${SQUARE_URL}catalog/info`;
 
   return await fetch(fetchUrl, { next: { revalidate: 0 } }) // TODO must set to appropriate value in prod
     .then((res) => res.json())
+    .then((data) => ({
+      ...data,
+      categoryNameMap: Object.fromEntries(
+        Object.entries(data.categoryNameMap).map(([k, v]) => [
+          formatNavigationLinks(k),
+          v,
+        ])
+      ),
+    }))
     // .then(checkForErrors)
     .catch((err) => console.log(err));
 }
@@ -67,9 +82,13 @@ export async function getCatalogImages(types: any) {
     .catch((err) => console.log(err));
 }
 
-export async function getCatalogItemsAndImages(ids: string[], includeRelatedObjects: boolean = true): Promise<BatchRetrieveCatalogObjectsResponse> {
-  if (ids.length === 0) {};
-  
+export async function getCatalogItemsAndImages(
+  ids: string[],
+  includeRelatedObjects: boolean = true
+): Promise<BatchRetrieveCatalogObjectsResponse> {
+  if (ids.length === 0) {
+  }
+
   const fetchUrl = `${SQUARE_URL}catalog`;
   const payload = { objectIds: ids, includeRelatedObjects };
 
@@ -86,7 +105,10 @@ export async function getCatalogItemsAndImages(ids: string[], includeRelatedObje
     .catch((err) => console.log(err));
 }
 
-export async function searchObjects(includeRelatedObjects: boolean = true, payload: SearchCatalogObjectsRequest): Promise<ApiResponse<SearchCatalogObjectsResponse>> {
+export async function searchObjects(
+  includeRelatedObjects: boolean = true,
+  payload: SearchCatalogObjectsRequest
+): Promise<ApiResponse<SearchCatalogObjectsResponse>> {
   const fetchUrl = `${SQUARE_URL}catalog/search/objects`;
   return await fetch(fetchUrl, {
     method: "POST",
@@ -101,9 +123,31 @@ export async function searchObjects(includeRelatedObjects: boolean = true, paylo
     .catch((err) => console.log(err));
 }
 
+export async function searchItems(
+  includeRelatedObjects: boolean = true,
+  payload: SearchCatalogItemsRequest
+): Promise<{
+  objects: CatalogObject[];
+  cursor: SearchCatalogItemsResponse["cursor"];
+}> {
+  const fetchUrl = `${SQUARE_URL}catalog/search`;
+  return await fetch(fetchUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+    next: { revalidate: 0 },
+  }) // TODO must set to appropriate value in prod
+    .then((res) => res.json())
+    // .then(checkForErrors)
+    .catch((err) => console.log(err));
+}
+
 export async function getProductDetails({
-  params: { slug },
+  params,
 }: any): Promise<ApiResponse<RetrieveCatalogObjectResponse>> {
+  const { slug } = await params;
   return await fetch(SQUARE_URL + "catalog/" + slug, {
     next: { revalidate: 0 },
   })

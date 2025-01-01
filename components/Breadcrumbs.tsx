@@ -1,41 +1,25 @@
-"use client";
 import Link from "next/link";
-import React, { useContext } from "react";
-import { NavigationContext, useNavigation } from "../context/navigationContext";
-import { IoIosArrowBack } from "react-icons/io";
+import React, { Fragment } from "react";
 import { AppProps } from "index";
 
 type Props = AppProps & {
-  categoryId: string;
+  items?: {
+    name: string
+    link: string
+  }[];
 };
 
-const Breadcrumbs = ({ categoryId }: Props) => {
-  const {
-    apparelNavigation: [{ unformattedCategories }],
-  } = useNavigation();
-  const productCategory = unformattedCategories.find(
-    ({ id }) => categoryId == id
-  );
+const Breadcrumbs = ({ items }: Props) => {
 
-  if (!productCategory)
-    return (
-      <Link href="/apparel">
-        <IoIosArrowBack />
-      </Link>
-    );
-
-  const breadCrumbs =
-    (productCategory && productCategory?.categoryData?.name?.split(" ")) || [];
-    
   return (
     <div>
-      {breadCrumbs.map((name, i) => (
-        <>
-          <Link key={name} href={"/apparel"}>
+      {items?.map(({ name, link }, i) => (
+        <Fragment key={name}>
+          <Link href={link}>
             {name.toUpperCase()}
           </Link>{" "}
-          {i < breadCrumbs.length - 1 && " > "}
-        </>
+          {i < items.length - 1 && " > "}
+        </Fragment>
       ))}
     </div>
   );

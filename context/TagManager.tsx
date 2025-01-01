@@ -42,7 +42,6 @@ const TagManagerProvider = ({
 
     const track = (title: string, data: {}) => {
         if (!verifyInit()) return;
-        console.log('tracked')
         window.fbq('track', title, data)
     }
 

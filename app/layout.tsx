@@ -1,4 +1,4 @@
-/* eslint-disable react/react-in-jsx-scope */
+
 import { getCatalogItemsAndImages, getCatalogObjects } from "api/catalogApi";
 import Footer from "components/Footer";
 import Header from "components/Header";
@@ -23,8 +23,9 @@ import Script from "next/script";
 import { FooterNavigationDocumentDataNavsItem } from "prismicio-types";
 import FacebookPixel from "components/FacebookPixel";
 import TagManagerProvider from "context/TagManager";
+import { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "The Playground | Home",
 };
 
@@ -67,8 +68,7 @@ export const getMainNavigation: () => Promise<{
 
   switch (type) {
     case "square":
-      const ids = object_ids?.split(",") ?? [];
-      headerNavs = (await getCatalogItemsAndImages(ids, false)).objects?.map(
+      headerNavs = (await getCatalogItemsAndImages(object_ids?.split(",") ?? [], false)).objects?.map(
         ({ id, categoryData: { name } = { name: "" } }) => {
           name = name ?? ""
           return {
@@ -103,7 +103,7 @@ export const getMainNavigation: () => Promise<{
 type Props = AppProps & {};
 
 export default async function RootLayout({ children }: Readonly<Props>) {
-  const cookieCartId = cookies().get("cartId")?.value ?? "";
+  const cookieCartId = (await cookies()).get("cartId")?.value ?? "";
 
   const { order: cart = {
     locationId: ""
@@ -160,7 +160,7 @@ type LayoutProps = AppProps & {
 const Layout = ({ children, navs, navs: { footerNavs } }: LayoutProps) => (
   <>
     <Header navs={navs} />
-    <main className="min-h-full mt-[90px] box-border">{children}</main>
+    <main className="min-h-full pt-[90px] box-border">{children}</main>
     <Footer navs={footerNavs} />
   </>
 );

@@ -51,6 +51,8 @@ export function mapArrayToMap(arr: CatalogObject[]) {
   return mappedCatalogObjects;
 }
 
+export const formatNavigationLinks = (string: string) =>  string.trim().replace(" ", "").toLowerCase();
+
 export const makeCategoryTree = (
   arr: SplitCategoryNameWithId[]
 ): CategoryTree =>

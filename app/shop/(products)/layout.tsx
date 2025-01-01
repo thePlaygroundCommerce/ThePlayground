@@ -1,6 +1,7 @@
 import { getMainNavigation } from "app/layout";
 import Button from "components/Button";
 import ShopNavigation from "components/ShopNavigation";
+import { AppProps } from "index";
 import Link from "next/link";
 import { Divider } from "rsuite";
 import Dropdown from "rsuite/esm/Dropdown";
@@ -10,7 +11,7 @@ export const metadata = {
   title: "The Playground | Shop",
 };
 
-export default async function ProductsPageLayout({ children }: any) {
+export default async function ProductsPageLayout({ children }: AppProps) {
   const { headerNavs } = await getMainNavigation()
 
   return (

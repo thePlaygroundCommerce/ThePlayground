@@ -4,9 +4,9 @@ import Hero from "components/Hero";
 import Image from "components/Image";
 import { createClient } from "prismicio";
 
-type Props = {};
+type Props = unknown;
 
-const Page = async ({ }: Props) => {
+const Page = async (props: Props) => {
   const blogs = await createClient().getAllByType("blog");
 
   {
@@ -27,7 +27,7 @@ const Page = async ({ }: Props) => {
                 ...rest
               },
               last_publication_date
-            }) => ({ imageProps: { ...dimensions, src: url ?? "", alt: alt ?? "" }, last_publication_date, cta: "", ...rest })
+            }) => ({ image: { ...dimensions, src: url ?? "", alt: alt ?? "" }, last_publication_date, link: "", ...rest })
           )}
         />
       </div>

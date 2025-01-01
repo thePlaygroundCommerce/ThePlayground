@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from "./Button";
 
-type Props = {}
+type Props = unknown
 
 const Feedback = (props: Props) => {
     return (

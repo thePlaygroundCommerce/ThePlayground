@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import React, { useEffect, useState } from 'react'
 import { AppProps } from 'index'
 
-type Props = {} & AppProps
+type Props = unknown & AppProps
 
 const Blinking = ({ children }: Props) => {
     const [index, setIndex] = useState(0);

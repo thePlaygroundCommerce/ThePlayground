@@ -1,6 +1,5 @@
 import { Content } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
-import CallToActionForm from "components/forms/CallToActionForm";
 
 /**
  * Props for `CallToAction`.
@@ -12,7 +11,6 @@ export type CallToActionProps = SliceComponentProps<Content.CallToActionSlice>;
  */
 const CallToAction = ({
   slice,
-  slice: { primary, variation },
 }: CallToActionProps): JSX.Element => {
   let description;
   let placeholder;

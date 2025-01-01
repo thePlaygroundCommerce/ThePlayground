@@ -1,4 +1,4 @@
-/* eslint-disable react/react-in-jsx-scope */
+ 
 'use client'
 
 import { useUIKit } from 'context/UIKitContext';

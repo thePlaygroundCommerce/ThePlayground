@@ -3,7 +3,7 @@ import React, { createContext, useContext } from 'react'
 import { AppProps } from 'index';
 import { doesContextExist } from 'util/';
 
-type Props = {} & AppProps
+type Props = unknown & AppProps
 
 export const CustomerContext = createContext<null>(null);
 

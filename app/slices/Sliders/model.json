@@ -103,6 +103,67 @@
         }
       },
       "items": {}
+    },
+    {
+      "id": "icons",
+      "name": "icons",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "slider_title": {
+          "type": "Text",
+          "config": {
+            "label": "Slider Title",
+            "placeholder": "Title"
+          }
+        },
+        "sliderheadline": {
+          "type": "Text",
+          "config": {
+            "label": "sliderHeadline",
+            "placeholder": ""
+          }
+        },
+        "imagefit": {
+          "type": "Select",
+          "config": {
+            "label": "imageFit",
+            "placeholder": "",
+            "options": [
+              "contain",
+              "cover"
+            ],
+            "default_value": "contain"
+          }
+        },
+        "icons": {
+          "type": "Group",
+          "config": {
+            "label": "icons",
+            "repeat": true,
+            "fields": {
+              "image": {
+                "type": "Image",
+                "config": {
+                  "label": "image",
+                  "constraint": {},
+                  "thumbnails": []
+                }
+              },
+              "image_description": {
+                "type": "Text",
+                "config": {
+                  "label": "image description",
+                  "placeholder": ""
+                }
+              }
+            }
+          }
+        }
+      },
+      "items": {}
     }
   ]
 }
