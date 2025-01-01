@@ -19,9 +19,8 @@ export async function generateStaticParams() {
 const searchCatalogItems = async (category: string) => {
   const formattedCategory = formatNavigationLinks(category)
   const id = (await getCatalogInfo()).categoryNameMap[formattedCategory]
+  console.log(id)
   const searchPayload: SearchCatalogItemsRequest = {};
-
-  console.log(category);
 
   if (!category) searchPayload.categoryIds = [];
   else if (!id) redirect('/shop')
