@@ -1264,24 +1264,14 @@ export type HeroSlice = prismic.SharedSlice<"hero", HeroSliceVariation>;
  */
 export interface Hero2SliceDefaultPrimary {
   /**
-   * eyebrowHeadline field in *ProductShowcase → Default → Primary*
+   * headline field in *ProductShowcase → Default → Primary*
    *
    * - **Field Type**: Text
    * - **Placeholder**: Eyebrow
-   * - **API ID Path**: hero_2.default.primary.eyebrowHeadline
+   * - **API ID Path**: hero_2.default.primary.headline
    * - **Documentation**: https://prismic.io/docs/field#key-text
    */
-  eyebrowHeadline: prismic.KeyTextField;
-
-  /**
-   * title field in *ProductShowcase → Default → Primary*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_2.default.primary.title
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
-   */
-  title: prismic.RichTextField;
+  headline: prismic.KeyTextField;
 
   /**
    * description field in *ProductShowcase → Default → Primary*
@@ -1343,6 +1333,16 @@ export interface Hero2SliceDefaultPrimary {
    * - **Documentation**: https://prismic.io/docs/field#key-text
    */
   call_to_action_label: prismic.KeyTextField;
+
+  /**
+   * title field in *ProductShowcase → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_2.default.primary.title
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  title: prismic.KeyTextField;
 }
 
 /**
@@ -1359,309 +1359,9 @@ export type Hero2SliceDefault = prismic.SharedSliceVariation<
 >;
 
 /**
- * Primary content in *ProductShowcase → Image Right → Primary*
- */
-export interface Hero2SliceImageRightPrimary {
-  /**
-   * eyebrowHeadline field in *ProductShowcase → Image Right → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: Eyebrow
-   * - **API ID Path**: hero_2.imageRight.primary.eyebrowHeadline
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  eyebrowHeadline: prismic.KeyTextField;
-
-  /**
-   * title field in *ProductShowcase → Image Right → Primary*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_2.imageRight.primary.title
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
-   */
-  title: prismic.RichTextField;
-
-  /**
-   * description field in *ProductShowcase → Image Right → Primary*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_2.imageRight.primary.description
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
-   */
-  description: prismic.RichTextField;
-
-  /**
-   * image field in *ProductShowcase → Image Right → Primary*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_2.imageRight.primary.image
-   * - **Documentation**: https://prismic.io/docs/field#image
-   */
-  image: prismic.ImageField<never>;
-
-  /**
-   * Description Align field in *ProductShowcase → Image Right → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_2.imageRight.primary.description_align
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  description_align: prismic.KeyTextField;
-
-  /**
-   * window field in *ProductShowcase → Image Right → Primary*
-   *
-   * - **Field Type**: Boolean
-   * - **Placeholder**: *None*
-   * - **Default Value**: false
-   * - **API ID Path**: hero_2.imageRight.primary.window
-   * - **Documentation**: https://prismic.io/docs/field#boolean
-   */
-  window: prismic.BooleanField;
-
-  /**
-   * Call To Action Link field in *ProductShowcase → Image Right → Primary*
-   *
-   * - **Field Type**: Content Relationship
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_2.imageRight.primary.call_to_action_link
-   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
-   */
-  call_to_action_link: prismic.ContentRelationshipField;
-
-  /**
-   * Call To Action Label field in *ProductShowcase → Image Right → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_2.imageRight.primary.call_to_action_label
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  call_to_action_label: prismic.KeyTextField;
-}
-
-/**
- * Image Right variation for ProductShowcase Slice
- *
- * - **API ID**: `imageRight`
- * - **Description**: Default
- * - **Documentation**: https://prismic.io/docs/slice
- */
-export type Hero2SliceImageRight = prismic.SharedSliceVariation<
-  "imageRight",
-  Simplify<Hero2SliceImageRightPrimary>,
-  never
->;
-
-/**
- * Primary content in *ProductShowcase → TextContentLeft → Primary*
- */
-export interface Hero2SliceTextContentLeftPrimary {
-  /**
-   * eyebrowHeadline field in *ProductShowcase → TextContentLeft → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: Eyebrow
-   * - **API ID Path**: hero_2.textContentLeft.primary.eyebrowHeadline
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  eyebrowHeadline: prismic.KeyTextField;
-
-  /**
-   * title field in *ProductShowcase → TextContentLeft → Primary*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_2.textContentLeft.primary.title
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
-   */
-  title: prismic.RichTextField;
-
-  /**
-   * description field in *ProductShowcase → TextContentLeft → Primary*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_2.textContentLeft.primary.description
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
-   */
-  description: prismic.RichTextField;
-
-  /**
-   * Background Image field in *ProductShowcase → TextContentLeft → Primary*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_2.textContentLeft.primary.background_image
-   * - **Documentation**: https://prismic.io/docs/field#image
-   */
-  background_image: prismic.ImageField<never>;
-
-  /**
-   * Description Align field in *ProductShowcase → TextContentLeft → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_2.textContentLeft.primary.description_align
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  description_align: prismic.KeyTextField;
-
-  /**
-   * Showcase Title field in *ProductShowcase → TextContentLeft → Primary*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_2.textContentLeft.primary.showcase_title
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
-   */
-  showcase_title: prismic.RichTextField;
-
-  /**
-   * Call To Action Link field in *ProductShowcase → TextContentLeft → Primary*
-   *
-   * - **Field Type**: Content Relationship
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_2.textContentLeft.primary.call_to_action_link
-   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
-   */
-  call_to_action_link: prismic.ContentRelationshipField;
-
-  /**
-   * Call To Action Label field in *ProductShowcase → TextContentLeft → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_2.textContentLeft.primary.call_to_action_label
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  call_to_action_label: prismic.KeyTextField;
-}
-
-/**
- * TextContentLeft variation for ProductShowcase Slice
- *
- * - **API ID**: `textContentLeft`
- * - **Description**: Default
- * - **Documentation**: https://prismic.io/docs/slice
- */
-export type Hero2SliceTextContentLeft = prismic.SharedSliceVariation<
-  "textContentLeft",
-  Simplify<Hero2SliceTextContentLeftPrimary>,
-  never
->;
-
-/**
- * Primary content in *ProductShowcase → compact → Primary*
- */
-export interface Hero2SliceCompactPrimary {
-  /**
-   * eyebrowHeadline field in *ProductShowcase → compact → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: Eyebrow
-   * - **API ID Path**: hero_2.compact.primary.eyebrowHeadline
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  eyebrowHeadline: prismic.KeyTextField;
-
-  /**
-   * title field in *ProductShowcase → compact → Primary*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_2.compact.primary.title
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
-   */
-  title: prismic.RichTextField;
-
-  /**
-   * description field in *ProductShowcase → compact → Primary*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_2.compact.primary.description
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
-   */
-  description: prismic.RichTextField;
-
-  /**
-   * image field in *ProductShowcase → compact → Primary*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_2.compact.primary.image
-   * - **Documentation**: https://prismic.io/docs/field#image
-   */
-  image: prismic.ImageField<never>;
-
-  /**
-   * Description Align field in *ProductShowcase → compact → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_2.compact.primary.description_align
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  description_align: prismic.KeyTextField;
-
-  /**
-   * window field in *ProductShowcase → compact → Primary*
-   *
-   * - **Field Type**: Boolean
-   * - **Placeholder**: *None*
-   * - **Default Value**: false
-   * - **API ID Path**: hero_2.compact.primary.window
-   * - **Documentation**: https://prismic.io/docs/field#boolean
-   */
-  window: prismic.BooleanField;
-
-  /**
-   * Call To Action Link field in *ProductShowcase → compact → Primary*
-   *
-   * - **Field Type**: Content Relationship
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_2.compact.primary.call_to_action_link
-   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
-   */
-  call_to_action_link: prismic.ContentRelationshipField;
-
-  /**
-   * Call To Action Label field in *ProductShowcase → compact → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_2.compact.primary.call_to_action_label
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  call_to_action_label: prismic.KeyTextField;
-}
-
-/**
- * compact variation for ProductShowcase Slice
- *
- * - **API ID**: `compact`
- * - **Description**: Default
- * - **Documentation**: https://prismic.io/docs/slice
- */
-export type Hero2SliceCompact = prismic.SharedSliceVariation<
-  "compact",
-  Simplify<Hero2SliceCompactPrimary>,
-  never
->;
-
-/**
  * Slice variation for *ProductShowcase*
  */
-type Hero2SliceVariation =
-  | Hero2SliceDefault
-  | Hero2SliceImageRight
-  | Hero2SliceTextContentLeft
-  | Hero2SliceCompact;
+type Hero2SliceVariation = Hero2SliceDefault;
 
 /**
  * ProductShowcase Shared Slice
@@ -1753,11 +1453,11 @@ export interface SlidersSliceBlogPrimaryItemsItem {
 }
 
 /**
- * Item in *Sliders → icons → Primary → icons*
+ * Item in *Sliders → icon → Primary → icons*
  */
 export interface SlidersSliceIconsPrimaryIconsItem {
   /**
-   * image field in *Sliders → icons → Primary → icons*
+   * image field in *Sliders → icon → Primary → icons*
    *
    * - **Field Type**: Image
    * - **Placeholder**: *None*
@@ -1767,7 +1467,7 @@ export interface SlidersSliceIconsPrimaryIconsItem {
   image: prismic.ImageField<never>;
 
   /**
-   * image description field in *Sliders → icons → Primary → icons*
+   * image description field in *Sliders → icon → Primary → icons*
    *
    * - **Field Type**: Text
    * - **Placeholder**: *None*
@@ -1896,11 +1596,11 @@ export type SlidersSliceBlog = prismic.SharedSliceVariation<
 >;
 
 /**
- * Primary content in *Sliders → icons → Primary*
+ * Primary content in *Sliders → icon → Primary*
  */
 export interface SlidersSliceIconsPrimary {
   /**
-   * Slider Title field in *Sliders → icons → Primary*
+   * Slider Title field in *Sliders → icon → Primary*
    *
    * - **Field Type**: Text
    * - **Placeholder**: Title
@@ -1910,7 +1610,7 @@ export interface SlidersSliceIconsPrimary {
   slider_title: prismic.KeyTextField;
 
   /**
-   * sliderHeadline field in *Sliders → icons → Primary*
+   * sliderHeadline field in *Sliders → icon → Primary*
    *
    * - **Field Type**: Text
    * - **Placeholder**: *None*
@@ -1920,7 +1620,7 @@ export interface SlidersSliceIconsPrimary {
   sliderheadline: prismic.KeyTextField;
 
   /**
-   * imageFit field in *Sliders → icons → Primary*
+   * imageFit field in *Sliders → icon → Primary*
    *
    * - **Field Type**: Select
    * - **Placeholder**: *None*
@@ -1931,7 +1631,7 @@ export interface SlidersSliceIconsPrimary {
   imagefit: prismic.SelectField<"contain" | "cover", "filled">;
 
   /**
-   * icons field in *Sliders → icons → Primary*
+   * icons field in *Sliders → icon → Primary*
    *
    * - **Field Type**: Group
    * - **Placeholder**: *None*
@@ -1942,7 +1642,7 @@ export interface SlidersSliceIconsPrimary {
 }
 
 /**
- * icons variation for Sliders Slice
+ * icon variation for Sliders Slice
  *
  * - **API ID**: `icons`
  * - **Description**: Default
@@ -2209,14 +1909,8 @@ declare module "@prismicio/client" {
       HeroSliceCarousel,
       Hero2Slice,
       Hero2SliceDefaultPrimary,
-      Hero2SliceImageRightPrimary,
-      Hero2SliceTextContentLeftPrimary,
-      Hero2SliceCompactPrimary,
       Hero2SliceVariation,
       Hero2SliceDefault,
-      Hero2SliceImageRight,
-      Hero2SliceTextContentLeft,
-      Hero2SliceCompact,
       NewsletterSlice,
       NewsletterSliceDefaultPrimary,
       NewsletterSliceVariation,

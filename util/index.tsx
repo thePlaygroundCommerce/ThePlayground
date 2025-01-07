@@ -1,5 +1,10 @@
 import { CatalogObject } from "square";
 import { SplitCategoryNameWithId, CategoryTree } from "index";
+import { ReactElement } from "react";
+import Link from "next/link";
+
+export const wrapLink = (link: string | undefined, elem: ReactElement) =>
+  link ? <Link href={link}>{elem}</Link> : elem;
 
 export const doesContextExist = <T,>(context: T | null) => {
   if (!context) {
@@ -21,13 +26,13 @@ export function splitCategoryNamesWithId(
   return arr?.map(({ id, categoryData }: { id: string; categoryData?: any }) =>
     categoryData?.name
       ? {
-          id,
-          category: categoryData.name.split(" "),
-        }
+        id,
+        category: categoryData.name.split(" "),
+      }
       : {
-          id: "",
-          category: [],
-        }
+        id: "",
+        category: [],
+      }
   );
 }
 
@@ -51,7 +56,7 @@ export function mapArrayToMap(arr: CatalogObject[]) {
   return mappedCatalogObjects;
 }
 
-export const formatNavigationLinks = (string: string) =>  string.trim().replace(" ", "").toLowerCase();
+export const formatNavigationLinks = (string: string) => string.trim().replace(" ", "").toLowerCase();
 
 export const makeCategoryTree = (
   arr: SplitCategoryNameWithId[]

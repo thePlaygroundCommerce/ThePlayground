@@ -4,8 +4,8 @@ import React from "react";
 import clsx from "clsx";
 
 
-const Image = ({ className, ...rest }: ImageProps) => {
-    return <NextImage className={clsx("w-full max-w-full max-h-full", className)} {...rest} />
+const Image = ({ className, objectFit, ...rest }: ImageProps) => {
+    return <NextImage className={clsx("w-full max-w-full max-h-full", objectFit && `object-${objectFit}`, className)} {...rest} />
 }
 
 export default Image

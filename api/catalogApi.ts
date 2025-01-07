@@ -124,7 +124,6 @@ export async function searchObjects(
 }
 
 export async function searchItems(
-  includeRelatedObjects: boolean = true,
   payload: SearchCatalogItemsRequest
 ): Promise<{
   objects: CatalogObject[];

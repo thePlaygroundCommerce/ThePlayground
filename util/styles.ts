@@ -26,11 +26,11 @@ export const contentPositions: {[id: string]: string} = {
   middleCenter: "left-1/2 top-1/2 -translate-x-1/2",
   middleThirdQuarter: "left-3/4 top-1/2 -translate-x-3/4 -translate-y-1/2",
   middleEnd: "right-0 top-1/2",
-  bottomStart: "left-0 bottom-0",
-  bottomQuarter: "left-1/4 bottom-0 -translate-x-1/4",
-  bottomCenter: "left-1/2 bottom-0 -translate-x-1/2",
-  bottomThirdQuarter: "left-3/4 bottom-0 -translate-x-3/4",
-  bottomEnd: "right-0 bottom-0",
+  bottomStart: "left-0 bottom-1/4",
+  bottomQuarter: "left-1/4 bottom-1/4 -translate-x-1/4",
+  bottomCenter: "left-1/2 bottom-1/4 -translate-x-1/2",
+  bottomThirdQuarter: "left-3/4 bottom-1/4 -translate-x-3/4",
+  bottomEnd: "right-0 bottom-1/4",
 };
 
 export const alignToFlexMapping: { [key: string]: string } = {

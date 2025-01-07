@@ -20,7 +20,6 @@ const searchCatalogItems = async (category: string) => {
   const formattedCategory = formatNavigationLinks(category)
   const { categoryNameMap } = await getCatalogInfo()
   const id = categoryNameMap[formattedCategory]
-  console.log(id, formattedCategory, categoryNameMap)
   const searchPayload: SearchCatalogItemsRequest = {};
 
   if (!category) searchPayload.categoryIds = [];

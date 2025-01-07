@@ -18,6 +18,7 @@ import prismic, { createClient } from "../../../prismicio";
 import { AppProps } from "index";
 import clsx from "clsx";
 import Heading from "components/typography/Heading";
+import Showcase from "components/Showcase";
 
 export type Hero2Props = SliceComponentProps<Content.Hero2Slice>;
 type PrismicImageProps =
@@ -26,17 +27,17 @@ type PrismicImageProps =
   | null
   | undefined;
 
-const Compact = ({ children, makeFirst }: AppProps & { makeFirst: boolean}) => (
+const Compact = ({ children, makeFirst }: AppProps & { makeFirst: boolean }) => (
   <div className="w-full h-screen flex justify-center md:justify-end items-center">
     <div className="h-3/4 w-3/4 overflow-hidden rounded-lg border-2">
       {children}
     </div>
   </div>
 );
-const Window = ({ children, makeFirst }: AppProps & { makeFirst: boolean}) => (
+const Window = ({ children, makeFirst }: AppProps & { makeFirst: boolean }) => (
   <div className="h-full w-full p-48">{children}</div>
 );
-const Default = ({ children, makeFirst }: AppProps & { makeFirst: boolean}) => (
+const Default = ({ children, makeFirst }: AppProps & { makeFirst: boolean }) => (
   <div className={clsx("h-screen", makeFirst && "order-first")}>{children}</div>
 );
 const List = ({ children, key }: AppProps) => (
@@ -59,7 +60,7 @@ const componentToVariationMap = {
 
 const ProductShowcase = async ({
   slice,
-  slice: { primary },
+  slice: { primary, variation },
 }: Hero2Props): Promise<JSX.Element> => {
   let cta: Content.CtaEmailDocument;
 
@@ -76,102 +77,27 @@ const ProductShowcase = async ({
   }
 
 
-  const determineVariation = ({ variation, primary }: Hero2Slice) => {
-    let image;
-    const renderImage = (image: PrismicImageProps) => (
-      <div className={clsx("relative h-full")}>
-        {isFilled.image(image) && (
-          <PrismicNextImage
-            field={image}
-            className="absolute object-cover w-full h-full"
-          />
-        )}
-      </div>
-    );
+  const renderImage = (image: PrismicImageProps) => (
+    <div className={clsx("relative h-full")}>
+      {isFilled.image(image) && (
+        <PrismicNextImage
+          field={image}
+          className="absolute object-cover w-full h-full"
+        />
+      )}
+    </div>
+  );
 
-    if (variation !== "textContentLeft") image = primary.image;
-    return createElement<{
-      makeFirst: boolean
-    }>(
-      componentToVariationMap[variation] || "div",
-      {
-        makeFirst: false
-      },
-      renderImage(image)
-    );
-  };
+  const ImageComponent = createElement(componentToVariationMap[variation] || 'div', { makeFirst: false }, renderImage(primary.image))
 
-  const prepareVisuals = async () => {
-    const descriptionAlignment = slice.primary.description_align ?? "";
 
-    const left = determineVariation(slice);
-    const right = (
-      <div className={clsx("w-full", slice.variation == "imageRight" && "md:order-first")}>
-        <div
-          className={`p-8 flex flex-col justify-center h-full items-center md:items-${alignToFlexMapping[descriptionAlignment]}`}
-        >
-          {isFilled.keyText(slice.primary.eyebrowHeadline) && (
-            <p>{slice.primary.eyebrowHeadline}</p>
-          )}
-          {isFilled.richText(slice.primary.title) && (
-            <div className="text-center">
-              <Heading>{prismic.asText(slice.primary.title)}</Heading>
-              {/* <PrismicRichText field={slice.primary.title} /> */}
-            </div>
-          )}
-          {isFilled.richText(slice.primary.description) && (
-            <div className={`md:w-2/3 text-${slice.primary.description_align}`}>
-              <PrismicRichText
-                field={slice.primary.description}
-                components={{
-                  list: List,
-                  listItem: ListItem,
-                }}
-              />
-            </div>
-          )}
-          {cta && (
-            <div className="text-center m-8 flex">
-              <CallToActionForm
-                buttonText={
-                  primary.call_to_action_label ?? cta.data.button_label ?? ""
-                }
-                type={""}
-                id={""}
-                name={""}
-                placeholder={cta.data.placeholder}
-                url={cta.data.url ?? ""}
-              />
-              {/* <div className="">
-                <Form>
-                  <Form.Control className="" name="email" placeholder="Email" />
-                </Form>
-              </div>
-              <div>
-                <Button>
-                  <PrismicNextLink
-                    field={slice.primary.call_to_action_link || "/"}
-                  >
-                    {slice.primary.call_to_action_label ?? "Learn more…"}
-                  </PrismicNextLink>
-                </Button>
-              </div> */}
-            </div>
-          )}
-        </div>
-      </div>
-    );
-
-    return <>{left}{right}</>
-  };
 
   return (
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="grid min-h-screen md:grid-cols-2"
     >
-      {prepareVisuals()}
+      <Showcase image={ImageComponent} content={{ ...primary, description: <PrismicRichText field={primary.description} /> }} flipped={false} />
     </section>
   );
 };

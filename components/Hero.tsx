@@ -1,18 +1,15 @@
-import React from "react";
+import React, { ReactElement, ReactNode } from "react";
 import { Heading } from "rsuite";
 import { AppProps } from "index";
 import Image from "./Image";
-import { PrismicNextImage } from "@prismicio/next";
 import Carousel from "./Carousel";
 import Link from "next/link";
 import Button from "./Button";
-import { ImageField, isFilled, KeyTextField } from "@prismicio/client";
-import { components } from "app/slices";
-import { SliceZone } from "@prismicio/react";
+import { isFilled, KeyTextField } from "@prismicio/client";
 import clsx from "clsx";
 import { contentPositions } from "util/styles";
-import { Description } from "@headlessui/react";
 import { ImageProps } from "next/image";
+import { CtaEmailDocumentData } from "prismicio-types";
 
 export type HeroProps = {
   type: "static" | "carousel";
@@ -24,15 +21,17 @@ export type HeroProps = {
   };
 } & AppProps;
 
+export type ContentImage = ImageProps | NonNullable<ReactElement>;
 export type Content = {
-  image?: ImageProps;
+  image: ContentImage;
   content?: {
-    title: KeyTextField;
-    description?: KeyTextField;
-    headline?: KeyTextField;
+    title: ReactElement | string | null;
+    description?: ReactElement | string | null;
+    headline?: ReactElement | string | null;
     social_media_handles?: unknown;
-    cta?: unknown;
+    cta?: CtaEmailDocumentData;
     link?: KeyTextField;
+    linkLabel?: KeyTextField;
     last_publication_date?: string;
   }
   contentStyles?: {
@@ -40,6 +39,12 @@ export type Content = {
     text_content_position?: KeyTextField;
   }
 };
+
+export const isImageProps = (obj: ContentImage): obj is ImageProps => {
+  return (obj as ImageProps).src !== undefined
+}
+
+export const renderContentImage = (image: ContentImage) => isImageProps(image) ? <Image {...image} /> : image
 
 const Hero = ({
   type = "static",
@@ -57,7 +62,7 @@ const Hero = ({
       isFilled.keyText(text_content_position)
         ? contentPositions[text_content_position]
         : null,
-      "text-black",
+      // "text-black",
       "text-" + content_alignment?.toLowerCase(),
       _contentContainer
     ),
@@ -95,20 +100,24 @@ const HeroContent = ({
     link,
   } = { title: "" }
 }: Content) => {
+  let ImageComponent: ReactNode;
 
-  const ImageComponent = Image || PrismicNextImage;
+  if (isImageProps(image)) {
+    ImageComponent = <Image
+      {...{
+        ...image,
+        className: "z-10 h-full object-cover w-full",
+      }}
+    />
+  } else {
+    ImageComponent = image
+  }
+
   return (
     <div className="w-full h-full relative">
-      {image && (
-        <div className="w-full h-full absolute">
-          <ImageComponent
-            {...{
-              ...image,
-              className: "z-10 h-full object-cover w-full",
-            }}
-          />
-        </div>
-      )}
+      <div className="w-full h-full absolute">
+        {ImageComponent}
+      </div>
       <div className="absolute z-20 w-full h-full flex justify-center text-center items-center">
         <div>
           <Heading level={2} className="w3-animate-top">

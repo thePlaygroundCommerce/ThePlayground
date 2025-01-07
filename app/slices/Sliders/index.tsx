@@ -2,9 +2,11 @@ import { Content, isFilled, KeyTextField } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 import { getCatalogItemsAndImages } from "api/catalogApi";
 import { BlogDocumentData } from "prismicio-types";
-import Window, { WindowProps } from "components/Window";
+import Slide, { SlideProps, TypeOmittedSlideProps } from "components/Slide";
 import Heading from "components/typography/Heading";
 import Link from "next/link";
+import { ImageProps } from "next/image";
+import Slider from "components/Slider";
 
 /**
  * Props for `Sliders`.
@@ -14,8 +16,8 @@ export type SlidersProps = SliceComponentProps<Content.SlidersSlice>;
 /**
  * Component for "Sliders" Slices.
  */
-const Sliders = async ({ slice, slice: { primary, primary: { slider_title, sliderheadline } } }: SlidersProps): Promise<JSX.Element> => {
-  let slides: WindowProps[] = [];
+const Sliders = async ({ slice, slice: { slice_type, primary, variation, primary: { slider_title, sliderheadline } } }: SlidersProps): Promise<JSX.Element> => {
+  let slides: TypeOmittedSlideProps[] = [];
 
   switch (slice.variation) {
     case "icons":
@@ -26,14 +28,14 @@ const Sliders = async ({ slice, slice: { primary, primary: { slider_title, slide
         if (!isFilled.contentRelationship<'blog', string, BlogDocumentData>(blog)) return
         const { data: { title, headline, coverimage: { url = "", alt = "", dimensions = {} } = {} } = {} } = blog
         slides.push({
-          contentData: {
+          content: {
             link: "",
             title: title ?? "",
             headline: headline ?? "",
           },
-          imageData: {
-            imagefit: primary.imagefit,
-            url: url ?? "",
+          image: {
+            objectFit: primary.imagefit,
+            src: url ?? "",
             alt: alt ?? ""
           }
         })
@@ -46,37 +48,16 @@ const Sliders = async ({ slice, slice: { primary, primary: { slider_title, slide
 
   return (
     <section
-      data-slice-type={slice.slice_type}
-      data-slice-variation={slice.variation}
+      data-slice-type={slice_type}
+      data-slice-variation={variation}
       className=" p-8"
     >
-      <div className="text-center container mx-auto">
-        <Heading>{slider_title}</Heading>
-        <p className="my-4">{sliderheadline}</p>
-      </div>
-      <div className="flex flex-col md:flex-row justify-center min-h-96">
-        {slides.map(
-          (
-            slide, i
-          ) => (
-            <div
-              key={i}
-              className="basis-full md:basis-1/4 md:shrink"
-            >
-              <Link href={slide.contentData.link}>
-                <Window
-                  {...slide}
-                />
-              </Link>
-            </div>
-          )
-        )}
-      </div>
+      <Slider type={variation.toUpperCase() as SlideProps['type']} title={slider_title} headline={sliderheadline} slides={slides} />
     </section>
   );
 };
 
-const getProducts = async (object_ids: string | KeyTextField, imagefit: WindowProps["imageData"]["imagefit"]): Promise<WindowProps[]> => {
+const getProducts = async (object_ids: string | KeyTextField, imagefit: ImageProps["objectFit"]): Promise<TypeOmittedSlideProps[]> => {
   const ids = object_ids?.split(",").map(id => id.replace(" ", "")).filter(id => id !== null) ?? []
   const { objects = [], relatedObjects } = (await getCatalogItemsAndImages(ids))
 
@@ -84,13 +65,13 @@ const getProducts = async (object_ids: string | KeyTextField, imagefit: WindowPr
     const [{ itemVariationData: { priceMoney: { amount = BigInt(0) } = {} } = {} }] = variations ?? []
     const { url, caption: alt } = relatedObjects?.find(({ id }) => imageIds?.[0] === id)?.imageData ?? {}
     return {
-      imageData: {
+      image: {
         imagefit,
-        url: url ?? "",
+        src: url ?? "",
         alt: alt ?? ""
       },
-      contentData: {
-        title: name ?? undefined,
+      content: {
+        title: name ?? "",
         price: Number(amount),
         link: "/shop"
       }
