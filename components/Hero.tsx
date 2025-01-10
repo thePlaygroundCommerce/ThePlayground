@@ -10,6 +10,7 @@ import clsx from "clsx";
 import { contentPositions } from "util/styles";
 import { ImageProps } from "next/image";
 import { CtaEmailDocumentData } from "prismicio-types";
+import { latoLight } from "app/fonts";
 
 export type HeroProps = {
   type: "static" | "carousel";
@@ -23,13 +24,13 @@ export type HeroProps = {
 
 export type ContentImage = ImageProps | NonNullable<ReactElement>;
 export type Content = {
-  image: ContentImage;
+  image: ContentImage | undefined;
   content?: {
     title: ReactElement | string | null;
     description?: ReactElement | string | null;
     headline?: ReactElement | string | null;
     social_media_handles?: unknown;
-    cta?: CtaEmailDocumentData;
+    cta?: Omit<CtaEmailDocumentData, 'slices'> ;
     link?: KeyTextField;
     linkLabel?: KeyTextField;
     last_publication_date?: string;
@@ -55,7 +56,7 @@ const Hero = ({
   const { container, contentContainer } = {
     container: clsx("overflow-hidden bgimg w-full h-screen relative", _container),
     contentContainer: clsx(
-      "px-4",
+      'h-full',
       "w-full",
       "md:w-1/4",
       "absolute",
@@ -70,7 +71,7 @@ const Hero = ({
 
   return (
     <div className={container}>
-      <div className="h-full">
+      <div className="h-full w-full absolute">
         <Carousel
           itemStyles={{ className: "w-full" }}
           items={items.map(({ image, content }, i) => (
@@ -83,7 +84,7 @@ const Hero = ({
         />
       </div>
       <div className={contentContainer}>
-        {type === "static" && <HeroContent {...items[0]} />}
+        {type === "static" && <HeroContent {...items[0]} image={undefined} />}
       </div>
     </div>
   );
@@ -98,15 +99,16 @@ const HeroContent = ({
     cta,
     social_media_handles,
     link,
+    linkLabel
   } = { title: "" }
 }: Content) => {
   let ImageComponent: ReactNode;
 
-  if (isImageProps(image)) {
+  if (image && isImageProps(image)) {
     ImageComponent = <Image
       {...{
         ...image,
-        className: "z-10 h-full object-cover w-full",
+        className: "z-10 h-full object-cover w-full brightness-50",
       }}
     />
   } else {
@@ -115,25 +117,27 @@ const HeroContent = ({
 
   return (
     <div className="w-full h-full relative">
-      <div className="w-full h-full absolute">
-        {ImageComponent}
-      </div>
-      <div className="absolute z-20 w-full h-full flex justify-center text-center items-center">
-        <div>
-          <Heading level={2} className="w3-animate-top">
-            {title}
-          </Heading>
+      {image && (
+        <div className="w-full h-full absolute">
+          {ImageComponent}
+        </div>
+      )}
+      <div className="absolute z-20 w-full flex text-left bottom-0 p-4">
+        <div className=" flex flex-col gap-4 text-slate-300">
           <div>
-            <p className="text-lg">{description}</p>
+            <Heading level={3} className="w3-animate-top">
+              {title}
+            </Heading>
+            <p className={"text-lg italic" + ` ${latoLight.className}`}>{description}</p>
+            {last_publication_date && (
+              <p className="text-lg">
+                {new Date(last_publication_date).toDateString()}
+              </p>
+            )}
           </div>
-          {last_publication_date && (
-            <p className="text-lg">
-              {new Date(last_publication_date).toDateString()}
-            </p>
-          )}
           {link && (
             <Link href={link}>
-              <Button variant="primary">READ MORE</Button>
+              <Button variant="primary">{linkLabel || "READ MORE"}</Button>
             </Link>
           )}
         </div>

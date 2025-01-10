@@ -5,7 +5,7 @@ import { Nav } from "app/layout";
 import HeaderNavigation from "./HeaderNavigation";
 import { AppProps } from "index";
 import LogoComponent from "./LogoComponent";
-import { latoLight } from "app/fonts";
+import { latoThin } from "app/fonts";
 import clsx from "clsx";
 import Blinking from "./Blinking";
 import MobileSideNav from "./MobileSideNav";
@@ -14,8 +14,8 @@ type Props = AppProps & { navs: { headerNavs: Nav[], footerNavs: Nav[] } };
 
 function Header({ navs }: Props) {
   return (
-    <header className="fixed h-[90px] max-h-[90px] flex flex-col top-0 drop-shadow-lg z-20 bg-white w-full">
-      <div className={"grid grid-cols-6 border-b md:px-8 px-4 md:py-1 py-3 h-full"}>
+    <header className="fixed h-[90px] max-h-[90px] flex flex-col top-0 drop-shadow-lg z-20 w-full">
+      <div className={"grid grid-cols-6 md:px-8 px-4 md:py-1 py-3 h-full"}>
         <div className="w-full h-full flex col-span-1">
           <div className="sm:hidden flex items-center">
             <MobileSideNav logo={<LogoComponent height={25} width={25} />} navs={navs} />
@@ -42,7 +42,7 @@ function Header({ navs }: Props) {
           </div>
         </div>
       </div>
-      <div className={clsx(latoLight.className, "text-sm bg-mintcream-950 text-white text-center p-2 ")}>
+      <div className={clsx(latoThin.className, "text-sm text-white text-center p-2 ")}>
         <Blinking>
           {[
             <p key={1}>Free Shipping & Returns <span className="italic">For A Limited Time</span></p>

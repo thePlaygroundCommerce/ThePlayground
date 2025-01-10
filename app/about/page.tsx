@@ -12,7 +12,7 @@ import pic2 from "public/shirt.png";
 const Page = () => {
   return (
     <div className="container mx-auto ">
-      <div className="">
+      {/* <div className="">
         <Hero
           type={"static"}
           items={[
@@ -36,7 +36,7 @@ const Page = () => {
             },
           ]}
         ></Hero>
-      </div>
+      </div> */}
       <div className="py-12 flex flex-col gap-12">
         <div className="px-4 text-center">
           <Heading>Welcome to The Playground</Heading>
@@ -78,10 +78,34 @@ const Page = () => {
           type={"ICONS"}
           title={null}
           headline={undefined}
-          slides={([1, 2, 3] as unknown as TypeOmittedSlideProps[]).fill({
-            image: { src: "", alt: "" },
-            content: { title: "Test", description: "TTest Desc" },
-          })}
+          slides={[
+            {
+              image: { src: "", alt: "" },
+              content: {
+                icon: "SHIP",
+                title: "Swift Shipping",
+                description:
+                  "We don't really like long waiting either, get your items shipped in 1 - 2 days.",
+              },
+            },
+            {
+              image: { src: "", alt: "" },
+              content: {
+                icon: "CHECK",
+                title: "Tested & Reliable Products",
+                description:
+                  "All our products have been tested and tried to make sure they don't fail in the heat of your travels.",
+              },
+            },
+            {
+              image: { src: "", alt: "" },
+              content: {
+                icon: "STAR",
+                title: "Trusted Reviews",
+                description: "TTest Desc",
+              },
+            },
+          ]}
         />
         {/* <div>
           <Showcase image={{ ...pic2, alt: "test", blurHeight: undefined, blurWidth: undefined, objectFit: 'contain' }} content={{

@@ -66,7 +66,7 @@ const Carousel = ({ itemStyles, items, children, className, onSlide = () => { } 
   return (
     <div
       ref={sliderRef}
-      className={clsx(className, "keen-slider w-1/3 overflow-hidden")}
+      className={clsx(className, "keen-slider overflow-hidden")}
     >
       {ready && instanceRef.current && render()}
     </div>

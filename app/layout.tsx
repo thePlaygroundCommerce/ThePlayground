@@ -24,6 +24,11 @@ import { FooterNavigationDocumentDataNavsItem } from "prismicio-types";
 import FacebookPixel from "components/FacebookPixel";
 import TagManagerProvider from "context/TagManager";
 import { Metadata } from "next";
+import Transition from "./Transition";
+
+import { config } from '@fortawesome/fontawesome-svg-core'
+import '@fortawesome/fontawesome-svg-core/styles.css'
+config.autoAddCss = false
 
 export const metadata: Metadata = {
   title: "The Playground | Home",
@@ -117,7 +122,7 @@ export default async function RootLayout({ children }: LayoutPageProps) {
   const { headerNavs, footerNavs } = await getMainNavigation();
   const mappedCatalogObjects = mapArrayToMap([...apparelObjects, ...relatedObjects]);
 
-  // TODO: duplicated item objs from mapArrayToMap / maybe use Set
+  // TODO: duplicated item objs from mapArrayToMap / maybe use Set  
   return (
     <TagManagerProvider>
       <ClerkProvider>
@@ -129,7 +134,9 @@ export default async function RootLayout({ children }: LayoutPageProps) {
             <CustomProvider>
               <Providers data={mappedCatalogObjects} cartData={{ _cart: cart, _options: options }} cartImageMap={imageMap}>
                 <Layout navs={{ headerNavs, footerNavs }}>
+                  {/* <Transition> */}
                   {children}
+                  {/* </Transition> */}
                 </Layout>
               </Providers>
             </CustomProvider>
@@ -158,10 +165,18 @@ type LayoutProps = AppProps & {
   };
 };
 
-const Layout = ({ children, navs, navs: { footerNavs } }: LayoutProps) => (
-  <>
-    <Header navs={navs} />
-    <main className="min-h-full pt-[90px] box-border">{children}</main>
-    <Footer navs={footerNavs} />
-  </>
-);
+const Layout = ({ children, navs, navs: { footerNavs } }: LayoutProps) => {
+  navs.headerNavs = [{
+    id: "About",
+    title: "About",
+    link: "/about"
+  }, ...navs.headerNavs]
+  return (
+    <>
+      <Header navs={navs} />
+      <main className="min-h-full box-border ">{children}</main>
+      {/* <Footer navs={footerNavs} /> */}
+    </>
+  );
+
+}

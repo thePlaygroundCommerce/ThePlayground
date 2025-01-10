@@ -14,8 +14,15 @@ export const latoHeavy = Lato({
   display: "swap",
 });
 
-export const latoLight = Lato({
+export const latoThin = Lato({
   weight: "100",
+  style: ["normal", "italic",],
+  subsets: ["latin", ],
+  display: "swap",
+});
+
+export const latoLight = Lato({
+  weight: "300",
   style: ["normal", "italic",],
   subsets: ["latin", ],
   display: "swap",
