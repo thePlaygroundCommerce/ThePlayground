@@ -4,6 +4,7 @@ import Footer from "components/Footer";
 import Header from "components/Header";
 import Providers from "components/Providers";
 import { mapArrayToMap } from "../util";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react";
 
 import "rsuite/dist/rsuite-no-reset.min.css";
@@ -134,6 +135,7 @@ export default async function RootLayout({ children }: LayoutPageProps) {
               </Providers>
             </CustomProvider>
             <PrismicPreview repositoryName={repositoryName} />
+            <SpeedInsights />
             <Analytics />
             <noscript>
               <img
