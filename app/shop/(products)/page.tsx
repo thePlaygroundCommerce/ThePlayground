@@ -28,7 +28,7 @@ const searchCatalogItems = async (category: string) => {
 
 
   const { objects = [] } =
-    (await searchItems(false, searchPayload));
+    (await searchItems(searchPayload));
 
   return mapArrayToMap(objects);
 
