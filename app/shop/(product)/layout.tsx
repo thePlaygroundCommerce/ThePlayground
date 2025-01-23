@@ -6,6 +6,6 @@ export const metadata = {
 
 export default function Layout({ children }: LayoutPageProps) {  
   return (
-    <div className="my-4 mx-4">{children}</div>
+    <div className="my-4">{children}</div>
   );
 }
