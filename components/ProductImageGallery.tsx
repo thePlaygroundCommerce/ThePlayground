@@ -30,6 +30,24 @@ function ProductImageGallery({ images }: { images: CatalogObject[] }) {
   return (
     <div className="md:flex-row flex-col flex gap-5 w-full min-h-full">
       <div className="order-1 md:order-2 md:hidden">
+        <div className="">
+          <Carousel onSlide={handleImageChange} className="h-[500px]">
+            {instance => {
+              setCarouselRef(instance);
+              return images.map((image, i) => (
+                <div
+                  key={i}
+                  className={clsx(
+                    "overflow-hidden flex relative rounded-lg w-full h-full",
+                    images.length > 1 ? "row-span-3" : "row-span-4"
+                  )}
+                >
+                  <ProductImageViewer {...image} />
+                </div>
+              ))
+            }}
+          </Carousel>
+        </div>
         <div className="text-center flex justify-center items-center gap-4">
           <div className="w-full">
             {activeImageIndex !== 0 &&
@@ -51,24 +69,6 @@ function ProductImageGallery({ images }: { images: CatalogObject[] }) {
               </Button>
             }
           </div>
-        </div>
-        <div className="">
-          <Carousel onSlide={handleImageChange} className="h-[500px]">
-            {instance => {
-              setCarouselRef(instance);
-              return images.map((image, i) => (
-                <div
-                  key={i}
-                  className={clsx(
-                    "overflow-hidden flex relative rounded-lg w-full h-full",
-                    images.length > 1 ? "row-span-3" : "row-span-4"
-                  )}
-                >
-                  <ProductImageViewer {...image} />
-                </div>
-              ))
-            }}
-          </Carousel>
         </div>
       </div>
       <div className="hidden w-full order-2 md:order-1 md:grid grid-cols-2 gap-4">
