@@ -11,6 +11,7 @@ import { CatalogObject } from "square";
 import { KeenSliderInstance } from "keen-slider/react";
 
 function ProductImageGallery({ images }: { images: CatalogObject[] }) {
+  images = [...images, images[0], images[0]]
   const [activeImageIndex, setActiveVariationIndex] = useState(0);
 
   const handleImageChange = (index: number) => setActiveVariationIndex(index)
@@ -51,21 +52,21 @@ function ProductImageGallery({ images }: { images: CatalogObject[] }) {
         <div className="text-center flex justify-center items-center gap-4">
           <div className="w-full">
             {activeImageIndex !== 0 &&
-              <Button onClick={handleIncrement}>
-                <MdKeyboardArrowLeft />
+              <Button onClick={handleIncrement} padding={0}>
+                <MdKeyboardArrowLeft size={30} />
               </Button>
             }
           </div>
-          <div className="w-full">
+          {/* <div className="w-full">
             <p>
               {activeImageIndex + 1} / {images.length}
             </p>
 
-          </div>
+          </div> */}
           <div className="w-full">
-            {activeImageIndex !== images.length &&
-              <Button onClick={handleDecrement}>
-                <MdKeyboardArrowRight />
+            {activeImageIndex !== images.length - 1 &&
+              <Button onClick={handleDecrement} padding={0}>
+                <MdKeyboardArrowRight size={30} />
               </Button>
             }
           </div>
@@ -98,7 +99,5 @@ function ProductImageGallery({ images }: { images: CatalogObject[] }) {
     </div>
   );
 }
-
-const MobileImageGallery = () => { };
 
 export default ProductImageGallery;

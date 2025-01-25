@@ -295,18 +295,18 @@ const CartModifierButtons = ({
   return (
     <>
       <div className="flex items-center gap-2">
-        <div className="h-auto">
+        {/* <div className="h-auto">
           <Counter
             className="p-2"
             count={+quantity}
             onCountChange={setQuantity}
           />
-        </div>
+        </div> */}
         <Button
           loading={isCartLoading}
           disabled={isCartLoading}
-          className="grow"
-          variant="outline"
+          className="grow shadow-[0_27px_15px_-17px_rgba(0,0,0,.3),0_2px_4px_rgba(0,0,0,.3)]"
+          variant="primary"
           onClick={handleAddToCart}
         >
           {!(+(isProductInCart()?.quantity ?? 0) > 0)
@@ -314,9 +314,9 @@ const CartModifierButtons = ({
             : "Update Cart"}
         </Button>
       </div>
-      <Button variant="primary" loading={isCheckoutLoading} disabled={isCheckoutLoading} onClick={handleBuyNow}>
+      {/* <Button variant="primary" loading={isCheckoutLoading} disabled={isCheckoutLoading} onClick={handleBuyNow}>
         Buy Now
-      </Button>
+      </Button> */}
     </>
   );
 };

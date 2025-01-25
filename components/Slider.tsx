@@ -7,6 +7,7 @@ import clsx from "clsx";
 import Transition from "app/Transition";
 
 type Props = {
+  slide?: boolean;
   animate?: boolean;
   type: SlideProps["type"];
   title: NonNullable<Content["content"]>["title"];
@@ -14,9 +15,10 @@ type Props = {
   slides: TypeOmittedSlideProps[];
 };
 
-const Slider = ({ type, title, headline, slides }: Props) => {
-    slides = slides.slice(0,3)
-    // delay-[1000ms], delay-[2000ms], delay-[3000ms]
+const Slider = ({ type, title, headline, slides, slide = false }: Props) => {
+  slides = slides.slice(0, 3);
+  // delay-[1000ms], delay-[2000ms], delay-[3000ms]
+
   return (
     <Transition>
       {(start: boolean) => (
@@ -25,14 +27,19 @@ const Slider = ({ type, title, headline, slides }: Props) => {
             <Heading>{title}</Heading>
             <p className="my-4">{headline}</p>
           </div>
-          <div className="flex flex-col md:flex-row justify-center min-h-96">
+          <div
+            className={clsx(
+              slide ? "flex-col" : "flex-row flex-nowrap",
+              "flex md:flex-row justify-start md:justify-center min-h-96 overflow-x-scroll no-scrollbar"
+            )}
+          >
             {slides.map((slide, i) => (
               <div
                 key={i}
                 className={clsx(
-                  "basis-full md:basis-1/4 md:shrink ease-in-out transition-transform duration-[1000ms]",
-                  `delay-[${i + 1}000ms]`,
-                  !start ? "-translate-x-full" : "-translate-x-0"
+                  "basis-4/5 md:basis-1/4 shrink-0 md:shrink ease-in-out transition-transform duration-[1000ms]",
+                  `delay-[${i + 1}000ms]`
+                  // !start ? "-translate-x-full" : "-translate-x-0"
                 )}
               >
                 {wrapLink(

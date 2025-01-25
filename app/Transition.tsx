@@ -9,9 +9,9 @@ import clsx from "clsx";
 
 gsap.registerPlugin(useGSAP);
 
-const Transition = ({ children }: LayoutPageProps & { children: (start: boolean) => React.ReactNode }) => {
+const Transition = ({ children }: { children: (start: boolean) => JSX.Element }) => {
   const b = usePathname();
-  const [displayChildren, setDisplayChildren] = useState(children);
+  const [displayChildren, setDisplayChildren] = useState(children(false));
   const [c, setC] = useState(b);
   const [start, setStart] = useState(false);
 

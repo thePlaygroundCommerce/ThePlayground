@@ -1,6 +1,6 @@
 import React, { ReactElement, ReactNode } from "react";
 import { Heading } from "rsuite";
-import { AppProps } from "index";
+import { AppProps, Modify } from "index";
 import Image from "./Image";
 import Carousel from "./Carousel";
 import Link from "next/link";
@@ -24,13 +24,13 @@ export type HeroProps = {
 
 export type ContentImage = ImageProps | NonNullable<ReactElement>;
 export type Content = {
-  image: ContentImage | undefined;
+  image: ContentImage;
   content?: {
     title: ReactElement | string | null;
     description?: ReactElement | string | null;
     headline?: ReactElement | string | null;
     social_media_handles?: unknown;
-    cta?: Omit<CtaEmailDocumentData, 'slices'> ;
+    cta?: Omit<CtaEmailDocumentData, 'slices'>;
     link?: KeyTextField;
     linkLabel?: KeyTextField;
     last_publication_date?: string;
@@ -42,7 +42,7 @@ export type Content = {
 };
 
 export const isImageProps = (obj: ContentImage): obj is ImageProps => {
-  return (obj as ImageProps).src !== undefined
+  return (obj as ReactElement).type == undefined
 }
 
 export const renderContentImage = (image: ContentImage) => isImageProps(image) ? <Image {...image} /> : image
@@ -101,7 +101,7 @@ const HeroContent = ({
     link,
     linkLabel
   } = { title: "" }
-}: Content) => {
+}: Modify<Content, { image: ContentImage | undefined }>) => {
   let ImageComponent: ReactNode;
 
   if (image && isImageProps(image)) {

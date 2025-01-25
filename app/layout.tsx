@@ -177,7 +177,7 @@ const Layout = ({ children, navs, navs: { footerNavs } }: LayoutProps) => {
     <>
       <Header navs={navs} />
       <main className="min-h-full box-border ">{children}</main>
-      {/* <Footer navs={footerNavs} /> */}
+      <Footer navs={footerNavs} />
     </>
   );
 

@@ -4,6 +4,7 @@ import clsx from "clsx";
 import { DetailedHTMLProps, ButtonHTMLAttributes } from "react";
 import { useFormStatus } from "react-dom";
 import { Loader } from "rsuite";
+import { Button as ButtonComponent } from "@headlessui/react";
 import { AppProps } from "index";
 
 type Props = {
@@ -34,7 +35,7 @@ const Button = ({
   if (type == "submit") pending = useFormStatus().pending;
 
   return (
-    <button
+    <ButtonComponent
       type={type}
       aria-disabled={pending}
       className={clsx(className, `p-${padding} rounded`, variants[variant])}
@@ -44,7 +45,7 @@ const Button = ({
       {loading ? (
         <Loader />
       ) : children}
-    </button>
+    </ButtonComponent>
   );
 };
 

@@ -62,8 +62,8 @@ const RadioSelector = ({
     .join(" ");
 
   return (
-    <div className="text-center">
-      <p className="pb-4">{title}</p>
+    <div className="w-full flex justify-around items-center">
+      <p>{title}</p>
       <div className="flex justify-center">
         {data.map(({ label, value }: any, i: string | number) => {
           return (

@@ -7,6 +7,7 @@ import Heading from "./typography/Heading";
 import Link from "next/link";
 import Button from "./Button";
 import Transition from "app/Transition";
+import {loremIpsum} from 'lorem-ipsum'
 
 type ShowcaseProps = Content & { flipped?: boolean; animate?: boolean };
 
@@ -20,9 +21,15 @@ const Showcase = ({
   },
 }: ShowcaseProps): JSX.Element => {
   const ImageComponent = isImageProps(image) ? <Image {...image} /> : image;
+
   const animationClasses = clsx(
     animate && "ease-in-out transition-transform transform-opacity"
   );
+
+  description = description ?? loremIpsum({
+    count: 4,
+    units: "sentences",
+  })
 
   return (
     <div className={clsx(animationClasses, "grid min-h-screen md:grid-cols-2")}>
@@ -30,7 +37,7 @@ const Showcase = ({
         {(start: boolean) => (
           <div
             className={clsx(
-              "w-full duration-[2000ms] delay-1000",
+              "w-full duration-[2000ms] delay-1000 rounded overflow-hidden",
               !start ? "-translate-x-full" : "translate-x-0"
             )}
           >
@@ -45,7 +52,7 @@ const Showcase = ({
               className={clsx(
                 "w-full duration-[2000ms] delay-[2000ms]",
                 !start ? "opacity-0" : "opacity-1",
-                "p-8 flex flex-col justify-center h-full items-center md:items-center"
+                "p-8 flex flex-col justify-start md:justify-center h-full md:items-center"
               )}
             >
               <p>{headline}</p>
@@ -53,7 +60,7 @@ const Showcase = ({
                 {typeof title == "string" ? <Heading>{title}</Heading> : title}
                 {/* <PrismicRichText field={slice.primary.title} /> */}
               </div>
-              <div className={`md:w-2/3 text-left`}>
+              <div className={`md:w-2/3 text-center`}>
                 {typeof description === "string" ? (
                   <p>{description}</p>
                 ) : (
@@ -61,12 +68,12 @@ const Showcase = ({
                 )}
 
                 {/* <PrismicRichText
-                field={description}
-                components={{
-                  list: List,
-                  listItem: ListItem,
-                }}
-              /> */}
+      field={description}
+      components={{
+        list: List,
+        listItem: ListItem,
+      }}
+    /> */}
               </div>
               {link && (
                 <Link href={link}>
@@ -76,36 +83,36 @@ const Showcase = ({
               {cta && (
                 <div className="text-center m-8 flex">
                   {/* <CallToActionForm
-                  buttonText={
-                    primary.call_to_action_label ?? cta.data.button_label ?? ""
-                  }
-                  type={""}
-                  id={""}
-                  name={""}
-                  placeholder={cta.data.placeholder}
-                  url={cta.data.url ?? ""}
-                /> */}
+        buttonText={
+          primary.call_to_action_label ?? cta.data.button_label ?? ""
+        }
+        type={""}
+        id={""}
+        name={""}
+        placeholder={cta.data.placeholder}
+        url={cta.data.url ?? ""}
+      /> */}
                   {/* <div className="">
-                <Form>
-                  <Form.Control className="" name="email" placeholder="Email" />
-                </Form>
-              </div>
-              <div>
-                <Button>
-                  <PrismicNextLink
-                    field={slice.primary.call_to_action_link || "/"}
-                  >
-                    {slice.primary.call_to_action_label ?? "Learn more…"}
-                  </PrismicNextLink>
-                </Button>
-              </div> */}
+      <Form>
+        <Form.Control className="" name="email" placeholder="Email" />
+      </Form>
+    </div>
+    <div>
+      <Button>
+        <PrismicNextLink
+          field={slice.primary.call_to_action_link || "/"}
+        >
+          {slice.primary.call_to_action_label ?? "Learn more…"}
+        </PrismicNextLink>
+      </Button>
+    </div> */}
                 </div>
               )}
             </div>
           )}
         </Transition>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 };
 
