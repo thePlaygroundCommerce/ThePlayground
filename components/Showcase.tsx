@@ -29,7 +29,6 @@ const Showcase = ({
   const animationClasses = clsx(
     // animate && "ease-in-out transition-transform transform-opacity"
   );
-  console.log(flipped)
 
   description = description ?? loremIpsum({
     count: 4,

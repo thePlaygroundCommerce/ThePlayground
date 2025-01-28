@@ -9,7 +9,8 @@ import prismic, { client } from "prismicio";
 import Heading from "components/typography/Heading";
 import { GroupField } from "@prismicio/client";
 import { ContentDocumentDataFeaturesItem, Simplify } from "prismicio-types";
-import { searchCatalogItems } from "app/shop/(products)/page";
+import { searchCatalogItems } from "api/customerApi";
+
 
 type Props = unknown;
 
@@ -20,7 +21,6 @@ const Page = async (props: Props) => {
   if (!catalogObject) return <p>Something went wrong!</p>;
 
   const { items, images } = await searchCatalogItems("");
-
 
   const relatedItems = items
     .filter(({ id }) => id !== catalogObject.id)

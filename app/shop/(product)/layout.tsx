@@ -10,30 +10,21 @@ export const metadata = {
 };
 
 export default async function Layout({ children }: LayoutPageProps) {
-  const { headerNavs } = await getMainNavigation()
-
   return (
     <>
-      <div className="min-h-screen">
-        <div className="sticky top-0 z-20 bg-white">
-          <div className="p-4 pb-0">
-            <Header navs={{ headerNavs }} />
-          </div>
-          <Link href="/shop">
-            <Button variant="link" className="text-xs text-zinc-600 flex items-center py-2">
-              {/* <Breadcrumbs
+      <div className="min-h-screen pt-[60px]">
+        <Link href="/shop">
+          <Button variant="link" className="text-xs text-zinc-600 flex items-center py-2">
+            {/* <Breadcrumbs
             items={breadcrumbs}
           /> */}
-              <div className="mx-4">
-                <GoChevronLeft size={20} />
-              </div>
-              <div>SHOP</div>
-            </Button>
-          </Link>
-        </div>
-        <div>
-          {children}
-        </div>
+            <div className="mx-4">
+              <GoChevronLeft size={20} />
+            </div>
+            <div>SHOP</div>
+          </Button>
+        </Link>
+        {children}
       </div>
       <div className="bg-mintcream-950">
         <div className="lg:w-1/3 mx-auto">

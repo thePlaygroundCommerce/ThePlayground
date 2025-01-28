@@ -7,8 +7,6 @@ import {
 } from "@prismicio/client";
 import { PrismicNextImage } from "@prismicio/next";
 import { SliceComponentProps, PrismicRichText } from "@prismicio/react";
-import { alignToFlexMapping } from "util/styles";
-import CallToActionForm from "components/forms/CallToActionForm";
 import {
   CtaEmailDocument,
   Hero2Slice,

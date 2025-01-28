@@ -30,10 +30,10 @@ const slicePropsToHeroProps = ({
     title,
     description,
     social_media_handles,
-    cta,
+    // cta,
     link,
   },
-  image: prismic.isFilled.image(image) ? { ...image.dimensions, src: image.url, alt: image.alt ?? "" } : undefined,
+  image: prismic.isFilled.image(image) ? { ...image.dimensions, src: image.url, alt: image.alt ?? "" } : { alt: "" },
 })
 
 /**

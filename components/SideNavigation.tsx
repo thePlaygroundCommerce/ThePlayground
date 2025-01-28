@@ -25,7 +25,7 @@ export default function SideNavigation({ logo, onClose, navs: {  headerNavs } }:
 
   return (
     <div className="h-screen flex flex-col">
-      <div className="flex justify-between px-4 p-2">
+      <div className="flex justify-between border-b px-4 p-2">
         <Link href="/">
           {logo}
         </Link>

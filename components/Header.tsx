@@ -1,20 +1,22 @@
+'use client'
 
 import HeaderActions from "./HeaderActions";
-import Link from "next/link";
 import { Nav } from "app/layout";
 import HeaderNavigation from "./HeaderNavigation";
 import { AppProps } from "index";
 import LogoComponent from "./LogoComponent";
-import { latoThin } from "app/fonts";
 import clsx from "clsx";
-import Blinking from "./Blinking";
 import MobileSideNav from "./MobileSideNav";
+import { ReactElement } from "react";
+import { usePathname } from "next/navigation";
 
-type Props = AppProps & { navs: { headerNavs: Nav[], footerNavs?: Nav[] } };
+type Props = AppProps & { navs: { headerNavs: Nav[], footerNavs?: Nav[] }, logo: ReactElement };
 
-function Header({ navs, className }: Props) {
+function Header({ navs, className, logo }: Props) {
+  const path = usePathname()
+
   return (
-    <header className={clsx("max-h-[90px] flex flex-col top-0 drop-shadow-lg z-20 w-full", className)}>
+    <header className={clsx("max-h-[90px] fixed flex flex-col drop-shadow-lg z-20 w-full", className, path !== "/" && "bg-white")}>
       {/* <div className={clsx(latoThin.className, "text-sm text-white text-center p-2 ")}>
         <Blinking>
           {[
@@ -22,22 +24,18 @@ function Header({ navs, className }: Props) {
           ]}
         </Blinking>
       </div> */}
-      <div className={"grid grid-cols-6 md:px-8 md:py-1 h-full"}>
+      <div className={"grid grid-cols-6 p-4 md:px-8 md:py-1 h-full"}>
         <div className="w-full h-full flex col-span-1">
           <div className="sm:hidden flex items-center">
-            <MobileSideNav logo={<LogoComponent height={25} width={25} />} navs={navs} />
+            <MobileSideNav logo={logo} navs={navs} />
           </div>
           <div className="hidden sm:block">
-            <Link href="/">
-              <LogoComponent height={25} width={25} />
-            </Link>
+            {logo}
           </div>
         </div>
         <div className="w-full h-full flex justify-center items-center sm:justify-start col-span-4">
           <div className="sm:hidden w-full max-w-44 relative h-full">
-            <Link href="/">
-              <LogoComponent height={25} width={25} />
-            </Link>
+            {logo}
           </div>
           <div className="hidden sm:block">
             <HeaderNavigation navs={navs.headerNavs} />

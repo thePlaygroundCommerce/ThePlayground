@@ -35,7 +35,7 @@ const Button = ({
   if (type == "submit") pending = useFormStatus().pending;
 
   return (
-    <ButtonComponent
+    <button
       type={type}
       aria-disabled={pending}
       className={clsx(className, `p-${padding} rounded`, variants[variant])}
@@ -45,7 +45,7 @@ const Button = ({
       {loading ? (
         <Loader />
       ) : children}
-    </ButtonComponent>
+    </button>
   );
 };
 

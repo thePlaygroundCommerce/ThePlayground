@@ -43,12 +43,6 @@ const nextConfig = {
       },
     ],
   },
-  rewrites: () => [
-    {
-      source: "/home",
-      destination: "/",
-    },
-  ],
   redirects: () => [
     {
       source: "/",

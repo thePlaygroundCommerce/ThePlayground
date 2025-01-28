@@ -12,12 +12,18 @@ const NewsletterForm = ({
   content: { title, headline, description } = { description: "", title: "" },
 }: Omit<Content, "image">) => {
   const submitForm = (previousState: any, formData: FormData) => {
-    const req = formData.entries().reduce<{
-      emailAddress: string;
-      firstName?: string;
-      lastName?: string;
-      phoneNumber?: string;
-    }>((acc, [k, v]) => ({ ...acc, [k]: v }), { emailAddress: "" })
+    const req: {[i: string]: string} = {}
+
+    for(const [k,v] of  formData.entries()){
+        req[k] = v.toString()
+    }
+    // const req = formData.entries().reduce<{
+    //   emailAddress: string;
+    //   firstName?: string;
+    //   lastName?: string;
+    //   phoneNumber?: string;
+    // }>((acc, [k, v]) => ({ ...acc, [k]: v }), { emailAddress: "" })
+    // @ts-ignore
     registerCustomer(req)
     return { isSubmitted: true };
   };

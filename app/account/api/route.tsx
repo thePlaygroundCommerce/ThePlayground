@@ -1,5 +1,5 @@
 import { clerkClient, currentUser } from '@clerk/nextjs/server';
-import { createCustomer, getCustomer } from 'api/customerApi'
+import { registerCustomer, getCustomer } from 'api/customerApi'
 import { redirect } from 'next/navigation';
 
 
@@ -11,11 +11,11 @@ export async function GET() {
 
   if (squareId && (await getCustomer(squareId)).result.customer) null;
   else {
-    createCustomer({
-      referenceId: user.id,
-      givenName: user.firstName ?? "",
-      familyName: user.lastName ?? "",
-      emailAddress: user.primaryEmailAddress?.emailAddress,
+    registerCustomer({
+      // referenceId: user.id,
+      firstName: user.firstName ?? "",
+      lastName: user.lastName ?? "",
+      emailAddress: user.primaryEmailAddress?.emailAddress ?? "",
       phoneNumber: user.primaryPhoneNumber?.phoneNumber,
     }).then(({ result: { customer } }) => customer && clerkClient().users.updateUserMetadata(user.id, {
       privateMetadata: {

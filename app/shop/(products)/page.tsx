@@ -6,6 +6,7 @@ import { CatalogObject, SearchCatalogItemsRequest } from "square";
 import { redirect } from "next/navigation";
 import { AppProps } from "next/app";
 import { PageProps } from "index";
+import { searchCatalogItems } from "api/customerApi";
 
 // Return a list of `params` to populate the [slug] dynamic segment
 export async function generateStaticParams() {
@@ -14,24 +15,6 @@ export async function generateStaticParams() {
   return headerNavs.map(({ title: resource }) => ({
     slug: resource
   }))
-}
-
-export const searchCatalogItems = async (category: string) => {
-  const formattedCategory = formatNavigationLinks(category)
-  const { categoryNameMap } = await getCatalogInfo()
-  const id = categoryNameMap[formattedCategory]
-  const searchPayload: SearchCatalogItemsRequest = {};
-
-  if (!category) searchPayload.categoryIds = [];
-  else if (!id) return redirect('/shop')
-  else searchPayload.categoryIds = [id];
-
-
-  const { objects = [] } =
-    (await searchItems(searchPayload));
-
-  return mapArrayToMap(objects);
-
 }
 
 export default async function Page({ params }: PageProps) {

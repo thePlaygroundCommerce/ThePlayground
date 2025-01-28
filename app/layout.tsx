@@ -29,6 +29,8 @@ import Transition from "./Transition";
 
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
+import LogoComponent from "components/LogoComponent";
+import Link from "next/link";
 config.autoAddCss = false
 
 export const metadata: Metadata = {
@@ -100,7 +102,7 @@ export const getMainNavigation: () => Promise<{
   }
 
   return {
-    headerNavs: headerNavs,
+    headerNavs: [{id: "shop", title: "Shop", link: "/shop"}, ...headerNavs],
     //@ts-ignore
     footerNavs: footerNavs.navs.filter(({ nav }) => prismic.isFilled.contentRelationship<'nav', string, FooterNavigationDocumentDataNavsItem>(nav)).map(({ nav }) => nav.data),
   };
@@ -172,8 +174,15 @@ const Layout = ({ children, navs, navs: { footerNavs } }: LayoutProps) => {
     title: "About",
     link: "/about"
   }, ...navs.headerNavs]
+
+  const renderLogo = () => (
+    <Link href="/">
+      <LogoComponent height={25} width={25} />
+    </Link>
+  )
   return (
     <>
+      <Header navs={navs} logo={renderLogo()} />
       <main className="min-h-full box-border ">{children}</main>
       <Footer navs={footerNavs} />
     </>
