@@ -2,11 +2,9 @@ import { Content, isFilled, KeyTextField } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 import { getCatalogItemsAndImages } from "api/catalogApi";
 import { BlogDocumentData } from "prismicio-types";
-import Slide, { SlideProps, TypeOmittedSlideProps } from "components/Slide";
-import Heading from "components/typography/Heading";
-import Link from "next/link";
-import { ImageProps } from "next/image";
+import { SlideProps, TypeOmittedSlideProps } from "components/Slide";
 import Slider from "components/Slider";
+import { ImageProps } from "index";
 
 /**
  * Props for `Sliders`.

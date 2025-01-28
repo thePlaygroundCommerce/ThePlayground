@@ -1,10 +1,7 @@
 import { AppProps } from "index";
 import SocialMediaButtons from "./SocialMediaButtons";
 import Link from "next/link";
-import Image from "next/image";
 import { Nav } from "app/layout.jsx";
-import Accordion from "rsuite/Accordion";
-import AccordionPanel from "rsuite/AccordionPanel";
 import LogoComponent from "./LogoComponent";
 
 type Props = AppProps & { navs: Nav[] };

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import ProductImageViewer from "./ProductImageViewer";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 
-import Image from "next/image";
+import Image from "components/Image";
 import clsx from "clsx";
 import Button from "./Button";
 import Carousel from "./Carousel";

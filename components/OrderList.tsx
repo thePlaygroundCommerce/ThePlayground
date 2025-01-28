@@ -1,7 +1,7 @@
  
 "use client";
 import { useCartModifier } from "context/cartContext";
-import Image from "next/image";
+import Image from "components/Image";
 import { OrderLineItem } from "square";
 import Money from "./Money";
 import clsx from "clsx";
@@ -60,7 +60,6 @@ const OrderList = ({ allowOrderItemDeletion = true, allowOrderModify = false, li
                       </p>
                       <p className="m-0">
                         {colorOpt && `COLOR : ${colorOpt.split("#").shift()!.toUpperCase()}`}
-
                       </p>
                     </div>
                   </div>

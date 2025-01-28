@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "components/Image";
 import Money from "./Money";
 import Unavailable from "public/unavailable-image.jpeg";
 import { AppProps } from "index";

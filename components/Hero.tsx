@@ -8,7 +8,7 @@ import Button from "./Button";
 import { isFilled, KeyTextField } from "@prismicio/client";
 import clsx from "clsx";
 import { contentPositions } from "util/styles";
-import { ImageProps } from "next/image";
+import { ImageProps } from "index";
 import { CtaEmailDocumentData } from "prismicio-types";
 import { latoLight } from "app/fonts";
 

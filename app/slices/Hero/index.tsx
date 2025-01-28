@@ -2,17 +2,10 @@
 
 import * as prismic from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
-import Image from "next/image";
 import clsx from "clsx";
 import {
-  HeroSliceCarouselItem,
-  HeroSliceCarouselPrimary,
   HeroSliceDefaultPrimary,
-  HeroSliceVariation,
-  Simplify,
 } from "../../../prismicio-types.js";
-import { Carousel } from "rsuite";
-import { contentPositions } from "util/styles";
 import HeroComponent, { Content } from "components/Hero";
 
 const slicePropsToHeroProps = ({

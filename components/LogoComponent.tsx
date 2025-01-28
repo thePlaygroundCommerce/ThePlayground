@@ -1,6 +1,6 @@
 import React from "react";
-import Image from "next/image";
 import { createClient } from "prismicio";
+import Image from 'components/Image'
 
 type Props = { height?: number; width?: number };
 
