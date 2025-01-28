@@ -12,7 +12,7 @@ const LogoComponent = async ({ height = 25, width = 25, ...rest }: Props) => {
       <Image
         src={url ?? ""}
         alt={alt ?? "The Playground Logo"}
-        objectFit="contain"
+        style={{ objectFit: 'contain'}}
         fill
         className="w-full h-full"
       // height={dimensions?.height ?? height}
