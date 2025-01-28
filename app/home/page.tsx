@@ -8,7 +8,7 @@ import { TypeOmittedSlideProps } from "components/Slide";
 import { ImageProps } from "next/image";
 import { mapArrayToMap } from "util/index";
 import Showcase from "components/Showcase";
-import AboutPage from "./about/page"
+import AboutPage from "../about/page"
 
 const Page = async () => {
   const client = createClient();

@@ -1,42 +1,52 @@
-import { LayoutPageProps } from "app/layout";
+import { getMainNavigation, LayoutPageProps } from "app/layout";
 import Button from "components/Button";
 import NewsletterForm from "components/forms/NewsletterForm";
-import Showcase from "components/Showcase";
-import Slider from "components/Slider";
+import Header from "components/Header";
+import Link from "next/link";
 import { GoChevronLeft } from "react-icons/go";
 
 export const metadata = {
   title: "The Playground | Shop",
 };
 
-export default function Layout({ children }: LayoutPageProps) {
-  
-
+export default async function Layout({ children }: LayoutPageProps) {
+  const { headerNavs } = await getMainNavigation()
 
   return (
-    <div className="mt-16">
+    <>
       <div className="min-h-screen">
-        <div className="mx-4 text-xs text-zinc-600 flex items-center gap-2 fixed">
-          {/* <Breadcrumbs
+        <div className="sticky top-0 z-20 bg-white">
+          <div className="p-4 pb-0">
+            <Header navs={{ headerNavs }} />
+          </div>
+          <Link href="/shop">
+            <Button variant="link" className="text-xs text-zinc-600 flex items-center py-2">
+              {/* <Breadcrumbs
             items={breadcrumbs}
           /> */}
-          <div>
-            <GoChevronLeft size={20} />
-          </div>
-          <div>SHOP</div>
+              <div className="mx-4">
+                <GoChevronLeft size={20} />
+              </div>
+              <div>SHOP</div>
+            </Button>
+          </Link>
         </div>
-        {children}
+        <div>
+          {children}
+        </div>
       </div>
       <div className="bg-mintcream-950">
-        <NewsletterForm
-          content={{
-            description:
-              "You are signing up to receive product updates and newsletters. By signing up, you are consenting to our privacy policy but you can opt out at any time.",
-            title:
-              "Get exclusive access to new products, deals & surprise giveaways.",
-          }}
-        />
+        <div className="lg:w-1/3 mx-auto">
+          <NewsletterForm
+            content={{
+              description:
+                "You are signing up to receive product updates and newsletters. By signing up, you are consenting to our privacy policy but you can opt out at any time.",
+              title:
+                "Get exclusive access to new products, deals & surprise giveaways.",
+            }}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 }

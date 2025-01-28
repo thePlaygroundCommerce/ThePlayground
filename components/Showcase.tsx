@@ -7,12 +7,16 @@ import Heading from "./typography/Heading";
 import Link from "next/link";
 import Button from "./Button";
 import Transition from "app/Transition";
-import {loremIpsum} from 'lorem-ipsum'
+import { loremIpsum } from 'lorem-ipsum'
 
-type ShowcaseProps = Content & { flipped?: boolean; animate?: boolean };
+type ShowcaseProps = Content & {
+  flipped?: boolean; animate?: {
+    delay: number
+  }
+};
 
 const Showcase = ({
-  animate = false,
+  animate,
   flipped = false,
   image,
   content: { headline, title, link, linkLabel, description, cta } = {
@@ -23,95 +27,61 @@ const Showcase = ({
   const ImageComponent = isImageProps(image) ? <Image {...image} /> : image;
 
   const animationClasses = clsx(
-    animate && "ease-in-out transition-transform transform-opacity"
+    // animate && "ease-in-out transition-transform transform-opacity"
   );
+  console.log(flipped)
 
   description = description ?? loremIpsum({
     count: 4,
     units: "sentences",
   })
 
+  //delay-[500ms] delay-[1000ms] delay-[1500ms] delay-[3500ms]
+
   return (
-    <div className={clsx(animationClasses, "grid min-h-screen md:grid-cols-2")}>
+    <div className={clsx(animationClasses, "grid md:max-h-screen md:grid-cols-2")}>
       <Transition>
         {(start: boolean) => (
-          <div
-            className={clsx(
-              "w-full duration-[2000ms] delay-1000 rounded overflow-hidden",
-              !start ? "-translate-x-full" : "translate-x-0"
-            )}
-          >
-            {ImageComponent}
-          </div>
-        )}
-      </Transition>
-      <div className={clsx("w-full", flipped && "md:order-first")}>
-        <Transition>
-          {(start: boolean) => (
+          <>
             <div
               className={clsx(
-                "w-full duration-[2000ms] delay-[2000ms]",
-                !start ? "opacity-0" : "opacity-1",
-                "p-8 flex flex-col justify-start md:justify-center h-full md:items-center"
+                "w-full aspect-square md:aspect-video  duration-[2000ms] rounded overflow-hidden",
+                animate?.delay && `delay-[${animate.delay}ms]`,
+                !start ? "-translate-x-full" : "translate-x-0"
               )}
             >
-              <p>{headline}</p>
-              <div className="text-center">
-                {typeof title == "string" ? <Heading>{title}</Heading> : title}
-                {/* <PrismicRichText field={slice.primary.title} /> */}
-              </div>
-              <div className={`md:w-2/3 text-center`}>
-                {typeof description === "string" ? (
-                  <p>{description}</p>
-                ) : (
-                  description
-                )}
-
-                {/* <PrismicRichText
-      field={description}
-      components={{
-        list: List,
-        listItem: ListItem,
-      }}
-    /> */}
-              </div>
-              {link && (
-                <Link href={link}>
-                  <Button variant="primary">{linkLabel || "VIEW MORE"}</Button>
-                </Link>
-              )}
-              {cta && (
-                <div className="text-center m-8 flex">
-                  {/* <CallToActionForm
-        buttonText={
-          primary.call_to_action_label ?? cta.data.button_label ?? ""
-        }
-        type={""}
-        id={""}
-        name={""}
-        placeholder={cta.data.placeholder}
-        url={cta.data.url ?? ""}
-      /> */}
-                  {/* <div className="">
-      <Form>
-        <Form.Control className="" name="email" placeholder="Email" />
-      </Form>
-    </div>
-    <div>
-      <Button>
-        <PrismicNextLink
-          field={slice.primary.call_to_action_link || "/"}
-        >
-          {slice.primary.call_to_action_label ?? "Learn more…"}
-        </PrismicNextLink>
-      </Button>
-    </div> */}
-                </div>
-              )}
+              {ImageComponent}
             </div>
-          )}
-        </Transition>
-      </div >
+            <div className={clsx("w-full pt-4", flipped && "md:order-first")}>
+              <div
+                className={clsx(
+                  "w-full duration-[2000ms] delay-[2000ms]",
+                  !start ? "opacity-0" : "opacity-1",
+                  animate?.delay && `delay-[${animate.delay + 2000}ms]`,
+                  " flex flex-col justify-start md:justify-center md:items-center md:h-full"
+                )}
+              >
+                <div className={clsx(flipped ? "text-left": "text-right", "md:text-center")}>
+                  {typeof title == "string" ? <Heading>{title}</Heading> : title}
+                  <p className="text-sm italic">{headline}</p>
+                  <div className="md:w-2/3 md:mx-auto">
+                    {typeof description === "string" ? (
+                      <p>{description}</p>
+                    ) : (
+                      description
+                    )}
+                  </div>
+                </div>
+                {link && (
+                  <Link href={link}>
+                    <Button variant="primary">{linkLabel || "VIEW MORE"}</Button>
+                  </Link>
+                )}
+              </div>
+            </div >
+          </>
+        )}
+      </Transition>
     </div >
   );
 };

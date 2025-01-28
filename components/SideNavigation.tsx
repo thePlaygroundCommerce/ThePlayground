@@ -13,12 +13,11 @@ type Props = AppProps & {
   logo: JSX.Element
   onClose: any;
   navs: {
-    footerNavs: Nav[],
     headerNavs: Nav[],
   }
 }
 
-export default function SideNavigation({ logo, onClose, navs: { footerNavs, headerNavs } }: Props) {
+export default function SideNavigation({ logo, onClose, navs: {  headerNavs } }: Props) {
   const removedLinks: KeyTextField[] = ["/log"]
   // footerNavs = footerNavs.filter(({ data: { link } }) => !removedLinks.includes(link))
 

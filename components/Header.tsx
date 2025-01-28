@@ -1,4 +1,4 @@
- 
+
 import HeaderActions from "./HeaderActions";
 import Link from "next/link";
 import { Nav } from "app/layout";
@@ -10,12 +10,19 @@ import clsx from "clsx";
 import Blinking from "./Blinking";
 import MobileSideNav from "./MobileSideNav";
 
-type Props = AppProps & { navs: { headerNavs: Nav[], footerNavs: Nav[] } };
+type Props = AppProps & { navs: { headerNavs: Nav[], footerNavs?: Nav[] } };
 
-function Header({ navs }: Props) {
+function Header({ navs, className }: Props) {
   return (
-    <header className="fixed h-[90px] max-h-[90px] flex flex-col top-0 drop-shadow-lg z-20 w-full">
-      <div className={"grid grid-cols-6 md:px-8 px-4 md:py-1 py-3 h-full"}>
+    <header className={clsx("max-h-[90px] flex flex-col top-0 drop-shadow-lg z-20 w-full", className)}>
+      {/* <div className={clsx(latoThin.className, "text-sm text-white text-center p-2 ")}>
+        <Blinking>
+          {[
+            <p key={1}>Free Shipping & Returns <span className="italic">For A Limited Time</span></p>
+          ]}
+        </Blinking>
+      </div> */}
+      <div className={"grid grid-cols-6 md:px-8 md:py-1 h-full"}>
         <div className="w-full h-full flex col-span-1">
           <div className="sm:hidden flex items-center">
             <MobileSideNav logo={<LogoComponent height={25} width={25} />} navs={navs} />
@@ -42,13 +49,7 @@ function Header({ navs }: Props) {
           </div>
         </div>
       </div>
-      <div className={clsx(latoThin.className, "text-sm text-white text-center p-2 ")}>
-        <Blinking>
-          {[
-            <p key={1}>Free Shipping & Returns <span className="italic">For A Limited Time</span></p>
-          ]}
-        </Blinking>
-      </div>
+
     </header>
   );
 }

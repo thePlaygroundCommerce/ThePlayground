@@ -1,16 +1,24 @@
 "use client";
-import { callToActionCreateForm } from "api/customerApi";
+import Form from 'next/form'
+import { registerCustomer } from "api/customerApi";
 import clsx from "clsx";
 import Button from "components/Button";
 import { Content } from "components/Hero";
 import Heading from "components/typography/Heading";
 import { useActionState, useState } from "react";
+import { BsCheck2Circle } from "react-icons/bs";
 
 const NewsletterForm = ({
   content: { title, headline, description } = { description: "", title: "" },
 }: Omit<Content, "image">) => {
   const submitForm = (previousState: any, formData: FormData) => {
-    callToActionCreateForm(previousState, formData);
+    const req = formData.entries().reduce<{
+      emailAddress: string;
+      firstName?: string;
+      lastName?: string;
+      phoneNumber?: string;
+    }>((acc, [k, v]) => ({ ...acc, [k]: v }), { emailAddress: "" })
+    registerCustomer(req)
     return { isSubmitted: true };
   };
   const [inputActive, setInputActive] = useState<boolean>(false)
@@ -28,27 +36,32 @@ const NewsletterForm = ({
           "Thanks for joining the grounds. Check up on your email for any updates!") ||
           description}
       </h6> */}
-      {isSubmitted || (
-        <form className="text-black flex my-4" action={formAction}>
-          <div className="flex p-2 grow rounded-md bg-mintcream-100 shadow-md  shadow-mintcream-600">
-            <input
-              type="email"
-              id="emailAddress"
-              name="emailAddress"
-              onFocus={() => setInputActive(true)}
-              onBlur={() => setInputActive(false)}
-              className="w-full bg-transparent focus:outline-none"
-              placeholder={"Enter you email to register"}
-            />
+      <div className='my-4 flex justify-center'>
+        {isSubmitted ? (
+          <BsCheck2Circle size={25} />
+        ) : (
+          <Form className="text-black w-full" action={formAction}>
+            <div className="flex p-2 grow rounded-md bg-mintcream-100 shadow-md  shadow-mintcream-600">
+              <input
+                type="email"
+                id="emailAddress"
+                name="emailAddress"
+                required
+                onFocus={() => setInputActive(true)}
+                onBlur={() => setInputActive(false)}
+                className="w-full bg-transparent focus:outline-none"
+                placeholder={"Enter your email to register"}
+              />
 
-            <div>
-              <Button type="submit" className={clsx(inputActive ? "bg-slate-200" : "bg-slate-500", "text-white p-2")}>
-                Submit
-              </Button>
+              <div>
+                <Button type="submit" className={clsx(!inputActive ? "bg-slate-200" : "bg-slate-500", "text-white p-2")}>
+                  Submit
+                </Button>
+              </div>
             </div>
-          </div>
-        </form>
-      )}
+          </Form>
+        )}
+      </div>
       {description && (
         <div className="text-xs text-center">
           <p>{description}</p>

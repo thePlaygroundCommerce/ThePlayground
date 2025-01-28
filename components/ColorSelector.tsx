@@ -8,6 +8,7 @@ import Radio from "components/Radio";
 import { Panel, SelectPicker } from "rsuite";
 import { ItemDataType } from "rsuite/esm/MultiCascadeTree";
 import Button from "./Button";
+import Image from "./Image";
 
 type Props<Data> = {
   onChange: (a: any) => void;
@@ -113,6 +114,25 @@ const CardSelector = ({
   );
 };
 
+const ProductSelector = ({
+  selectedIndex = 0,
+  data = [],
+  onChange,
+}: Props<SelectorProps>) => {
+  return (
+    <div>
+      <p className="text-center pb-1 text-sm text-zinc-500">{_.capitalize(data[selectedIndex].label)}</p>
+      <div className="flex gap-2">
+        {data.map(({ label, value }, i) => (
+          <div key={label} onClick={() => onChange(value)} className={clsx(selectedIndex === i ? "border-mintcream-500" : "border-zinc-300", " border-2 rounded overflow-hidden w-14 h-14 relative box-content")}>
+            <Image alt={"Yoo"} fill className="object-cover"/>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 type SelectorComponentMap = {
   RADIO: ({ selectedIndex, data, onChange, }: Props<{
     label: string;
@@ -120,10 +140,12 @@ type SelectorComponentMap = {
   }>) => React.JSX.Element;
   DROPDOWN: ({ selectedIndex, data, onChange, }: Props<ItemDataType>) => React.JSX.Element;
   CARD: ({ selectedIndex, data, onChange, }: Props<ItemDataType>) => React.JSX.Element;
+  PRODUCT: ({ selectedIndex, data, onChange, }: Props<ItemDataType>) => React.JSX.Element;
 }
 
 const selectorCompMap = {
   RADIO: RadioSelector,
   DROPDOWN: DropdownSelector,
   CARD: CardSelector,
+  PRODUCT: ProductSelector,
 };

@@ -15,7 +15,7 @@ import Button from "./Button";
 
 type Props = {
   logo: JSX.Element
-  navs: { headerNavs: Nav[], footerNavs: Nav[] };
+  navs: { headerNavs: Nav[], footerNavs?: Nav[] };
 }
 
 const MobileSideNav = ({ navs, logo }: Props) => {

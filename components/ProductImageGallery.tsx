@@ -11,7 +11,6 @@ import { CatalogObject } from "square";
 import { KeenSliderInstance } from "keen-slider/react";
 
 function ProductImageGallery({ images }: { images: CatalogObject[] }) {
-  images = [...images, images[0], images[0]]
   const [activeImageIndex, setActiveVariationIndex] = useState(0);
 
   const handleImageChange = (index: number) => setActiveVariationIndex(index)

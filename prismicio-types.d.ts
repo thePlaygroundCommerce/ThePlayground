@@ -212,6 +212,83 @@ export type ComingSoonDocument<Lang extends string = string> =
     Lang
   >;
 
+/**
+ * Item in *Content → features*
+ */
+export interface ContentDocumentDataFeaturesItem {
+  /**
+   * image field in *Content → features*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: content.features[].image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * title field in *Content → features*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: content.features[].title
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * description field in *Content → features*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: content.features[].description
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * headline field in *Content → features*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: content.features[].headline
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  headline: prismic.KeyTextField;
+}
+
+/**
+ * Content for Content documents
+ */
+interface ContentDocumentData {
+  /**
+   * features field in *Content*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: content.features[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  features: prismic.GroupField<Simplify<ContentDocumentDataFeaturesItem>>;
+}
+
+/**
+ * Content document from Prismic
+ *
+ * - **API ID**: `content`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type ContentDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<ContentDocumentData>,
+    "content",
+    Lang
+  >;
+
 type CtaEmailDocumentDataSlicesSlice = CallToActionSlice;
 
 /**
@@ -661,6 +738,7 @@ export type AllDocumentTypes =
   | BlogDocument
   | CategorylinkDocument
   | ComingSoonDocument
+  | ContentDocument
   | CtaEmailDocument
   | CustomerReviewDocument
   | FooterNavigationDocument
@@ -1858,6 +1936,9 @@ declare module "@prismicio/client" {
       ComingSoonDocument,
       ComingSoonDocumentData,
       ComingSoonDocumentDataSlicesSlice,
+      ContentDocument,
+      ContentDocumentData,
+      ContentDocumentDataFeaturesItem,
       CtaEmailDocument,
       CtaEmailDocumentData,
       CtaEmailDocumentDataSlicesSlice,

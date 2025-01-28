@@ -206,7 +206,7 @@ const withProductModifiers =
 
       const selectors = Object.entries(productOptions).reduce(
         (acc, [optionId, [option, optionValues]], i) => {
-          const type = option === "colors" ? "RADIO" : "CARD";
+          const type = option === "colors" ? "PRODUCT" : "CARD";
           const data =
             option === "size"
               ? optionValues.map((obj) => {

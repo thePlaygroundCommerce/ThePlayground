@@ -1,5 +1,5 @@
 "use client";
-import { Tab, TabList, TabPanel } from "@headlessui/react";
+import { Tab, TabGroup, TabList, TabPanel } from "@headlessui/react";
 import { AppProps } from "index";
 import _ from "lodash";
 import Money from "./Money";
@@ -27,7 +27,7 @@ const ProductDetails = ({
   );
 
   return (
-    <Tab.Group defaultIndex={0}>
+    <TabGroup defaultIndex={0}>
       <div
         className={clsx(
           styles.product_details,
@@ -54,7 +54,7 @@ const ProductDetails = ({
           <div className="flex flex-col gap-4">
             {selectors.colors && (
               <div className=" flex items-end text-left gap-12">
-                <div className="flex gap-5 w-full">
+                <div className="flex justify-center gap-5 w-full">
                   {selectors.colors}
                 </div>
               </div>
@@ -76,7 +76,7 @@ const ProductDetails = ({
           </div>
           <TabList className="mb-3 pb-2 p-3 flex justify-around">
             <Tab className="pe-3 focus:outline-none data-[selected]:underline">Details</Tab>
-            <Tab className="pe-3 focus:outline-none data-[selected]:underline">FAQs</Tab>
+            {/* <Tab className="pe-3 focus:outline-none data-[selected]:underline">FAQs</Tab> */}
             <Tab className="pe-3 focus:outline-none data-[selected]:underline">Reviews</Tab>
           </TabList>
         </div>
@@ -94,7 +94,7 @@ const ProductDetails = ({
           </TabPanel>
         </div>
       </div>
-    </Tab.Group>
+    </TabGroup>
   );
 };
 

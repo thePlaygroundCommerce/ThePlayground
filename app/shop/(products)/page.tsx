@@ -16,7 +16,7 @@ export async function generateStaticParams() {
   }))
 }
 
-const searchCatalogItems = async (category: string) => {
+export const searchCatalogItems = async (category: string) => {
   const formattedCategory = formatNavigationLinks(category)
   const { categoryNameMap } = await getCatalogInfo()
   const id = categoryNameMap[formattedCategory]

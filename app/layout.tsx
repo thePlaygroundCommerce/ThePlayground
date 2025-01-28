@@ -106,7 +106,6 @@ export const getMainNavigation: () => Promise<{
   };
 };
 
-type Props = AppProps & {};
 export type LayoutPageProps = { children: React.ReactNode };
 
 export default async function RootLayout({ children }: LayoutPageProps) {
@@ -175,7 +174,6 @@ const Layout = ({ children, navs, navs: { footerNavs } }: LayoutProps) => {
   }, ...navs.headerNavs]
   return (
     <>
-      <Header navs={navs} />
       <main className="min-h-full box-border ">{children}</main>
       <Footer navs={footerNavs} />
     </>
