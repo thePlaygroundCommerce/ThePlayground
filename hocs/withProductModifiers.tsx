@@ -36,15 +36,13 @@ export type WithProductModifiersProps = AppProps & {
   amount: any;
   itemData: CatalogItem;
   selectors: any;
-  CartModifiers: JSX.Element
+  CartModifiers: JSX.Element;
 };
 
 type Lookup<T> = { [key: string | number]: undefined | null | T };
 
 const withProductModifiers =
-  (
-    Component: ComponentType<WithProductModifiersProps>
-  ): FC<Props> =>
+  (Component: ComponentType<WithProductModifiersProps>): FC<Props> =>
     ({
       catalogItemObject: { itemData = {} },
       catalogImageObjects,
@@ -55,11 +53,14 @@ const withProductModifiers =
         cart: { lineItems = [] },
         modifyCart,
       } = useCartModifier();
-      const { track } = useTracking()
+      const { track } = useTracking();
 
       useEffect(() => {
         toggleLoading();
-      }, [lineItems?.length, lineItems?.reduce((sum, { quantity }) => sum + (+quantity), 0)]);
+      }, [
+        lineItems?.length,
+        lineItems?.reduce((sum, { quantity }) => sum + +quantity, 0),
+      ]);
 
       let { variations } = itemData!;
       variations = variations ?? [];
@@ -76,7 +77,7 @@ const withProductModifiers =
             }
           }
         });
-      }
+      };
       const [{ isCartLoading, isCheckoutLoading }, setLoadingState] = useState({
         isCartLoading: false,
         isCheckoutLoading: false,
@@ -85,17 +86,20 @@ const withProductModifiers =
         +(isProductInCart()?.quantity ?? 1)
       );
       const [selectedVariationIndex, setSelectedVariationIndex] = useState(0);
-      const { id: itemVariationId, itemVariationData: { itemId, name } = {} } = variations[selectedVariationIndex];
-      const lineItem = lineItems?.find(({ catalogObjectId }) => catalogObjectId === itemVariationId)
+      const { id: itemVariationId, itemVariationData: { itemId, name } = {} } =
+        variations[selectedVariationIndex];
+      const lineItem = lineItems?.find(
+        ({ catalogObjectId }) => catalogObjectId === itemVariationId
+      );
       const trackingData = {
         content_ids: [itemVariationId, itemId ?? ""],
         content_name: name,
-        content_type: 'product',
+        content_type: "product",
         content_category: null,
         currency: lineItem?.totalMoney?.currency,
         value: lineItem?.totalMoney?.amount,
-        num_items: lineItems?.length
-      }
+        num_items: lineItems?.length,
+      };
 
       const toggleLoading = (btnType?: "cart" | "checkout") => {
         setLoadingState({
@@ -115,8 +119,8 @@ const withProductModifiers =
       };
 
       const handleAddToCart = () => {
-        toggleLoading('cart')
-        track("AddToCart", trackingData)
+        toggleLoading("cart");
+        track("AddToCart", trackingData);
         const lineItem: OrderLineItem = {
           quantity: quantity.toString(),
         };
@@ -126,13 +130,16 @@ const withProductModifiers =
         } else {
           lineItem.catalogObjectId = itemVariationId;
         }
-        const isCartModified = modifyCart(lineItem, catalogImageObjects[0].imageData);
-        if (isCartModified === false) toggleLoading()
+        const isCartModified = modifyCart(
+          lineItem,
+          catalogImageObjects[0].imageData
+        );
+        if (isCartModified === false) toggleLoading();
       };
 
       const handleBuyNow = async () => {
-        track("InitiateCheckout", trackingData)
-        toggleLoading('checkout')
+        track("InitiateCheckout", trackingData);
+        toggleLoading("checkout");
         const itemVariationID = variations[selectedVariationIndex].id;
         checkoutItem(itemVariationID, quantity.toString());
       };
@@ -173,14 +180,14 @@ const withProductModifiers =
       const selectedOptions =
         variations[selectedVariationIndex].itemVariationData?.itemOptionValues;
 
-      const handleOptionChange = ({
+      const getVariantByOptions = ({
         optionId,
         optionValueId,
       }: {
         optionId: string;
         optionValueId: string;
       }) => {
-        const newVariantId = variations
+        return variations
           .filter(({ itemVariationData: { itemOptionValues } = {} }) => {
             const otherSelectedOptions =
               selectedOptions?.filter(
@@ -197,7 +204,14 @@ const withProductModifiers =
               ({ itemOptionId, itemOptionValueId }) =>
                 itemOptionId === optionId && itemOptionValueId === optionValueId
             );
-          })?.id;
+          });
+      };
+
+      const handleOptionChange = (option: {
+        optionId: string;
+        optionValueId: string;
+      }) => {
+        const newVariantId = getVariantByOptions(option)?.id;
 
         setSelectedVariationIndex(
           variations.findIndex(({ id }) => newVariantId === id)
@@ -216,7 +230,19 @@ const withProductModifiers =
                 name = _.capitalize(name ?? "").slice(0, 1);
                 return obj;
               })
-              : optionValues;
+              : optionValues.map((obj) => {
+                if (!obj) return;
+
+                obj.imageData = catalogImageObjects.find(
+                  ({ id }) =>
+                    id ===
+                    getVariantByOptions({
+                      optionId: obj.itemOptionValueData?.itemOptionId ?? "",
+                      optionValueId: obj.id,
+                    })?.itemVariationData?.imageIds?.[0]
+                )?.imageData;
+                return obj;
+              });
 
           const selected = optionValues.findIndex(
             ({ id } = { id: "", type: "" }) =>
@@ -258,7 +284,7 @@ const withProductModifiers =
             amount,
             itemData,
             selectors,
-            CartModifiers
+            CartModifiers,
           }}
         />
       );
@@ -276,7 +302,7 @@ const transformOptionId = (
   ]);
 
 type CartModifiyingProps = {
-  loading: { isCartLoading: boolean, isCheckoutLoading: boolean };
+  loading: { isCartLoading: boolean; isCheckoutLoading: boolean };
   quantity: number;
   setQuantity: Dispatch<SetStateAction<number>>;
   handleAddToCart: MouseEventHandler<HTMLButtonElement>;

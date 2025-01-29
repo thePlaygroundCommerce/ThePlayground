@@ -102,7 +102,7 @@ export const getMainNavigation: () => Promise<{
   }
 
   return {
-    headerNavs: [{id: "shop", title: "Shop", link: "/shop"}, ...headerNavs],
+    headerNavs,
     //@ts-ignore
     footerNavs: footerNavs.navs.filter(({ nav }) => prismic.isFilled.contentRelationship<'nav', string, FooterNavigationDocumentDataNavsItem>(nav)).map(({ nav }) => nav.data),
   };
@@ -169,21 +169,15 @@ type LayoutProps = AppProps & {
 };
 
 const Layout = ({ children, navs, navs: { footerNavs } }: LayoutProps) => {
-  navs.headerNavs = [{
-    id: "About",
-    title: "About",
-    link: "/about"
-  }, ...navs.headerNavs]
-
   const renderLogo = () => (
     <Link href="/">
-      <LogoComponent height={25} width={25} />
+      <LogoComponent />
     </Link>
   )
   return (
     <>
       <Header navs={navs} logo={renderLogo()} />
-      <main className="min-h-full box-border ">{children}</main>
+      <main className="min-h-full box-border pt-[60px]">{children}</main>
       <Footer navs={footerNavs} />
     </>
   );

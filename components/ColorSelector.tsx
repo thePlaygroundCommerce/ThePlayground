@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import _ from "lodash";
 import clsx from "clsx";
-import { CatalogObject } from "square";
+import { CatalogImage, CatalogObject } from "square";
 import Radio from "components/Radio";
 import { Panel, SelectPicker } from "rsuite";
 import { ItemDataType } from "rsuite/esm/MultiCascadeTree";
@@ -25,13 +25,14 @@ const Selector = <T,>({
 }: Props<CatalogObject | undefined>) => {
   const Component = selectorCompMap[type ?? 'RADIO'];
   if (!Component) throw Error("Selector type doesn't map to a Component");
-
-  const selectorData = data.map(({ id, itemOptionValueData } = { id: "", type: "" }) => ({
+  
+  const selectorData = data.map(({ id, itemOptionValueData, imageData } = { id: "", type: "" }) => ({
     label: itemOptionValueData?.name ?? "",
     value: {
       optionId: itemOptionValueData?.itemOptionId,
       optionValueId: id,
     },
+    imageData
   }));
 
   const handleOnSelect = (value: any) => {
@@ -46,6 +47,7 @@ export default Selector;
 type SelectorProps = {
   label: string;
   value: unknown;
+  imageData?: CatalogImage
 }
 
 const RadioSelector = ({
@@ -123,9 +125,9 @@ const ProductSelector = ({
     <div>
       <p className="text-center pb-1 text-sm text-zinc-500">{_.capitalize(data[selectedIndex].label)}</p>
       <div className="flex gap-2">
-        {data.map(({ label, value }, i) => (
+        {data.map(({ label, value, imageData }, i) => (
           <div key={label} onClick={() => onChange(value)} className={clsx(selectedIndex === i ? "border-mintcream-500" : "border-zinc-300", " border-2 rounded overflow-hidden w-14 h-14 relative box-content")}>
-            <Image alt={"Yoo"} fill className="object-cover"/>
+            <Image src={imageData?.url} alt={imageData?.caption ?? ""} fill className="object-cover"/>
           </div>
         ))}
       </div>

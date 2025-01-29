@@ -6,13 +6,11 @@ import { CatalogObject } from "square";
 
 type Props = AppProps & { navs: Nav[] };
 
-const HeaderNavigation = ({ navs }: Props) => { 
+const HeaderNavigation = ({ navs }: Props) => {
+  navs = [{id: "shop", link: "/shop", title: "Shop"}]
   return (
     <nav>
       <ul className="flex whitespace-nowrap">
-        <li className="text-black w-full">
-          <Link className="px-4 py-2 md:px-4 md:py-2 block w-full" href="/shop">Shop</Link>
-        </li>
         {navs.map(({ id, title = "title", link }) => (
           <li key={id} className="text-black w-full">
             <Link className="px-4 py-2 md:px-4 md:py-2 block w-full" href={`${link ?? "shop"}`}>
