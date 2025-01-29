@@ -110,7 +110,7 @@ const Page = async (props: Props) => {
                 title="You Might Also Like"
                 headline={undefined}
                 slides={relatedItems.map(({ id, itemData: { name, variations, imageIds } = {} }) => {
-                  const image = images.find(({ id }) => imageIds?.includes(id))?.imageData
+                  const image = images.find(({ id }) => id === imageIds?.[0])?.imageData
 
                   return {
                     image: { fill: true, alt: image?.caption ?? "", src: image?.url ?? "", className: "object-cover" },
