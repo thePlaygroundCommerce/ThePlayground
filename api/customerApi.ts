@@ -13,32 +13,30 @@ import { redirect } from "next/navigation";
 import { mapArrayToMap, formatNavigationLinks } from "util/index";
 import { getCatalogInfo, searchItems } from "./catalogApi";
 
-
 export const searchCatalogItems = async (category: string) => {
-  const formattedCategory = formatNavigationLinks(category)
-  const { categoryNameMap } = await getCatalogInfo()
-  const id = categoryNameMap[formattedCategory]
+  const formattedCategory = formatNavigationLinks(category);
+  const { categoryNameMap } = await getCatalogInfo();
+  const id = categoryNameMap[formattedCategory];
   const searchPayload: SearchCatalogItemsRequest = {};
 
   if (!category) searchPayload.categoryIds = [];
-  else if (!id) return redirect('/shop')
+  else if (!id) return redirect("/shop");
   else searchPayload.categoryIds = [id];
 
-
-  const { objects = [] } =
-    (await searchItems(searchPayload));
+  const { objects = [] } = await searchItems(searchPayload);
 
   return mapArrayToMap(objects);
+};
 
-}
-
-
-export async function registerCustomer(request: {
+export type RegisterCustomerRequest = {
   emailAddress: string;
   firstName?: string;
   lastName?: string;
   phoneNumber?: string;
-}): Promise<ApiResponse<CreateCustomerResponse>> {
+};
+export async function registerCustomer(
+  request: RegisterCustomerRequest
+): Promise<ApiResponse<CreateCustomerResponse>> {
   const fetchUrl = `${SQUARE_URL}customers/register`;
   const init = {
     ...DEFAULT_FETCH_INIT,
@@ -63,15 +61,16 @@ export async function getCustomer(
     .catch((err) => err);
 }
 
-// export async function callToActionCreateForm(state: any, formData: FormData) {
-//   const request: Record<string, FormDataEntryValue> = {};
-//   for (const [key, value] of formData.entries()) {
-//     request[key] = value;
-//   }
+export async function callToActionCreateForm(state, formData: FormData) {
+  console.log(state, "from action")
+  const request: Record<string, FormDataEntryValue> = {};
+  for (const [key, value] of formData.entries()) {
+    request[key] = value;
+  }
 
-//   await registerCustomer(request);
-//   return {
-//     isSubmitted: true,
-//     error: null,
-//   };
-// }
+  await registerCustomer(request as RegisterCustomerRequest);
+  return {
+    isSubmitted: true,
+    error: null,
+  };
+}

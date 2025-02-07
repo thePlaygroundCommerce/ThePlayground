@@ -1,6 +1,19 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+
+@theme {
+  --color-mintcream-DEFAULT: #eefcf8;
+  --color-mintcream-100: #cef9ee;
+  --color-mintcream-200: #9df2dd;
+  --color-mintcream-300: #64e4c9;
+  --color-mintcream-400: #34cdb2;
+  --color-mintcream-500: #1bb199;
+  --color-mintcream-600: #138e7c;
+  --color-mintcream-700: #137265;
+  --color-mintcream-800: #145b52;
+  --color-mintcream-900: #154c45;
+  --color-mintcream-950: #062d2a;
+}
 
 @layer utilities {
   /* Hide scrollbar for Chrome, Safari and Opera */
@@ -13,6 +26,10 @@
     scrollbar-width: none; /* Firefox */
   }
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 html,
 body {

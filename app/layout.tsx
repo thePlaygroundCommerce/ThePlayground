@@ -29,8 +29,9 @@ import Transition from "./Transition";
 
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
-import LogoComponent from "components/LogoComponent";
+import LogoComponent, { renderLogo } from "components/LogoComponent";
 import Link from "next/link";
+import Modal from "components/Modal";
 config.autoAddCss = false
 
 export const metadata: Metadata = {
@@ -124,7 +125,6 @@ export default async function RootLayout({ children }: LayoutPageProps) {
   const { headerNavs, footerNavs } = await getMainNavigation();
   const mappedCatalogObjects = mapArrayToMap([...apparelObjects, ...relatedObjects]);
 
-  // TODO: duplicated item objs from mapArrayToMap / maybe use Set  
   return (
     <TagManagerProvider>
       <ClerkProvider>
@@ -136,9 +136,8 @@ export default async function RootLayout({ children }: LayoutPageProps) {
             <CustomProvider>
               <Providers data={mappedCatalogObjects} cartData={{ _cart: cart, _options: options }} cartImageMap={imageMap}>
                 <Layout navs={{ headerNavs, footerNavs }}>
-                  {/* <Transition> */}
                   {children}
-                  {/* </Transition> */}
+                  {/* {modal} */}
                 </Layout>
               </Providers>
             </CustomProvider>
@@ -169,11 +168,6 @@ type LayoutProps = AppProps & {
 };
 
 const Layout = ({ children, navs, navs: { footerNavs } }: LayoutProps) => {
-  const renderLogo = () => (
-    <Link href="/">
-      <LogoComponent />
-    </Link>
-  )
   return (
     <>
       <Header navs={navs} logo={renderLogo()} />

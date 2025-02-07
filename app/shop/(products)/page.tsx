@@ -6,7 +6,9 @@ import { CatalogObject, SearchCatalogItemsRequest } from "square";
 import { redirect } from "next/navigation";
 import { AppProps } from "next/app";
 import { PageProps } from "index";
-import { searchCatalogItems } from "api/customerApi";
+import { callToActionCreateForm, searchCatalogItems } from "api/customerApi";
+import Modal from "components/Modal";
+import { renderLogo } from "components/LogoComponent";
 
 // Return a list of `params` to populate the [slug] dynamic segment
 export async function generateStaticParams() {
@@ -17,14 +19,26 @@ export async function generateStaticParams() {
   }))
 }
 
-export default async function Page({ params }: PageProps) {
+export default async function Page({ params, searchParams }: PageProps) {
   const { category = "" } = await params
+  const { show = true } = await searchParams
   const { items, images } = await searchCatalogItems(category)
 
+  const func = async (state, formData: FormData) => {
+    'use server'
+    console.log(state)
+    return callToActionCreateForm(state, formData)
+
+    // redirect("?show=false")
+  }
+
   return (
-    <ProductGrid
-      catalogItems={items}
-      catalogImages={images}
-    />
+    <>
+      <ProductGrid
+        catalogItems={items}
+        catalogImages={images}
+      />
+      <Modal logo={renderLogo()} show={JSON.parse(show)} onClose={func} />
+    </>
   );
 }

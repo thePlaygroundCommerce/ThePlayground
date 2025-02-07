@@ -1,0 +1,79 @@
+
+'use client'
+
+import { AppProps } from "index";
+import React, { ReactElement, useActionState, useState } from "react";
+import Button from "./Button";
+import Link from "next/link";
+import { IoClose } from "react-icons/io5";
+import Image from "./Image";
+import LogoComponent from "./LogoComponent";
+import Form from "next/form";
+import Heading from "./typography/Heading";
+import { Input } from "@headlessui/react";
+import { useRouter, useSearchParams } from "next/navigation";
+
+const Modal = ({ show: _show, logo, onClose }: AppProps & { logo: ReactElement; show: boolean, onClose?: (formData: FormData) => Promise<void | string> }) => {
+  const router = useRouter();
+  const actionFn = (...args) => { return { ...onClose(...args), show: false } }
+
+
+  const [state, action, pending] = useActionState(actionFn, { isSubmitted: false, show: _show })
+  const [input, setInput] = useState("")
+  const [show, setShow] = useState(state.show)
+  console.log(state, input)
+
+  return (
+    show && (
+      <div className="min-h-128 fixed inset-0 overflow-y-auto h-screen w-screen flex items-center justify-center backdrop-brightness-40">
+        <div className="max-w-1/2 aspect-square rounded-md flex bg-mintcream-600 overflow-hidden">
+          <div className="w-full min-h-full bg-cover relative">
+            <Image className="absolute object-cover" alt="" fill />
+          </div>
+          <div className="w-full flex flex-col">
+            <div id="header" className="p-1 flex">
+              <div className="grow"></div>
+              <Button onClick={() => setShow(false)}>
+                <IoClose />
+              </Button>
+            </div>
+            <div className="h-24 flex justify-center">
+              {logo}
+            </div>
+            <div className="flex flex-col justify-center h-full">
+              <div>
+                <div id="body" className="grow p-4 text-center text-mintcream-100">
+                  <Heading level={2}>Lorem, ipsum.</Heading>
+                  <Heading level={3} className="mt-2">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid
+                    odit necessitatibus quasi odio in? Corrupti explicabo voluptas
+                    corporis ullam debitis! Adipisci rerum qui deleniti architecto
+                    deserunt. Est porro atque voluptate!
+                  </Heading>
+                </div>
+                <Form action={action}>
+                  <div className="bg-mintcream-100 border-green p-2 rounded max-w-3/4 mx-auto">
+                    <Input name="emailAddress" type="text" placeholder="Enter email" value={input} onChange={e => setInput(e.currentTarget.value)} className="w-full data-[focus]:outline-0 data-[focus]:border-0" />
+                  </div>
+                  <div className="">
+                    <Button type="submit" className="m-auto" variant="primary">Sign Up</Button>
+                  </div>
+                </Form>
+                <div
+                  id="footer"
+                  className="flex justify-center backdrop-blur-sm p-4"
+                >
+                  {/* <Link href="/">
+                  <Button variant="primary">Sign Up</Button>
+                  </Link> */}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  );
+};
+
+export default Modal;

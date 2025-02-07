@@ -31,19 +31,6 @@ module.exports = {
     },
     extend: {
       colors: {
-        mintcream: {
-          DEFAULT: "#eefcf8",
-          100: "#cef9ee",
-          200: "#9df2dd",
-          300: "#64e4c9",
-          400: "#34cdb2",
-          500: "#1bb199",
-          600: "#138e7c",
-          700: "#137265",
-          800: "#145b52",
-          900: "#154c45",
-          950: "#062d2a",
-        },
         primary: "#EEFCF8",
         secondary: "#689B46",
       },
