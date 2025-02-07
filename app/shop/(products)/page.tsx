@@ -26,10 +26,7 @@ export default async function Page({ params, searchParams }: PageProps) {
 
   const func = async (state, formData: FormData) => {
     'use server'
-    console.log(state)
     return callToActionCreateForm(state, formData)
-
-    // redirect("?show=false")
   }
 
   return (

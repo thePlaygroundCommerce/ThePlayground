@@ -137,7 +137,6 @@ export default async function RootLayout({ children }: LayoutPageProps) {
               <Providers data={mappedCatalogObjects} cartData={{ _cart: cart, _options: options }} cartImageMap={imageMap}>
                 <Layout navs={{ headerNavs, footerNavs }}>
                   {children}
-                  {/* {modal} */}
                 </Layout>
               </Providers>
             </CustomProvider>

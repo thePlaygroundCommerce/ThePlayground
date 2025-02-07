@@ -56,22 +56,6 @@ const Providers = ({ cartImageMap, data, cartData, children }: Props) => {
         </NavigationProvider>
       </PostHogProvider>
       {/* <Portal rootId="modalContainer"> */}
-      {/* <Modal backdrop={false} id="aasdaassd" open={show} autoFocus onClose={() =>{}}>
-        <Modal.Header>
-          <Modal.Title>Discounts Promotion</Modal.Title>
-        </Modal.Header>
-        <Modal.Body className="min-h-96 bg-cover m-0 p-0" style={{ backgroundImage: `url(${img.src})`}}>
-          <Placeholder.Paragraph />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={() => null} appearance="primary">
-            Ok
-          </Button>
-          <Button onClick={() => null} appearance="subtle">
-            Cancel
-          </Button>
-        </Modal.Footer>
-      </Modal> */}
       {/* </Portal> */}
     </UIKitProvider>
   );
