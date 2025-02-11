@@ -13,7 +13,7 @@ import Portal from "./Portal";
 import { Simplify } from "prismicio-types";
 import TagManagerProvider from "context/TagManager";
 import posthog from 'posthog-js'
-import { PostHogProvider } from 'posthog-js/react'
+import { PostHogProvider } from 'context/PostHogProvider'
 import img from 'public/comingsoon.jpeg'
 import Modal from "./Modal";
 
@@ -23,13 +23,6 @@ type Props = AppProps & {
   data: any,
   cartData?: { _cart: Order, _options: Simplify<CatalogObject[]> }
 };
-
-// if (typeof window !== 'undefined') {
-//   posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY ?? "", {
-//     api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
-//     person_profiles: 'identified_only', // or 'always' to create profiles for anonymous users as well
-//   })
-// }
 
 const Providers = ({ cartImageMap, data, cartData, children }: Props) => {
   const [show, setShow] = useState(false);

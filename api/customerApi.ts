@@ -61,15 +61,6 @@ export async function getCustomer(
     .catch((err) => err);
 }
 
-export async function callToActionCreateForm(state, formData: FormData) {
-  const request: Record<string, FormDataEntryValue> = {};
-  for (const [key, value] of formData.entries()) {
-    request[key] = value;
-  }
-
-  await registerCustomer(request as RegisterCustomerRequest);
-  return {
-    isSubmitted: true,
-    error: null,
-  };
+export async function callToActionCreateForm(req: RegisterCustomerRequest) {
+  return await registerCustomer(req);
 }

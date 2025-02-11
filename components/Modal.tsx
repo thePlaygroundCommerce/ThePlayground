@@ -1,27 +1,36 @@
-
-'use client'
+"use client";
 
 import { AppProps } from "index";
 import React, { ReactElement, useActionState, useState } from "react";
 import Button from "./Button";
-import Link from "next/link";
 import { IoClose } from "react-icons/io5";
 import Image from "./Image";
-import LogoComponent from "./LogoComponent";
 import Form from "next/form";
 import Heading from "./typography/Heading";
 import { Input } from "@headlessui/react";
-import { useRouter, useSearchParams } from "next/navigation";
 
-const Modal = ({ show: _show, logo, onClose }: AppProps & { logo: ReactElement; show: boolean, onClose?: (formData: FormData) => Promise<void | string> }) => {
-  const router = useRouter();
-  const actionFn = (...args) => { return { ...onClose(...args), show: false } }
+const Modal = ({
+  show: _show,
+  logo,
+  onClose = async () => ({ isSubmitted: false, show: false }),
+}: AppProps & {
+  logo: ReactElement;
+  show: boolean;
+  onClose?: (
+    state: Awaited<{}>,
+    payload: FormData
+  ) => Promise<{ isSubmitted: boolean; show?: boolean }>;
+}) => {
+  const actionFn = async (state: {}, payload: FormData) => {
+    return { ...onClose(state, payload), show: false };
+  };
 
-
-  const [state, action, pending] = useActionState(actionFn, { isSubmitted: false, show: _show })
-  const [input, setInput] = useState("")
-  const [show, setShow] = useState(state.show)
-  console.log(state, input)
+  const [state, action] = useActionState<{
+    isSubmitted: boolean;
+    show?: boolean;
+  }, FormData>(actionFn, { isSubmitted: false, show: _show });
+  const [input, setInput] = useState("");
+  const [show, setShow] = useState<boolean>(state.show ?? false);
 
   return (
     show && (
@@ -34,30 +43,41 @@ const Modal = ({ show: _show, logo, onClose }: AppProps & { logo: ReactElement; 
             <div id="header" className="p-1 flex">
               <div className="grow"></div>
               <Button onClick={() => setShow(false)}>
-                <IoClose />
+                <IoClose size={25} />
               </Button>
             </div>
-            <div className="h-24 flex justify-center">
-              {logo}
-            </div>
+            <div className="h-24 flex justify-center">{logo}</div>
             <div className="flex flex-col justify-center h-full">
               <div>
-                <div id="body" className="grow p-4 text-center text-mintcream-100">
+                <div
+                  id="body"
+                  className="grow p-4 text-center text-mintcream-100"
+                >
                   <Heading level={2}>Lorem, ipsum.</Heading>
                   <Heading level={3} className="mt-2">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid
-                    odit necessitatibus quasi odio in? Corrupti explicabo voluptas
-                    corporis ullam debitis! Adipisci rerum qui deleniti architecto
-                    deserunt. Est porro atque voluptate!
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Aliquid odit necessitatibus quasi odio in? Corrupti
+                    explicabo voluptas corporis ullam debitis! Adipisci rerum
+                    qui deleniti architecto deserunt. Est porro atque voluptate!
                   </Heading>
                 </div>
-                <Form action={action}>
-                  <div className="bg-mintcream-100 border-green p-2 rounded max-w-3/4 mx-auto">
-                    <Input name="emailAddress" type="text" placeholder="Enter email" value={input} onChange={e => setInput(e.currentTarget.value)} className="w-full data-[focus]:outline-0 data-[focus]:border-0" />
+                <Form
+                  action={action}
+                  className="flex flex-col justify-center max-w-3/4 mx-auto bg-mintcream-800 rounded mt-4"
+                >
+                  <div className="bg-mintcream-100 border-green p-2 rounded">
+                    <Input
+                      name="emailAddress"
+                      type="text"
+                      placeholder="Enter email"
+                      value={input}
+                      onChange={(e) => setInput(e.currentTarget.value)}
+                      className="w-full data-[focus]:outline-0 data-[focus]:border-0"
+                    />
                   </div>
-                  <div className="">
-                    <Button type="submit" className="m-auto" variant="primary">Sign Up</Button>
-                  </div>
+                  <Button type="submit" variant="primary">
+                    Sign Up
+                  </Button>
                 </Form>
                 <div
                   id="footer"
