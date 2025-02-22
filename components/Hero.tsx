@@ -30,6 +30,7 @@ export type Content = {
     description?: ReactElement | string | null;
     headline?: ReactElement | string | null;
     social_media_handles?: unknown;
+    form?: ReactElement;
     cta?: Omit<CtaEmailDocumentData, 'slices'>;
     link?: KeyTextField;
     linkLabel?: KeyTextField;
@@ -95,6 +96,7 @@ const HeroContent = ({
   content: {
     description,
     title,
+    form,
     last_publication_date,
     cta,
     social_media_handles,

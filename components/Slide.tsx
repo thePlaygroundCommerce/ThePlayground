@@ -28,9 +28,9 @@ export const IconSlideContent = ({
     const icon = iconTypeMap[_icon] ?? faTruckFast;
 
     return (
-        <div className={"p-4"}>
-            <div className="border border-zinc-300 rounded-lg p-4 bg-zinc-100 drop-shadow-md">
-                <div className="bg-gray-200 max-w-36 aspect-square rounded-full mx-auto mb-2 flex justify-center items-center shadow-md">
+        <div className="p-4 h-full">
+            <div className="h-full border border-zinc-300 rounded-lg p-4 bg-slate-100 drop-shadow-md">
+                <div className="max-w-36 aspect-square rounded-full mx-auto mb-2 flex justify-center items-center shadow-md">
                     <FontAwesomeIcon size="2x" icon={icon} />
                 </div>
                 <div className="window-footer flex flex-col gap-4 mt-4 row-span-1 text-center">

@@ -21,7 +21,9 @@ export default async function ProductsPageLayout({ children }: LayoutPageProps) 
           <ShopNavigation _navs={headerNavs} />
         </div>
         <div className="col-span-2 md:col-span-5 mt-12 md:mt-0 w-full max-w-full flex justify-center md:justify-start md:min-h-screen px-4">
-          <Divider vertical className="hidden md:inline h-full ml-0" />
+          <div className="hidden md:inline">
+            <Divider vertical className="h-full ml-0" />
+          </div>
           {children}
         </div>
       </div>
