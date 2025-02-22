@@ -1,6 +1,5 @@
-@import "tailwindcss" layer(base);
-@import "rsuite/dist/rsuite-no-reset.min.css";
-
+@import "rsuite/dist/rsuite-no-reset.min.css" layer(rsuite);
+@import "tailwindcss";
 
 @theme {
   --color-mintcream-DEFAULT: #eefcf8;
@@ -12,7 +11,7 @@
   --color-mintcream-600: #138e7c;
   --color-mintcream-700: #137265;
   --color-mintcream-800: #145b52;
-  --color-mintcream-900: #154c45; 
+  --color-mintcream-900: #154c45;
   --color-mintcream-950: #062d2a;
 }
 
@@ -30,14 +29,8 @@
 
 html,
 body {
-  // font-family:
-  //   rift-regular,
-  //   rift-soft,
-  //   -apple-system,
-  //   Helvetica Neue,
-  //   sans-serif;
   font-size: 1rem;
-  // font-weight: 200;
+
   font-style: normal;
   line-height: 1.5;
   letter-spacing: 0.06rem;
@@ -61,7 +54,6 @@ main {
   box-shadow:
     rgba(50, 50, 93, 0.25) 10px 0px 60px,
     rgba(50, 50, 93, 0.25) 0px -5px 10px inset;
-  // rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
 
 .badge {
@@ -72,7 +64,6 @@ main {
   justify-content: center;
   align-items: center;
   border: 1px solid transparent;
-  // padding-top: 100%;
 }
 
 img {
@@ -100,17 +91,12 @@ input::-webkit-inner-spin-button {
 }
 
 body,
-// h1 {
-//   font-family: "Raleway", sans-serif;
-// }
 body,
 html {
   height: 100%;
 }
 .bgimg {
   min-height: 100%;
-  // background-position: center;
-  // background-size: cover;
 }
 
 /* W3.CSS 4.15 December 2020 by Jan Egil and Borge Refsnes */
@@ -311,7 +297,6 @@ textarea {
 /* End extract */
 html,
 body {
-  // font-family: Verdana, sans-serif;
   font-size: 15px;
   line-height: 1.5;
 }

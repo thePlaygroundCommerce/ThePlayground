@@ -7,7 +7,6 @@ import { mapArrayToMap } from "../util";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react";
 
-import "styles/globals.scss";
 // import "rsuite/dist/rsuite-no-reset.min.css";
 
 import { PrismicPreview } from "@prismicio/next";
@@ -29,6 +28,7 @@ import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import { renderLogo } from "components/LogoComponent";
 import { ReactElement } from "react";
+import "styles/globals.css";
 config.autoAddCss = false
 
 export const metadata: Metadata = {
