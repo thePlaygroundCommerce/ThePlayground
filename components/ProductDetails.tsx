@@ -5,7 +5,7 @@ import _ from "lodash";
 import Money from "./Money";
 import ReactHtmlParser from "react-html-parser";
 import Heading from "./typography/Heading";
-import styles from "../styles/product_details.module.scss";
+import styles from "../styles/product_details.module.css";
 import clsx from "clsx";
 import withProductModifiers, {
   WithProductModifiersProps,

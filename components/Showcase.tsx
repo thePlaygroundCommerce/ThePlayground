@@ -19,7 +19,7 @@ const Showcase = ({
   animate,
   flipped = false,
   image,
-  content: { headline, title, link, linkLabel, description, cta } = {
+  content: { headline, title, form, link, linkLabel, description, cta } = {
     headline: "",
     title: "",
   },
@@ -55,12 +55,12 @@ const Showcase = ({
               <div
                 className={clsx(
                   "w-full duration-[2000ms] delay-[2000ms]",
-                  !start ? "opacity-0" : "opacity-1",
+                  // !start ? "opacity-0" : "opacity-1",
                   animate?.delay && `delay-[${animate.delay + 2000}ms]`,
                   " flex flex-col justify-start md:justify-center md:items-center md:h-full"
                 )}
               >
-                <div className={clsx(flipped ? "text-left": "text-right", "md:text-center")}>
+                <div className={clsx(flipped ? "text-left": "text-right", "md:text-center text-black")}>
                   {typeof title == "string" ? <Heading>{title}</Heading> : title}
                   <p className="text-sm italic">{headline}</p>
                   <div className="md:w-2/3 md:mx-auto">
@@ -71,6 +71,7 @@ const Showcase = ({
                     )}
                   </div>
                 </div>
+                {form}
                 {link && (
                   <Link href={link}>
                     <Button variant="primary">{linkLabel || "VIEW MORE"}</Button>

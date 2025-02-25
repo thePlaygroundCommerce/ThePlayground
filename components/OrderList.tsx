@@ -35,7 +35,7 @@ const OrderList = ({ allowOrderItemDeletion = true, allowOrderModify = false, li
 
         return (
           <Fragment key={item.uid}>
-            <div key={item.uid} className={clsx("min-h-48 grid grid-cols-5 py-4")}>
+            <div className={clsx("min-h-48 grid grid-cols-5 py-4")}>
               <div className="col-span-2 relative">
                 {lineItemImage?.url && (
                   <Image

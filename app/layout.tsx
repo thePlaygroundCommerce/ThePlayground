@@ -7,8 +7,7 @@ import { mapArrayToMap } from "../util";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react";
 
-import "rsuite/dist/rsuite-no-reset.min.css";
-import "styles/globals.scss";
+// import "rsuite/dist/rsuite-no-reset.min.css";
 
 import { PrismicPreview } from "@prismicio/next";
 import prismic, { createClient, repositoryName } from "prismicio";
@@ -20,18 +19,16 @@ import { callGetCart } from "api/cartApi";
 import clsx from "clsx";
 import { latoRegular } from "./fonts";
 import { ClerkProvider } from "@clerk/nextjs";
-import Script from "next/script";
 import { FooterNavigationDocumentDataNavsItem } from "prismicio-types";
 import FacebookPixel from "components/FacebookPixel";
 import TagManagerProvider from "context/TagManager";
 import { Metadata } from "next";
-import Transition from "./Transition";
 
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
-import LogoComponent, { renderLogo } from "components/LogoComponent";
-import Link from "next/link";
-import Modal from "components/Modal";
+import { renderLogo } from "components/LogoComponent";
+import { ReactElement } from "react";
+import "styles/globals.css";
 config.autoAddCss = false
 
 export const metadata: Metadata = {
@@ -111,7 +108,7 @@ export const getMainNavigation: () => Promise<{
 
 export type LayoutPageProps = { children: React.ReactNode };
 
-export default async function RootLayout({ children }: LayoutPageProps) {
+export default async function RootLayout({ children, info }: LayoutPageProps & { info: any }) {
   const cookieCartId = (await cookies()).get("cartId")?.value ?? "";
 
   const { order: cart = {
@@ -135,7 +132,7 @@ export default async function RootLayout({ children }: LayoutPageProps) {
           <body className="h-full">
             <CustomProvider>
               <Providers data={mappedCatalogObjects} cartData={{ _cart: cart, _options: options }} cartImageMap={imageMap}>
-                <Layout navs={{ headerNavs, footerNavs }}>
+                <Layout info={info} navs={{ headerNavs, footerNavs }}>
                   {children}
                 </Layout>
               </Providers>
@@ -166,11 +163,11 @@ type LayoutProps = AppProps & {
   };
 };
 
-const Layout = ({ children, navs, navs: { footerNavs } }: LayoutProps) => {
+const Layout = ({ children, info, navs, navs: { footerNavs } }: LayoutProps & { info: ReactElement}) => {
   return (
     <>
       <Header navs={navs} logo={renderLogo()} />
-      <main className="min-h-full box-border pt-[60px]">{children}</main>
+      <main className="min-h-full box-border pt-[60px]">{info}{children}</main>
       <Footer navs={footerNavs} />
     </>
   );

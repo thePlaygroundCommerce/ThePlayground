@@ -10,14 +10,15 @@ import Heading from "components/typography/Heading";
 import { GroupField } from "@prismicio/client";
 import { ContentDocumentDataFeaturesItem, Simplify } from "prismicio-types";
 import { searchCatalogItems } from "api/customerApi";
+import { PageProps } from "index";
 
+const Page = async ({ params, searchParams }: PageProps) => {
+  var slug = (await searchParams).id
+  if(!slug) slug = (await params).slug
 
-type Props = unknown;
-
-const Page = async (props: Props) => {
   const {
     result: { object: catalogObject, relatedObjects },
-  } = await getProductDetails(props);
+  } = await getProductDetails(slug);
   if (!catalogObject) return <p>Something went wrong!</p>;
 
   const { items, images } = await searchCatalogItems("");
@@ -85,6 +86,7 @@ const Page = async (props: Props) => {
                     image: { url: src, alt },
                   }, i) => (
                     <Showcase
+                      key={i}
                       flipped={i % 2 !== 0}
                       animate={{ delay: (5 * (i + 1)) * 100 }}
                       content={{
@@ -133,3 +135,14 @@ const Page = async (props: Props) => {
 };
 
 export default Page;
+
+
+
+// /shop/product/[slug] 
+//    expect slug to be product id, which app would lookup id of product
+
+//    and grab first variant and redirect to page with search param
+
+
+// /shop/product/[slug]?variant=id
+//    expect slug to be product name, which app would lookup variant id of product and render page normally

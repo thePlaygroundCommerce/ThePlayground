@@ -50,10 +50,6 @@ function HeaderActions() {
     if (show.auth.active || show.cart.active) setShow(initialShowState);
   }, [path]);
 
-  // const title = _.capitalize(
-  //   Object.values(show).find((showing) => showing.active)?.id ?? ""
-  // );
-
   return (
     <div className="flex justify-end md:mr-4">
       <Button>
@@ -61,7 +57,7 @@ function HeaderActions() {
           <VscAccount />
         </Link>
       </Button>
-      <Button onClick={handleCartOnClick} className="">
+      <Button onClick={handleCartOnClick} className="cursor-pointer">
         <Cart />
       </Button>
       <Portal rootId="drawerContainer">
@@ -70,7 +66,7 @@ function HeaderActions() {
           closeButton={false}
           size={size == "sm" ? "full" : "30%"}
           open={open && (show.auth.active || show.cart.active)}
-          className="h-full overflow-hidden"
+          className="h-full overflow-hidden p-0"
           enforceFocus
         >
           <Drawer.Body

@@ -7,15 +7,18 @@ import { Content } from "components/Hero";
 import Heading from "components/typography/Heading";
 import { useActionState, useState } from "react";
 import { BsCheck2Circle } from "react-icons/bs";
+import { AppProps } from 'index';
 
 const NewsletterForm = ({
+  className,
   content: { title, headline, description } = { description: "", title: "" },
-}: Omit<Content, "image">) => {
+  // contentStyles: {  }
+}: Omit<Content, "image"> & AppProps) => {
   const submitForm = (previousState: any, formData: FormData) => {
-    const req: {[i: string]: string} = {}
+    const req: { [i: string]: string } = {}
 
-    for(const [k,v] of  formData.entries()){
-        req[k] = v.toString()
+    for (const [k, v] of formData.entries()) {
+      req[k] = v.toString()
     }
     // const req = formData.entries().reduce<{
     //   emailAddress: string;
@@ -33,21 +36,16 @@ const NewsletterForm = ({
   });
 
   return (
-    <div className="p-4 text-mintcream-100">
+    <div className={clsx("p-4", className)}>
       <div className="text-center">
         <Heading level={4}>{title}</Heading>
       </div>
-      {/* <h6 className="mb-4 m-auto text-white">
-        {(isSubmitted &&
-          "Thanks for joining the grounds. Check up on your email for any updates!") ||
-          description}
-      </h6> */}
       <div className='my-4 flex justify-center'>
         {isSubmitted ? (
           <BsCheck2Circle size={25} />
         ) : (
           <Form className="text-black w-full" action={formAction}>
-            <div className="flex p-2 grow rounded-md bg-mintcream-100 shadow-md  shadow-mintcream-600">
+            <div className="flex p-2 grow rounded-md bg-mintcream-100 shadow-md shadow-mintcream-600">
               <input
                 type="email"
                 id="emailAddress"
@@ -69,7 +67,7 @@ const NewsletterForm = ({
         )}
       </div>
       {description && (
-        <div className="text-xs text-center">
+        <div className={clsx("text-xs text-center", )}>
           <p>{description}</p>
         </div>
       )}

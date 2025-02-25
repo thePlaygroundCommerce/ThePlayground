@@ -21,7 +21,7 @@ const ProductGrid = ({ catalogItems, catalogImages }: Props) => {
           );
           return (
             <div key={id} className="md:col-span-1 row-auto">
-              <Link href={`/shop/product/${encodeURIComponent(id)}`}>
+              <Link href={`/shop/product/${itemData.name?.toLowerCase().replaceAll(" ", "-")}?id=${encodeURIComponent(id)}`}>
                 <ProductItem itemData={itemData} images={images} />
               </Link>
             </div>

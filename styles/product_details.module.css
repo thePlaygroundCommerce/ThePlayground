@@ -1,11 +1,11 @@
 .product_details {
 
-  strong {
+  & strong {
     font-size: medium;
     font-weight: 700;
   }
   
-  ul {
+  & ul {
     display: block;
     list-style-type: disc;
     margin-block-start: 1em;

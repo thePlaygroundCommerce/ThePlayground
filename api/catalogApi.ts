@@ -16,6 +16,7 @@ import {
 import { batchRetrieveCatalogObjectsResponseSchema } from "square/dist/types/models/batchRetrieveCatalogObjectsResponse";
 import { Simplify } from "prismicio-types";
 import { formatNavigationLinks, mapArrayToMap } from "../util";
+import { PageProps } from "index";
 
 const checkForErrors = (data: any) => {
   if (data.errors) {
@@ -181,10 +182,7 @@ export const getCategorizedObjects = async (resource: string) => {
 
 }
 
-export async function getProductDetails({
-  params,
-}: any): Promise<ApiResponse<RetrieveCatalogObjectResponse>> {
-  const { slug } = await params;
+export async function getProductDetails(slug: string): Promise<ApiResponse<RetrieveCatalogObjectResponse>> {
   return await fetch(SQUARE_URL + "catalog/" + slug, {
     next: { revalidate: 0 },
   })

@@ -1,17 +1,16 @@
+import Button from "components/Button";
+import NewsletterForm from "components/forms/NewsletterForm";
 import Hero from "components/Hero";
 import PhotoGrid from "components/PhotoGrid";
 import Showcase from "components/Showcase";
 import { SlideProps, TypeOmittedSlideProps } from "components/Slide";
 import Slider from "components/Slider";
 import Heading from "components/typography/Heading";
-
-import pic3 from "public/comingsoon.jpeg";
-import pic1 from "public/forestbridge.jpeg";
-import pic2 from "public/shirt.png";
+import Link from "next/link";
 
 const Page = () => {
   return (
-    <div className="container mx-auto ">
+    <div className="">
       {/* <div className="">
         <Hero
           type={"static"}
@@ -28,33 +27,43 @@ const Page = () => {
                 text_content_position: "middleCenter",
               },
               image: {
-                src: pic3,
                 alt: "test",
-                width: 1800,
-                height: 1800,
+                fill: true
               },
             },
           ]}
         ></Hero>
       </div> */}
-      <div className="py-12 flex flex-col gap-12">
-        <div className="px-4 text-center">
-          <Heading>Welcome to The Playground</Heading>
+
+      <div className="py-12 flex flex-col gap-12 container mx-auto">
+        {/* <div className="mx-auto w-1/2 text-center">
           <p>
-            At The Playground, we are passionate about making travel accessible,
-            enjoyable, and hassle-free. Whether you're planning a quick getaway
-            or a luxurious vacation, we're here to help you every step of the
-            way.
+
           </p>
-        </div>
+        </div> */}
+        <Showcase
+          image={{ alt: "", fill: true }}
+          content={{
+            title: "Welcome to The Playground",
+            description:
+              "At The Playground, we are passionate about making travel accessible, \
+            enjoyable, and hassle-free. Whether you're planning a quick getaway \
+            or a luxurious vacation, we're here to help you every step of the \
+            way.\
+              ",
+          }}
+          flipped
+        />
         <PhotoGrid
           gridItems={[
             {
-              src: pic1,
+              // src: pic1,
+              // objectFit: "contain",
+              fill: true,
               alt: "test",
             },
             {
-              src: pic2,
+              fill: true,
               alt: "test",
             },
             {
@@ -69,7 +78,7 @@ const Page = () => {
               ),
             },
             {
-              src: pic1,
+              fill: true,
               alt: "test",
             },
           ]}
@@ -107,20 +116,35 @@ const Page = () => {
             },
           ]}
         />
-        {/* <div>
-          <Showcase image={{ ...pic2, alt: "test", blurHeight: undefined, blurWidth: undefined, objectFit: 'contain' }} content={{
-            title: <Heading>What We Offer</Heading>, description: "haoh"
-          }} flipped={false} />
-        </div> */}
-        <div className="p-4">
-          <Heading>Join Us on Your Next Adventure</Heading>
-          <p>
-            Whether you're a seasoned traveler or planning your first trip, The
-            Playground is here to help you embark on your next adventure.
-            Explore our website, discover new destinations, and let us inspire
-            you to travel the world.
-          </p>
+        <div className="flex flex-col items-center gap-8">
+          <div className="text-center">
+            <Heading className="">Check the FAQs</Heading>
+            <p>Take a look at our FAQs for any quick informattion of our store regarding shipping, returns, discounts and more.</p>
+          </div>
+          <Link href="/faqs"><Button variant="primary">View FAQs</Button></Link>
         </div>
+        <Showcase image={{ alt: "", fill: true }} content={{
+          title: (
+            <>
+              <Heading level={1} className="text-mintcream-700">Join Our Newsletter</Heading>
+              <Heading level={2} className="text-mintcream-700">Join Our Newsletter</Heading>
+              <Heading level={3} className="text-mintcream-700">Join Our Newsletter</Heading>
+            </>
+          ),
+          description: (
+            <NewsletterForm
+              className="text-mintcream-700"
+              content={{
+                description:
+                  "You are signing up to receive product updates and newsletters. By signing up, you are consenting to our privacy policy but you can opt out at any time.",
+                title:
+                  "Get exclusive access to new products, deals & surprise giveaways.",
+              }}
+            />
+          )
+        }} />
+
+
       </div>
     </div>
   );
