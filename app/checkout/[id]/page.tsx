@@ -1,5 +1,5 @@
 import { getCheckoutOrderUrl } from 'api/checkoutApi'
-import { callGetCart } from 'api/cartApi'
+import { callGetCart, callUpdateCart } from 'api/cartApi'
 import React from 'react'
 import { redirect } from 'next/navigation'
 import OrderList from 'components/OrderList'
@@ -58,6 +58,11 @@ const Page = async ({ params, searchParams }: PageProps) => {
         }
     } else {
         const { order, imageMap, options: itemOpts } = await callGetCart(id)
+         await callUpdateCart({ orderId: cartId, order: {
+            version: oldCart.version,
+            locationId: oldCart.locationId,
+            lineItems: []
+         } })
         options = itemOpts
         processedCart = order
         processedCartImages = imageMap
