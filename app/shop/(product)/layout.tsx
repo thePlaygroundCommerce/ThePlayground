@@ -29,7 +29,7 @@ export default async function Layout({ children }: LayoutPageProps) {
       <div className="bg-mintcream-950">
         <div className="lg:w-1/3 mx-auto">
           <NewsletterForm
-            content={{
+            {...{
               description:
                 "You are signing up to receive product updates and newsletters. By signing up, you are consenting to our privacy policy but you can opt out at any time.",
               title:

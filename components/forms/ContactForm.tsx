@@ -3,15 +3,15 @@ import Form from "next/form";
 import { registerCustomer } from "api/customerApi";
 import clsx from "clsx";
 import Button from "components/Button";
-import { Content } from "components/Hero";
 import Heading from "components/typography/Heading";
 import { ReactElement, useActionState, useState } from "react";
 import { BsCheck2Circle } from "react-icons/bs";
 import { lowerCase } from "lodash";
+import { Content, ContentData } from "index";
 
 const NewsletterForm = ({
-  content: { title, headline, description } = { description: "", title: "" },
-}: Omit<Content, "image">) => {
+   title, headline, description
+}: ContentData) => {
   const submitForm = (previousState: any, formData: FormData) => {
     const req: { [i: string]: string } = {};
 

@@ -1,17 +1,17 @@
 "use client";
 import Heading from "./typography/Heading";
 import Slide, { SlideProps, TypeOmittedSlideProps } from "components/Slide";
-import { Content } from "./Hero";
 import { wrapLink } from "util/index";
 import clsx from "clsx";
 import Transition from "app/Transition";
+import { Content, ContentData } from "index";
 
 type Props = {
   slide?: boolean;
   animate?: boolean;
   type: SlideProps["type"];
-  title: NonNullable<Content["content"]>["title"];
-  headline: NonNullable<Content["content"]>["headline"];
+  title: NonNullable<ContentData>["title"];
+  headline: NonNullable<ContentData>["headline"];
   slides: TypeOmittedSlideProps[];
 };
 
@@ -23,14 +23,14 @@ const Slider = ({ type, title, headline, slides, slide = false }: Props) => {
     <Transition>
       {(start: boolean) => (
         <>
-          <div className="text-center container mx-auto">
-            <Heading>{title}</Heading>
+          <div className="container mx-auto">
+            <Heading level={2} className="text-sm">{title}</Heading>
             <p className="my-4">{headline}</p>
           </div>
           <div
             className={clsx(
               slide ? "flex-col" : "flex-row flex-nowrap",
-              "flex md:flex-row justify-start md:justify-center min-h-96 overflow-x-scroll no-scrollbar"
+              "flex md:flex-row justify-start md:justify-center min-h-96 overflow-x-scroll no-scrollbar gap-6"
             )}
           >
             {slides.map((slide, i) => (

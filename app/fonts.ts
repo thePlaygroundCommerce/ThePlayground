@@ -11,7 +11,14 @@ export const latoHeavy = Lato({
   weight: "700",
   style: ["normal", "italic"],
   subsets: ["latin"],
-  display: "swap",
+  display: "auto",
+});
+
+export const latoBlack = Lato({
+  weight: "900",
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+  display: "auto",
 });
 
 export const latoThin = Lato({

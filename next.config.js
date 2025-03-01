@@ -43,13 +43,13 @@ const nextConfig = {
       },
     ],
   },
-  redirects: () => [
-    {
-      source: "/",
-      destination: "/shop",
-      permanent: false
-    },
-  ],
+  // redirects: () => [
+  //   {
+  //     source: "/",
+  //     destination: "/shop",
+  //     permanent: false
+  //   },
+  // ],
 };
 
 // Injected content via Sentry wizard below

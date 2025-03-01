@@ -57,7 +57,7 @@ function HeaderActions() {
           <VscAccount />
         </Link>
       </Button>
-      <Button onClick={handleCartOnClick} className="cursor-pointer">
+      <Button onClick={handleCartOnClick} className="cursor-pointer text-inherit">
         <Cart />
       </Button>
       <Portal rootId="drawerContainer">

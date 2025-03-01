@@ -27,6 +27,12 @@
   }
 }
 
+.check li::before{
+  content: "✅";
+  display: inline-block;
+  margin-right: 0.2rem;
+}
+
 html,
 body {
   font-size: 1rem;
@@ -36,7 +42,6 @@ body {
   letter-spacing: 0.06rem;
 }
 a {
-  color: black;
   text-decoration-line: none;
 }
 a:hover {
@@ -222,14 +227,6 @@ hr {
   height: 0;
   overflow: visible;
 }
-button,
-input,
-select,
-textarea,
-optgroup {
-  font: inherit;
-  margin: 0;
-}
 optgroup {
   font-weight: bold;
 }
@@ -294,30 +291,6 @@ textarea {
   -webkit-appearance: button;
   font: inherit;
 }
-/* End extract */
-html,
-body {
-  font-size: 15px;
-  line-height: 1.5;
-}
 html {
   overflow-x: hidden;
-}
-h1 {
-  font-size: 36px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 20px;
-}
-h5 {
-  font-size: 18px;
-}
-h6 {
-  font-size: 16px;
 }

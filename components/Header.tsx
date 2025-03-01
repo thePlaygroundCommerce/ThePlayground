@@ -17,7 +17,7 @@ function Header({ navs, className, logo }: Props) {
   const path = usePathname()
 
   return (
-    <header className={clsx("max-h-[90px] fixed flex flex-col drop-shadow-lg z-20 w-full", className, path !== "/" && "bg-white")}>
+    <header className={clsx("max-h-[90px] fixed flex flex-col drop-shadow-lg z-20 w-full text-mintcream-200", className, path !== "/" && "bg-white")}>
       {/* <div className={clsx(latoThin.className, "text-sm text-white text-center p-2 ")}>
         <Blinking>
           {[

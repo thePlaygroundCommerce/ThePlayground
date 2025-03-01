@@ -167,7 +167,7 @@ const Layout = ({ children, info, navs, navs: { footerNavs } }: LayoutProps & { 
   return (
     <>
       <Header navs={navs} logo={renderLogo()} />
-      <main className="min-h-full box-border pt-[60px]">{info}{children}</main>
+      <main className="min-h-full box-border">{info}{children}</main>
       <Footer navs={footerNavs} />
     </>
   );

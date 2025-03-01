@@ -38,7 +38,7 @@ const Page = () => {
             </ol>
           </div>
           <div>
-            <ContactForm />
+            <ContactForm title={""}/>
           </div>
         </>
       ),

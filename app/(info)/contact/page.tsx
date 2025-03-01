@@ -30,7 +30,7 @@ const Page = () => {
             </div>
           </div>
         </div>
-        <div><ContactForm /></div>
+        <div><ContactForm title={""} /></div>
       </div>
     </div>
   );

@@ -1,6 +1,3 @@
-import ContactForm from "components/forms/ContactForm";
-import SocialMediaButtons from "components/SocialMediaButtons";
-import Heading from "components/typography/Heading";
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { BsChevronDown } from "react-icons/bs";
 import { Fragment } from "react";
