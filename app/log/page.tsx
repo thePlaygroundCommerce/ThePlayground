@@ -1,5 +1,3 @@
-import { PrismicNextLink } from "@prismicio/next";
-import { BlogFeedItem } from "components/BlogFeedItem";
 import Hero from "components/Hero";
 import Image from "components/Image";
 import { createClient } from "prismicio";
@@ -7,13 +5,7 @@ import { createClient } from "prismicio";
 type Props = unknown;
 
 const Page = async (props: Props) => {
-  const blogs = await createClient().getAllByType("blog");
-
-  {
-    /* // <PrismicNextLink href="" key={i}>
-  //   <BlogFeedItem className="" blog={data} />
-  // </PrismicNextLink> */
-  }
+  const blogs = await createClient().getAllByType("blog_post");
 
   return (
     <div className="">
@@ -23,23 +15,23 @@ const Page = async (props: Props) => {
           items={blogs.map(
             ({
               data: {
-                coverimage: { dimensions, url, alt },
+                image: { dimensions, url, alt },
                 ...rest
               },
               last_publication_date
-            }) => ({ image: { ...dimensions, src: url ?? "", alt: alt ?? "" }, last_publication_date, link: "", ...rest })
+            }) => ({ image: { ...dimensions, src: url ?? undefined, alt: alt ?? "" }, last_publication_date, link: "", ...rest })
           )}
         />
       </div>
       <div className="flex flex-col md:flex-row justify-center container mx-auto flex-wrap gap-6 py-12">
-        {blogs.map(({ data: { coverimage, title, headline } }, i) => (
+        {blogs.map(({ data: { image, title, headline } }, i) => (
           <div key={i} className="md:w-1/4 text-center flex flex-col gap-4">
             <div className="w-full">
               <Image
                 {...{
                   alt: "",
-                  src: coverimage.url ?? "",
-                  ...coverimage.dimensions,
+                  src: image.url ?? undefined,
+                  ...image.dimensions,
                   className: "h-auto rounded-lg",
                 }}
               />

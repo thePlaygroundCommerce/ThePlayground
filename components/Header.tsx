@@ -4,20 +4,33 @@ import HeaderActions from "./HeaderActions";
 import { Nav } from "app/layout";
 import HeaderNavigation from "./HeaderNavigation";
 import { AppProps } from "index";
-import LogoComponent from "./LogoComponent";
 import clsx from "clsx";
 import MobileSideNav from "./MobileSideNav";
-import { ReactElement } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { handleClientScriptLoad } from "next/script";
 
 type Props = AppProps & { navs: { headerNavs: Nav[], footerNavs?: Nav[] }, logo: ReactElement };
 
 function Header({ navs, className, logo }: Props) {
   const path = usePathname()
+  const [scroll, setScroll] = useState(0)
+
+  const handleScroll = (e: any) => setScroll(e.target.documentElement.scrollTop)
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  })
+
+  const background = clsx(
+    scroll >= 200 ? "bg-white" : "bg-transparent",
+    "transition duration-700"
+  )
 
   return (
-    <header className={clsx("max-h-[90px] fixed flex flex-col drop-shadow-lg z-20 w-full text-mintcream-200", className, path !== "/" && "bg-white")}>
+    <header className={clsx("max-h-[90px] fixed flex flex-col drop-shadow-lg z-20 w-full text-mintcream-200", className, background)}>
       {/* <div className={clsx(latoThin.className, "text-sm text-white text-center p-2 ")}>
         <Blinking>
           {[

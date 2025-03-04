@@ -4,91 +4,147 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
+type BlogPostDocumentDataSlicesSlice = HeroSlice;
+
 /**
- * Item in *Blog → paragraphs*
+ * Item in *Blog Post → sections*
  */
-export interface BlogDocumentDataParagraphsItem {
+export interface BlogPostDocumentDataSectionsItem {
   /**
-   * paragraph field in *Blog → paragraphs*
+   * heading field in *Blog Post → sections*
    *
    * - **Field Type**: Text
    * - **Placeholder**: *None*
-   * - **API ID Path**: blog.paragraphs[].paragraph
+   * - **API ID Path**: blog_post.sections[].heading
    * - **Documentation**: https://prismic.io/docs/field#key-text
    */
-  paragraph: prismic.KeyTextField;
+  heading: prismic.KeyTextField;
 
   /**
-   * image field in *Blog → paragraphs*
+   * paragraph field in *Blog Post → sections*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog_post.sections[].paragraph
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  paragraph: prismic.RichTextField;
+
+  /**
+   * image field in *Blog Post → sections*
    *
    * - **Field Type**: Image
    * - **Placeholder**: *None*
-   * - **API ID Path**: blog.paragraphs[].image
+   * - **API ID Path**: blog_post.sections[].image
    * - **Documentation**: https://prismic.io/docs/field#image
    */
   image: prismic.ImageField<never>;
 }
 
 /**
- * Content for Blog documents
+ * Content for Blog Post documents
  */
-interface BlogDocumentData {
+interface BlogPostDocumentData {
   /**
-   * coverImage field in *Blog*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: blog.coverimage
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#image
-   */
-  coverimage: prismic.ImageField<never>;
-
-  /**
-   * title field in *Blog*
+   * title field in *Blog Post*
    *
    * - **Field Type**: Text
-   * - **Placeholder**: Here are the best places to go this summer?
-   * - **API ID Path**: blog.title
-   * - **Tab**: Main
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog_post.title
+   * - **Tab**: Catch Hook
    * - **Documentation**: https://prismic.io/docs/field#key-text
    */
   title: prismic.KeyTextField;
 
   /**
-   * headline field in *Blog*
+   * headline field in *Blog Post*
    *
    * - **Field Type**: Text
    * - **Placeholder**: *None*
-   * - **API ID Path**: blog.headline
-   * - **Tab**: Main
+   * - **API ID Path**: blog_post.headline
+   * - **Tab**: Catch Hook
    * - **Documentation**: https://prismic.io/docs/field#key-text
    */
   headline: prismic.KeyTextField;
 
   /**
-   * paragraphs field in *Blog*
+   * image field in *Blog Post*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog_post.image
+   * - **Tab**: Catch Hook
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Slice Zone field in *Blog Post*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog_post.slices[]
+   * - **Tab**: Catch Hook
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<BlogPostDocumentDataSlicesSlice> /**
+   * Meta Title field in *Blog Post*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: blog_post.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Blog Post*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: blog_post.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Blog Post*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog_post.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never> /**
+   * sections field in *Blog Post*
    *
    * - **Field Type**: Group
    * - **Placeholder**: *None*
-   * - **API ID Path**: blog.paragraphs[]
+   * - **API ID Path**: blog_post.sections[]
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/field#group
-   */
-  paragraphs: prismic.GroupField<Simplify<BlogDocumentDataParagraphsItem>>;
+   */;
+  sections: prismic.GroupField<Simplify<BlogPostDocumentDataSectionsItem>>;
 }
 
 /**
- * Blog document from Prismic
+ * Blog Post document from Prismic
  *
- * - **API ID**: `blog`
+ * - **API ID**: `blog_post`
  * - **Repeatable**: `true`
  * - **Documentation**: https://prismic.io/docs/custom-types
  *
  * @typeParam Lang - Language API ID of the document.
  */
-export type BlogDocument<Lang extends string = string> =
-  prismic.PrismicDocumentWithUID<Simplify<BlogDocumentData>, "blog", Lang>;
+export type BlogPostDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<BlogPostDocumentData>,
+    "blog_post",
+    Lang
+  >;
 
 /**
  * Content for CategoryLink documents
@@ -735,7 +791,7 @@ export type ThePlaygroundDisplayLogoDocument<Lang extends string = string> =
   >;
 
 export type AllDocumentTypes =
-  | BlogDocument
+  | BlogPostDocument
   | CategorylinkDocument
   | ComingSoonDocument
   | ContentDocument
@@ -1928,9 +1984,10 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
-      BlogDocument,
-      BlogDocumentData,
-      BlogDocumentDataParagraphsItem,
+      BlogPostDocument,
+      BlogPostDocumentData,
+      BlogPostDocumentDataSlicesSlice,
+      BlogPostDocumentDataSectionsItem,
       CategorylinkDocument,
       CategorylinkDocumentData,
       ComingSoonDocument,
