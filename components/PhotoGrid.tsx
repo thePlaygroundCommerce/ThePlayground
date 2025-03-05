@@ -32,7 +32,7 @@ const PhotoGrid = ({ gridItems }: Props) => {
                 }
 
                 return (
-                    <div className='relative min-h-144' style={{ objectFit: 'contain' }} key={i}>{item}</div>
+                    <div className='relative aspect-square' style={{ objectFit: 'contain' }} key={i}>{item}</div>
                 )
             })}
         </div>

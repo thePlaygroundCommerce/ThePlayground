@@ -10,7 +10,7 @@ import Link from "next/link";
 
 const Page = () => {
   return (
-    <div className="">
+    <div className=" flex flex-col gap-6">
       {/* <div className="">
         <Hero
           type={"static"}
@@ -35,7 +35,7 @@ const Page = () => {
         ></Hero>
       </div> */}
 
-      <div className="py-12 flex flex-col gap-12 container mx-auto">
+      <div className="py-12 px-6 flex flex-col gap-12 container mx-auto">
         {/* <div className="mx-auto w-1/2 text-center">
           <p>
 
@@ -125,11 +125,11 @@ const Page = () => {
         </div>
         <Showcase image={{ alt: "", fill: true }} content={{
           title: (
-            <>
+            <div className="text-center">
               <Heading level={1} className="text-mintcream-700">Join Our Newsletter</Heading>
               <Heading level={2} className="text-mintcream-700">Join Our Newsletter</Heading>
               <Heading level={3} className="text-mintcream-700">Join Our Newsletter</Heading>
-            </>
+            </div>
           ),
           description: (
             <NewsletterForm

@@ -41,9 +41,6 @@ body {
   line-height: 1.5;
   letter-spacing: 0.06rem;
 }
-a {
-  text-decoration-line: none;
-}
 a:hover {
   text-decoration: none;
   color: red;

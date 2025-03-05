@@ -81,12 +81,17 @@ const page = async (props: Props) => {
             contentStyles={{ classes: "text-center p-4" }}
             content={{
               title: "",
-              description:
-                "Our mission is to redefine the \
-             way you experience travel. We believe that travel \
-             is not just about reaching a destination but about the \
-             journey itself. That's why we curate experiences that \
-             inspire and connect you with the world around you.",
+              description: (
+                <div>
+                  <p>Our mission is to redefine the
+                    way you experience travel. We believe that travel
+                    is not just about reaching a destination but about the
+                    journey itself. That's why we curate experiences that
+                    inspire and connect you with the world around you.</p>
+                    <Link href="/about" className="text-xs italic underline">Learn More</Link>
+                </div>
+              )
+
             }}
             image={{ alt: "", fill: true }}
             flipped

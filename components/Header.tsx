@@ -24,7 +24,7 @@ function Header({ navs, className, logo }: Props) {
     return () => window.removeEventListener('scroll', handleScroll)
   })
 
-  const background = clsx(
+  const background = path !== "/" ? "bg-white" : clsx(
     scroll >= 200 ? "bg-white" : "bg-transparent",
     "transition duration-700"
   )
