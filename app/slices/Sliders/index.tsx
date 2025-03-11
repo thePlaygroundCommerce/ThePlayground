@@ -1,7 +1,7 @@
 import { Content, isFilled, KeyTextField } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 import { getCatalogItemsAndImages } from "api/catalogApi";
-import { BlogDocumentData } from "prismicio-types";
+import { BlogPostDocumentData } from "prismicio-types";
 import { SlideProps, TypeOmittedSlideProps } from "components/Slide";
 import Slider from "components/Slider";
 import { ImageProps } from "index";
@@ -23,8 +23,8 @@ const Sliders = async ({ slice, slice: { slice_type, primary, variation, primary
       break;
     case "blog":
       slice.primary.items.forEach(({ blog }) => {
-        if (!isFilled.contentRelationship<'blog', string, BlogDocumentData>(blog)) return
-        const { data: { title, headline, coverimage: { url = "", alt = "", dimensions = {} } = {} } = {} } = blog
+        if (!isFilled.contentRelationship<'blog', string, BlogPostDocumentData>(blog)) return
+        const { data: { title, headline, image: { url = "", alt = "", dimensions = {} } = {} } = {} } = blog
         slides.push({
           content: {
             link: "",
