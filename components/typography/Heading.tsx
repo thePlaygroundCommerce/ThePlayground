@@ -10,8 +10,8 @@ type A = {
 
 const ComponentMap: { [id: number]: A } = {
     1: { element: "h1", classes: clsx(latoBlack.className, "text-4xl") },
-    2: { element: "h2", classes: clsx(latoHeavy.className   ) },
-    3: { element: "h3", },
+    2: { element: "h2", classes: clsx(latoBlack.className, "text-2xl") },
+    3: { element: "h3", classes: clsx(latoHeavy.className, "text-xl" ) },
     4: { element: "h4", },
     5: { element: "h4", },
     6: { element: "h4", }

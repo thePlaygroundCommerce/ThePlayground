@@ -26,8 +26,8 @@ export default async function Layout({ children }: LayoutPageProps) {
         </Link>
         {children}
       </div>
-      <div className="bg-mintcream-950">
-        <div className="lg:w-1/3 mx-auto">
+      <div className="">
+        <div className="lg:w-1/3 m-12 mx-auto">
           <NewsletterForm
             {...{
               description:

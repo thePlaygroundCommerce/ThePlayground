@@ -24,7 +24,7 @@ const Slider = ({ type, title, headline, slides, slide = false }: Props) => {
       {(start: boolean) => (
         <>
           <div className="container mx-auto">
-            <Heading level={2} className="text-sm">{title}</Heading>
+            <Heading level={2} className="">{title}</Heading>
             <p className="my-4">{headline}</p>
           </div>
           <div

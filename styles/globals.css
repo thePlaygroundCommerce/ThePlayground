@@ -27,7 +27,7 @@
   }
 }
 
-.check li::before{
+.check ::before {
   content: "✅";
   display: inline-block;
   margin-right: 0.2rem;

@@ -38,7 +38,7 @@ const Hero = ({
     contentContainer: clsx(
       'h-full',
       "w-full",
-      "md:w-1/4",
+      "md:w-1/2",
       "absolute",
       isFilled.keyText(text_content_position)
         ? contentPositions[text_content_position]

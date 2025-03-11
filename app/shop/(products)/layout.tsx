@@ -15,16 +15,18 @@ export default async function ProductsPageLayout({ children }: LayoutPageProps) 
   const { headerNavs } = await getMainNavigation()
 
   return (
-    <div className="md:pt-6">
+    <div className="">
       <div className="grid auto-rows-max grid-cols-2 md:grid-cols-6 w-full md:px-4 gap-4 min-h-screen">
-        <div className="col-span-2 md:col-span-1">
+        <div className="col-span-2 md:col-span-1 md:pt-24">
           <ShopNavigation _navs={headerNavs} />
         </div>
-        <div className="col-span-2 md:col-span-5 mt-12 md:mt-0 w-full max-w-full flex justify-center md:justify-start md:min-h-screen px-4">
+        <div className="col-span-2 md:col-span-5 md:mt-0 w-full max-w-full flex justify-center md:justify-start md:min-h-screen px-4">
           <div className="hidden md:inline">
             <Divider vertical className="h-full ml-0" />
           </div>
-          {children}
+          <div className="md:pt-24">
+            {children}
+          </div>
         </div>
       </div>
     </div>

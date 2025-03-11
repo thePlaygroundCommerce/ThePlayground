@@ -4,9 +4,11 @@ import { registerCustomer } from "api/customerApi";
 import clsx from "clsx";
 import Button from "components/Button";
 import Heading from "components/typography/Heading";
-import { useActionState, useState } from "react";
+import { ReactElement, ReactNode, useActionState, useState } from "react";
 import { BsCheck2Circle } from "react-icons/bs";
 import { AppProps, ContentData } from 'index';
+
+const isNotReactElement = (element: ReactNode | ReactElement) =>  typeof element === "string"
 
 const NewsletterForm = ({
   className,
@@ -37,7 +39,7 @@ const NewsletterForm = ({
   return (
     <div className={clsx("p-4", className)}>
       <div className="text-center">
-        <Heading level={4}>{title}</Heading>
+        {isNotReactElement(title) ? <Heading level={4}>{title}</Heading> : title}
       </div>
       <div className='my-4 flex justify-center'>
         {isSubmitted ? (
@@ -67,7 +69,7 @@ const NewsletterForm = ({
       </div>
       {description && (
         <div className={clsx("text-xs text-center",)}>
-          <p>{description}</p>
+          {typeof description === "string" ? <p>{description}</p> : description}
         </div>
       )}
     </div>

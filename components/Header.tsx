@@ -30,7 +30,7 @@ function Header({ navs, className, logo }: Props) {
   )
 
   return (
-    <header className={clsx("max-h-[90px] fixed flex flex-col drop-shadow-lg z-20 w-full text-mintcream-200", className, background)}>
+    <header className={clsx("max-h-[90px] fixed flex drop-shadow-lg z-20 w-full", className, background)}>
       {/* <div className={clsx(latoThin.className, "text-sm text-white text-center p-2 ")}>
         <Blinking>
           {[
@@ -38,8 +38,8 @@ function Header({ navs, className, logo }: Props) {
           ]}
         </Blinking>
       </div> */}
-      <div className="grid grid-cols-6 p-4 md:px-8 md:py-1 h-full">
-        <div className="w-full h-full flex col-span-1">
+      <div className="flex md:h-12 gap-12 p-4 md:px-8 md:py-1 justify-between">
+        <div className="w-full sm:w-auto h-full">
           <div className="sm:hidden flex items-center">
             <MobileSideNav logo={logo} navs={navs} />
           </div>
@@ -47,7 +47,7 @@ function Header({ navs, className, logo }: Props) {
             <Link href="/">{logo}</Link>
           </div>
         </div>
-        <div className="w-full h-full flex justify-center items-center sm:justify-start col-span-4">
+        <div className="w-full h-full flex justify-center items-center sm:justify-start">
           <div className="sm:hidden w-full max-w-44 relative h-full">
             <Link href="/">{logo}</Link>
           </div>
@@ -55,8 +55,8 @@ function Header({ navs, className, logo }: Props) {
             <HeaderNavigation navs={navs.headerNavs} />
           </div>
         </div>
-        <div className="w-full h-full col-span-1 flex">
-          <div className="w-full my-auto">
+        <div className="w-full h-full col-start-6 flex items-center">
+          <div className="w-full h-full my-auto">
             <HeaderActions />
           </div>
         </div>

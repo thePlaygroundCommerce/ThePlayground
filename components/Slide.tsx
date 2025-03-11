@@ -71,7 +71,7 @@ export const ProductSlideContent = ({
             </div>
             <div className="window-footer flex flex-col gap-4 mt-4 row-span-1">
                 <div>
-                    <p className="font-black">{title}</p>
+                    <Heading level={3} >{title}</Heading>
                     {price && <Money number={price} />}
                 </div>
                 {headline && <p>{headline}</p>}

@@ -51,7 +51,7 @@ function HeaderActions() {
   }, [path]);
 
   return (
-    <div className="flex justify-end md:mr-4">
+    <div className="flex h-full justify-end md:mr-4">
       <Button>
         <Link href={accountHref}>
           <VscAccount />

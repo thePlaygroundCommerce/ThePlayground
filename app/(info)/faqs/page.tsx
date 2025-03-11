@@ -1,6 +1,7 @@
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { BsChevronDown } from "react-icons/bs";
 import { Fragment } from "react";
+import Heading from 'components/typography/Heading';
 
 
 const Page = () => {
@@ -10,12 +11,13 @@ const Page = () => {
 
   return (
     <div className="p-4 container mx-auto">
-      <div className="h-screen w-full pt-32 px-4">
-        <div className="mx-auto w-full max-w-lg divide-y divide-black/5 rounded-xl bg-black/5">
+      <div className="h-screen w-full px-4">
+        {/* <div className="mx-auto w-full max-w-lg divide-y divide-black/5 rounded-xl bg-black/5"> */}
+        <div className="mx-auto w-full max-w-lg rounded-xl">
           {topics.map(topic => (
             <Fragment key={topic}>
-              <p>{topic}</p>
-              <Disclosure as="div" className="p-6" defaultOpen={true}>
+              <Heading level={2}>{topic}</Heading>
+              <Disclosure as="div" className="p-6">
                 <DisclosureButton className="group flex w-full items-center justify-between">
                   <span className="text-sm/6 font-medium text-black group-data-[hover]:text-black/80">
                     What is your refund policy?

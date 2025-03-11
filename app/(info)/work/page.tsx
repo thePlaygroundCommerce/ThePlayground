@@ -46,7 +46,7 @@ const Page = () => {
   ];
 
   return (
-    <div className="container mx-auto pt-[60px] px-4  ">
+    <div className="container mx-auto px-4  ">
       <div className="md:w-3/4 mx-auto text-center">
         <Heading className="px-12">Work with The Playground</Heading>
         <p className="">

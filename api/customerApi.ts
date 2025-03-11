@@ -12,6 +12,8 @@ import { DEFAULT_FETCH_INIT, SQUARE_URL } from "../constants";
 import { redirect } from "next/navigation";
 import { mapArrayToMap, formatNavigationLinks } from "util/index";
 import { getCatalogInfo, searchItems } from "./catalogApi";
+import Mailgun from "mailgun.js";
+import formdata from "form-data";
 
 export const searchCatalogItems = async (category: string) => {
   const formattedCategory = formatNavigationLinks(category);
@@ -49,6 +51,33 @@ export async function registerCustomer(
     .then((data) => data)
     .catch((err) => err);
 }
+
+export const sendEmail = async ({
+  email,
+  name,
+  message,
+}: {
+  [id: string]: string;
+}) => {
+  const mailgun = new Mailgun(formdata).client({
+    username: "api",
+    key: process.env.MAILGUN_API_KEY ?? "",
+  });
+
+  // send mail with defined transport object
+  const info = await mailgun.messages.create(
+    "sandboxc9209b0f5c7c42269e920a500fec8982.mailgun.org",
+    {
+      from: "The Playground Team <postmaster@sandboxc9209b0f5c7c42269e920a500fec8982.mailgun.org>",
+      to: ["theplaygroundmedia@outlook.com", "matthewmckenzie446@gmail.com"],
+      subject: `Contact Inquiry from a Playground User: ${name}`,
+      text: message,
+      // html: "<h1>Testing some Mailgun awesomness!</h1>",
+    }
+  );
+
+  console.log("Message sent: %s", info);
+};
 
 export async function getCustomer(
   id: string

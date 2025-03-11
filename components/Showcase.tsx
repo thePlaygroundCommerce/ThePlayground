@@ -35,14 +35,14 @@ const Showcase = ({
 
   return (
     <div
-      className={clsx(animationClasses, "grid md:max-h-screen md:grid-cols-2 gap-4")}
+      className={clsx(animationClasses, "grid md:max-h-screen sm:h-full lg:grid-cols-2 gap-4")}
     >
       <Transition>
         {(start: boolean) => (
           <>
             <div
               className={clsx(
-                "w-full aspect-square md:aspect-video  duration-[2000ms] rounded overflow-hidden",
+                "w-full h-auto  duration-[2000ms] rounded overflow-hidden",
                 animate?.delay && `delay-[${animate.delay}ms]`,
                 !start ? "-translate-x-full" : "translate-x-0"
               )}

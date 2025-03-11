@@ -26,7 +26,7 @@ function Footer({ navs }: Props) {
   );
 
   return (
-    <footer className="border-t grid md:grid-cols-2 grid-cols-1 w-full p-4">
+    <footer className="border-t border-gray-300 grid md:grid-cols-2 grid-cols-1 w-full p-4">
       
       <div className="w-full py-4">
         <div className="">

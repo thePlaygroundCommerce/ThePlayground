@@ -1,6 +1,6 @@
 "use client";
 import Form from "next/form";
-import { registerCustomer } from "api/customerApi";
+import { registerCustomer, sendEmail } from "api/customerApi";
 import clsx from "clsx";
 import Button from "components/Button";
 import Heading from "components/typography/Heading";
@@ -9,10 +9,10 @@ import { BsCheck2Circle } from "react-icons/bs";
 import { lowerCase } from "lodash";
 import { Content, ContentData } from "index";
 
-const NewsletterForm = ({
+const ContactForm = ({
    title, headline, description
 }: ContentData) => {
-  const submitForm = (previousState: any, formData: FormData) => {
+  const submitForm = (_: any, formData: FormData) => {
     const req: { [i: string]: string } = {};
 
     for (const [k, v] of formData.entries()) {
@@ -20,12 +20,12 @@ const NewsletterForm = ({
     }
 
     // @ts-ignore
-    registerCustomer(req);
+    sendEmail(req);
     return { isSubmitted: true };
   };
 
   const inputs = ["Name", "Email", "Order Number", "Message"];
-  const [{ isSubmitted, ...rest }, formAction] = useActionState(submitForm, {
+  const [{ isSubmitted }, formAction] = useActionState(submitForm, {
     isSubmitted: false,
   });
 
@@ -103,4 +103,4 @@ const NewsletterForm = ({
   );
 };
 
-export default NewsletterForm;
+export default ContactForm;
