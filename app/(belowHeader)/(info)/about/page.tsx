@@ -44,7 +44,7 @@ const Page = () => {
         <div className="p-4">
           <Showcase
             // image={{ alt: "", fill: true }}
-            image={{ alt: "", width: 300, height: 500 }}
+            image={{ alt: "", width: 1080, height: 1080  }}
             content={{
               title: "Welcome to The Playground",
               description:

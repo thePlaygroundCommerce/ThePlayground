@@ -106,7 +106,7 @@ const Page = async ({ params, searchParams }: PageProps) => {
                 )}
               </div>
             )}
-            <div className="py-4">
+            <div className="p-4">
               <Slider
                 type="DEFAULT"
                 title="You Might Also Like"

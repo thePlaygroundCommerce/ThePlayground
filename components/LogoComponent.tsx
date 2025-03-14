@@ -8,18 +8,16 @@ const LogoComponent = async ({ className }: AppProps) => {
   const { results: [{ data: { image: { alt, url } } }] } = await createClient().getByType("the_playground_display_logo");
 
   return (
-    <div className={clsx(className, "overflow-hidden relative")}>
-      <Image
-        src={url ?? ""}
-        alt={alt ?? "The Playground Logo"}
-        style={{ objectFit: 'contain' }}
-        width={200}
-        height={200}
-      />
-    </div>
+    <Image
+      src={url ?? ""}
+      alt={alt ?? "The Playground Logo"}
+      width={1080}
+      height={1080}
+      className="w-44"
+    />  
   );
 };
 
-export const renderLogo = () => <LogoComponent />
+export const renderLogo = (props?: AppProps) => <LogoComponent {...props}/>
 
 export default LogoComponent;

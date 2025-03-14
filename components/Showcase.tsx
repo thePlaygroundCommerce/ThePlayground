@@ -25,7 +25,7 @@ const Showcase = ({
   content,
   contentStyles: { classes } = { classes: ""}
 }: ShowcaseProps): JSX.Element => {
-  const ImageComponent = isImageProps(image) ? <Image {...image} /> : image;
+  const ImageComponent = isImageProps(image) ? <Image {...image} className="w-full" /> : image;
 
   const animationClasses =
     clsx();
@@ -49,7 +49,7 @@ const Showcase = ({
             >
               {ImageComponent}
             </div>
-            <div className={clsx("w-full", flipped && "order-first", classes)}>
+            <div className={clsx("w-full", flipped && "sm:order-first", classes)}>
               {renderContent(
                 content,
                 (

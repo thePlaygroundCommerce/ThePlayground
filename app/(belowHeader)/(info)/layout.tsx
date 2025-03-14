@@ -9,7 +9,7 @@ const layout = ({ children }: LayoutPageProps) => {
             // "FAQs"
     ]
     return (
-        <div className='py-24'>
+        <div className='pt-6'>
             <div className='flex flex-col justify-center items-center'>
                 {/* <Heading>tab</Heading> */}
                 <nav>

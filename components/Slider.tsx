@@ -23,10 +23,10 @@ const Slider = ({ type, title, headline, slides, slide = false }: Props) => {
     <Transition>
       {(start: boolean) => (
         <>
-          <div className="container mx-auto">
-            <Heading level={2} className="">{title}</Heading>
+          {(title || headline) && <div className="container mx-auto">
+            <Heading level={2}>{title}</Heading>
             <p className="my-4">{headline}</p>
-          </div>
+          </div>}
           <div
             className={clsx(
               slide ? "flex-col" : "flex-row flex-nowrap",

@@ -37,7 +37,7 @@ function Footer({ navs }: Props) {
         <div className="flex justify-center">
           <div className="min-w-1 min-h-6 relative">
             <Link href="/">
-              <LogoComponent />
+              <LogoComponent className="w-full" />
             </Link>
           </div>
         </div>

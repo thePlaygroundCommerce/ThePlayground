@@ -57,7 +57,7 @@ const page = async (props: Props) => {
                     fees applied.
                   </p>
                   <div className="mt-2">
-                    <Button variant="primary">Shop Now</Button>
+                    <Link href="/shop"><Button variant="primary">Shop Now</Button></Link>
                   </div>
                 </div>
               ),

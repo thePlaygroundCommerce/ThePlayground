@@ -42,7 +42,13 @@ function ProductImageGallery({ images }: { images: CatalogObject[] }) {
                     images.length > 1 ? "row-span-3" : "row-span-4"
                   )}
                 >
-                  <ProductImageViewer {...image} />
+                  <Image
+                    className="w-full object-contain"
+                    width={1080}
+                    height={1080}
+                    src={image.imageData?.url}
+                    alt="picture of shirt"
+                  />
                 </div>
               ))
             }}

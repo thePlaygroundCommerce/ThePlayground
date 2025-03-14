@@ -26,9 +26,12 @@ import { Metadata } from "next";
 
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
-import { renderLogo } from "components/LogoComponent";
+import LogoComponent, { renderLogo } from "components/LogoComponent";
 import { ReactElement } from "react";
 import "styles/globals.css";
+import Button from "components/Button";
+import Link from "next/link";
+import { VscAccount } from "react-icons/vsc";
 config.autoAddCss = false
 
 export const metadata: Metadata = {
@@ -163,10 +166,10 @@ type LayoutProps = AppProps & {
   };
 };
 
-const Layout = ({ children, info, navs, navs: { footerNavs } }: LayoutProps & { info: ReactElement}) => {
+const Layout = ({ children, info, navs, navs: { footerNavs } }: LayoutProps & { info: ReactElement }) => {
   return (
     <>
-      <Header navs={navs} logo={renderLogo()} />
+      <Header navs={navs} logo={renderLogo({ className: "w-full" })} />
       <main className="min-h-full box-border">{info}{children}</main>
       <Footer navs={footerNavs} />
     </>
