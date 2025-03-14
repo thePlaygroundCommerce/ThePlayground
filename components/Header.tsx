@@ -30,7 +30,7 @@ function Header({ navs, className, logo }: Props) {
   )
 
   return (
-    <header className={clsx("max-h-[90px] fixed flex drop-shadow-lg z-20 w-full", className, background)}>
+    <header className={clsx("h-12 fixed flex drop-shadow-lg z-20 w-full", className, background)}>
       {/* <div className={clsx(latoThin.className, "text-sm text-white text-center p-2 ")}>
         <Blinking>
           {[
@@ -38,29 +38,29 @@ function Header({ navs, className, logo }: Props) {
           ]}
         </Blinking>
       </div> */}
-      <div className="flex md:h-12 gap-12 p-4 md:px-8 md:py-1 justify-between">
-        <div className="w-full sm:w-auto h-full">
-          <div className="sm:hidden flex items-center">
-            <MobileSideNav logo={logo} navs={navs} />
+        <div className="flex h-full sm:gap-12 p-4 md:px-8 md:py-1 justify-between">
+          <div className="flex items-center">
+            <div className="sm:hidden flex items-center">
+              <MobileSideNav logo={logo} navs={navs} />
+            </div>
+            <div className="hidden sm:block">
+              <Link href="/">{logo}</Link>
+            </div>
           </div>
-          <div className="hidden sm:block">
-            <Link href="/">{logo}</Link>
+          <div className="w-full h-full flex justify-center sm:justify-normal items-center">
+            <div className="sm:hidden w-full max-w-44 relative"> 
+              <Link href="/">{logo}</Link>
+            </div>
+            <div className="hidden sm:block">
+              <HeaderNavigation navs={navs.headerNavs} />
+            </div>
+          </div>
+          <div className="h-full col-start-6 flex items-center">
+            <div className="w-full h-full my-auto">
+              <HeaderActions />
+            </div>
           </div>
         </div>
-        <div className="w-full h-full flex justify-center items-center sm:justify-start">
-          <div className="sm:hidden w-full max-w-44 relative h-full">
-            <Link href="/">{logo}</Link>
-          </div>
-          <div className="hidden sm:block">
-            <HeaderNavigation navs={navs.headerNavs} />
-          </div>
-        </div>
-        <div className="w-full h-full col-start-6 flex items-center">
-          <div className="w-full h-full my-auto">
-            <HeaderActions />
-          </div>
-        </div>
-      </div>
 
     </header>
   );
