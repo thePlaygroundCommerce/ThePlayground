@@ -38,7 +38,7 @@ function Header({ navs, className, logo }: Props) {
         </Blinking>
       </div> */}
         <div className="flex h-full sm:gap-12 p-4 md:px-8 md:py-1 justify-between">
-          <div className="flex flex-1 items-center">
+          <div className="flex flex-1 sm:flex-none items-center">
             <div className="sm:hidden flex items-center">
               <MobileSideNav logo={logo} navs={navs} />
             </div>
