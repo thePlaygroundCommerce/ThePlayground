@@ -23,22 +23,22 @@ const Page = () => {
       title: "How to Get Started",
       content: (
         <>
-          <div>
+          <div className="p-4">
             <ol type="I" className="list-decimal">
               <li className="mb-6">
-                <p>Contact Us</p><p>Reach out to our partnership team using the
+                <p className="text-left">Contact Us</p><p>Reach out to our partnership team using the
                   contact form below. Please provide details about your business,
                   partnership goals, and how you envision collaborating with us.</p>
               </li>
               <li className="mb-6">
-                <p>Evaluation and Approval</p><p>Our team will review your proposal
+                <p className="text-left">Evaluation and Approval</p><p>Our team will review your proposal
                   and respond promptly to discuss next steps and finalize the
                   partnership agreement.</p>
               </li>
             </ol>
           </div>
           <div>
-            <ContactForm />
+            <ContactForm title={""}/>
           </div>
         </>
       ),
@@ -46,8 +46,8 @@ const Page = () => {
   ];
 
   return (
-    <div className="container mx-auto">
-      <div className="w-3/4 mx-auto text-center">
+    <div className="container mx-auto px-4  ">
+      <div className="md:w-3/4 mx-auto text-center">
         <Heading className="px-12">Work with The Playground</Heading>
         <p className="">
           Thank you for considering a partnership with The Playground. We're
@@ -58,9 +58,9 @@ const Page = () => {
           explore the various opportunities to work with us.
         </p>
       </div>
-      <div className="flex gap-6">
+      <div className="md:flex text-center gap-6">
         {sections.map(({ title, content }) => (
-          <div key={title} className="w-3/4 my-8">
+          <div key={title} className="md:w-3/4 my-8"> 
             <Heading className="p-8">{title}</Heading>
             {content}
           </div>

@@ -1,6 +1,7 @@
 "use client";
 import { BsCart } from "react-icons/bs";
 import { useCart } from "context/cartContext";
+import { IconContext } from "react-icons";
 
 const Cart = () => {
   const {
@@ -10,7 +11,9 @@ const Cart = () => {
 
   return (
     <div className="relative flex">
-      <BsCart />
+      <IconContext.Provider value={{ className: 'text-inherit' }}>
+        <BsCart />
+      </IconContext.Provider>
       {cartSize > 0 && <Badge num={cartSize} />}
     </div>
   );

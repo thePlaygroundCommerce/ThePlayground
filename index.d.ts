@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, ReactElement, SetStateAction } from "react";
 import {
   CalculateOrderRequest,
   CatalogImage,
@@ -20,7 +20,7 @@ export declare interface AppProps<T = HTMLElement> {
   childrenElement?: React.JSX.Element; // A single React element
   style?: React.CSSProperties; // to pass through style props
   onClick?: React.MouseEventHandler<T>; // form events! the generic parameter is the type of event.target
-  onChange?: React.FormEventHandler<HTMLInputElement>; // form events! the generic parameter is the type of event.target 
+  onChange?: React.FormEventHandler<HTMLInputElement>; // form events! the generic parameter is the type of event.target
   //  more info: https://react-typescript-cheatsheet.netlify.app/docs/advanced/patterns_by_usecase/#wrappingmirroring
   // props: Props & React.ComponentPropsWithoutRef<"button">; // to impersonate all the props of a button element and explicitly not forwarding its ref
   // props2: Props & React.ComponentPropsWithRef<MyButtonWithForwardRef>; // to impersonate all the props of MyButtonForwardedRef and explicitly forwarding its ref
@@ -115,47 +115,71 @@ declare global {
   }
 }
 
-export type ImageProps = Omit<JSX.IntrinsicElements['img'], 'src' | 'srcSet' | 'ref' | 'alt' | 'width' | 'height' | 'loading'> & {
-    src?: string | null | StaticImport;
-    alt: string;
-    width?: number | `${number}`;
-    height?: number | `${number}`;
-    fill?: boolean;
-    loader?: ImageLoader;
-    quality?: number | `${number}`;
-    priority?: boolean;
-    loading?: LoadingValue;
-    placeholder?: PlaceholderValue;
-    blurDataURL?: string;
-    unoptimized?: boolean;
-    overrideSrc?: string;
-    /**
-     * @deprecated Use `onLoad` instead.
-     * @see https://nextjs.org/docs/app/api-reference/components/image#onload
-     */
-    onLoadingComplete?: OnLoadingComplete;
-    /**
-     * @deprecated Use `fill` prop instead of `layout="fill"` or change import to `next/legacy/image`.
-     * @see https://nextjs.org/docs/api-reference/next/legacy/image
-     */
-    layout?: string;
-    /**
-     * @deprecated Use `style` prop instead.
-     */
-    objectFit?: string;
-    /**
-     * @deprecated Use `style` prop instead.
-     */
-    objectPosition?: string;
-    /**
-     * @deprecated This prop does not do anything.
-     */
-    lazyBoundary?: string;
-    /**
-     * @deprecated This prop does not do anything.
-     */
-    lazyRoot?: string;
+export type ImageProps = Omit<
+  JSX.IntrinsicElements["img"],
+  "src" | "srcSet" | "ref" | "alt" | "width" | "height" | "loading"
+> & {
+  src?: string | null | StaticImport;
+  alt: string;
+  width?: number | `${number}`;
+  height?: number | `${number}`;
+  fill?: boolean;
+  loader?: ImageLoader;
+  quality?: number | `${number}`;
+  priority?: boolean;
+  loading?: LoadingValue;
+  placeholder?: PlaceholderValue;
+  blurDataURL?: string;
+  unoptimized?: boolean;
+  overrideSrc?: string;
+  /**
+   * @deprecated Use `onLoad` instead.
+   * @see https://nextjs.org/docs/app/api-reference/components/image#onload
+   */
+  onLoadingComplete?: OnLoadingComplete;
+  /**
+   * @deprecated Use `fill` prop instead of `layout="fill"` or change import to `next/legacy/image`.
+   * @see https://nextjs.org/docs/api-reference/next/legacy/image
+   */
+  layout?: string;
+  /**
+   * @deprecated Use `style` prop instead.
+   */
+  objectFit?: string;
+  /**
+   * @deprecated Use `style` prop instead.
+   */
+  objectPosition?: string;
+  /**
+   * @deprecated This prop does not do anything.
+   */
+  lazyBoundary?: string;
+  /**
+   * @deprecated This prop does not do anything.
+   */
+  lazyRoot?: string;
 };
 
-
 export type Modify<T, R> = Omit<T, keyof R> & R;
+
+export type ContentImage = ImageProps | NonNullable<ReactElement>;
+export type ContentData = {
+  title: ReactElement | string | null;
+  description?: ReactElement | string | null;
+  headline?: ReactElement | string | null;
+  social_media_handles?: unknown;
+  form?: ReactElement;
+  cta?: Omit<CtaEmailDocumentData, "slices">;
+  link?: KeyTextField;
+  linkLabel?: KeyTextField;
+  last_publication_date?: string;
+};
+export type Content = {
+  image: ContentImage;
+  content?: ContentData | ReactElement;
+  contentStyles?: {
+    classes?: string;
+    content_alignment?: KeyTextField;
+    text_content_position?: KeyTextField;
+  };
+};

@@ -21,15 +21,15 @@ export default async function Layout({ children }: LayoutPageProps) {
             <div className="mx-4">
               <GoChevronLeft size={20} />
             </div>
-            <div>SHOP</div>
+            <div>BACK TO PRODUCTS</div>
           </Button>
         </Link>
         {children}
       </div>
-      <div className="bg-mintcream-950">
-        <div className="lg:w-1/3 mx-auto">
+      <div className="">
+        <div className="lg:w-1/3 m-12 mx-auto">
           <NewsletterForm
-            content={{
+            {...{
               description:
                 "You are signing up to receive product updates and newsletters. By signing up, you are consenting to our privacy policy but you can opt out at any time.",
               title:

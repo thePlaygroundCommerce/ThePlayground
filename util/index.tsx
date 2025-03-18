@@ -1,5 +1,5 @@
 import { CatalogObject } from "square";
-import { SplitCategoryNameWithId, CategoryTree } from "index";
+import { SplitCategoryNameWithId, CategoryTree, Content, ContentData } from "index";
 import { ReactElement } from "react";
 import Link from "next/link";
 
@@ -116,3 +116,11 @@ export const makeCategoryTree = (
 
 // unregister interceptors
 // unregister();
+
+
+export const renderContent = (
+  content: Content["content"],
+  contentDataRenderer: (content: ContentData) => ReactElement
+) => {
+  return content && "title" in content ? contentDataRenderer(content) : content;
+};

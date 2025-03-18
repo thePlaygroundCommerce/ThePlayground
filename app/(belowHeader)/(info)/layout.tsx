@@ -5,14 +5,16 @@ import Link from 'next/link'
 import React from 'react'
 
 const layout = ({ children }: LayoutPageProps) => {
-    const a = ["Contact", "About", "Work", "FAQs"]
+    const a = ["Contact", "About", "Work",
+            // "FAQs"
+    ]
     return (
-        <div>
+        <div className='pt-6'>
             <div className='flex flex-col justify-center items-center'>
                 {/* <Heading>tab</Heading> */}
                 <nav>
                     {a.map((tab) => (
-                        <Link className='m-4' href={`/${tab.toLowerCase()}`}>{tab}</Link>
+                        <Link key={tab} className='m-4' href={`/${tab.toLowerCase()}`}>{tab}</Link>
                     ))}
                 </nav>
             </div>

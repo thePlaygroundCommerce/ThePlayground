@@ -6,7 +6,8 @@ import clsx from "clsx";
 import {
   HeroSliceDefaultPrimary,
 } from "../../../prismicio-types.js";
-import HeroComponent, { Content } from "components/Hero";
+import HeroComponent from "components/Hero";
+import { Content } from "index.js";
 
 const slicePropsToHeroProps = ({
   bg_image: image,

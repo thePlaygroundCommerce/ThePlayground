@@ -10,7 +10,7 @@ import Link from "next/link";
 
 const Page = () => {
   return (
-    <div className="">
+    <div className=" flex flex-col gap-6">
       {/* <div className="">
         <Hero
           type={"static"}
@@ -35,25 +35,28 @@ const Page = () => {
         ></Hero>
       </div> */}
 
-      <div className="py-12 flex flex-col gap-12 container mx-auto">
+      <div className="flex flex-col gap-12 container mx-auto">
         {/* <div className="mx-auto w-1/2 text-center">
           <p>
 
           </p>
         </div> */}
-        <Showcase
-          image={{ alt: "", fill: true }}
-          content={{
-            title: "Welcome to The Playground",
-            description:
-              "At The Playground, we are passionate about making travel accessible, \
+        <div className="p-4">
+          <Showcase
+            // image={{ alt: "", fill: true }}
+            image={{ alt: "", width: 1080, height: 1080  }}
+            content={{
+              title: "Welcome to The Playground",
+              description:
+                "At The Playground, we are passionate about making travel accessible, \
             enjoyable, and hassle-free. Whether you're planning a quick getaway \
             or a luxurious vacation, we're here to help you every step of the \
             way.\
               ",
-          }}
-          flipped
-        />
+            }}
+            flipped
+          />
+        </div>
         <PhotoGrid
           gridItems={[
             {
@@ -116,25 +119,25 @@ const Page = () => {
             },
           ]}
         />
-        <div className="flex flex-col items-center gap-8">
+        {/* <div className="flex flex-col items-center gap-8">
           <div className="text-center">
             <Heading className="">Check the FAQs</Heading>
-            <p>Take a look at our FAQs for any quick informattion of our store regarding shipping, returns, discounts and more.</p>
+            <p>Take a look at our FAQs for any quick information of our store regarding shipping, returns, discounts and more.</p>
           </div>
           <Link href="/faqs"><Button variant="primary">View FAQs</Button></Link>
-        </div>
-        <Showcase image={{ alt: "", fill: true }} content={{
+        </div> */}
+        <Showcase image={{ alt: "", width: 300, height: 500 }} content={{
           title: (
-            <>
+            <div className="text-center">
               <Heading level={1} className="text-mintcream-700">Join Our Newsletter</Heading>
               <Heading level={2} className="text-mintcream-700">Join Our Newsletter</Heading>
               <Heading level={3} className="text-mintcream-700">Join Our Newsletter</Heading>
-            </>
+            </div>
           ),
           description: (
             <NewsletterForm
               className="text-mintcream-700"
-              content={{
+              {...{
                 description:
                   "You are signing up to receive product updates and newsletters. By signing up, you are consenting to our privacy policy but you can opt out at any time.",
                 title:

@@ -4,10 +4,9 @@ import HeaderActions from "./HeaderActions";
 import { Nav } from "app/layout";
 import HeaderNavigation from "./HeaderNavigation";
 import { AppProps } from "index";
-import LogoComponent from "./LogoComponent";
 import clsx from "clsx";
 import MobileSideNav from "./MobileSideNav";
-import { ReactElement } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
@@ -15,9 +14,22 @@ type Props = AppProps & { navs: { headerNavs: Nav[], footerNavs?: Nav[] }, logo:
 
 function Header({ navs, className, logo }: Props) {
   const path = usePathname()
+  const [scroll, setScroll] = useState(0)
+
+  const handleScroll = (e: any) => setScroll(e.target.documentElement.scrollTop)
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  })
+
+  const background = path !== "/" ? "bg-white" : clsx(
+    scroll >= 200 ? "bg-white" : "bg-transparent",
+    "transition duration-700"
+  )
 
   return (
-    <header className={clsx("max-h-[90px] fixed flex flex-col drop-shadow-lg z-20 w-full", className, path !== "/" && "bg-white")}>
+    <header className={clsx("h-16 fixed flex drop-shadow-lg z-20 w-full", className, background)}>
       {/* <div className={clsx(latoThin.className, "text-sm text-white text-center p-2 ")}>
         <Blinking>
           {[
@@ -25,29 +37,29 @@ function Header({ navs, className, logo }: Props) {
           ]}
         </Blinking>
       </div> */}
-      <div className="grid grid-cols-6 p-4 md:px-8 md:py-1 h-full">
-        <div className="w-full h-full flex col-span-1">
-          <div className="sm:hidden flex items-center">
-            <MobileSideNav logo={logo} navs={navs} />
+        <div className="flex h-full sm:gap-12 p-4 md:px-8 md:py-1 justify-between">
+          <div className="flex flex-1 sm:flex-none items-center">
+            <div className="sm:hidden flex items-center">
+              <MobileSideNav logo={logo} navs={navs} />
+            </div>
+            <div className="hidden sm:block">
+              <Link href="/">{logo}</Link>
+            </div>
           </div>
-          <div className="hidden sm:block">
-            <Link href="/">{logo}</Link>
+          <div className="flex-2 flex justify-center sm:justify-normal items-center">
+            <div className="sm:hidden w-full max-w-44 relative"> 
+              <Link href="/">{logo}</Link>
+            </div>
+            <div className="hidden sm:block">
+              <HeaderNavigation navs={navs.headerNavs} />
+            </div>
+          </div>
+          <div className="flex-1 col-start-6 flex items-center">
+            <div className="w-full h-full my-auto">
+              <HeaderActions />
+            </div>
           </div>
         </div>
-        <div className="w-full h-full flex justify-center items-center sm:justify-start col-span-4">
-          <div className="sm:hidden w-full max-w-44 relative h-full">
-            <Link href="/">{logo}</Link>
-          </div>
-          <div className="hidden sm:block">
-            <HeaderNavigation navs={navs.headerNavs} />
-          </div>
-        </div>
-        <div className="w-full h-full col-span-1 flex">
-          <div className="w-full my-auto">
-            <HeaderActions />
-          </div>
-        </div>
-      </div>
 
     </header>
   );

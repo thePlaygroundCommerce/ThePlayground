@@ -4,12 +4,12 @@ import Image from "./Image";
 const ProductImageViewer = ({ imageData }: any) => {
   return (
     <Image
-      className="h-auto w-full"
-      objectFit="cover"
-      fill
+      className="w-full object-contain"
+      width={1080}
+      height={1080}
       src={imageData?.url}
       alt="picture of shirt"
-    />  
+    />
   );
 };
 

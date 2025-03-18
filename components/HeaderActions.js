@@ -51,13 +51,13 @@ function HeaderActions() {
   }, [path]);
 
   return (
-    <div className="flex justify-end md:mr-4">
+    <div className="flex h-full justify-end md:mr-4">
       <Button>
         <Link href={accountHref}>
           <VscAccount />
         </Link>
       </Button>
-      <Button onClick={handleCartOnClick} className="cursor-pointer">
+      <Button onClick={handleCartOnClick} className="cursor-pointer text-inherit">
         <Cart />
       </Button>
       <Portal rootId="drawerContainer">

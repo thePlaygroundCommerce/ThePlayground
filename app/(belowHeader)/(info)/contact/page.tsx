@@ -5,8 +5,8 @@ import Heading from "components/typography/Heading";
 const Page = () => {
   return (
     <div className="p-4 container mx-auto">
-      <div className="grid grid-cols-2 gap-6">
-        <div className="text-center flex flex-col gap-6 justify-around items-center w-3/4">
+      <div className="grid md:grid-cols-2 gap-6">
+        <div className="text-center flex flex-col gap-6 justify-around items-center md:w-3/4">
           <div>
             <Heading>Contact Us</Heading>
             <p>
@@ -30,7 +30,7 @@ const Page = () => {
             </div>
           </div>
         </div>
-        <div><ContactForm /></div>
+        <div><ContactForm title={""} /></div>
       </div>
     </div>
   );

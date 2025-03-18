@@ -1,6 +1,6 @@
 import Money from "./Money";
 import Image from "./Image";
-import { Content, isImageProps, renderContentImage } from "./Hero";
+import { isImageProps } from "./Hero";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faCheck,
@@ -9,10 +9,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Heading from "./typography/Heading";
 import { wrapLink } from "util/index";
-import { CtaEmailDocumentData } from "prismicio-types";
 import Button from "./Button";
-import clsx from "clsx";
-import Transition from "app/Transition";
+import { Content, ContentData } from "index";
 
 export const Slide = ({ type, ...rest }: SlideProps) => {
     const Component = sliderTypeMap[type];
@@ -45,7 +43,6 @@ export const IconSlideContent = ({
     )
 }
 
-
 export const ProductSlideContent = ({
     image,
     content: { title, price, headline },
@@ -64,7 +61,7 @@ export const ProductSlideContent = ({
     );
 
     return (
-        <div className="p-6 grid grid-cols-1 grid-row-12 overflow-hidden">
+        <div className="grid grid-cols-1 grid-row-12 overflow-hidden">
             {/* <div className="window-header">
             </div> */}
             <div className="window-body rounded">
@@ -73,9 +70,8 @@ export const ProductSlideContent = ({
                 </div>
             </div>
             <div className="window-footer flex flex-col gap-4 mt-4 row-span-1">
-                {/* <PrismicRichText field={name} /> */}
                 <div>
-                    <p className="font-black">{title}</p>
+                    <Heading level={3} >{title}</Heading>
                     {price && <Money number={price} />}
                 </div>
                 {headline && <p>{headline}</p>}
@@ -104,7 +100,7 @@ const sliderTypeMap = {
 export interface SlideProps {
     type: keyof typeof sliderTypeMap;
     image: Content["image"];
-    content: Content["content"] & {
+    content: ContentData & {
         icon?: keyof typeof iconTypeMap;
         price?: number;
         link?: string;

@@ -1,10 +1,11 @@
 import React, { ReactNode } from 'react'
-import { Content, ContentImage, isImageProps } from './Hero'
+import { isImageProps } from './Hero'
 import Image from './Image'
 import Heading from './typography/Heading'
+import { ContentData, ContentImage } from 'index'
 
 type Props = {
-    gridItems: (ContentImage | Content['content'])[]
+    gridItems: (ContentImage | ContentData)[]
 }
 
 const PhotoGrid = ({ gridItems }: Props) => {
@@ -16,7 +17,7 @@ const PhotoGrid = ({ gridItems }: Props) => {
                 if (!gridItem) return null;
 
                 const renderImage = (image: ContentImage) => isImageProps(image) ? <Image {...image} /> : image
-                const renderContent = ({ title, description }: NonNullable<Content['content']>) => (
+                const renderContent = ({ title, description }: NonNullable<ContentData>) => (
                     <div className='p-4'>
                         {typeof title === 'string' ? <Heading>{title}</Heading> : title}
                         {typeof description === 'string' ? <p>{description}</p> : description}
@@ -31,7 +32,7 @@ const PhotoGrid = ({ gridItems }: Props) => {
                 }
 
                 return (
-                    <div className='relative min-h-144' style={{ objectFit: 'contain' }} key={i}>{item}</div>
+                    <div className='relative aspect-square' style={{ objectFit: 'contain' }} key={i}>{item}</div>
                 )
             })}
         </div>

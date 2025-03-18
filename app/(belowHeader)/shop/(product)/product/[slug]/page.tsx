@@ -14,7 +14,7 @@ import { PageProps } from "index";
 
 const Page = async ({ params, searchParams }: PageProps) => {
   var slug = (await searchParams).id
-  if(!slug) slug = (await params).slug
+  if (!slug) slug = (await params).slug
 
   const {
     result: { object: catalogObject, relatedObjects },
@@ -76,7 +76,7 @@ const Page = async ({ params, searchParams }: PageProps) => {
           </div>
           <div>
             {features.length > 0 && (
-              <div className="p-4 py-8 bg-mintcream-900 text-mintcream-200 flex flex-col gap-8 w-full">
+              <div className="p-4 py-8 flex flex-col gap-8 w-full">
                 <Heading className="text-center">Packed With Features</Heading>
                 {features.map(
                   ({
@@ -95,7 +95,7 @@ const Page = async ({ params, searchParams }: PageProps) => {
                         headline,
                       }}
                       image={{
-                        fill: true,
+                        width: 300, height: 500,
                         src,
                         alt: alt ?? "",
                         className: "object-cover",
@@ -106,7 +106,7 @@ const Page = async ({ params, searchParams }: PageProps) => {
                 )}
               </div>
             )}
-            <div className="py-4">
+            <div className="p-4">
               <Slider
                 type="DEFAULT"
                 title="You Might Also Like"

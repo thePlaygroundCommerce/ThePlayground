@@ -18,11 +18,11 @@ export default function ProductGridItem({ itemData, images, className }: Props) 
   const displayImage = images.find(image => image.id === imageIds[0])?.imageData;
 
   return (
-    <div className={clsx(className, "border-0 text-center ")}>
+    <div className={clsx(className, "border-0 text-center")}>
       <Image
-        className={`mx-auto rounded-lg overflow-hidden`}
-          width={250}
-          height={250}
+        className={`mx-auto md:rounded-lg overflow-hidden w-full`}
+          width={1080}
+          height={1080}
         src={displayImage?.url || Unavailable}
         alt={displayImage?.caption || "Picture of shirt"}
       />
