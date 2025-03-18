@@ -94,7 +94,7 @@ const page = async (props: Props) => {
               })}
           />
         </div>
-        <div className="h-[75vh]">
+        <div className="min-h-[75vh]">
           <Heading level={2} className="p-4">
             THE PLAYGROUND MISSION
           </Heading>
@@ -114,11 +114,11 @@ const page = async (props: Props) => {
               )
 
             }}
-            image={{ alt: "", width: 1080, height: 400 }}
+            image={{ alt: "", width: 1080, height: 1080 }}
             flipped
           />
         </div>
-        <div className="h-[75vh] flex flex-col gap-4">
+        <div className="min-h-[75vh] flex flex-col gap-4">
           <Showcase
             content={
               <div className="text-center h-full flex flex-col justify-center items-center">
