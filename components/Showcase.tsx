@@ -42,7 +42,7 @@ const Showcase = ({
           <>
             <div
               className={clsx(
-                "w-full h-auto  duration-[2000ms] rounded overflow-hidden",
+                "w-full h-full duration-[2000ms] rounded overflow-hidden",
                 animate?.delay && `delay-[${animate.delay}ms]`,
                 !start ? "-translate-x-full" : "translate-x-0"
               )}
