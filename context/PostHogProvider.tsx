@@ -5,8 +5,9 @@ import { usePathname, useSearchParams } from "next/navigation"
 import { PostHog, usePostHog } from 'posthog-js/react'
 import posthog, { PostHogConfig } from 'posthog-js'
 import { PostHogProvider as PHProvider } from 'posthog-js/react'
-import { Suspense, useEffect } from 'react'
+import { Suspense, useEffect, useRef } from 'react'
 import { AppProps } from "index"
+import { useRouter } from "next/router"
 
 type PostHogProviderProps = {
   client: PostHog;
@@ -21,13 +22,13 @@ type PostHogProviderProps = {
 export function PostHogProvider({ children }: AppProps & PostHogProviderProps) {
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const isProduction = process.env.NODE_ENV !== 'production';
+      const isNotProduction = process.env.NODE_ENV !== 'production';
       posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY ?? "", {
         api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
         capture_pageview: false,
-        autocapture: isProduction,
+        autocapture: isNotProduction,
         loaded: (ph) => {
-          if (isProduction) {
+          if (isNotProduction) {
             ph.opt_out_capturing(); // opts a user out of event capture
             ph.set_config({ disable_session_recording: true });
           }
@@ -50,6 +51,10 @@ function PostHogPageView() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const posthog = usePostHog()
+  const router = useRouter()
+
+  const maxPercentage = useRef(0)
+  const maxPixels = useRef(0)
 
   // Track pageviews
   useEffect(() => {
@@ -62,6 +67,61 @@ function PostHogPageView() {
       posthog.capture('$pageview', { '$current_url': url })
     }
   }, [pathname, searchParams, posthog])
+
+  useEffect(() => {
+    function handleScroll() {
+      const lastPercentage = Math.min(1, (window.innerHeight + window.pageYOffset) / document.body.offsetHeight)
+      const lastPixels = window.innerHeight + window.pageYOffset
+      if (lastPercentage > maxPercentage.current) {
+        maxPercentage.current = lastPercentage
+      }
+
+      if (lastPixels > maxPixels.current) {
+        maxPixels.current = lastPixels
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  useEffect(() => {
+    const handlePageleave = () => {
+      posthog.capture('$pageleave', {
+        'max scroll percentage': maxPercentage.current,
+        'max scroll pixels': maxPixels.current,
+        'last scroll percentage': Math.min(1, (window.innerHeight + window.pageYOffset) / document.body.offsetHeight),
+        'last scroll pixels': window.innerHeight + window.pageYOffset,
+        'scrolled': maxPixels.current > 0,
+      })
+    }
+
+    window.addEventListener('beforeunload', handlePageleave)
+
+    return () => {
+      window.removeEventListener('beforeunload', handlePageleave)
+    }
+  }, [])
+
+  useEffect(() => {
+    const handleRouteChange = () => {
+      posthog.capture('left_page', {
+        'max scroll percentage': maxPercentage.current,
+        'max scroll pixels': maxPixels.current,
+        'last scroll percentage': Math.min(1, (window.innerHeight + window.pageYOffset) / document.body.offsetHeight),
+        'last scroll pixels': window.innerHeight + window.pageYOffset,
+        'scrolled': maxPixels.current > 0,
+      })
+    }
+
+    router.events.on('routeChangeStart', handleRouteChange)
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChange)
+    }
+  }, [router.events])
 
   return null
 }
