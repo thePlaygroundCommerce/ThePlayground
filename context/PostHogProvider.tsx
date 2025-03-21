@@ -70,7 +70,7 @@ function PostHogPageView() {
       console.log('left_page captured', posthog.capture('left_page', {
         'max scroll percentage': maxPercentage.current,
         'max scroll pixels': maxPixels.current,
-        'last scroll percentage': Math.min(1, (window.innerHeight + window.pageYOffset) / document.body.offsetHeight),
+        'last scroll percentage': Math.min(1, Number(((window.innerHeight + window.pageYOffset) / document.body.scrollHeight).toPrecision(2))),
         'last scroll pixels': window.innerHeight + window.pageYOffset,
         'scrolled': maxPixels.current > 0,
       }))
@@ -81,8 +81,9 @@ function PostHogPageView() {
 
   useEffect(() => {
     function handleScroll() {
-      const lastPercentage = Math.min(1, (window.innerHeight + window.pageYOffset) / document.body.offsetHeight)
+      const lastPercentage = Math.min(1, Number(((window.innerHeight + window.pageYOffset) / document.body.scrollHeight).toPrecision(2)))
       const lastPixels = window.innerHeight + window.pageYOffset
+
       if (lastPercentage > maxPercentage.current) {
         maxPercentage.current = lastPercentage
       }
@@ -104,7 +105,7 @@ function PostHogPageView() {
       console.log('pageleave captured', posthog.capture('$pageleave', {
         'max scroll percentage': maxPercentage.current,
         'max scroll pixels': maxPixels.current,
-        'last scroll percentage': Math.min(1, (window.innerHeight + window.pageYOffset) / document.body.offsetHeight),
+        'last scroll percentage': Math.min(1, Number(((window.innerHeight + window.pageYOffset) / document.body.scrollHeight).toPrecision(2))),
         'last scroll pixels': window.innerHeight + window.pageYOffset,
         'scrolled': maxPixels.current > 0,
       }))
