@@ -5,9 +5,8 @@ import { usePathname, useSearchParams } from "next/navigation"
 import { PostHog, usePostHog } from 'posthog-js/react'
 import posthog, { PostHogConfig } from 'posthog-js'
 import { PostHogProvider as PHProvider } from 'posthog-js/react'
-import { Suspense, useEffect, useRef } from 'react'
+import { Suspense, useEffect, useRef, useState } from 'react'
 import { AppProps } from "index"
-import { useRouter } from "next/router"
 
 type PostHogProviderProps = {
   client: PostHog;
@@ -50,8 +49,8 @@ export function PostHogProvider({ children }: AppProps & PostHogProviderProps) {
 function PostHogPageView() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
+  const [prevPath, setPrevPath] = useState(pathname + searchParams)
   const posthog = usePostHog()
-  const router = useRouter()
 
   const maxPercentage = useRef(0)
   const maxPixels = useRef(0)
@@ -66,6 +65,18 @@ function PostHogPageView() {
 
       posthog.capture('$pageview', { '$current_url': url })
     }
+
+    if (pathname !== prevPath) {
+      posthog.capture('left_page', {
+        'max scroll percentage': maxPercentage.current,
+        'max scroll pixels': maxPixels.current,
+        'last scroll percentage': Math.min(1, (window.innerHeight + window.pageYOffset) / document.body.offsetHeight),
+        'last scroll pixels': window.innerHeight + window.pageYOffset,
+        'scrolled': maxPixels.current > 0,
+      })
+      setPrevPath(pathname)
+    }
+
   }, [pathname, searchParams, posthog])
 
   useEffect(() => {
@@ -105,23 +116,6 @@ function PostHogPageView() {
       window.removeEventListener('beforeunload', handlePageleave)
     }
   }, [])
-
-  useEffect(() => {
-    const handleRouteChange = () => {
-      posthog.capture('left_page', {
-        'max scroll percentage': maxPercentage.current,
-        'max scroll pixels': maxPixels.current,
-        'last scroll percentage': Math.min(1, (window.innerHeight + window.pageYOffset) / document.body.offsetHeight),
-        'last scroll pixels': window.innerHeight + window.pageYOffset,
-        'scrolled': maxPixels.current > 0,
-      })
-    }
-
-    router.events.on('routeChangeStart', handleRouteChange)
-    return () => {
-      router.events.off('routeChangeStart', handleRouteChange)
-    }
-  }, [router.events])
 
   return null
 }
