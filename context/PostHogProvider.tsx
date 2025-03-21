@@ -63,17 +63,17 @@ function PostHogPageView() {
         url = url + `?${searchParams.toString()}`
       }
 
-      posthog.capture('$pageview', { '$current_url': url })
+      console.log('pageview captured', posthog.capture('$pageview', { '$current_url': url }))
     }
 
     if (pathname !== prevPath) {
-      posthog.capture('left_page', {
+      console.log('left_page captured', posthog.capture('left_page', {
         'max scroll percentage': maxPercentage.current,
         'max scroll pixels': maxPixels.current,
         'last scroll percentage': Math.min(1, (window.innerHeight + window.pageYOffset) / document.body.offsetHeight),
         'last scroll pixels': window.innerHeight + window.pageYOffset,
         'scrolled': maxPixels.current > 0,
-      })
+      }))
       setPrevPath(pathname)
     }
 
@@ -101,13 +101,14 @@ function PostHogPageView() {
 
   useEffect(() => {
     const handlePageleave = () => {
-      posthog.capture('$pageleave', {
+      console.log('pageleave captured', posthog.capture('$pageleave', {
         'max scroll percentage': maxPercentage.current,
         'max scroll pixels': maxPixels.current,
         'last scroll percentage': Math.min(1, (window.innerHeight + window.pageYOffset) / document.body.offsetHeight),
         'last scroll pixels': window.innerHeight + window.pageYOffset,
         'scrolled': maxPixels.current > 0,
-      })
+      }))
+
     }
 
     window.addEventListener('beforeunload', handlePageleave)
