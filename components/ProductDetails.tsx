@@ -11,6 +11,8 @@ import withProductModifiers, {
   WithProductModifiersProps,
 } from "hocs/withProductModifiers";
 import { Divider } from "rsuite";
+import Avatar from "./Avatar";
+import { Fragment } from "react";
 
 type Props = AppProps & WithProductModifiersProps;
 
@@ -25,6 +27,32 @@ const ProductDetails = ({
   ) : (
     <p>{itemData.description || "No Details Available!"}</p>
   );
+
+  const reviews = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((num, i, arr) => (
+    <Fragment key={num}>
+      <div className="p-4 pb-0 flex flex-col gap-4">
+        <div className="flex justify-between items-center gap-4">
+          <div className="flex flex-1 gap-4 items-center">
+            <Avatar />
+            <Heading level={3} className="italic">name</Heading>
+          </div>
+          <div className="flex items-center">
+            <span className="text-yellow-500">&#9733;</span>
+            <span className="text-yellow-500">&#9733;</span>
+            <span className="text-yellow-500">&#9733;</span>
+            <span className="text-gray-400">&#9733;</span>
+            <span className="text-gray-400">&#9733;</span>
+          </div>
+        </div>
+        <div>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Doloribus velit in maxime excepturi animi expedita
+          assumenda mollitia nam placeat dignissimos!
+        </div>
+        {i !== arr.length - 1 && <Divider className="" />}
+      </div>
+    </Fragment>
+  ))
 
   return (
     <TabGroup defaultIndex={0}>
@@ -50,7 +78,6 @@ const ProductDetails = ({
               <p>0 Reviews</p>
             </div> */}
           </div>
-          <Divider className="m-0" />
           <div className="flex flex-col gap-4">
             {selectors.colors && (
               <div className=" flex items-end text-left gap-12">
@@ -74,24 +101,24 @@ const ProductDetails = ({
               <p className="text-xs text-zinc-600 text-center">🇺🇸 Ships within <span className="text-mintcream-600">3 business days.</span></p>
             </div>
           </div>
-          <TabList className="mb-3 pb-2 p-3 flex justify-around">
+          {/* <TabList className="mb-3 pb-2 p-3 flex justify-around">
             <Tab className="pe-3 focus:outline-none data-[selected]:underline">Details</Tab>
-            {/* <Tab className="pe-3 focus:outline-none data-[selected]:underline">FAQs</Tab> */}
+            <Tab className="pe-3 focus:outline-none data-[selected]:underline">FAQs</Tab>
             <Tab className="pe-3 focus:outline-none data-[selected]:underline">Reviews</Tab>
-          </TabList>
+          </TabList> */}
         </div>
-        <div className="border-t h-full min-h-144 p-3">
-          <TabPanel
+        <div className=" h-full min-h-144 p-3">
+          <div
             className={clsx("h-full", !itemData.description && "text-center")}
           >
             {productDesc}
-          </TabPanel>
-          <TabPanel className="h-full text-center">
-            <p>No Reviews Available. Be the first!</p>
-          </TabPanel>
-          <TabPanel className="h-full text-center">
-            <p>No Reviews Available. Be the first!</p>
-          </TabPanel>
+          </div>
+          <div>
+            <Heading level={3}>Reviews</Heading>
+            <div className="h-full">
+              {reviews.length > 0 ? reviews : (<p className="text-center">No Reviews Available. Be the first!</p>)}
+            </div>
+          </div>
         </div>
       </div>
     </TabGroup>

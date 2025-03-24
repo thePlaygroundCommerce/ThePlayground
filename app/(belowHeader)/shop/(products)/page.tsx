@@ -45,3 +45,14 @@ export default async function Page({ params, searchParams }: PageProps) {
     </>
   );
 }
+
+
+type Product = {
+  host: string
+  id: string
+  name: string
+  description: string
+  price: string
+  variants: []
+  images: (string | {})[]
+}
