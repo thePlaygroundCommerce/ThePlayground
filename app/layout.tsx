@@ -25,10 +25,14 @@ import TagManagerProvider from "context/TagManager";
 import { Metadata } from "next";
 
 import { config } from '@fortawesome/fontawesome-svg-core'
-import '@fortawesome/fontawesome-svg-core/styles.css'
+// import '@fortawesome/fontawesome-svg-core/styles.css'
 import LogoComponent, { renderLogo } from "components/LogoComponent";
 import { ReactElement } from "react";
-import "styles/globals.css";
+// import "styles/globals.css";
+// import "lib/js/webflow.js"
+import "styles/normalize.css";
+import "styles/webflow.css";
+import "styles/matts-fabulous-site-69eedc.webflow.css";
 import Button from "components/Button";
 import Link from "next/link";
 import { VscAccount } from "react-icons/vsc";
@@ -128,11 +132,22 @@ export default async function RootLayout({ children, info }: LayoutPageProps & {
   return (
     <TagManagerProvider>
       <ClerkProvider>
-        <html
-          lang="en"
-          className={clsx("h-auto md:h-screen", latoRegular.className)}
-        >
-          <body className="h-full">
+        <html data-wf-page="67f9692e7e88b9a05d707c83" data-wf-site="67f9692d7e88b9a05d707c22">
+          <head>
+            {/* <meta charset="utf-8"> */}
+            <title>The Playground</title>
+            {/* <meta content="width=device-width, initial-scale=1" name="viewport">
+                <meta content="Webflow" name="generator"> */}
+            {/* <script type="text/javascript">{function (o, c) { var n = c.documentElement, t = " w-mod-"; n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch") }(window, document)};</script> */}
+            <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+            <link href="images/webclip.png" rel="apple-touch-icon" />
+            <script src="https://cdn.finsweet.com/files/cmslibrary-v1.8.js"></script>
+          </head>
+          <body className="grid grid-rows-[min-content_1fr]">
+
+            {/* <!-- This spacer provides the height we want --> */}
+            <div className="h-screen col-span-full row-start-1 row-end-[span_2]" />
+
             <CustomProvider>
               <Providers data={mappedCatalogObjects} cartData={{ _cart: cart, _options: options }} cartImageMap={imageMap}>
                 <Layout info={info} navs={{ headerNavs, footerNavs }}>
@@ -151,8 +166,8 @@ export default async function RootLayout({ children, info }: LayoutPageProps & {
                 src="https://www.facebook.com/tr?id=1052870693055851&ev=PageView&noscript=1"
               />
             </noscript>
+            <FacebookPixel />
           </body>
-          <FacebookPixel />
         </html>
       </ClerkProvider>
     </TagManagerProvider>
@@ -170,9 +185,40 @@ const Layout = ({ children, info, navs, navs: { footerNavs } }: LayoutProps & { 
   return (
     <>
       <Header navs={navs} logo={renderLogo({ className: "w-full" })} />
-      <main className="min-h-full box-border">{info}{children}</main>
-      <Footer navs={footerNavs} />
+      <main className="col-start-1 row-start-2 overflow-x-hidden">
+        {info}{children}
+        <Footer navs={footerNavs} />
+      </main>
     </>
   );
 
 }
+
+const A = () => (
+  <html
+    lang="en"
+    className={clsx("h-auto md:h-screen", latoRegular.className)}
+  >
+    <body className="h-full">
+      {/* <CustomProvider>
+        <Providers data={mappedCatalogObjects} cartData={{ _cart: cart, _options: options }} cartImageMap={imageMap}>
+          <Layout info={info} navs={{ headerNavs, footerNavs }}>
+            {children}
+          </Layout>
+        </Providers>
+      </CustomProvider> */}
+      <PrismicPreview repositoryName={repositoryName} />
+      <SpeedInsights />
+      <Analytics />
+      <noscript>
+        <img
+          height="1"
+          width="1"
+          style={{ display: "none" }}
+          src="https://www.facebook.com/tr?id=1052870693055851&ev=PageView&noscript=1"
+        />
+      </noscript>
+    </body>
+    <FacebookPixel />
+  </html>
+)

@@ -1,6 +1,6 @@
 "use client";
 import { Tab, TabGroup, TabList, TabPanel } from "@headlessui/react";
-import { AppProps } from "index";
+import { AppProps, Content } from "index";
 import _ from "lodash";
 import Money from "./Money";
 import ReactHtmlParser from "react-html-parser";
@@ -8,121 +8,122 @@ import Heading from "./typography/Heading";
 import styles from "../styles/product_details.module.css";
 import clsx from "clsx";
 import withProductModifiers, {
+  CartModifiers,
+  Selectors,
   WithProductModifiersProps,
 } from "hocs/withProductModifiers";
 import { Divider } from "rsuite";
-import Avatar from "./Avatar";
-import { Fragment } from "react";
+import { ReactNode } from "react";
+import Button from "./Button";
+import Link from "next/link";
 
-type Props = AppProps & WithProductModifiersProps;
+export type ProductDetailsProps = {
+  price: number
+  name: string
+  description: string
+  selectors: Selectors
+  cartModifiers: CartModifiers
+}
 
 const ProductDetails = ({
-  itemData,
-  amount,
+  description,
+  name,
+  price,
   selectors,
-  CartModifiers,
-}: Props) => {
-  const productDesc = itemData.descriptionHtml ? (
-    ReactHtmlParser(itemData.descriptionHtml)
-  ) : (
-    <p>{itemData.description || "No Details Available!"}</p>
-  );
-
-  const reviews = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((num, i, arr) => (
-    <Fragment key={num}>
-      <div className="p-4 pb-0 flex flex-col gap-4">
-        <div className="flex justify-between items-center gap-4">
-          <div className="flex flex-1 gap-4 items-center">
-            <Avatar />
-            <Heading level={3} className="italic">name</Heading>
-          </div>
-          <div className="flex items-center">
-            <span className="text-yellow-500">&#9733;</span>
-            <span className="text-yellow-500">&#9733;</span>
-            <span className="text-yellow-500">&#9733;</span>
-            <span className="text-gray-400">&#9733;</span>
-            <span className="text-gray-400">&#9733;</span>
-          </div>
-        </div>
-        <div>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Doloribus velit in maxime excepturi animi expedita
-          assumenda mollitia nam placeat dignissimos!
-        </div>
-        {i !== arr.length - 1 && <Divider className="" />}
-      </div>
-    </Fragment>
-  ))
+  cartModifiers,
+}: ProductDetailsProps) => {
+  // const productDesc = itemData.descriptionHtml ? (
+  //   ReactHtmlParser(itemData.descriptionHtml)
+  // ) : (
+  //   <p>{itemData.description || "No Details Available!"}</p>
+  // );
 
   return (
-    <TabGroup defaultIndex={0}>
+    <div className="k-product-details">
       <div
-        className={clsx(
-          styles.product_details,
-          "relative flex flex-col h-full"
-        )}
+        data-wf-sku-bindings="%5B%7B%22from%22%3A%22f_price_%22%2C%22to%22%3A%22innerHTML%22%7D%5D"
+        className="k-product-price"
       >
-        <div className="container md:m-auto flex flex-col justify-start gap-4">
-          <div className="w-full">
-            <Heading className="mb-1 fw-bold">{itemData?.name}</Heading>
-            <div className="flex justify-between items-center">
-              <Money className="text-xl font-bold" number={amount} />
-              <p className="text-xs text-zinc-600">Free Shipping Available!</p>
-            </div>
-            {/* <Text>Shipping calculated at checkout</Text>
-            <div className="flex gap-4 items-end">
-              <StarRatings rating={2.403}
-                starRatedColor="gold"
-                starDimension="15px"
-                starSpacing="3px" />
-              <p>0 Reviews</p>
-            </div> */}
+        <Money number={price} />
+      </div>
+      <h2>{name}</h2>
+      <div
+        data-wf-sku-bindings="%5B%7B%22from%22%3A%22f_sku_%22%2C%22to%22%3A%22innerHTML%22%7D%5D"
+        className="k-product-sku"
+      >
+        REF. 87035655-ALOHA-LO
+      </div>
+      <div className="k-heading-line k-line-space-around" />
+      <p className="k-product-main-desc">
+        {description}
+      </p>
+      <div className="k-add-to-cart-widget">
+        <form
+          data-node-type="commerce-add-to-cart-form"
+          data-commerce-sku-id="6084f36628908f57871aa8fe"
+          data-loading-text="Adding to cart..."
+          data-commerce-product-id="6084f3654a978ce1fb06ead6"
+          className="w-commerce-commerceaddtocartform"
+        >
+          <div className="k-button-wrap btn-wrap-1">
+            <Button
+              data-node-type="commerce-add-to-cart-button"
+              data-loading-text="Adding to cart..."
+              aria-busy="false"
+              aria-haspopup="dialog"
+              className="w-commerce-commerceaddtocartbutton k-btn"
+              
+              onClick={cartModifiers.handleAddToCart}
+              >Add to Cart</Button>
           </div>
-          <div className="flex flex-col gap-4">
-            {selectors.colors && (
-              <div className=" flex items-end text-left gap-12">
-                <div className="flex justify-center gap-5 w-full">
-                  {selectors.colors}
-                </div>
-              </div>
-            )}
-            {/* {selectors.size && (
-              <div className=" flex items-baseline text-left gap-12">
-                <Heading level={5}>Sizes</Heading>
-                <div className="pb-6 flex justify-center gap-5 w-full">
-                  {selectors.size}
-                </div>
-              </div>
-            )} */}
-          </div>
-          <div className="grid grid-cols-1 gap-1 justify-around w-full">
-            {CartModifiers}
+          <Button
+            data-node-type="commerce-buy-now-button"
+            data-default-text="Buy now"
+            data-subscription-text="Subscribe now"
+            aria-busy="false"
+            aria-haspopup="false"
+            // style={{ display: "none" }}
+            onClick={cartModifiers.handleBuyNow}
+            className="w-commerce-commercebuynowbutton k-btn bg-black "
+            // href="/checkout"
+          >
+            Buy now
+          </Button>
+          {/* <div className="grid grid-cols-1 gap-1 justify-around w-full">
+            {cartModifiers}
             <div className="p-2">
               <p className="text-xs text-zinc-600 text-center">🇺🇸 Ships within <span className="text-mintcream-600">3 business days.</span></p>
             </div>
-          </div>
-          {/* <TabList className="mb-3 pb-2 p-3 flex justify-around">
-            <Tab className="pe-3 focus:outline-none data-[selected]:underline">Details</Tab>
-            <Tab className="pe-3 focus:outline-none data-[selected]:underline">FAQs</Tab>
-            <Tab className="pe-3 focus:outline-none data-[selected]:underline">Reviews</Tab>
-          </TabList> */}
+          </div> */}
+        </form>
+        <div
+          style={{ display: "none" }}
+          className="w-commerce-commerceaddtocartoutofstock"
+          tabIndex={0}
+        >
+          <div>This product is out of stock.</div>
         </div>
-        <div className=" h-full min-h-144 p-3">
+        <div
+          aria-live="off"
+          data-node-type="commerce-add-to-cart-error"
+          style={{ display: "none" }}
+          className="w-commerce-commerceaddtocarterror"
+        >
           <div
-            className={clsx("h-full", !itemData.description && "text-center")}
+            data-node-type="commerce-add-to-cart-error"
+            data-w-add-to-cart-quantity-error="Product is not available in this quantity."
+            data-w-add-to-cart-general-error="Something went wrong when adding this item to the cart."
+            data-w-add-to-cart-mixed-cart-error="You can’t purchase another product with a subscription."
+            data-w-add-to-cart-buy-now-error="Something went wrong when trying to purchase this item."
+            data-w-add-to-cart-checkout-disabled-error="Checkout is disabled on this site."
+            data-w-add-to-cart-select-all-options-error="Please select an option in each set."
           >
-            {productDesc}
-          </div>
-          <div>
-            <Heading level={3}>Reviews</Heading>
-            <div className="h-full">
-              {reviews.length > 0 ? reviews : (<p className="text-center">No Reviews Available. Be the first!</p>)}
-            </div>
+            Product is not available in this quantity.
           </div>
         </div>
       </div>
-    </TabGroup>
-  );
+    </div>
+  )
 };
 
 export default withProductModifiers(ProductDetails);

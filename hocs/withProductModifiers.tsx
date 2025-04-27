@@ -2,6 +2,7 @@
 "use client";
 import { useCartModifier } from "context/cartContext";
 import {
+  ChangeEventHandler,
   ComponentType,
   Dispatch,
   FC,
@@ -18,7 +19,7 @@ import {
   CatalogObject,
   OrderLineItem,
 } from "square";
-import ProductDetails from "../components/ProductDetails";
+import { ProductDetailsProps } from "../components/ProductDetails";
 import { useCheckout } from "context/checkoutContext";
 import { useInventory } from "context/inventoryContext";
 import _ from "lodash";
@@ -36,13 +37,13 @@ export type WithProductModifiersProps = AppProps & {
   amount: any;
   itemData: CatalogItem;
   selectors: any;
-  CartModifiers: JSX.Element;
+  cartModifiers: CartModifiers;
 };
 
 type Lookup<T> = { [key: string | number]: undefined | null | T };
 
 const withProductModifiers =
-  (Component: ComponentType<WithProductModifiersProps>): FC<Props> =>
+  (Component: ComponentType<ProductDetailsProps>): FC<Props> =>
     ({
       catalogItemObject: { itemData = {} },
       catalogImageObjects,
@@ -218,7 +219,7 @@ const withProductModifiers =
         );
       };
 
-      const selectors = Object.entries(productOptions).reduce(
+      const selectors: Selectors = Object.entries(productOptions).reduce<Selectors>(
         (acc, [optionId, [option, optionValues]], i) => {
           const type = option === "colors" ? "PRODUCT" : "CARD";
           const data =
@@ -254,37 +255,42 @@ const withProductModifiers =
 
           return {
             ...acc,
-            [option ?? i]: (
-              <Selector
-                selectedIndex={selected}
-                type={type}
-                data={data}
-                onChange={handleOptionChange}
-              />
-            ),
+            [option ?? i]: {
+              selectedIndex: selected,
+              type: type,
+              data: data,
+              onChange: handleOptionChange,
+            },
           };
         },
         {}
       );
 
-      const CartModifiers = (
-        <CartModifierButtons
-          loading={{ isCheckoutLoading, isCartLoading }}
-          quantity={quantity}
-          setQuantity={setQuantity}
-          handleAddToCart={handleAddToCart}
-          isProductInCart={isProductInCart}
-          handleBuyNow={handleBuyNow}
-        />
-      );
+      const cartModifiers = {
+        loading: { isCheckoutLoading, isCartLoading },
+        quantity: quantity,
+        setQuantity: setQuantity,
+        handleAddToCart: handleAddToCart,
+        isProductInCart: isProductInCart,
+        handleBuyNow: handleBuyNow,
+      };
+      // <CartModifierButtons
+      //   loading={{ isCheckoutLoading, isCartLoading }}
+      //   quantity={quantity}
+      //   setQuantity={setQuantity}
+      //   handleAddToCart={handleAddToCart}
+      //   isProductInCart={isProductInCart}
+      //   handleBuyNow={handleBuyNow}
+      // />
 
       return (
         <Component
           {...{
-            amount,
-            itemData,
+            price: Number(amount ?? 0),
+            name: itemData.name ?? "",
+            description: itemData.description ?? "",
             selectors,
-            CartModifiers,
+            cartModifiers,
           }}
         />
       );
@@ -301,7 +307,7 @@ const transformOptionId = (
     val,
   ]);
 
-type CartModifiyingProps = {
+export type CartModifiers = {
   loading: { isCartLoading: boolean; isCheckoutLoading: boolean };
   quantity: number;
   setQuantity: Dispatch<SetStateAction<number>>;
@@ -317,7 +323,7 @@ const CartModifierButtons = ({
   handleAddToCart,
   isProductInCart,
   handleBuyNow,
-}: CartModifiyingProps) => {
+}: CartModifiers) => {
   return (
     <>
       <div className="flex items-center gap-2">
@@ -346,3 +352,12 @@ const CartModifierButtons = ({
     </>
   );
 };
+
+
+export type Selector<TData = {}[]> = {
+  selectedIndex: number,
+  type: string,
+  data: TData,
+  onChange: ChangeEventHandler,
+}
+export type Selectors = { color?: Selector, size?: Selector }

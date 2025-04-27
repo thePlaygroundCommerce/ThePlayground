@@ -103,10 +103,10 @@ export type CheckoutContextType = {
 };
 
 export type UIKitContextType = {
-  drawerKit: {
-    open: boolean;
-  };
-  handleUIChange: ({ open }: { open: boolean }, e?: any) => void;
+  // drawerKit: {
+  //   open: boolean;
+  // };
+  // handleUIChange: ({ open }: { open: boolean }, e?: any) => void;
 };
 
 declare global {

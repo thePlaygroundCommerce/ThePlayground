@@ -39,8 +39,7 @@ export default async function Page({ params, searchParams }: PageProps) {
     <>
       <ProductGrid
         catalogItems={items}
-        catalogImages={images}
-      />
+        catalogImages={images} type={"shop"}      />
       <Modal logo={renderLogo()} show={false} onClose={func} />
     </>
   );
