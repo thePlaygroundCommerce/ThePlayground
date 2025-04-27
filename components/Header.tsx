@@ -55,8 +55,15 @@ function Header({ navs, className, logo }: Props) {
         req: CalculateOrderRequest
       ): void {
         // throw new Error("Function not implemented.");
-      }}
-    // toggleCartOverlay={[]}
+      } } updateCart={function ({ lineItems, fieldsToClear, lineItemImageData, }: { lineItems?: OrderLineItem[]; fieldsToClear?: string[]; lineItemImageData?: { [id: string]: CatalogImage; }; }): void {
+        throw new Error("Function not implemented.");
+      } } createCart={function (catalogOrder: any, lineItemImageData?: CatalogImage, checkout?: boolean): void {
+        throw new Error("Function not implemented.");
+      } } handleCartToggle={function (e: any, bool: boolean): void {
+        throw new Error("Function not implemented.");
+      } } getCheckoutUrl={function (): string {
+        throw new Error("Function not implemented.");
+      } }    // toggleCartOverlay={[]}
     // handleCartToggle={function (e: any, bool: boolean): void {
     //   throw new Error("Function not implemented.");
     // }}
@@ -67,9 +74,7 @@ function Header({ navs, className, logo }: Props) {
   )
   const NavOverlayComp = (
     <MobileNavigation
-      // open={overlay === 'nav'}
       logo={<LogoComponent />}
-      onClose={() => setOverlayState(null)}
       navs={{
         headerNavs: [],
       }}
@@ -89,12 +94,12 @@ function Header({ navs, className, logo }: Props) {
 
   //z-[99] bg-[color:var(--white)] shadow-[0_-4px_30px_-15px_var(--border)] items-center fixed w-full left-0 inset-y-0
 
-  const classes = {
-    a: clsx(
-      open ? "flex" : "hidden",
-      "bg-white shadow-[0_-4px_30px_-15px_var(--border)] items-center w-full fixed px-[3vw] top-0 h-screen"
-    ),
-  };
+  // const classes = {
+  //   a: clsx(
+  //     open ? "flex" : "hidden",
+  //     "bg-white shadow-[0_-4px_30px_-15px_var(--border)] items-center w-full fixed px-[3vw] top-0 h-screen"
+  //   ),
+  // };
 
   const handleScroll = (e: any) =>
     setScroll(e.target.documentElement.scrollTop);
@@ -189,7 +194,7 @@ function Header({ navs, className, logo }: Props) {
             </div>
           </div>
 
-          {/* Bigger Than Mobile Screen */}
+          {/* Bigger Than Mobile */}
           <div
             id="w-node-d28673fe-a739-7b74-1763-af2ee311f212-e311f1d3"
             className="k-nav-right"

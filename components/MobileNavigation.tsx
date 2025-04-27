@@ -16,20 +16,18 @@ import { Transition } from "@headlessui/react";
 import { useEffect, useState } from "react";
 
 type Props = AppProps & {
-  open: boolean
   logo: JSX.Element
-  onClose: any;
   navs: {
     headerNavs: Nav[],
   }
 }
 
-export default function MobileNavigation({ logo, onClose, navs: { headerNavs } }: Props) {
+export default function MobileNavigation({ }: Props) {
   const removedLinks: KeyTextField[] = ["/log"]
   // footerNavs = footerNavs.filter(({ data: { link } }) => !removedLinks.includes(link))
   const [open, setOpen] = useState(false)
 
-  const handleClose = () => onClose(null, false)
+  // const handleClose = () => onClose(null, false)
 
   useEffect(() => {
     setOpen(true)
@@ -161,43 +159,43 @@ export default function MobileNavigation({ logo, onClose, navs: { headerNavs } }
     // </Transition>
   )
 
-  return (
-    <div className="h-screen flex flex-col">
-      <div className="flex justify-between border-b px-4 p-2">
-        <Link href="/">
-          {logo}
-        </Link>
-        <Button className="p-2 px-3" onClick={handleClose}>
-          <IoClose />
-        </Button>
-      </div>
-      <div className="h-full flex flex-col justify-between">
-        <nav className="text-end">
-          <List size="md">
-            {headerNavs.map(({ title, link }) => (
-              <List.Item key={title} className="text-black w-full">
-                <Link onClick={handleClose} className="px-4 py-2 md:px-4 md:py-2 block w-full" href={`/shop${link ?? ""}`}>
-                  {title}
-                </Link>
-              </List.Item>
-            ))}
-          </List>
-        </nav>
-        {/* <nav className="">
-          <List size="sm" bordered={false}>
-            {footerNavs.map(({ data: { title, link } }) => (
-              <List.Item key={title} className="text-black w-full ">
-                <Link onClick={handleClose} className="px-4 py-2 md:px-4 md:py-2 block w-full" href={link ?? ""}>
-                  {title}
-                </Link>
-              </List.Item>
-            ))}
-          </List>
-        </nav> */}
-      </div>
-      <div className="p-4">
-        <SocialMediaButtons align="around" />
-      </div>
-    </div>
-  );
+  // return (
+  //   <div className="h-screen flex flex-col">
+  //     <div className="flex justify-between border-b px-4 p-2">
+  //       <Link href="/">
+  //         {logo}
+  //       </Link>
+  //       <Button className="p-2 px-3" onClick={handleClose}>
+  //         <IoClose />
+  //       </Button>
+  //     </div>
+  //     <div className="h-full flex flex-col justify-between">
+  //       <nav className="text-end">
+  //         <List size="md">
+  //           {headerNavs.map(({ title, link }) => (
+  //             <List.Item key={title} className="text-black w-full">
+  //               <Link onClick={handleClose} className="px-4 py-2 md:px-4 md:py-2 block w-full" href={`/shop${link ?? ""}`}>
+  //                 {title}
+  //               </Link>
+  //             </List.Item>
+  //           ))}
+  //         </List>
+  //       </nav>
+  //       {/* <nav className="">
+  //         <List size="sm" bordered={false}>
+  //           {footerNavs.map(({ data: { title, link } }) => (
+  //             <List.Item key={title} className="text-black w-full ">
+  //               <Link onClick={handleClose} className="px-4 py-2 md:px-4 md:py-2 block w-full" href={link ?? ""}>
+  //                 {title}
+  //               </Link>
+  //             </List.Item>
+  //           ))}
+  //         </List>
+  //       </nav> */}
+  //     </div>
+  //     <div className="p-4">
+  //       <SocialMediaButtons align="around" />
+  //     </div>
+  //   </div>
+  // );
 }

@@ -258,7 +258,7 @@ const CartOverlay = ({ handleCartToggle, cart, options, calculateCart }: Props) 
                 </div> */}
                 <a
                   href="/checkout"
-                  value="Continue to Checkout"
+                  // value="Continue to Checkout"
                   data-node-type="cart-checkout-button"
                   data-w-id="d28673fe-a739-7b74-1763-af2ee311f20c"
                   data-wf-id='["3c4b54f7-5d09-4b8c-b972-66c749e5325c","d28673fe-a739-7b74-1763-af2ee311f20c"]'

@@ -94,7 +94,7 @@ export type CartContextType = {
     checkout?: boolean
   ) => void;
   calculateCart: (req: CalculateOrderRequest) => void;
-  toggleCartOverlay: [boolean, Dispatch<SetStateAction<boolean>>];
+  toggleCartOverlay?: [boolean, Dispatch<SetStateAction<boolean>>];
 };
 
 export type CheckoutContextType = {
@@ -173,6 +173,7 @@ export type ContentData = {
   link?: KeyTextField;
   linkLabel?: KeyTextField;
   last_publication_date?: string;
+  price?: number | bigint | string
 };
 export type Content = {
   image: ContentImage;
