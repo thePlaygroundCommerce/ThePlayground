@@ -18,14 +18,9 @@ export default async function Page({ params, searchParams }: PageProps) {
   const { category = "", store = "shop" } = await params
   let items, images;
 
-  if(store === 'shop'){
-    const searchRes = await searchCatalogItems(category)
-    items = searchRes.items
-    images = searchRes.images
-  } else {
-    items = [1,2,3]
-    images = [1,2,3]
-  }
+  const searchRes = await searchCatalogItems(category)
+  items = searchRes.items
+  images = searchRes.images
 
   const func = async (state: {}, formData: FormData) => {
     'use server'
