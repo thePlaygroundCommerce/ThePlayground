@@ -1,18 +1,9 @@
 import ProductGrid from "components/ProductGrid";
-import { getMainNavigation } from "app/layout";
 import { PageProps } from "index";
 import { callToActionCreateForm, RegisterCustomerRequest, searchCatalogItems } from "api/customerApi";
 import Modal from "components/Modal";
 import { renderLogo } from "components/LogoComponent";
 
-// Return a list of `params` to populate the [slug] dynamic segment
-export async function generateStaticParams() {
-  const { headerNavs } = await getMainNavigation()
-
-  return headerNavs.map(({ title: resource }) => ({
-    slug: resource
-  }))
-}
 
 export default async function Page({ params, searchParams }: PageProps) {
   const { category = "", store = "shop" } = await params
