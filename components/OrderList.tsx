@@ -1,4 +1,4 @@
- 
+
 "use client";
 import { useCartModifier } from "context/cartContext";
 import Image from "components/Image";
@@ -9,23 +9,25 @@ import { Divider } from "rsuite";
 import Heading from "./typography/Heading";
 import { Fragment } from "react";
 
-const OrderList = ({ allowOrderItemDeletion = true, allowOrderModify = false, lineItems, lineItemImages, options, ...rest }: any) => {
+import { HiXMark } from "react-icons/hi2";
+import Button from "./Button";
+
+const OrderList = ({ children, allowOrderItemDeletion = true, allowOrderModify = false, lineItems, lineItemImages, options, ...rest }: any) => {
   const isEnvProd = process.env.NODE_ENV !== 'development'
   const SIZE_ITEM_OPTION = isEnvProd ? "TJKR2ZFECR3FKAEFBKWZTGDT" : "HIIUIQFG2DNYNZAPP5ULBHVF";
   const COLOR_ITEM_OPTION = isEnvProd ? "YX56PMWCLQTWXRB3TRZWZGRT" : "IUGCLICCHV4GAWV2KD5C2NF7";
   const {
+    cart,
     cart: { lineItems: _lineItems = [] },
     cartItemImages,
+    modifyCart,
     CartQuantityCounter,
   } = useCartModifier();
 
   const items = lineItems ?? _lineItems
   const images = lineItemImages ?? cartItemImages
 
-  if (items.length === 0)
-    return <p className="text-center">There are no items in the cart.</p>;
-
-  return (
+  const render = (
     <div {...rest}>
       {items?.map((item: OrderLineItem, i: number) => {
         const catalogObjectId = item.catalogObjectId as string
@@ -48,15 +50,17 @@ const OrderList = ({ allowOrderItemDeletion = true, allowOrderModify = false, li
               </div>
 
               <div className="col-span-3 p-4">
-                <div className="">
+                
+                <div className="flex justify-between">
                   <Heading level={6}>{item.name}</Heading>
+                  <Button onClick={() => modifyCart(item, undefined, true)}><HiXMark size={24} /></Button>
                 </div>
 
                 <div className="">
                   <div>
                     <div className="flex gap-3">
                       <p className="m-0">
-                        {sizeOpt && `SIZE : ${sizeOpt.split("#").shift()!.slice(0, 1).toUpperCase()}`}
+                        {sizeOpt && `SIZE : ${sizeOpt.split("#" ).shift()!.slice(0, 1).toUpperCase()}`}
                       </p>
                       <p className="m-0">
                         {colorOpt && `COLOR : ${colorOpt.split("#").shift()!.toUpperCase()}`}
@@ -81,8 +85,16 @@ const OrderList = ({ allowOrderItemDeletion = true, allowOrderModify = false, li
           </Fragment>
         );
       })}
+      { }
     </div>
-  );
+  )
+
+  if (items.length === 0)
+    return <p className=" m-4 text-center">There are no items in the cart.</p>;
+  if (typeof children === 'function')
+    return children(cart, render)
+
+  return render;
 };
 
 export default OrderList;

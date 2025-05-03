@@ -12,7 +12,7 @@ const Portal = ({ rootId, children }: Props) => {
     const [container, setContainer] = useState<HTMLElement | null>(null);
 
     useEffect(() => {
-        let container = document.getElementById(rootId);
+        // let container = document.getElementById(rootId);
         
         // console.log(container, rootId, children, rootId !== "" && container ? true : false)
         if (!container) {

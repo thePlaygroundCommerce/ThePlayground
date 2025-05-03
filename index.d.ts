@@ -73,27 +73,35 @@ export type ApparelNavigation = {
   currentCategoryId: string;
 };
 
-export type CartContextType = {
+export type ICartContext = {
   cart: Order;
   options: CatalogObject[];
   cartItemImages: {
     [index: string]: CatalogImage;
   };
-  updateCart: ({
-    lineItems,
-    fieldsToClear,
-    lineItemImageData,
-  }: {
-    lineItems?: OrderLineItem[];
-    fieldsToClear?: string[];
-    lineItemImageData?: { [id: string]: CatalogImage };
-  }) => void;
-  createCart: (
-    catalogOrder: any,
-    lineItemImageData?: CatalogImage,
-    checkout?: boolean
-  ) => void;
-  calculateCart: (req: CalculateOrderRequest) => void;
+  mutators: {
+    updateCart: ({
+      lineItems,
+      fieldsToClear,
+      lineItemImageData,
+    }: {
+      lineItems?: OrderLineItem[];
+      fieldsToClear?: string[];
+      lineItemImageData?: { [id: string]: CatalogImage };
+    }) => void;
+    createCart: (
+      catalogOrder: any,
+      lineItemImageData?: CatalogImage,
+      checkout?: boolean
+    ) => void;
+  };
+  calculation: {
+    subtotal: number;
+    discounts: number;
+    shipping: number;
+    taxes: number;
+    calculateCart: (req: CalculateOrderRequest) => void;
+  };
   toggleCartOverlay?: [boolean, Dispatch<SetStateAction<boolean>>];
 };
 
@@ -173,7 +181,7 @@ export type ContentData = {
   link?: KeyTextField;
   linkLabel?: KeyTextField;
   last_publication_date?: string;
-  price?: number | bigint | string
+  price?: number | bigint | string;
 };
 export type Content = {
   image: ContentImage;

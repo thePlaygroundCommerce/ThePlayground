@@ -269,9 +269,9 @@ const MobileCheckoutConfirmation = ({
             sumObject={{ total: "totalMoney" }}
           />
         </div>
-        <div className="mt-5 md:w-3/4 mx-auto">
+        {/* <div className="mt-5 md:w-3/4 mx-auto">
           <Feedback />
-        </div>
+        </div> */}
       </div>
     </>
   );

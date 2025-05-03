@@ -37,7 +37,7 @@ function Footer({ navs }: Props) {
             <a href="#" className="k-footer-link">boys</a>
             <a href="#" className="k-footer-link">girls</a>
             <a href="#" className="k-footer-link">On-sale</a>
-            <a href="#" className="k-footer-link">excahnge &amp; return</a>
+            <a href="#" className="k-footer-link">exchange &amp; return</a>
             <a href="#" className="k-footer-link">My account</a>
           </div>
           <div className="k-footer-col">
@@ -46,7 +46,7 @@ function Footer({ navs }: Props) {
             <a href="#" className="k-footer-link">discounts</a>
             <a href="#" className="k-footer-link">discount cards</a>
             <a href="#" className="k-footer-link">gift recepient</a>
-            <a href="#" className="k-footer-link">excahnge &amp; return</a>
+            <a href="#" className="k-footer-link">exchange &amp; return</a>
             <a href="#" className="k-footer-link">My account</a>
           </div>
         </div>

@@ -3,9 +3,9 @@
 import clsx from "clsx";
 import { DetailedHTMLProps, ButtonHTMLAttributes } from "react";
 import { useFormStatus } from "react-dom";
-import { Loader } from "rsuite";
 import { Button as ButtonComponent } from "@headlessui/react";
 import { AppProps } from "index";
+import Spinner from "./Spinner";
 
 type Props = {
   variant?: keyof typeof variants
@@ -43,7 +43,7 @@ const Button = ({
       {...rest}
     >
       {loading ? (
-        <Loader />
+        <Spinner />
       ) : children}
     </button>
   );

@@ -1,6 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
-import { useCartModifier } from "context/cartContext";
+import { useCartModifier, useLineItemModifier } from "context/cartContext";
 import {
   ChangeEventHandler,
   ComponentType,
@@ -34,8 +34,11 @@ type Props = AppProps & {
 };
 
 export type WithProductModifiersProps = AppProps & {
-  amount: any;
-  itemData: CatalogItem;
+  isCartLoading: boolean
+  isCheckoutLoading: boolean
+  isProductInCart: (id?: string) => OrderLineItem | undefined
+  price: number;
+  name: string;
   selectors: any;
   cartModifiers: CartModifiers;
 };
@@ -53,7 +56,10 @@ const withProductModifiers =
       const {
         cart: { lineItems = [] },
         modifyCart,
+        deleteCartItem,
       } = useCartModifier();
+
+      const lineItemModifiers = useLineItemModifier()
       const { track } = useTracking();
 
       useEffect(() => {
@@ -66,26 +72,12 @@ const withProductModifiers =
       let { variations } = itemData!;
       variations = variations ?? [];
 
-      const isProductInCart = (itemVariationId?: string) => {
-        return lineItems?.find(({ catalogObjectId }) => {
-          if (itemVariationId) return catalogObjectId == itemVariationId;
-          else {
-            let i = 0;
 
-            while (i < (variations.length ?? 0)) {
-              if (catalogObjectId == variations[i].id) return true;
-              i++;
-            }
-          }
-        });
-      };
       const [{ isCartLoading, isCheckoutLoading }, setLoadingState] = useState({
         isCartLoading: false,
         isCheckoutLoading: false,
       });
-      const [quantity, setQuantity] = useState(
-        +(isProductInCart()?.quantity ?? 1)
-      );
+
       const [selectedVariationIndex, setSelectedVariationIndex] = useState(0);
       const { id: itemVariationId, itemVariationData: { itemId, name } = {} } =
         variations[selectedVariationIndex];
@@ -101,6 +93,27 @@ const withProductModifiers =
         value: lineItem?.totalMoney?.amount,
         num_items: lineItems?.length,
       };
+
+
+      const isProductInCart = (itemVariationId?: string) => {
+        if (!itemVariationId) itemVariationId = variations[selectedVariationIndex].id
+        return lineItems?.find(({ catalogObjectId }) => {
+          if (itemVariationId) return catalogObjectId == itemVariationId;
+          else {
+            let i = 0;
+
+            while (i < (variations.length ?? 0)) {
+              if (catalogObjectId == variations[i].id) return true;
+              i++;
+            }
+          }
+        });
+      };
+
+
+      const [quantity, setQuantity] = useState(
+        +(isProductInCart()?.quantity ?? 1)
+      );
 
       const toggleLoading = (btnType?: "cart" | "checkout") => {
         setLoadingState({
@@ -135,6 +148,20 @@ const withProductModifiers =
           lineItem,
           catalogImageObjects[0].imageData
         );
+        if (isCartModified === false) toggleLoading();
+      };
+
+      const handleRemoveFromCart = () => {
+        toggleLoading("cart");
+        track("RemoveFromCart", trackingData);
+
+        const lineItem = isProductInCart(itemVariationId);
+        if (!lineItem) throw Error("Item Not In Cart");
+
+        const isCartModified = modifyCart(
+          lineItem, undefined, true
+        );
+
         if (isCartModified === false) toggleLoading();
       };
 
@@ -271,6 +298,7 @@ const withProductModifiers =
         quantity: quantity,
         setQuantity: setQuantity,
         handleAddToCart: handleAddToCart,
+        handleRemoveFromCart: handleRemoveFromCart,
         isProductInCart: isProductInCart,
         handleBuyNow: handleBuyNow,
       };
@@ -286,6 +314,10 @@ const withProductModifiers =
       return (
         <Component
           {...{
+            isCartLoading,
+            isCheckoutLoading,
+            lineItemModifiers,
+            isProductInCart,
             price: Number(amount ?? 0),
             name: itemData.name ?? "",
             description: itemData.description ?? "",
@@ -312,6 +344,7 @@ export type CartModifiers = {
   quantity: number;
   setQuantity: Dispatch<SetStateAction<number>>;
   handleAddToCart: MouseEventHandler<HTMLButtonElement>;
+  handleRemoveFromCart: MouseEventHandler<HTMLButtonElement>;
   isProductInCart: () => OrderLineItem | undefined;
   handleBuyNow: MouseEventHandler<HTMLButtonElement>;
 };

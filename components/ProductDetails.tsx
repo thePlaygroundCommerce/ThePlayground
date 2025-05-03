@@ -23,9 +23,12 @@ export type ProductDetailsProps = {
   description: string
   selectors: Selectors
   cartModifiers: CartModifiers
-}
+} & WithProductModifiersProps
 
 const ProductDetails = ({
+  isCartLoading,
+  isCheckoutLoading,
+  isProductInCart: _isProductInCart,
   description,
   name,
   price,
@@ -37,6 +40,8 @@ const ProductDetails = ({
   // ) : (
   //   <p>{itemData.description || "No Details Available!"}</p>
   // );
+
+  const isProductInCart = _isProductInCart()
 
   return (
     <div className="k-product-details">
@@ -67,16 +72,19 @@ const ProductDetails = ({
         >
           <div className="k-button-wrap btn-wrap-1">
             <Button
+              loading={isCartLoading}
               data-node-type="commerce-add-to-cart-button"
               data-loading-text="Adding to cart..."
               aria-busy="false"
               aria-haspopup="dialog"
-              className="w-commerce-commerceaddtocartbutton k-btn"
-              
-              onClick={cartModifiers.handleAddToCart}
-              >Add to Cart</Button>
+              className="w-commerce-commerceaddtocartbutton k-btn min-w-42 justify-center"
+              onClick={isProductInCart ? cartModifiers.handleRemoveFromCart : cartModifiers.handleAddToCart}
+            >
+              {isProductInCart ? "Remove from Cart" : "Add To Cart"}
+            </Button>
           </div>
           <Button
+            loading={isCheckoutLoading}
             data-node-type="commerce-buy-now-button"
             data-default-text="Buy now"
             data-subscription-text="Subscribe now"
@@ -84,8 +92,8 @@ const ProductDetails = ({
             aria-haspopup="false"
             // style={{ display: "none" }}
             onClick={cartModifiers.handleBuyNow}
-            className="w-commerce-commercebuynowbutton k-btn bg-black "
-            // href="/checkout"
+            className="w-commerce-commercebuynowbutton k-btn bg-black"
+          // href="/checkout"
           >
             Buy now
           </Button>
@@ -113,7 +121,7 @@ const ProductDetails = ({
             data-node-type="commerce-add-to-cart-error"
             data-w-add-to-cart-quantity-error="Product is not available in this quantity."
             data-w-add-to-cart-general-error="Something went wrong when adding this item to the cart."
-            data-w-add-to-cart-mixed-cart-error="You can’t purchase another product with a subscription."
+            data-w-add-to-cart-mixed-cart-error="You can't purchase another product with a subscription."
             data-w-add-to-cart-buy-now-error="Something went wrong when trying to purchase this item."
             data-w-add-to-cart-checkout-disabled-error="Checkout is disabled on this site."
             data-w-add-to-cart-select-all-options-error="Please select an option in each set."

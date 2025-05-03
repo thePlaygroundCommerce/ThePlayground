@@ -134,13 +134,8 @@ export default async function RootLayout({ children, info }: LayoutPageProps & {
       <ClerkProvider>
         <html data-wf-page="67f9692e7e88b9a05d707c83" data-wf-site="67f9692d7e88b9a05d707c22">
           <head>
-            {/* <meta charset="utf-8"> */}
-            <title>The Playground</title>
-            {/* <meta content="width=device-width, initial-scale=1" name="viewport">
-                <meta content="Webflow" name="generator"> */}
-            {/* <script type="text/javascript">{function (o, c) { var n = c.documentElement, t = " w-mod-"; n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch") }(window, document)};</script> */}
-            <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-            <link href="images/webclip.png" rel="apple-touch-icon" />
+            {/* <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" /> */}
+            {/* <link href="images/webclip.png" rel="apple-touch-icon" /> */}
             <script src="https://cdn.finsweet.com/files/cmslibrary-v1.8.js"></script>
           </head>
           <body className="grid grid-rows-[min-content_1fr]">
