@@ -6,7 +6,7 @@ import { isImageProps } from "./Hero";
 import Heading from "./typography/Heading";
 import Link from "next/link";
 import Button from "./Button";
-import Transition from "app/Transition";
+import Transition from "components/Transition";
 import { loremIpsum } from "lorem-ipsum";
 import { Content } from "index";
 import { renderContent } from "util/index";
@@ -23,13 +23,13 @@ const Showcase = ({
   flipped = false,
   image,
   content,
-  contentStyles: { classes } = { classes: ""}
+  contentStyles: { classes } = {}
 }: ShowcaseProps): JSX.Element => {
   const ImageComponent = isImageProps(image) ? <Image {...image} className="w-full" /> : image;
 
   const animationClasses =
     clsx();
-    // animate && "ease-in-out transition-transform transform-opacity"
+  // animate && "ease-in-out transition-transform transform-opacity"
 
   //delay-[500ms] delay-[1000ms] delay-[1500ms] delay-[3500ms]
 
@@ -44,12 +44,13 @@ const Showcase = ({
               className={clsx(
                 "w-full h-full duration-[2000ms] rounded overflow-hidden",
                 animate?.delay && `delay-[${animate.delay}ms]`,
-                !start ? "-translate-x-full" : "translate-x-0"
+                !start && animate ? "-translate-x-full" : "translate-x-0",
+                // classes?.image
               )}
             >
               {ImageComponent}
             </div>
-            <div className={clsx("w-full", flipped && "sm:order-first", classes)}>
+            <div className={clsx("w-full", flipped && "sm:order-first")}>
               {renderContent(
                 content,
                 (
@@ -62,9 +63,9 @@ const Showcase = ({
                     description,
                     cta,
                   } = {
-                    headline: "",
-                    title: "",
-                  }
+                      headline: "",
+                      title: "",
+                    }
                 ) => {
                   description =
                     description ??

@@ -78,7 +78,7 @@ const Page = async ({ params, searchParams }: PageProps) => {
   return isOrderUnprocessed ? (
     <div>Loading</div>
   ) : (
-    <div className="min-h-screen h-full block md:pt-8 p-4 md:container mx-auto">
+    <div className="min-h-screen block md:pt-8 p-4 md:container mx-auto">
       <MobileCheckoutConfirmation
         options={options}
         processedCart={processedCart}
@@ -225,12 +225,12 @@ const MobileCheckoutConfirmation = ({
         </div>
         <p className="mb-6">
           Your order reference id{" "}
-          <span className={latoHeavy.className}>{processedCart.id}</span> has
+          <span className={clsx("w-full", latoHeavy.className)}>{processedCart.id}</span> has
           been submitted.
         </p>
         <p>
           An email has been sent to{" "}
-          <span className={latoHeavy.className}>{customerDetail.email}</span>{" "}
+          <span className={clsx("w-full", latoHeavy.className)}>{customerDetail.email}</span>{" "}
           with your order receipt. To review any other details of your order,
           please {reviewOrderLink}
         </p>
@@ -269,9 +269,9 @@ const MobileCheckoutConfirmation = ({
             sumObject={{ total: "totalMoney" }}
           />
         </div>
-        <div className="mt-5 md:w-3/4 mx-auto">
+        {/* <div className="mt-5 md:w-3/4 mx-auto">
           <Feedback />
-        </div>
+        </div> */}
       </div>
     </>
   );

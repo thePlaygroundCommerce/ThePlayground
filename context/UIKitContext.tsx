@@ -2,7 +2,8 @@
 
 import { usePathname } from "next/navigation";
 import React, { createContext, useState, useMemo, useContext, useRef, useEffect } from "react";
-import { UIKitContextType } from "index";
+import { AppProps, UIKitContextType } from "index";
+import { createPortal } from "react-dom";
 
 export const UIKitContext = createContext<UIKitContextType | null>(null);
 
@@ -10,24 +11,29 @@ export const UIKitContext = createContext<UIKitContextType | null>(null);
 const UIKitProvider = ({ children }: any) => {
   const path = usePathname();
 
-  useEffect(() => {
-    handleUIChange({ open: false })
-  }, [path])
+  // useEffect(() => {
+  //   handleUIChange({ open: false })
+  // }, [path])
 
   const [uiState, setUIState] = useState({
     drawerKit: {
+      id: "",
       placement: null,
       open: false,
       ref: useRef(null)
-    }
+    },
+    headerOverlay: {
+      id: "headerOverlay",
+      placement: null,
+      open: false,
+      ref: useRef(null)
+    },
   })
-
-  const handleUIChange = (data: { open: boolean }) => setUIState((state) => ({ ...state, drawerKit: { ...state.drawerKit, ...data } }));
 
   return (
     <UIKitContext.Provider value={useMemo(() => ({
-      ...uiState,
-      handleUIChange
+      state: uiState,
+      handleUIChange: setUIState
     }), [uiState])}>
       {children}
       <div id="drawerContainer" className="" />
@@ -44,5 +50,16 @@ export const useUIKit = () => {
 
   return currentContext;
 };
+
+export const usePortal = (children: AppProps['children'], rootId: string) => {
+
+  // const container = document.getElementById(rootId ?? "");
+  const [show, setShow] = useState(false)
+
+  useEffect(() => { setShow(true) }, [])
+
+  return null
+  // return show && container ? createPortal(children, container) : null
+}
 
 export default UIKitProvider;

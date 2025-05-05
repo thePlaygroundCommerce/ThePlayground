@@ -48,8 +48,7 @@ const Providers = ({ cartImageMap, data, cartData, children }: Props) => {
           </CookiesProvider>
         </NavigationProvider>
       </PostHogProvider>
-      {/* <Portal rootId="modalContainer"> */}
-      {/* </Portal> */}
+      <div id="modal-container" />
     </UIKitProvider>
   );
 };

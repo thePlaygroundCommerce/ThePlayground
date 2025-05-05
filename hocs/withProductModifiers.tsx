@@ -1,7 +1,8 @@
 /* eslint-disable react/react-in-jsx-scope */
 "use client";
-import { useCartModifier } from "context/cartContext";
+import { useCartModifier, useLineItemModifier } from "context/cartContext";
 import {
+  ChangeEventHandler,
   ComponentType,
   Dispatch,
   FC,
@@ -18,7 +19,7 @@ import {
   CatalogObject,
   OrderLineItem,
 } from "square";
-import ProductDetails from "../components/ProductDetails";
+import { ProductDetailsProps } from "../components/ProductDetails";
 import { useCheckout } from "context/checkoutContext";
 import { useInventory } from "context/inventoryContext";
 import _ from "lodash";
@@ -33,16 +34,19 @@ type Props = AppProps & {
 };
 
 export type WithProductModifiersProps = AppProps & {
-  amount: any;
-  itemData: CatalogItem;
+  isCartLoading: boolean
+  isCheckoutLoading: boolean
+  isProductInCart: (id?: string) => OrderLineItem | undefined
+  price: number;
+  name: string;
   selectors: any;
-  CartModifiers: JSX.Element;
+  cartModifiers: CartModifiers;
 };
 
 type Lookup<T> = { [key: string | number]: undefined | null | T };
 
 const withProductModifiers =
-  (Component: ComponentType<WithProductModifiersProps>): FC<Props> =>
+  (Component: ComponentType<ProductDetailsProps>): FC<Props> =>
     ({
       catalogItemObject: { itemData = {} },
       catalogImageObjects,
@@ -52,7 +56,10 @@ const withProductModifiers =
       const {
         cart: { lineItems = [] },
         modifyCart,
+        deleteCartItem,
       } = useCartModifier();
+
+      const lineItemModifiers = useLineItemModifier()
       const { track } = useTracking();
 
       useEffect(() => {
@@ -65,26 +72,12 @@ const withProductModifiers =
       let { variations } = itemData!;
       variations = variations ?? [];
 
-      const isProductInCart = (itemVariationId?: string) => {
-        return lineItems?.find(({ catalogObjectId }) => {
-          if (itemVariationId) return catalogObjectId == itemVariationId;
-          else {
-            let i = 0;
 
-            while (i < (variations.length ?? 0)) {
-              if (catalogObjectId == variations[i].id) return true;
-              i++;
-            }
-          }
-        });
-      };
       const [{ isCartLoading, isCheckoutLoading }, setLoadingState] = useState({
         isCartLoading: false,
         isCheckoutLoading: false,
       });
-      const [quantity, setQuantity] = useState(
-        +(isProductInCart()?.quantity ?? 1)
-      );
+
       const [selectedVariationIndex, setSelectedVariationIndex] = useState(0);
       const { id: itemVariationId, itemVariationData: { itemId, name } = {} } =
         variations[selectedVariationIndex];
@@ -100,6 +93,27 @@ const withProductModifiers =
         value: lineItem?.totalMoney?.amount,
         num_items: lineItems?.length,
       };
+
+
+      const isProductInCart = (itemVariationId?: string) => {
+        if (!itemVariationId) itemVariationId = variations[selectedVariationIndex].id
+        return lineItems?.find(({ catalogObjectId }) => {
+          if (itemVariationId) return catalogObjectId == itemVariationId;
+          else {
+            let i = 0;
+
+            while (i < (variations.length ?? 0)) {
+              if (catalogObjectId == variations[i].id) return true;
+              i++;
+            }
+          }
+        });
+      };
+
+
+      const [quantity, setQuantity] = useState(
+        +(isProductInCart()?.quantity ?? 1)
+      );
 
       const toggleLoading = (btnType?: "cart" | "checkout") => {
         setLoadingState({
@@ -134,6 +148,20 @@ const withProductModifiers =
           lineItem,
           catalogImageObjects[0].imageData
         );
+        if (isCartModified === false) toggleLoading();
+      };
+
+      const handleRemoveFromCart = () => {
+        toggleLoading("cart");
+        track("RemoveFromCart", trackingData);
+
+        const lineItem = isProductInCart(itemVariationId);
+        if (!lineItem) throw Error("Item Not In Cart");
+
+        const isCartModified = modifyCart(
+          lineItem, undefined, true
+        );
+
         if (isCartModified === false) toggleLoading();
       };
 
@@ -218,7 +246,7 @@ const withProductModifiers =
         );
       };
 
-      const selectors = Object.entries(productOptions).reduce(
+      const selectors: Selectors = Object.entries(productOptions).reduce<Selectors>(
         (acc, [optionId, [option, optionValues]], i) => {
           const type = option === "colors" ? "PRODUCT" : "CARD";
           const data =
@@ -254,37 +282,47 @@ const withProductModifiers =
 
           return {
             ...acc,
-            [option ?? i]: (
-              <Selector
-                selectedIndex={selected}
-                type={type}
-                data={data}
-                onChange={handleOptionChange}
-              />
-            ),
+            [option ?? i]: {
+              selectedIndex: selected,
+              type: type,
+              data: data,
+              onChange: handleOptionChange,
+            },
           };
         },
         {}
       );
 
-      const CartModifiers = (
-        <CartModifierButtons
-          loading={{ isCheckoutLoading, isCartLoading }}
-          quantity={quantity}
-          setQuantity={setQuantity}
-          handleAddToCart={handleAddToCart}
-          isProductInCart={isProductInCart}
-          handleBuyNow={handleBuyNow}
-        />
-      );
+      const cartModifiers = {
+        loading: { isCheckoutLoading, isCartLoading },
+        quantity: quantity,
+        setQuantity: setQuantity,
+        handleAddToCart: handleAddToCart,
+        handleRemoveFromCart: handleRemoveFromCart,
+        isProductInCart: isProductInCart,
+        handleBuyNow: handleBuyNow,
+      };
+      // <CartModifierButtons
+      //   loading={{ isCheckoutLoading, isCartLoading }}
+      //   quantity={quantity}
+      //   setQuantity={setQuantity}
+      //   handleAddToCart={handleAddToCart}
+      //   isProductInCart={isProductInCart}
+      //   handleBuyNow={handleBuyNow}
+      // />
 
       return (
         <Component
           {...{
-            amount,
-            itemData,
+            isCartLoading,
+            isCheckoutLoading,
+            lineItemModifiers,
+            isProductInCart,
+            price: Number(amount ?? 0),
+            name: itemData.name ?? "",
+            description: itemData.description ?? "",
             selectors,
-            CartModifiers,
+            cartModifiers,
           }}
         />
       );
@@ -301,11 +339,12 @@ const transformOptionId = (
     val,
   ]);
 
-type CartModifiyingProps = {
+export type CartModifiers = {
   loading: { isCartLoading: boolean; isCheckoutLoading: boolean };
   quantity: number;
   setQuantity: Dispatch<SetStateAction<number>>;
   handleAddToCart: MouseEventHandler<HTMLButtonElement>;
+  handleRemoveFromCart: MouseEventHandler<HTMLButtonElement>;
   isProductInCart: () => OrderLineItem | undefined;
   handleBuyNow: MouseEventHandler<HTMLButtonElement>;
 };
@@ -317,7 +356,7 @@ const CartModifierButtons = ({
   handleAddToCart,
   isProductInCart,
   handleBuyNow,
-}: CartModifiyingProps) => {
+}: CartModifiers) => {
   return (
     <>
       <div className="flex items-center gap-2">
@@ -346,3 +385,12 @@ const CartModifierButtons = ({
     </>
   );
 };
+
+
+export type Selector<TData = {}[]> = {
+  selectedIndex: number,
+  type: string,
+  data: TData,
+  onChange: ChangeEventHandler,
+}
+export type Selectors = { color?: Selector, size?: Selector }

@@ -8,10 +8,11 @@ import { LuMenu } from 'react-icons/lu'
 import CartOverlay from './CartOverlay';
 import { Drawer } from 'rsuite';
 import Portal from './Portal';
-import SideNav from './SideNavigation';
+import SideNav from './MobileNavigation';
 import { Nav } from 'app/layout';
 import { usePathname } from 'next/navigation';
 import Button from "./Button";
+import Hamburger from './Hamburger';
 
 type Props = {
   logo: JSX.Element
@@ -20,32 +21,30 @@ type Props = {
 
 const MobileSideNav = ({ navs, logo }: Props) => {
   const path = usePathname()
-  const { drawerKit: { open }, handleUIChange } = useUIKit();
+  // const { drawerKit: { open }, handleUIChange } = useUIKit();
   const [show, setShow] = useState(false);
 
   useEffect(() => {
     if (show) setShow(false)
   }, [path])
 
-  const handleSideNavOnClick = () => { setShow(!show); handleUIChange({ open: !open }) };
+  // const handleSideNavOnClick = () => { setShow(!show); handleUIChange({ open: !open }) };
 
   return (
     <>
-      <Button onClick={handleSideNavOnClick}>
-        <LuMenu />
-      </Button>
+      {/* <Hamburger {...{ open, setOpen: handleSideNavOnClick }} /> */}
       <Portal rootId="drawerContainer">
-        <Drawer
+        {/* <Drawer
+        className='fixed top-0 bg-white z-[5000] w-full h-screen'
           placement="left"
           closeButton={false}
-          size={325}
           open={open && show}
           onClose={handleSideNavOnClick}
         >
           <Drawer.Body className="p-0 h-full" style={{ maxHeight: undefined }}>
-            <SideNav logo={logo} onClose={handleSideNavOnClick} navs={navs} />
+            <SideNav open logo={logo} onClose={handleSideNavOnClick} navs={navs} />
           </Drawer.Body>
-        </Drawer>
+        </Drawer> */}
       </Portal>
     </>
   )

@@ -2,7 +2,7 @@ import React, { ReactElement, ReactNode } from "react";
 import { Heading } from "rsuite";
 import { AppProps, Content, ContentData, ContentImage, Modify } from "index";
 import Image from "./Image";
-import Carousel from "./Carousel";
+import Carousel, { WebflowCarousel } from "./Carousel";
 import Link from "next/link";
 import Button from "./Button";
 import { isFilled } from "@prismicio/client";
@@ -10,6 +10,8 @@ import clsx from "clsx";
 import { contentPositions } from "util/styles";
 import { ImageProps } from "index";
 import { latoLight } from "app/fonts";
+
+import staticImages from "util/images.ts"
 
 export type HeroProps = {
   type: "static" | "carousel";
@@ -34,7 +36,7 @@ const Hero = ({
   classes: { container: _container, contentContainer: _contentContainer } = {},
 }: HeroProps) => {
   const { container, contentContainer } = {
-    container: clsx("overflow-hidden bgimg w-full h-screen relative", _container),
+    container: clsx("overflow-hidden bgimg w-full relative", _container),
     contentContainer: clsx(
       'h-full',
       "w-full",
@@ -164,5 +166,15 @@ const HeroContent = ({
     </div>
   );
 };
+
+export const WebflowHero = () => {
+  return (
+    <div className="k-hero">
+      <div className="k-hero-content" style={{ height: "calc(100vh - 85px)" }}>
+        <WebflowCarousel />
+      </div>
+    </div>
+  )
+}
 
 export default Hero;

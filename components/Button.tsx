@@ -3,9 +3,9 @@
 import clsx from "clsx";
 import { DetailedHTMLProps, ButtonHTMLAttributes } from "react";
 import { useFormStatus } from "react-dom";
-import { Loader } from "rsuite";
 import { Button as ButtonComponent } from "@headlessui/react";
 import { AppProps } from "index";
+import Spinner from "./Spinner";
 
 type Props = {
   variant?: keyof typeof variants
@@ -38,12 +38,12 @@ const Button = ({
     <button
       type={type}
       aria-disabled={pending}
-      className={clsx(className, `p-${padding} rounded`, variants[variant])}
+      className={clsx(className, `p-${padding} rounded cursor-pointer`, variants[variant])}
       onClick={onClick}
       {...rest}
     >
       {loading ? (
-        <Loader />
+        <Spinner />
       ) : children}
     </button>
   );

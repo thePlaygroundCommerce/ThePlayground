@@ -8,7 +8,7 @@ import React, { useEffect, useState } from 'react'
 type Props = unknown
 
 const FacebookPixel = (props: Props) => {
-    if (typeof window === 'undefined' || !window) return ;
+    if (typeof window === 'undefined' || !window) return;
     const { track } = useTracking()
     const [loaded, setLoaded] = useState(false);
     const pathname = usePathname();

@@ -18,7 +18,7 @@ import {
   OrderLineItem,
   CatalogObject,
 } from "square";
-import { CartContextType } from "index";
+import { ICartContext } from "index";
 import { useDebouncedCallback } from "use-debounce";
 import { doesContextExist } from "util/";
 import { Simplify } from "prismicio-types";
@@ -36,7 +36,7 @@ type ModifiedCartData = {
 };
 type OrUndefined<T> = T | undefined;
 
-export const CartContext = createContext<CartContextType | null>(null);
+export const CartContext = createContext<ICartContext | null>(null);
 
 const CartProvider = ({
   data: { _cart, _options } = { _cart: { locationId: "" }, _options: [] },
@@ -146,9 +146,17 @@ const CartProvider = ({
           cartItemImages,
           drawerRef,
           handleDrawerToggle,
-          updateCart,
-          createCart,
-          calculateCart,
+          mutators: {
+            updateCart,
+            createCart,
+          },
+          calculation: {
+            subtotal: cart.netAmountDueMoney?.amount ?? 0,
+            discounts: cart.totalDiscountMoney?.amount ?? 0,
+            shipping: cart.serviceCharges?.find(service => service.name === 'shipping')?.amountMoney?.amount ?? 0,
+            taxes: cart.totalTaxMoney?.amount ?? 0,
+            calculateCart,
+          },
           toggleCartOverlay: [openCart, setOpenCart],
         }),
         [cart, cartItemImages, openCart]
@@ -160,8 +168,8 @@ const CartProvider = ({
 };
 
 export const useCartModifier = () => {
-  const { cart, updateCart, cartItemImages } =
-    doesContextExist<CartContextType>(useContext(CartContext));
+  const { cart, mutators: { updateCart }, cartItemImages } =
+    doesContextExist<ICartContext>(useContext(CartContext));
   const debounced = useDebouncedCallback(
     (
       quantity: number,
@@ -287,6 +295,48 @@ export const useCartModifier = () => {
         count={Number.parseInt(lineItem.quantity)}
       />
     ),
+  };
+};
+
+export const useLineItemModifier = () => {
+  const { cart: { lineItems }, mutators: { updateCart } } = doesContextExist<ICartContext>(useContext(CartContext));
+  const { modifyCartItem } = useCartModifier()
+
+  const isProductInCart = (itemVariationId: string) => lineItems?.find(({ catalogObjectId }) => catalogObjectId == itemVariationId);
+  const productCartIndex = (itemVariationId: string) => lineItems?.findIndex(({ catalogObjectId }) => catalogObjectId == itemVariationId);
+
+  const increaseQuantity = (variationId: string) => {
+    const lineItem = isProductInCart(variationId)
+    if (!lineItem) throw Error("Product not found in cart!");
+    const modifiedItem = modifyCartItem(productCartIndex(variationId) ?? 0, { ...lineItem, quantity: String(+(lineItem.quantity) + 1) })
+
+    if (modifiedItem === undefined) throw Error("Modifying cart item failed!")
+    updateCart(modifiedItem)
+  }
+  const decreaseQuantity = (variationId: string) => {
+    const lineItem = isProductInCart(variationId)
+    if (!lineItem) throw Error("Product not found in cart!")
+    else if (+(lineItem.quantity) === 0) throw Error("Product quantity can't be decreased!")
+    const modifiedItem = modifyCartItem(productCartIndex(variationId) ?? 0, { ...lineItem, quantity: String(+(lineItem.quantity) - 1) })
+
+    if (modifiedItem === undefined) throw Error("Modifying cart item failed!")
+    updateCart(modifiedItem)
+
+  }
+  const setQuantity = (variationId: string, quantity: number) => {
+    const lineItem = isProductInCart(variationId)
+    if (!lineItem) throw Error("Product not found in cart!")
+    if (quantity < 0) quantity = 0
+    const modifiedItem = modifyCartItem(productCartIndex(variationId) ?? 0, { ...lineItem, quantity: String(quantity) })
+
+    if (modifiedItem === undefined) throw Error("Modifying cart item failed!")
+    updateCart(modifiedItem)
+  }
+
+  return {
+    increaseQuantity,
+    decreaseQuantity,
+    setQuantity,
   };
 };
 
