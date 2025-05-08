@@ -37,8 +37,8 @@ const Page = async ({ params }: PageProps) => {
         </div>
         <Heading>{headline}</Heading>
       </div>
-      {sections.map(({ heading, paragraph, image }) => (
-        <div>
+      {sections.map(({ heading, paragraph, image }, i) => (
+        <div key={i}>
           <Heading level={2} className="mb-2">{heading}</Heading>
           <PrismicRichText field={paragraph} />
         </div>

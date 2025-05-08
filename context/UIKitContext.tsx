@@ -52,14 +52,15 @@ export const useUIKit = () => {
 };
 
 export const usePortal = (children: AppProps['children'], rootId: string) => {
-
-  // const container = document.getElementById(rootId ?? "");
+  const container = useRef<HTMLElement | null>(null);
   const [show, setShow] = useState(false)
 
-  useEffect(() => { setShow(true) }, [])
+  useEffect(() => {
+    container.current = document.getElementById(rootId ?? "");
+    setShow(true)
+  }, [])
 
-  return null
-  // return show && container ? createPortal(children, container) : null
+  return show && container?.current ? createPortal(children, container.current) : null
 }
 
 export default UIKitProvider;
