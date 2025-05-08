@@ -27,7 +27,6 @@ function ProductImageGallery({ images }: { images: CatalogObject[] }) {
   > | null>(null)
   const handleIncrement = () => carouselRef?.prev()
   const handleDecrement = () => carouselRef?.next()
-  images = [images[0], images[0], images[0], images[0], images[0], images[0], images[0],]
 
   return (
     <>
@@ -70,7 +69,7 @@ function ProductImageGallery({ images }: { images: CatalogObject[] }) {
                       className="k-product-small-image cursor-pointer"
                     />
                   </div>
-                  <Divider className={clsx(activeImageIndex !== i && "border-transparent", "border-b-2")} />
+                  <Divider className={clsx(activeImageIndex !== i && "border-transparent", "border-b-2 w-1/2 mx-auto rounded")} />
                 </Fragment>
               ))}
               <div
