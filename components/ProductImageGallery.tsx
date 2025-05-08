@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import ProductImageViewer from "./ProductImageViewer";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 
@@ -9,6 +9,7 @@ import Button from "./Button";
 import Carousel from "./Carousel";
 import { CatalogObject } from "square";
 import { KeenSliderInstance } from "keen-slider/react";
+import Divider from "./Divider";
 
 function ProductImageGallery({ images }: { images: CatalogObject[] }) {
   const [activeImageIndex, setActiveVariationIndex] = useState(0);
@@ -47,106 +48,30 @@ function ProductImageGallery({ images }: { images: CatalogObject[] }) {
             aria-label="carousel"
           >
             <div className="k-v-slider-mask w-slider-mask" id="w-slider-mask-0">
-              {images.map((image, i) => (
-                <div
-                  key={image.imageData?.name ?? i}
-                  className="k-vertical-slide w-slide"
-                  aria-label={i + " of 5"}
-                  role="group"
-                  style={{
-                    transition: "all",
-                    transform: "translateX(0px)",
-                    opacity: 1
-                  }}
-                >
-                  <img
-                    alt={image.imageData?.caption ?? ""}
-                    src={image.imageData?.url ?? ""}
-                    data-wf-sku-bindings="%5B%7B%22from%22%3A%22f_more_images_4dr%5B%5D%22%2C%22to%22%3A%22src%22%7D%5D"
-                    sizes="100vw"
-                    // srcSet="https://cdn.prod.website-files.com/606072483975b0a200b7dff6/6084f34dc96abefb6fa13070_87035655_94-p-500.jpeg 500w, https://cdn.prod.website-files.com/606072483975b0a200b7dff6/6084f34dc96abefb6fa13070_87035655_94.jpeg 640w"
-                    className="k-product-small-image"
-                  />
-                </div>
+              {images.slice(0, 5).map((image, i) => (
+                <Fragment key={image.imageData?.name ?? i}>
+                  <div
+                    className={clsx("k-vertical-slide relative block align-top w-full h-full whitespace-normal text-left ")}
+                    aria-label={i + " of 5"}
+                    onClick={() => handleImageChange(i)}
+                    role="group"
+                    style={{
+                      transition: "all",
+                      transform: "translateX(0px)",
+                      opacity: 1
+                    }}
+                  >
+                    <Image
+                      alt={image.imageData?.caption ?? ""}
+                      src={image.imageData?.url ?? ""}
+                      sizes="100vw"
+                      // srcSet="https://cdn.prod.website-files.com/606072483975b0a200b7dff6/6084f34dc96abefb6fa13070_87035655_94-p-500.jpeg 500w, https://cdn.prod.website-files.com/606072483975b0a200b7dff6/6084f34dc96abefb6fa13070_87035655_94.jpeg 640w"
+                      className="k-product-small-image cursor-pointer"
+                    />
+                  </div>
+                  <Divider className={clsx(activeImageIndex !== i && "border-transparent", "border-b-2 w-1/2 mx-auto rounded")} />
+                </Fragment>
               ))}
-              {/* <div
-                className="k-vertical-slide w-slide"
-                aria-label="2 of 5"
-                role="group"
-                style={{
-                  transition: "all",
-                  transform: "translateX(0px)",
-                  opacity: 1
-                }}
-                aria-hidden="true"
-              >
-                <img
-                  alt=""
-                  src="https://cdn.prod.website-files.com/606072483975b0a200b7dff6/6084f35127241e7ee03e9914_87035655_94_B.jpeg"
-                  data-wf-sku-bindings="%5B%7B%22from%22%3A%22f_more_images_4dr%5B%5D%22%2C%22to%22%3A%22src%22%7D%5D"
-                  className="k-product-small-image"
-                  aria-hidden="true"
-                />
-              </div>
-              <div
-                className="k-vertical-slide w-slide"
-                aria-label="3 of 5"
-                role="group"
-                style={{
-                  transition: "all",
-                  transform: "translateX(0px)",
-                  opacity: 1
-                }}
-                aria-hidden="true"
-              >
-                <img
-                  alt=""
-                  src="https://cdn.prod.website-files.com/606072483975b0a200b7dff6/6084f3527a8a725870617771_87035655_94_D1.jpeg"
-                  data-wf-sku-bindings="%5B%7B%22from%22%3A%22f_more_images_4dr%5B%5D%22%2C%22to%22%3A%22src%22%7D%5D"
-                  sizes="100vw"
-                  srcSet="https://cdn.prod.website-files.com/606072483975b0a200b7dff6/6084f3527a8a725870617771_87035655_94_D1-p-500.jpeg 500w, https://cdn.prod.website-files.com/606072483975b0a200b7dff6/6084f3527a8a725870617771_87035655_94_D1.jpeg 640w"
-                  className="k-product-small-image"
-                  aria-hidden="true"
-                />
-              </div>
-              <div
-                className="k-vertical-slide w-slide"
-                aria-label="4 of 5"
-                role="group"
-                style={{
-                  transition: "all",
-                  transform: "translateX(0px)",
-                  opacity: 1
-                }}
-                aria-hidden="true"
-              >
-                <img
-                  alt=""
-                  src="https://cdn.prod.website-files.com/606072483975b0a200b7dff6/6084f352431161773eb2d185_87035655_94_D8.jpeg"
-                  data-wf-sku-bindings="%5B%7B%22from%22%3A%22f_more_images_4dr%5B%5D%22%2C%22to%22%3A%22src%22%7D%5D"
-                  className="k-product-small-image"
-                  aria-hidden="true"
-                />
-              </div>
-              <div
-                className="k-vertical-slide w-slide"
-                aria-label="5 of 5"
-                role="group"
-                style={{
-                  transition: "all",
-                  transform: "translateX(0px)",
-                  opacity: 1
-                }}
-                aria-hidden="true"
-              >
-                <img
-                  alt=""
-                  src="https://cdn.prod.website-files.com/606072483975b0a200b7dff6/6084f351695f4a5954554914_87035655_94_R.jpeg"
-                  data-wf-sku-bindings="%5B%7B%22from%22%3A%22f_more_images_4dr%5B%5D%22%2C%22to%22%3A%22src%22%7D%5D"
-                  className="k-product-small-image"
-                  aria-hidden="true"
-                />
-              </div> */}
               <div
                 aria-live="off"
                 aria-atomic="true"
@@ -246,7 +171,7 @@ function ProductImageGallery({ images }: { images: CatalogObject[] }) {
             {images.map((image, i) => (
               <div
                 key={image.imageData?.name ?? i}
-                className="k-main-slide w-slide"
+                className="k-main-slide relative inline-block align-top w-full h-full whitespace-normal text-left"
                 aria-label="1 of 5"
                 role="group"
                 style={{
@@ -255,7 +180,7 @@ function ProductImageGallery({ images }: { images: CatalogObject[] }) {
                   opacity: 1
                 }}
               >
-                <img
+                <Image
                   alt={image.imageData?.caption ?? ""}
                   src={image.imageData?.url ?? ""}
                   data-wf-sku-bindings="%5B%7B%22from%22%3A%22f_more_images_4dr%5B%5D%22%2C%22to%22%3A%22src%22%7D%5D"
@@ -265,88 +190,6 @@ function ProductImageGallery({ images }: { images: CatalogObject[] }) {
                 />
               </div>
             ))}
-            {/* <div
-              className="k-main-slide w-slide"
-              aria-label="2 of 5"
-              role="group"
-              style={{
-                transition: "all",
-                transform: "translateX(0px)",
-                opacity: 1,
-                visibility: "hidden"
-              }}
-              aria-hidden="true"
-            >
-              <img
-                alt=""
-                src="https://cdn.prod.website-files.com/606072483975b0a200b7dff6/6084f35127241e7ee03e9914_87035655_94_B.jpeg"
-                data-wf-sku-bindings="%5B%7B%22from%22%3A%22f_more_images_4dr%5B%5D%22%2C%22to%22%3A%22src%22%7D%5D"
-                className="k-slider-full-image"
-                aria-hidden="true"
-              />
-            </div>
-            <div
-              className="k-main-slide w-slide"
-              aria-label="3 of 5"
-              role="group"
-              style={{
-                transition: "all",
-                transform: "translateX(0px)",
-                opacity: 1,
-                visibility: "hidden"
-              }}
-              aria-hidden="true"
-            >
-              <img
-                alt=""
-                src="https://cdn.prod.website-files.com/606072483975b0a200b7dff6/6084f3527a8a725870617771_87035655_94_D1.jpeg"
-                data-wf-sku-bindings="%5B%7B%22from%22%3A%22f_more_images_4dr%5B%5D%22%2C%22to%22%3A%22src%22%7D%5D"
-                sizes="100vw"
-                srcSet="https://cdn.prod.website-files.com/606072483975b0a200b7dff6/6084f3527a8a725870617771_87035655_94_D1-p-500.jpeg 500w, https://cdn.prod.website-files.com/606072483975b0a200b7dff6/6084f3527a8a725870617771_87035655_94_D1.jpeg 640w"
-                className="k-slider-full-image"
-                aria-hidden="true"
-              />
-            </div>
-            <div
-              className="k-main-slide w-slide"
-              aria-label="4 of 5"
-              role="group"
-              style={{
-                transition: "all",
-                transform: "translateX(0px)",
-                opacity: 1,
-                visibility: "hidden"
-              }}
-              aria-hidden="true"
-            >
-              <img
-                alt=""
-                src="https://cdn.prod.website-files.com/606072483975b0a200b7dff6/6084f352431161773eb2d185_87035655_94_D8.jpeg"
-                data-wf-sku-bindings="%5B%7B%22from%22%3A%22f_more_images_4dr%5B%5D%22%2C%22to%22%3A%22src%22%7D%5D"
-                className="k-slider-full-image"
-                aria-hidden="true"
-              />
-            </div>
-            <div
-              className="k-main-slide w-slide"
-              aria-label="5 of 5"
-              role="group"
-              style={{
-                transition: "all",
-                transform: "translateX(0px)",
-                opacity: 1,
-                visibility: "hidden"
-              }}
-              aria-hidden="true"
-            >
-              <img
-                alt=""
-                src="https://cdn.prod.website-files.com/606072483975b0a200b7dff6/6084f351695f4a5954554914_87035655_94_R.jpeg"
-                data-wf-sku-bindings="%5B%7B%22from%22%3A%22f_more_images_4dr%5B%5D%22%2C%22to%22%3A%22src%22%7D%5D"
-                className="k-slider-full-image"
-                aria-hidden="true"
-              />
-            </div> */}
             <div
               aria-live="off"
               aria-atomic="true"

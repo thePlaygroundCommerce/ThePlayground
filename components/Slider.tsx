@@ -220,7 +220,7 @@ const B = () => {
       >
         <div className="k-slider-mask-space-around w-slider-mask">
           {b.map((ele, i) => (
-            <div className="k-insta-slide w-slide transition duration-500 -translate-x-0">
+            <div key={i} className="k-insta-slide w-slide transition duration-500 -translate-x-0">
               <div className="k-insta-feed-slide">{ele}</div>
             </div>
           ))}
@@ -366,7 +366,7 @@ export const WebflowSlider = ({
       setCurrentIndex((prevState) => prevState - 1);
     }
   };
-  const childrenWrapper = (children: any) => Children.map(children, child => <div style={{ width: `calc(100% / ${visibleItemsCount})` }} className="grow shrink-0">{child}</div>)
+  const childrenWrapper = (children: any) => Children.map(children, (child, i) => <div key={i} style={{ width: `calc(100% / ${visibleItemsCount})` }} className="grow shrink-0">{child}</div>)
 
   /**
    * Handle when the user start the swipe gesture

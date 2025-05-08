@@ -4,7 +4,7 @@ import { Nav } from "app/layout";
 import Image from "./Image";
 import { AppProps } from "index";
 import clsx from "clsx";
-import { ReactElement, useRef, useState } from "react";
+import { ReactElement, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
@@ -24,27 +24,12 @@ type Props = AppProps & {
 };
 
 function Header({ navs, className, logo }: Props) {
-  const { cart } = useCart();
+  const { cart, options, calculation, mutators } = useCart();
   const CartOverlayComp = (
     <CartOverlay
       cart={cart}
-      options={[]}
-      cartItemImages={{}} mutators={{
-        updateCart: function ({ lineItems, fieldsToClear, lineItemImageData, }: { lineItems?: OrderLineItem[]; fieldsToClear?: string[]; lineItemImageData?: { [id: string]: CatalogImage; }; }): void {
-          throw new Error("Function not implemented.");
-        },
-        createCart: function (catalogOrder: any, lineItemImageData?: CatalogImage, checkout?: boolean): void {
-          throw new Error("Function not implemented.");
-        }
-      }} calculation={{
-        subtotal: 0,
-        discounts: 0,
-        shipping: 0,
-        taxes: 0,
-        calculateCart: function (req: CalculateOrderRequest): void {
-          throw new Error("Function not implemented.");
-        }
-      }} handleCartToggle={function (e: any, bool: boolean): void {
+      options={options}
+      cartItemImages={{}} mutators={mutators} calculation={calculation} handleCartToggle={function (e: any, bool: boolean): void {
         throw new Error("Function not implemented.");
       }} getCheckoutUrl={function (): string {
         throw new Error("Function not implemented.");
@@ -79,13 +64,13 @@ function Header({ navs, className, logo }: Props) {
   //   ),
   // };
 
-  // const handleScroll = (e: any) =>
-  //   setScroll(e.target.documentElement.scrollTop);
+  const handleScroll = (e: any) =>
+    setScroll(e.target.documentElement.scrollTop);
 
-  // useEffect(() => {
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => window.removeEventListener("scroll", handleScroll);
-  // });
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  });
 
   const background =
     path !== "/"
