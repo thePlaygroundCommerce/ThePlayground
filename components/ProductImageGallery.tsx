@@ -49,9 +49,9 @@ function ProductImageGallery({ images }: { images: CatalogObject[] }) {
             role="region"
             aria-label="carousel"
           >
-            <div className="k-v-slider-mask relative xl:block flex justify-between overflow-hidden z-[1] h-full whitespace-nowrap inset-x-0" id="w-slider-mask-0">
+            <div className="k-v-slider-mask relative xl:block flex justify-between overflow-hidden z-[1] h-full whitespace-nowrap inset-x-0 mx-auto" id="w-slider-mask-0">
               {images.slice(0, 5).map((image, i) => (
-                <div key={image.imageData?.name ?? i} className="w-3/4">
+                <div key={image.imageData?.name ?? i} className="w-1/5 xl:w-full">
                   <div
                     className={clsx("k-vertical-slide relative inline-block object-contain align-top w-full h-full whitespace-normal text-left ")}
                     aria-label={i + " of 5"}

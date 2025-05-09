@@ -63,72 +63,72 @@ const Page = async ({ params, searchParams }: PageProps) => {
 
 
     return (
-      <div>
-          <div className="k-hero-content">
-            <div className="k-full-container k-container--strech block lg:flex">
-              <div className="k-hero-left-side">
-                <ProductDetails
-                  catalogItemObject={catalogObject}
-                  catalogImageObjects={filteredRelatedImages}
-                />
-              </div>
-              <div className="flex flex-col-reverse xl:flex-row flex-1 k-hero-right k-hero-clear k-d-flex">
-                <ProductImageGallery images={filteredRelatedImages} />
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="p-4 py-8 flex flex-col gap-8 w-full">
-              <Heading className="text-center">Packed With Features</Heading>
-              {features.map(
-                ({
-                  title,
-                  description,
-                  headline,
-                  image: { url: src, alt },
-                }, i) => (
-                  <Showcase
-                    key={i}
-                    flipped={i % 2 !== 0}
-                    animate={{ delay: (5 * (i + 1)) * 100 }}
-                    content={{
-                      title: title,
-                      description: prismic.asText(description),
-                      headline,
-                    }}
-                    image={{
-                      width: 300, height: 500,
-                      src,
-                      alt: alt ?? "",
-                      className: "object-cover",
-                    }}
-                    contentStyles={{}}
-                  />
-                )
-              )}
-            </div>
-            <div className="p-4">
-              <Slider
-                type="DEFAULT"
-                title="You Might Also Like"
-                headline={undefined}
-                slides={relatedItems.map(({ id, itemData: { name, variations, imageIds } = {} }) => {
-                  const image = images.find(({ id }) => id === imageIds?.[0])?.imageData
-
-                  return {
-                    image: { fill: true, alt: image?.caption ?? "", src: image?.url ?? "", className: "object-cover" },
-                    content: {
-                      link: `/shop/product/${id}`,
-                      title: name ?? "",
-                      price: Number((variations ?? [])[0]?.itemVariationData?.priceMoney?.amount) ?? 0,
-                    },
-                  }
-                }
-                )}
+      <>
+        <div className="k-hero-content">
+          <div className="k-full-container k-container--strech block lg:flex">
+            <div className="k-hero-left-side">
+              <ProductDetails
+                catalogItemObject={catalogObject}
+                catalogImageObjects={filteredRelatedImages}
               />
             </div>
+            <div className="flex flex-col-reverse xl:flex-row flex-1 k-hero-right k-hero-clear k-d-flex">
+              <ProductImageGallery images={filteredRelatedImages} />
+            </div>
           </div>
-      </div>
+        </div>
+        <div>
+          <div className="p-4 py-8 flex flex-col gap-8 w-full">
+            <Heading className="text-center">Packed With Features</Heading>
+            {features.map(
+              ({
+                title,
+                description,
+                headline,
+                image: { url: src, alt },
+              }, i) => (
+                <Showcase
+                  key={i}
+                  flipped={i % 2 !== 0}
+                  animate={{ delay: (5 * (i + 1)) * 100 }}
+                  content={{
+                    title: title,
+                    description: prismic.asText(description),
+                    headline,
+                  }}
+                  image={{
+                    width: 300, height: 500,
+                    src,
+                    alt: alt ?? "",
+                    className: "object-cover",
+                  }}
+                  contentStyles={{}}
+                />
+              )
+            )}
+          </div>
+          <div className="p-4">
+            <Slider
+              type="DEFAULT"
+              title="You Might Also Like"
+              headline={undefined}
+              slides={relatedItems.map(({ id, itemData: { name, variations, imageIds } = {} }) => {
+                const image = images.find(({ id }) => id === imageIds?.[0])?.imageData
+
+                return {
+                  image: { fill: true, alt: image?.caption ?? "", src: image?.url ?? "", className: "object-cover" },
+                  content: {
+                    link: `/shop/product/${id}`,
+                    title: name ?? "",
+                    price: Number((variations ?? [])[0]?.itemVariationData?.priceMoney?.amount) ?? 0,
+                  },
+                }
+              }
+              )}
+            />
+          </div>
+        </div>
+      </>
     );
   };
   return renderProductDetails();

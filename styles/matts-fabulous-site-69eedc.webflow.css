@@ -1355,6 +1355,7 @@ blockquote {
   flex-direction: column;
   flex: none;
   display: flex;
+  min-height: 92vh;
 }
 
 .k-hero-content.k-hero-content--space-top {
@@ -1626,7 +1627,7 @@ blockquote {
   justify-content: space-between;
   width: 100%;
   max-width: 1920px;
-  /* display: flex; */
+  display: flex;
 }
 
 .k-full-container.k-container--strech {

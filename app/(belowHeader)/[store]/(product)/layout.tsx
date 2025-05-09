@@ -13,6 +13,7 @@ export default async function Layout({ children }: LayoutPageProps) {
   return (
     <>
       <div className="min-h-screen">
+        {children}
         {/* <Link href="/shop">
           <Button variant="link" className="text-xs text-zinc-600 flex items-center py-2">
             <Breadcrumbs
@@ -24,7 +25,7 @@ export default async function Layout({ children }: LayoutPageProps) {
             <div>BACK TO PRODUCTS</div>
           </Button>
         </Link> */}
-        {children}
+
       </div>
       <div className="lg:w-1/3 m-12 mx-auto">
         <NewsletterForm
