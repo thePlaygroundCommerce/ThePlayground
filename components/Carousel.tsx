@@ -200,7 +200,7 @@ export const WebflowCarousel = () => {
               </div>
               <div
                 id="w-node-_639a5eaa-5c25-0245-1575-e0488fe314f9-861cf97e"
-                className="k-hero-right"
+                className="k-hero-right pl-12"
                 aria-hidden="true"
               >
                 <div

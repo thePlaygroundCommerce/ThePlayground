@@ -64,7 +64,7 @@ const Page = async ({ params, searchParams }: PageProps) => {
 
     return (
       <>
-        <div className="k-hero-content">
+        <div className="k-hero-content  ">
           <div className="k-full-container k-container--strech block lg:flex">
             <div className="k-hero-left-side">
               <ProductDetails

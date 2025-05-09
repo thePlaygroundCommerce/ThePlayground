@@ -1624,7 +1624,7 @@ blockquote {
 }
 
 .k-full-container {
-  justify-content: space-between;
+  /* justify-content: space-between; */
   width: 100%;
   max-width: 1920px;
   display: flex;
