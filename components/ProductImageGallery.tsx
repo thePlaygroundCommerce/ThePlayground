@@ -168,7 +168,7 @@ function ProductImageGallery({ images }: { images: CatalogObject[] }) {
             className="k-main-slider-mask w-slider-mask"
             id="w-slider-mask-1"
           >
-            {images.map((image, i) => (
+            {images.map((image, i) => activeImageIndex == i && (
               <div
                 key={image.imageData?.name ?? i}
                 className="k-main-slide relative"
