@@ -28,7 +28,7 @@ function ProductImageGallery({ images }: { images: CatalogObject[] }) {
   const handleIncrement = () => carouselRef?.prev()
   const handleDecrement = () => carouselRef?.next()
 
-  images = [images[0], images[0], images[0], images[0], images[0], images[0],]
+  // images = [images[0], images[0], images[0], images[0], images[0], images[0],]
 
   return (
     <>
