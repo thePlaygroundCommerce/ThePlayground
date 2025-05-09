@@ -65,14 +65,14 @@ const Page = async ({ params, searchParams }: PageProps) => {
     return (
       <div>
           <div className="k-hero-content">
-            <div className="k-full-container k-container--strech">
+            <div className="k-full-container k-container--strech block lg:flex">
               <div className="k-hero-left-side">
                 <ProductDetails
                   catalogItemObject={catalogObject}
                   catalogImageObjects={filteredRelatedImages}
                 />
               </div>
-              <div className="k-hero-right k-hero-clear k-d-flex">
+              <div className="flex flex-col-reverse xl:flex-row flex-1 k-hero-right k-hero-clear k-d-flex">
                 <ProductImageGallery images={filteredRelatedImages} />
               </div>
             </div>

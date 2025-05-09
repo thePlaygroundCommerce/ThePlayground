@@ -922,7 +922,7 @@ textarea.w-select {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   tap-highlight-color: rgba(0, 0, 0, 0);
 }
-.w-slider-mask {
+/* .w-slider-mask {
   position: relative;
   display: block;
   overflow: hidden;
@@ -931,7 +931,7 @@ textarea.w-select {
   right: 0;
   height: 100%;
   white-space: nowrap;
-}
+} */
 .w-slide {
   position: relative;
   display: inline-block;

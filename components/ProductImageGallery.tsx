@@ -28,10 +28,12 @@ function ProductImageGallery({ images }: { images: CatalogObject[] }) {
   const handleIncrement = () => carouselRef?.prev()
   const handleDecrement = () => carouselRef?.next()
 
+  images = [images[0], images[0], images[0], images[0], images[0], images[0],]
+
   return (
     <>
       <div className="k-product-thumb-img-wrapper">
-        <div className="k-product-gallery">
+        <div className="k-product-gallery w-full">
           <div
             data-delay={4000}
             data-animation="slide"
@@ -47,9 +49,9 @@ function ProductImageGallery({ images }: { images: CatalogObject[] }) {
             role="region"
             aria-label="carousel"
           >
-            <div className="k-v-slider-mask w-slider-mask" id="w-slider-mask-0">
+            <div className="k-v-slider-mask relative xl:block flex justify-between overflow-hidden z-[1] h-full whitespace-nowrap inset-x-0" id="w-slider-mask-0">
               {images.slice(0, 5).map((image, i) => (
-                <Fragment key={image.imageData?.name ?? i}>
+                <div key={image.imageData?.name ?? i} className="w-3/4">
                   <div
                     className={clsx("k-vertical-slide relative inline-block object-contain align-top w-full h-full whitespace-normal text-left ")}
                     aria-label={i + " of 5"}
@@ -70,7 +72,7 @@ function ProductImageGallery({ images }: { images: CatalogObject[] }) {
                     />
                   </div>
                   <Divider className={clsx(activeImageIndex !== i && "border-transparent", "border-b-2 w-1/2 mx-auto rounded")} />
-                </Fragment>
+                </div>
               ))}
               <div
                 aria-live="off"
@@ -148,7 +150,7 @@ function ProductImageGallery({ images }: { images: CatalogObject[] }) {
           </div>
         </div>
       </div>
-      <div className="k-product-main">
+      <div className="k-product-main mx-auto">
         <div
           data-delay={4000}
           data-animation="cross"
@@ -188,7 +190,7 @@ function ProductImageGallery({ images }: { images: CatalogObject[] }) {
                   height={1080}
                   width={1080}
                   // srcSet="https://cdn.prod.website-files.com/606072483975b0a200b7dff6/6084f34dc96abefb6fa13070_87035655_94-p-500.jpeg 500w, https://cdn.prod.website-files.com/606072483975b0a200b7dff6/6084f34dc96abefb6fa13070_87035655_94.jpeg 640w"
-                  className="k-slider-full-image"
+                  className="k-slider-full-image object-contain"
                 />
               </div>
             ))}
