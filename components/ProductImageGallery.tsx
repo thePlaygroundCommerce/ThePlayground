@@ -51,7 +51,7 @@ function ProductImageGallery({ images }: { images: CatalogObject[] }) {
               {images.slice(0, 5).map((image, i) => (
                 <Fragment key={image.imageData?.name ?? i}>
                   <div
-                    className={clsx("k-vertical-slide relative block align-top w-full h-full whitespace-normal text-left ")}
+                    className={clsx("k-vertical-slide relative inline-block object-contain align-top w-full h-full whitespace-normal text-left ")}
                     aria-label={i + " of 5"}
                     onClick={() => handleImageChange(i)}
                     role="group"
@@ -171,7 +171,7 @@ function ProductImageGallery({ images }: { images: CatalogObject[] }) {
             {images.map((image, i) => (
               <div
                 key={image.imageData?.name ?? i}
-                className="k-main-slide relative inline-block align-top w-full h-full whitespace-normal text-left"
+                className="k-main-slide relative"
                 aria-label="1 of 5"
                 role="group"
                 style={{
@@ -185,6 +185,8 @@ function ProductImageGallery({ images }: { images: CatalogObject[] }) {
                   src={image.imageData?.url ?? ""}
                   data-wf-sku-bindings="%5B%7B%22from%22%3A%22f_more_images_4dr%5B%5D%22%2C%22to%22%3A%22src%22%7D%5D"
                   sizes="100vw"
+                  height={1080}
+                  width={1080}
                   // srcSet="https://cdn.prod.website-files.com/606072483975b0a200b7dff6/6084f34dc96abefb6fa13070_87035655_94-p-500.jpeg 500w, https://cdn.prod.website-files.com/606072483975b0a200b7dff6/6084f34dc96abefb6fa13070_87035655_94.jpeg 640w"
                   className="k-slider-full-image"
                 />

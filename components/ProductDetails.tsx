@@ -70,33 +70,37 @@ const ProductDetails = ({
           data-commerce-product-id="6084f3654a978ce1fb06ead6"
           className="w-commerce-commerceaddtocartform"
         >
-          <div className="k-button-wrap btn-wrap-1">
-            <Button
-              loading={isCartLoading}
-              data-node-type="commerce-add-to-cart-button"
-              data-loading-text="Adding to cart..."
-              aria-busy="false"
-              aria-haspopup="dialog"
-              className="w-commerce-commerceaddtocartbutton k-btn min-w-42 justify-center"
-              onClick={isProductInCart ? cartModifiers.handleRemoveFromCart : cartModifiers.handleAddToCart}
-            >
-              {isProductInCart ? "Remove from Cart" : "Add To Cart"}
-            </Button>
+          <div className="block sm:flex lg:block justify-between">
+            <div className="btn-wrap-1">
+              <Button
+                loading={isCartLoading}
+                data-node-type="commerce-add-to-cart-button"
+                data-loading-text="Adding to cart..."
+                aria-busy="false"
+                aria-haspopup="dialog"
+                className="w-commerce-commerceaddtocartbutton k-btn min-w-42 justify-center"
+                onClick={isProductInCart ? cartModifiers.handleRemoveFromCart : cartModifiers.handleAddToCart}
+              >
+                {isProductInCart ? "Remove from Cart" : "Add To Cart"}
+              </Button>
+            </div>
+            <div className="btn-wrap-1">
+              <Button
+                loading={isCheckoutLoading}
+                data-node-type="commerce-buy-now-button"
+                data-default-text="Buy now"
+                data-subscription-text="Subscribe now"
+                aria-busy="false"
+                aria-haspopup="false"
+                // style={{ display: "none" }}
+                onClick={cartModifiers.handleBuyNow}
+                className="w-commerce-commercebuynowbutton mt-2 sm:mt-0 lg:mt-2 k-btn bg-black"
+              // href="/checkout"
+              >
+                Buy now
+              </Button>
+            </div>
           </div>
-          <Button
-            loading={isCheckoutLoading}
-            data-node-type="commerce-buy-now-button"
-            data-default-text="Buy now"
-            data-subscription-text="Subscribe now"
-            aria-busy="false"
-            aria-haspopup="false"
-            // style={{ display: "none" }}
-            onClick={cartModifiers.handleBuyNow}
-            className="w-commerce-commercebuynowbutton k-btn bg-black"
-          // href="/checkout"
-          >
-            Buy now
-          </Button>
           {/* <div className="grid grid-cols-1 gap-1 justify-around w-full">
             {cartModifiers}
             <div className="p-2">

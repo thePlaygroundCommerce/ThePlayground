@@ -373,7 +373,7 @@
   border-width: 0;
   border-radius: 0;
   align-items: center;
-  margin-top: 10px;
+  /* margin-top: 10px; */
   padding: 9px 15px;
   text-decoration: none;
   display: inline-block;
@@ -3757,9 +3757,6 @@ blockquote {
     width: 75%;
   }
 
-  .k-vertical-slide {
-    margin-top: 0;
-  }
 
   .k-nav-dropdown {
     display: flex;
@@ -4080,11 +4077,6 @@ blockquote {
     padding-right: 5vw;
   }
 
-  .k-vertical-slide {
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-right: 10px;
-  }
 
   .k-2col {
     width: 64vw;
