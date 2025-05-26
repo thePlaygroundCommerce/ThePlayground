@@ -35,7 +35,7 @@ const ProductActions = (props: Props) => {
                             childrenElement={<></>}
                         />
                     </div>
-                    <SelectPicker
+                    {/* <SelectPicker
                         data={props.data}
                         onChange={props.handleSelectChange}
                         searchable={false}
@@ -44,7 +44,7 @@ const ProductActions = (props: Props) => {
                             props.selectedVariation
                         ].itemVariationData?.name?.slice(0, 1)}
                         defaultValue={props.selectedVariation}
-                    />
+                    /> */}
                 </div>
             </div>
             <div className="grid grid-cols-1 gap-1 pb-7 border-b justify-around">

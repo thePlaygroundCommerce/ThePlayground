@@ -25,7 +25,7 @@ const PhotoGrid = ({ gridItems }: Props) => {
 
 }
 
-const Item = ({ title, className, description, }) => (
+const Item = ({ title, className, description }: any) => (
     <div className={clsx("text-white w-full relative shadow-[inset_0px_-75px_68px_-34px_rgba(0,0,0,0.50)]", className)}>
         <Link href={'#'} className=''>
             <div className='relative h-full'>
