@@ -251,12 +251,17 @@ const B = () => {
 
 export const WebflowSlider = ({
   children,
+  className,
+  onIndexChange = () => {},
   visibleItemsCount = 1, // how many items to show
   isInfinite, // is it an infinite loop?
-  withIndicator, // show dots?
-}: AppProps & { visibleItemsCount: number; isInfinite: boolean, withIndicator: boolean }) => {
+  withIndicator = false, // show dots?
+  withControls = false, // show dots?
+}: AppProps & { visibleItemsCount: number; isInfinite: boolean, withIndicator: boolean, withControls: boolean, onIndexChange?: (index: number) => void }) => {
   const indicatorContainerRef = useRef(null);
   const [timeoutInProgress, setTimeoutInProgress] = useState(false); // a boolean for if timeout is im progress, used to stop user from spam clicking next or back in certain conditions
+
+
 
   /**
    * Total item
@@ -295,7 +300,8 @@ export const WebflowSlider = ({
    * Handle if the carousel is repeating
    * and the currentIndex have been set to the last or first item
    */
-  // useEffect(() => {
+  useEffect(() => {
+    onIndexChange(currentIndex)
   //   if (isRepeating) {
   //     if (
   //       currentIndex === visibleItemsCount ||
@@ -320,7 +326,7 @@ export const WebflowSlider = ({
   //       }
   //     }
   //   }
-  // }, [withIndicator, currentIndex]);
+  }, [currentIndex]);
 
   /**
    * Move forward to the next item
@@ -455,6 +461,11 @@ export const WebflowSlider = ({
   // render n (n being the count of original items / visibleItemsCount) dots
   const renderDots = useMemo(() => {
     let output = [];
+    const classes = {
+      active: "bg-red-500",
+      close: "",
+      far: ""
+    }
 
     const localShow = isRepeating ? visibleItemsCount : 0;
     const localLength = isRepeating
@@ -468,29 +479,29 @@ export const WebflowSlider = ({
     for (let index = 0; index < localLength; index++) {
       let className = "";
       if (calculatedActiveIndex === index) {
-        className = "dots-active";
+        className = classes.active;
       } else {
         if (calculatedActiveIndex === 0) {
           if (calculatedActiveIndex + index <= 2) {
-            className = "dots-close";
+            className = classes.close;
           } else {
-            className = "dots-far";
+            className = classes.far;
           }
         } else if (calculatedActiveIndex === localLength - 1) {
           if (Math.abs(calculatedActiveIndex - index) <= 2) {
-            className = "dots-close";
+            className = classes.close;
           } else {
-            className = "dots-far";
+            className = classes.far;
           }
         } else {
           if (Math.abs(calculatedActiveIndex - index) === 1) {
-            className = "dots-close";
+            className = classes.close;
           } else {
-            className = "dots-far";
+            className = classes.far;
           }
         }
       }
-      output.push(<div key={index} data-index={index} className={className} />);
+      output.push(<div key={index} data-index={index} className={clsx(className, "rounded-full bg-black w-3 h-3")} />);
     }
 
     return output;
@@ -511,9 +522,9 @@ export const WebflowSlider = ({
   }
 
   return (
-    <div className="flex flex-col relative w-full text-center">
+    <div className={clsx("flex flex-col relative w-full text-center", className)}>
       <div className="flex w-full relative">
-        {isPrevButtonVisible ? (
+        {withControls && isPrevButtonVisible ? (
           <button
             disabled={timeoutInProgress}
             style={{
@@ -542,8 +553,11 @@ export const WebflowSlider = ({
             {childrenWrapper(children)}
             {isRepeating && extraNextItems}
           </div>
+          <div className="flex justify-center gap-6">
+            {withIndicator && renderDots}
+          </div>
         </div>
-        {isNextButtonVisible ? (
+        {withControls && isNextButtonVisible ? (
           <button
             disabled={timeoutInProgress}
             style={{

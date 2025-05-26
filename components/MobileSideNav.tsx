@@ -1,18 +1,10 @@
  
 'use client'
 
-import { useUIKit } from 'context/UIKitContext';
 import { useState, useEffect } from 'react';
-import { createPortal } from 'react-dom';
-import { LuMenu } from 'react-icons/lu'
-import CartOverlay from './CartOverlay';
-import { Drawer } from 'rsuite';
 import Portal from './Portal';
-import SideNav from './MobileNavigation';
 import { Nav } from 'app/layout';
 import { usePathname } from 'next/navigation';
-import Button from "./Button";
-import Hamburger from './Hamburger';
 
 type Props = {
   logo: JSX.Element

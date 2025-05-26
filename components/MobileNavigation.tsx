@@ -1,18 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { Nav } from "app/layout";
-import { IoClose } from "react-icons/io5";
-import { List } from "rsuite";
 import SocialMediaButtons from "./SocialMediaButtons";
 import { AppProps } from "index";
 import { KeyTextField } from "@prismicio/client";
-import Button from "./Button";
 import clsx from "clsx";
-import { LuSearch } from "react-icons/lu";
-import Image from './Image'
-import Search from "./forms/Search";
-import { Transition } from "@headlessui/react";
 import { useEffect, useState } from "react";
 
 type Props = AppProps & {

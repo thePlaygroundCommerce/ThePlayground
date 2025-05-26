@@ -1,13 +1,8 @@
 "use client";
 import Cart from "./Cart";
-import Heading from "./typography/Heading";
 import { VscAccount } from "react-icons/vsc";
-import React, { useEffect, useState } from "react";
-import CartOverlay from "./CartOverlay.tsx";
-import { Drawer } from "rsuite";
+import { useEffect, useState } from "react";
 import { useUIKit } from "context/UIKitContext";
-import { IoClose } from "react-icons/io5";
-import Portal from "./Portal";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@clerk/nextjs";
@@ -60,7 +55,7 @@ function HeaderActions() {
       <Button onClick={handleCartOnClick} className="cursor-pointer text-inherit">
         <Cart />
       </Button>
-      <Portal rootId="drawerContainer">
+      {/* <Portal rootId="drawerContainer">
         <Drawer
           placement="right"
           closeButton={false}
@@ -89,7 +84,7 @@ function HeaderActions() {
             </div>
           </Drawer.Body>
         </Drawer>
-      </Portal>
+      </Portal> */}
     </div>
   );
 }

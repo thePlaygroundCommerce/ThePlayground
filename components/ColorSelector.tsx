@@ -5,8 +5,6 @@ import _ from "lodash";
 import clsx from "clsx";
 import { CatalogImage, CatalogObject } from "square";
 import Radio from "components/Radio";
-import { Panel, SelectPicker } from "rsuite";
-import { ItemDataType } from "rsuite/esm/MultiCascadeTree";
 import Button from "./Button";
 import Image from "./Image";
 
@@ -88,19 +86,19 @@ const DropdownSelector = ({
   data = [],
   onChange,
 }: Props<SelectorProps>) => {
-  return (
-    <SelectPicker
-      data={data}
-      onChange={onChange}
-      searchable={false}
-      cleanable={false}
-      //   disabled={(options.size.productOptionValues?.length ?? 0) === 0}
-      placeholder={_.capitalize(data[selectedIndex].label as string).slice(
-        0,
-        1
-      )}
-      defaultValue={data[selectedIndex].value}
-    />
+  return ( null
+    // <SelectPicker
+    //   data={data}
+    //   onChange={onChange}
+    //   searchable={false}
+    //   cleanable={false}
+    //   //   disabled={(options.size.productOptionValues?.length ?? 0) === 0}
+    //   placeholder={_.capitalize(data[selectedIndex].label as string).slice(
+    //     0,
+    //     1
+    //   )}
+    //   defaultValue={data[selectedIndex].value}
+    // />
   );
 };
 
@@ -178,17 +176,17 @@ type SelectorComponentMap = {
     selectedIndex,
     data,
     onChange,
-  }: Props<ItemDataType>) => React.JSX.Element;
+  }: Props<{}>) => React.JSX.Element;
   CARD: ({
     selectedIndex,
     data,
     onChange,
-  }: Props<ItemDataType>) => React.JSX.Element;
+  }: Props<{}>) => React.JSX.Element;
   PRODUCT: ({
     selectedIndex,
     data,
     onChange,
-  }: Props<ItemDataType>) => React.JSX.Element;
+  }: Props<{}>) => React.JSX.Element;
 };
 
 const selectorCompMap = {

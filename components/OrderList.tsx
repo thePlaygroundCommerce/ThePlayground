@@ -5,12 +5,12 @@ import Image from "components/Image";
 import { OrderLineItem } from "square";
 import Money from "./Money";
 import clsx from "clsx";
-import { Divider } from "rsuite";
 import Heading from "./typography/Heading";
 import { Fragment } from "react";
 
 import { HiXMark } from "react-icons/hi2";
 import Button from "./Button";
+import Divider from "./Divider";
 
 const OrderList = ({ children, allowOrderItemDeletion = true, allowOrderModify = false, lineItems, lineItemImages, options, ...rest }: any) => {
   const isEnvProd = process.env.NODE_ENV !== 'development'

@@ -1,21 +1,12 @@
 "use client";
-import { Tab, TabGroup, TabList, TabPanel } from "@headlessui/react";
-import { AppProps, Content } from "index";
 import _ from "lodash";
 import Money from "./Money";
-import ReactHtmlParser from "react-html-parser";
-import Heading from "./typography/Heading";
-import styles from "../styles/product_details.module.css";
-import clsx from "clsx";
 import withProductModifiers, {
   CartModifiers,
   Selectors,
   WithProductModifiersProps,
 } from "hocs/withProductModifiers";
-import { Divider } from "rsuite";
-import { ReactNode } from "react";
 import Button from "./Button";
-import Link from "next/link";
 
 export type ProductDetailsProps = {
   price: number

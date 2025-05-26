@@ -11,6 +11,7 @@
     "slicemachine": "start-slicemachine"
   },
   "dependencies": {
+    "@ark-ui/react": "^5.9.1",
     "@clerk/clerk-js": "^5.14.0",
     "@clerk/nextjs": "^5.3.0",
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
@@ -54,7 +55,6 @@
     "react-icons": "^4.10.1",
     "react-image-magnifiers": "^1.4.0",
     "react-star-ratings": "^2.3.0",
-    "rsuite": "^5.76.2",
     "sass": "^1.26.10",
     "sharp": "^0.32.5",
     "square": "^39.0.0",
@@ -68,6 +68,7 @@
     "@eslint/compat": "^1.1.0",
     "@eslint/js": "^9.6.0",
     "@slicemachine/adapter-next": "^0.3.51",
+    "@types/lodash": "^4.17.17",
     "@types/react-html-parser": "^2.0.6",
     "autoprefixer": "^10.4.14",
     "cypress": "13.5.1",

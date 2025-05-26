@@ -8,7 +8,6 @@ import InventoryProvider from "../context/inventoryContext";
 import { AppProps } from "index";
 import UIKitProvider from "context/UIKitContext";
 import { CatalogObject, Order } from "square";
-import { Placeholder, Button } from "rsuite";
 import Portal from "./Portal";
 import { Simplify } from "prismicio-types";
 import TagManagerProvider from "context/TagManager";

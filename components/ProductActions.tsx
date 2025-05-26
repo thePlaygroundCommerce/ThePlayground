@@ -1,6 +1,5 @@
 "use client"
 import React from 'react'
-import { SelectPicker } from 'rsuite'
 import Counter from './Counter'
 import Money from './Money'
 import { AppProps } from 'index'

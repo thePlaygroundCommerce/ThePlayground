@@ -1,5 +1,4 @@
 import React, { ReactElement, ReactNode } from "react";
-import { Heading } from "rsuite";
 import { AppProps, Content, ContentData, ContentImage, Modify } from "index";
 import Image from "./Image";
 import Carousel, { WebflowCarousel } from "./Carousel";
@@ -12,6 +11,7 @@ import { ImageProps } from "index";
 import { latoLight } from "app/fonts";
 
 import staticImages from "util/images.ts"
+import Heading from "./typography/Heading";
 
 export type HeroProps = {
   type: "static" | "carousel";

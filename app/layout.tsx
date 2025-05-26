@@ -7,13 +7,10 @@ import { mapArrayToMap } from "../util";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react";
 
-// import "rsuite/dist/rsuite-no-reset.min.css";
-
 import { PrismicPreview } from "@prismicio/next";
 import prismic, { createClient, repositoryName } from "prismicio";
 import { AppProps } from "index";
 import { Content } from "@prismicio/client";
-import { CustomProvider } from "rsuite";
 import { cookies } from "next/headers";
 import { callGetCart } from "api/cartApi";
 import clsx from "clsx";
@@ -30,12 +27,8 @@ import LogoComponent, { renderLogo } from "components/LogoComponent";
 import { ReactElement } from "react";
 // import "styles/globals.css";
 // import "lib/js/webflow.js"
-import "styles/normalize.css";
 import "styles/webflow.css";
 import "styles/matts-fabulous-site-69eedc.webflow.css";
-import Button from "components/Button";
-import Link from "next/link";
-import { VscAccount } from "react-icons/vsc";
 config.autoAddCss = false
 
 export const metadata: Metadata = {
@@ -142,14 +135,11 @@ export default async function RootLayout({ children, info }: LayoutPageProps & {
 
             {/* <!-- This spacer provides the height we want --> */}
             <div className="h-screen col-span-full row-start-1 row-end-[span_2]" />
-
-            <CustomProvider>
-              <Providers data={mappedCatalogObjects} cartData={{ _cart: cart, _options: options }} cartImageMap={imageMap}>
-                <Layout info={info} navs={{ headerNavs, footerNavs }}>
-                  {children}
-                </Layout>
-              </Providers>
-            </CustomProvider>
+            <Providers data={mappedCatalogObjects} cartData={{ _cart: cart, _options: options }} cartImageMap={imageMap}>
+              <Layout info={info} navs={{ headerNavs, footerNavs }}>
+                {children}
+              </Layout>
+            </Providers>
             <PrismicPreview repositoryName={repositoryName} />
             <SpeedInsights />
             <Analytics />

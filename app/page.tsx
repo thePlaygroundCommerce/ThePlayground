@@ -15,6 +15,8 @@ import staticImages from "util/images.ts";
 import Transition from "../components/Transition";
 import AnimatedComponent from "components/AnimatedComponent";
 import TabSlider from "components/TabSlider";
+import PhotoGrid from "components/PhotoGrid";
+import { ContentImage, ContentData } from "index";
 
 type Props = {};
 
@@ -310,6 +312,74 @@ const page = async (props: Props) => {
 
   ];
 
+  const gridItems: (ContentImage | ContentData)[] = [
+    {
+      // src: pic1,
+      // objectFit: "contain",
+      title: "Backpacks"
+    },
+    {
+      // src: pic1,
+      // objectFit: "contain",
+      title: "Wallets"
+    },
+    {
+      // src: pic1,
+      // objectFit: "contain",
+      title: "Cross Body Bags"
+    },
+    {
+      // src: pic1,
+      // objectFit: "contain",
+      title: "Backpacks"
+    },
+    {
+      // src: pic1,
+      // objectFit: "contain",
+      title: "Wallets"
+    },
+    {
+      // src: pic1,
+      // objectFit: "contain",
+      title: "Cross Body Bags"
+    },
+    {
+      // src: pic1,
+      // objectFit: "contain",
+      title: "Backpacks"
+    },
+    {
+      // src: pic1,
+      // objectFit: "contain",
+      title: "Wallets"
+    },
+    {
+      // src: pic1,
+      // objectFit: "contain",
+      title: "Cross Body Bags"
+    },
+    {
+      // src: pic1,
+      // objectFit: "contain",
+      title: "Cross Body Bags",
+    },
+    // {
+    //   title: <Heading>Our Mission</Heading>,
+    //   description: (
+    //     <p>
+    //       Our mission is to redefine the way you experience travel. We
+    //       believe that travel is not just about reaching a destination
+    //       but about the journey itself. That's why we curate experiences
+    //       that inspire and connect you with the world around you.
+    //     </p>
+    //   ),
+    // },
+    // {
+    //   fill: true,
+    //   alt: "test",
+    // },
+  ]
+
   return (
     <div className="page-wrapper">
       <WebflowHero />
@@ -437,7 +507,8 @@ const page = async (props: Props) => {
         </div>
       </div>
       <div className="section section--spaced-1">
-        <TabSlider />
+        <PhotoGrid gridItems={gridItems} />
+        {/* <TabSlider /> */}
       </div>
       <div className="section section--spaced-1">
         <div className="k-container-1">
@@ -457,7 +528,7 @@ const page = async (props: Props) => {
             </div>
           </div>
         </div>
-        <WebflowSlider visibleItemsCount={1} isInfinite withIndicator={false}>
+        <WebflowSlider visibleItemsCount={1} isInfinite withIndicator={false} withControls={true}>
           {b}
         </WebflowSlider>
       </div>

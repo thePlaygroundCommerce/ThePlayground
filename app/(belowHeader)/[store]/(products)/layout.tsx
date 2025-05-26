@@ -1,6 +1,6 @@
 import { getMainNavigation, LayoutPageProps } from "app/layout";
+import Divider from "components/Divider";
 import ShopNavigation from "components/ShopNavigation";
-import { Divider } from "rsuite";
 
 export const metadata = {
   title: "The Playground | Shop",
@@ -16,7 +16,7 @@ export default async function ProductsPageLayout({ children }: LayoutPageProps) 
       </div>
       <div className="md:mt-0 max-w-full flex md:justify-start md:min-h-screen col-span-5">
         <div className="hidden md:inline">
-          <Divider vertical className="h-full ml-0" />
+          {/* <Divider vertical className="h-full ml-0" /> */}
         </div>
         <div className="">
           {children}
