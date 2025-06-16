@@ -31,8 +31,6 @@ async function Footer({ navs }: Props) {
 
   const mappedCatalogObjects = mapArrayToMap([...a.objects])
 
-  console.log()
-
   const storeCategoryLinks = mappedCatalogObjects.categories.map((category) => ({
     name: category.categoryData?.name,
     link: "/shop/" + category.categoryData?.name?.toLowerCase().replace(" ", "")
