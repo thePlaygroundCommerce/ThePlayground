@@ -490,7 +490,7 @@ const page = async (props: Props) => {
                         />
                         <div className="k-card-overlay-mask">
                           <a
-                            href="#"
+                            href="/shop"
                             className="k-card-cover-link w-inline-block"
                           >
                             <div className="k-heading-3-wrapper">
