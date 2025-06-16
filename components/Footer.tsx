@@ -1,12 +1,14 @@
 import { AppProps } from "index";
 import SocialMediaButtons from "./SocialMediaButtons";
 import Link from "next/link";
-import { Nav } from "app/layout.jsx";
+import { getMainNavigation, Nav } from "app/layout";
 import LogoComponent from "./LogoComponent";
+import { getCatalogObjects } from "api/catalogApi";
+import { mapArrayToMap } from "util/index";
 
 type Props = AppProps & { navs: Nav[] };
 
-function Footer({ navs }: Props) {
+async function Footer({ navs }: Props) {
   const { leftNavs, rightNavs } = navs.reduce(
     (navs, nav) => {
       if (navs.leftNavs.length === navs.rightNavs.length)
@@ -23,6 +25,19 @@ function Footer({ navs }: Props) {
     </Link>
   );
 
+  const a = await getCatalogObjects(
+    "ITEM,IMAGE,CATEGORY,ITEM_OPTION"
+  )
+
+  const mappedCatalogObjects = mapArrayToMap([...a.objects])
+
+  console.log()
+
+  const storeCategoryLinks = mappedCatalogObjects.categories.map((category) => ({
+    name: category.categoryData?.name,
+    link: "/shop/" + category.categoryData?.name?.toLowerCase().replace(" ", "")
+  }))
+
   return (
     <footer className="k-footer">
       <div className="k-container-1">
@@ -33,27 +48,26 @@ function Footer({ navs }: Props) {
           </div>
           <div className="k-footer-col">
             <div className="k-footer-header">shop</div>
-            <a href="#" className="k-footer-link">Kids</a>
-            <a href="#" className="k-footer-link">boys</a>
-            <a href="#" className="k-footer-link">girls</a>
-            <a href="#" className="k-footer-link">On-sale</a>
-            <a href="#" className="k-footer-link">exchange &amp; return</a>
-            <a href="#" className="k-footer-link">My account</a>
+            {storeCategoryLinks.map((link) => (
+              <Link href={link.link} key={link.name} className="k-footer-link">{link.name}</Link>
+            ))}
+            <Link href="/shop/sale" className="k-footer-link"><strong>🔥</strong> sale</Link>
           </div>
           <div className="k-footer-col">
             <div className="k-footer-header">help</div>
-            <a href="#" className="k-footer-link">Privacy Policy</a>
-            <a href="#" className="k-footer-link">boys</a>
-            <a href="#" className="k-footer-link">girls</a>
+            <Link href="/terms-and-conditions" className="k-footer-link">Terms &amp; Conditions</Link>
+            <Link href="/faqs" className="k-footer-link">exchange &amp; return</Link>
+            {/* <Link href="/" className="k-footer-link">My account</Link> */}
+            <Link href="/" className="k-footer-link">Privacy Policy</Link>
           </div>
           {/* <div className="k-footer-col">
             <div className="k-footer-header">useful links</div>
-            <a href="#" className="k-footer-link">Promotions</a>
-            <a href="#" className="k-footer-link">discounts</a>
-            <a href="#" className="k-footer-link">discount cards</a>
-            <a href="#" className="k-footer-link">gift recepient</a>
-            <a href="#" className="k-footer-link">exchange &amp; return</a>
-            <a href="#" className="k-footer-link">My account</a>
+            <Link href="#" className="k-footer-link">Promotions</Link>
+            <Link href="#" className="k-footer-link">discounts</Link>
+            <Link href="#" className="k-footer-link">discount cards</Link>
+            <Link href="#" className="k-footer-link">gift recepient</Link>
+            <Link href="#" className="k-footer-link">exchange &amp; return</Link>
+            <Link href="#" className="k-footer-link">My account</Link>
           </div> */}
         </div>
         <div className="k-footer-bottom">
@@ -76,7 +90,7 @@ function Footer({ navs }: Props) {
 
   return (
     <footer className="border-t border-gray-300 grid md:grid-cols-2 grid-cols-1 w-full p-4">
-      
+
       <div className="w-full py-4">
         <div className="">
           {navs.map(renderLink)}

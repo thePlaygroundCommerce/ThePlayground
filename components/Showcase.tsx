@@ -84,18 +84,20 @@ const Showcase = ({
                     >
                       <div
                         className={clsx(
-                          "md:text-center text-black"
+                          "text-center text-black"
                         )}
                       >
-                        {typeof title == "string" ? (
-                          <Heading level={2} className="text-sm">
-                            {title}
-                          </Heading>
-                        ) : (
-                          title
-                        )}
+                        <div className="mb-2">
+                          {typeof title == "string" ? (
+                            <Heading level={3} className="text-sm">
+                              {title}
+                            </Heading>
+                          ) : (
+                            title
+                          )}
+                        </div>
                         <p className="text-sm italic">{headline}</p>
-                        <div className="md:w-2/3 md:mx-auto">
+                        <div className="md:w-2/3 md:mx-auto text-center">
                           {typeof description === "string" ? (
                             <p>{description}</p>
                           ) : (

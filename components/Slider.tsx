@@ -541,7 +541,7 @@ export const WebflowSlider = ({
             </svg></div>
           </button>
         ) : null}
-        <div className="overflow-hidden w-full h-full" style={{ margin: "12.5vw" }}>
+        <div className="overflow-hidden w-full h-full" style={{ marginInline: "12.5vw" }}>
           <div
             style={{
               transform: `translateX(-${currentIndex * (100 / visibleItemsCount)}%)`,

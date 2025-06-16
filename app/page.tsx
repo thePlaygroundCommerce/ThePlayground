@@ -18,6 +18,25 @@ import TabSlider from "components/TabSlider";
 import PhotoGrid from "components/PhotoGrid";
 import { ContentImage, ContentData } from "index";
 
+import pic2 from "public/images/goumbik.jpg"
+import pic1 from "public/images/jibarofoto.jpg"
+import pic3 from "public/images/nappy.jpg"
+
+import pic4 from "public/images/fotosragrop.jpg"
+import pic5 from "public/images/laptopbag.jpg"
+import pic6 from "public/images/andrea.jpg"
+
+import pic7 from "public/images/konyk.jpeg"
+
+import pic8 from "public/images/field.jpeg"
+import pic9 from "public/images/pawan.jpg"
+import pic10 from "public/images/oliur.jpg"
+
+
+import pic11 from "public/images/samuel.jpeg"
+import pic12 from "public/images/lucas.jpg"
+
+
 type Props = {};
 
 const page = async (props: Props) => {
@@ -51,14 +70,14 @@ const page = async (props: Props) => {
       data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b28"]'
       className="k-insta-feed-slide wf-grid"
     >
-      <a
+      <Link
         data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b29"
         data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b29"]'
         href="#"
         className="k-insta-post w-inline-block"
       >
-        <img
-          src="https://cdn.prod.website-files.com/67f9692d7e88b9a05d707c22/67f9692e7e88b9a05d707cf7_11.jpg"
+        <Image
+          src={pic1}
           loading="lazy"
           data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b2a"]'
           data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b2a"
@@ -87,15 +106,15 @@ const page = async (props: Props) => {
             </svg>
           </div>
         </div>
-      </a>
-      <a
+      </Link>
+      <Link
         data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b2d"
         data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b2d"]'
         href="#"
         className="k-insta-post w-inline-block"
       >
-        <img
-          src="https://cdn.prod.website-files.com/67f9692d7e88b9a05d707c22/67f9692e7e88b9a05d707cf3_1.jpg"
+        <Image
+          src={pic2}
           loading="lazy"
           data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b2e"]'
           data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b2e"
@@ -124,15 +143,15 @@ const page = async (props: Props) => {
             </svg>
           </div>
         </div>
-      </a>
-      <a
+      </Link>
+      <Link
         data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b31"
         data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b31"]'
         href="#"
         className="k-insta-post w-inline-block"
       >
-        <img
-          src="https://cdn.prod.website-files.com/67f9692d7e88b9a05d707c22/67f9692e7e88b9a05d707cfb_pexels-marta-wave-6437461.jpg"
+        <Image
+          src={pic3}
           loading="lazy"
           data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b32"]'
           data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b32"
@@ -161,7 +180,7 @@ const page = async (props: Props) => {
             </svg>
           </div>
         </div>
-      </a>
+      </Link>
     </div>,
     <div
       data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b36"
@@ -169,7 +188,7 @@ const page = async (props: Props) => {
       className="k-insta-feed-slide wf-grid"
       aria-hidden="true"
     >
-      <a
+      <Link
         data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b37"
         data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b37"]'
         href="#"
@@ -177,8 +196,8 @@ const page = async (props: Props) => {
         tabIndex={-1}
         aria-hidden="true"
       >
-        <img
-          src="https://cdn.prod.website-files.com/67f9692d7e88b9a05d707c22/67f9692e7e88b9a05d707cf7_11.jpg"
+        <Image
+          src={pic4}
           loading="lazy"
           data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b38"]'
           data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b38"
@@ -214,8 +233,8 @@ const page = async (props: Props) => {
             </svg>
           </div>
         </div>
-      </a>
-      <a
+      </Link>
+      <Link
         data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b3b"
         data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b3b"]'
         href="#"
@@ -223,8 +242,8 @@ const page = async (props: Props) => {
         tabIndex={-1}
         aria-hidden="true"
       >
-        <img
-          src="https://cdn.prod.website-files.com/67f9692d7e88b9a05d707c22/67f9692e7e88b9a05d707cf3_1.jpg"
+        <Image
+          src={pic5}
           loading="lazy"
           data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b3c"]'
           data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b3c"
@@ -260,8 +279,8 @@ const page = async (props: Props) => {
             </svg>
           </div>
         </div>
-      </a>
-      <a
+      </Link>
+      <Link
         data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b3f"
         data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b3f"]'
         href="#"
@@ -269,8 +288,8 @@ const page = async (props: Props) => {
         tabIndex={-1}
         aria-hidden="true"
       >
-        <img
-          src="https://cdn.prod.website-files.com/67f9692d7e88b9a05d707c22/67f9692e7e88b9a05d707cfb_pexels-marta-wave-6437461.jpg"
+        <Image
+          src={pic6}
           loading="lazy"
           data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b40"]'
           data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b40"
@@ -306,7 +325,7 @@ const page = async (props: Props) => {
             </svg>
           </div>
         </div>
-      </a>
+      </Link>
     </div>
 
 
@@ -316,52 +335,64 @@ const page = async (props: Props) => {
     {
       // src: pic1,
       // objectFit: "contain",
-      title: "Backpacks"
+      title: "Backpacks",
+      link: "/backpacks",
+      src: pic1
     },
     {
       // src: pic1,
       // objectFit: "contain",
-      title: "Wallets"
-    },
-    {
-      // src: pic1,
-      // objectFit: "contain",
-      title: "Cross Body Bags"
-    },
-    {
-      // src: pic1,
-      // objectFit: "contain",
-      title: "Backpacks"
-    },
-    {
-      // src: pic1,
-      // objectFit: "contain",
-      title: "Wallets"
-    },
-    {
-      // src: pic1,
-      // objectFit: "contain",
-      title: "Cross Body Bags"
-    },
-    {
-      // src: pic1,
-      // objectFit: "contain",
-      title: "Backpacks"
-    },
-    {
-      // src: pic1,
-      // objectFit: "contain",
-      title: "Wallets"
-    },
-    {
-      // src: pic1,
-      // objectFit: "contain",
-      title: "Cross Body Bags"
+      title: "Wallets",
+      link: "/wallets",
+      src: pic2
     },
     {
       // src: pic1,
       // objectFit: "contain",
       title: "Cross Body Bags",
+      src: pic3
+    },
+    {
+      // src: pic1,
+      // objectFit: "contain",
+      title: "Luggage",
+      src: pic5
+    },
+    {
+      // src: pic1,
+      // objectFit: "contain",
+      title: "Totes & Shoulder Bags",
+      src: pic4
+    },
+    {
+      // src: pic1,
+      // objectFit: "contain",
+      title: "Duffel Bags",
+      src: pic6
+    },
+    {
+      // src: pic1,
+      // objectFit: "contain",
+      title: "Work Bags",
+      src: pic7
+    },
+    {
+      // src: pic1,
+      // objectFit: "contain",
+      title: "Toiletry Bags",
+      src: pic8
+    },
+    {
+      // src: pic1,
+      // objectFit: "contain",
+      title: "Packing Cubes",
+      src: pic9
+    },
+    {
+      // src: pic1,
+      // objectFit: "contain",
+      title: "Travel Accessories",
+      src: pic10
     },
     // {
     //   title: <Heading>Our Mission</Heading>,
@@ -385,7 +416,7 @@ const page = async (props: Props) => {
       <WebflowHero />
       <div className="section section--spaced-1">
         <div className="k-container-1">
-          <div
+          {/* <div
             data-w-id="9230dac5-099c-6cbc-335e-757232a3d415"
             className="k-section-header k-s-header--pair"
           >
@@ -395,7 +426,7 @@ const page = async (props: Props) => {
                   className="absolute inset-0 bg-white"
                   animation={"up"}
                 >
-                  <h2>Eternity Textures Do Last Forever</h2>
+                  <h2>Plan Right <br /> Pack Right <br /> Play Right</h2>
                 </AnimatedComponent>
               </div>
               <div className="k-heading-line"></div>
@@ -407,9 +438,7 @@ const page = async (props: Props) => {
                   animation={"up"}
                 >
                   <p className="k-para-1 k-text-gray-1">
-                    Before we begin to give you additional information on this
-                    topic, take a moment to think about how much you already
-                    know.
+                    We are all 
                     <br />
                     <br />
                     Enlargement of the underground corm accumulates
@@ -422,7 +451,7 @@ const page = async (props: Props) => {
                 </AnimatedComponent>
               </div>
             </div>
-          </div>
+          </div> */}
           <div
             data-w-id="927f0ab0-ae40-78eb-c052-2bd5bf7bd9d2"
             className="k-d-flex-row"
@@ -430,7 +459,7 @@ const page = async (props: Props) => {
             <div className="k-half-col k-pr-1">
               <div className="k-collection-Image-wrap">
                 <Image
-                  src={staticImages.kal}
+                  src={pic11}
                   loading="lazy"
                   sizes="(max-width: 479px) 92vw, (max-width: 991px) 38vw, (max-width: 1439px) 31vw, 100vw"
                   className="k-slide-cover-Image"
@@ -452,12 +481,12 @@ const page = async (props: Props) => {
                     <div role="listitem" className="k-season-cli w-dyn-item">
                       <div className="k-card k-card-for-collection">
                         <Image
-                          src={staticImages.laptopbag}
+                          src={pic12}
                           height={1080}
                           width={1080}
                           loading="lazy"
                           alt="Boy wearing cosy shirt"
-                          className="k-slide-cover-Image object-cover"
+                          className="k-slide-cover-Image object-cover h-full"
                         />
                         <div className="k-card-overlay-mask">
                           <a
@@ -508,7 +537,6 @@ const page = async (props: Props) => {
       </div>
       <div className="section section--spaced-1">
         <PhotoGrid gridItems={gridItems} />
-        {/* <TabSlider /> */}
       </div>
       <div className="section section--spaced-1">
         <div className="k-container-1">

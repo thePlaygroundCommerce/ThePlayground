@@ -3,14 +3,12 @@
 import clsx from "clsx";
 import "keen-slider/keen-slider.min.css";
 import { KeenSliderInstance, useKeenSlider } from "keen-slider/react";
-import { Simplify } from "prismicio-types";
-import React, { ReactNode, useEffect, useState } from "react";
-import { AppProps } from "index";
+import React, { useState } from "react";
 import Image from "./Image";
 
 import staticImages from "util/images.ts";
 import Link from "next/link";
-import { stat } from "fs";
+import AnimatedCard from "./AnimatedCard";
 
 type Props = {
   active?: number;
@@ -40,7 +38,7 @@ const Carousel = ({
   items,
   children,
   className,
-  onSlide = () => { },
+  onSlide = () => {},
 }: Props) => {
   const [ready, setReady] = useState(false);
   const options = {
@@ -88,7 +86,10 @@ const Carousel = ({
   );
 };
 
-export const WebflowCarousel = () => {
+export const WebflowCarousel = ({
+  title = "Solo Dolo...",
+  description = "Going at it alone? Peek our Solo Traveler collection.",
+}) => {
   return (
     <div
       data-delay="4000"
@@ -103,21 +104,7 @@ export const WebflowCarousel = () => {
       data-duration="0"
       data-infinite="true"
     >
-      <div className="k-hero-card">
-        <Image
-          src={staticImages.q}
-          loading="lazy"
-          alt=""
-          className="k-news-thumb"
-        />
-        <div className="k-news-details">
-          <div className="k-news-heading">the new lookbook</div>
-          <div className="k-news-text">
-            Daily Inspiration and Beauty
-            <br /> Advices.
-          </div>
-        </div>
-      </div>
+      <AnimatedCard />
       {/* <div className="k-hero-slider-menu">
         <a
           id="prev_slide"
@@ -166,7 +153,7 @@ export const WebflowCarousel = () => {
               // transform: "translateX(-1307px)",
               // opacity: 0,
               height: "100%",
-              zIndex: 1000,
+              zIndex: 1,
             }}
             aria-hidden="true"
           >
@@ -207,7 +194,7 @@ export const WebflowCarousel = () => {
                   className="heading-wrapper heading-space-1"
                   aria-hidden="true"
                 >
-                  <h1 aria-hidden="true">Family Reunion</h1>
+                  <h1 aria-hidden="true">{title}</h1>
                   <div
                     className="k-slide-heading-overlay"
                     style={{
@@ -229,7 +216,7 @@ export const WebflowCarousel = () => {
                     }}
                     aria-hidden="true"
                   >
-                    Introducing the innovators. Our programme has championed
+                    {description}
                   </p>
                   <div
                     className="k-slide-para-overlay"
@@ -243,7 +230,7 @@ export const WebflowCarousel = () => {
                 </div>
                 <div className="k-button-wrap btn-wrap-1" aria-hidden="true">
                   <Link
-                    href="/shop"  
+                    href="/shop"
                     className="btn w-button"
                     tabIndex={-1}
                     aria-hidden="true"
@@ -255,12 +242,6 @@ export const WebflowCarousel = () => {
             </div>
           </div>
         </div>
-      </div>
-      <div id="orig_prev_btn" className="k-left-arrow w-slider-arrow-left">
-        <div className="w-icon-slider-left"></div>
-      </div>
-      <div id="orig_next_btn" className="k-right-arrow w-slider-arrow-right">
-        <div className="w-icon-slider-right"></div>
       </div>
       <div className="k-hero-slider-nav w-slider-nav"></div>
     </div>

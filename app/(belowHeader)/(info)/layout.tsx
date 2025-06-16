@@ -5,8 +5,11 @@ import Link from 'next/link'
 import React from 'react'
 
 const layout = ({ children }: LayoutPageProps) => {
-    const a = ["Contact", "About", "Work",
-            // "FAQs"
+    const a = [
+        {name: "Contact", link: "contact" },
+        {name: "About", link: "about" },
+        {name: "Work", link: "work" },
+        {name: "T&Cs", link: "terms-and-conditions" },
     ]
     return (
         <div className='pt-6'>
@@ -14,7 +17,7 @@ const layout = ({ children }: LayoutPageProps) => {
                 {/* <Heading>tab</Heading> */}
                 <nav>
                     {a.map((tab) => (
-                        <Link key={tab} className='m-4' href={`/${tab.toLowerCase()}`}>{tab}</Link>
+                        <Link key={tab.name} className='m-4' href={`/${tab.link}`}>{tab.name}</Link>
                     ))}
                 </nav>
             </div>

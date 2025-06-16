@@ -108,7 +108,7 @@ function Header({ navs, className, logo }: Props) {
                 aria-current="page"
                 className="k-nav-logo w-inline-block w--current"
               >
-                <div>mass.</div>
+                <div>play.</div>
               </Link>
               {/* <MobileSideNav logo={logo} navs={{
                   headerNavs: [],

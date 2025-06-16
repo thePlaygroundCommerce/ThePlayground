@@ -25,13 +25,14 @@ const PhotoGrid = ({ gridItems }: Props) => {
 
 }
 
-const Item = ({ title, className, description }: any) => (
+const Item = ({ title, className, description, src, link = "" }: any) => (
     <div className={clsx("text-white w-full relative shadow-[inset_0px_-75px_68px_-34px_rgba(0,0,0,0.50)]", className)}>
-        <Link href={'#'} className=''>
+        <Link href={`/shop${link}`} className=''>
             <div className='relative h-full'>
                 <Image width={1080} height={1080}
+                    src={src}
                     alt={""}
-                    className="absolute top-0 left-0 h-full md:h-auto object-cover -z-10"
+                    className="absolute top-0 left-0 h-full w-full object-cover -z-10"
                 />
             </div>
             <div className="absolute bottom-0 p-4 w-full flex items-center gap-4 text-white">
@@ -45,55 +46,5 @@ const Item = ({ title, className, description }: any) => (
         </Link>
     </div>
 )
-
-const ItemB = () => (
-    <article className="w-full h-auto">
-        <Link href="#" className="">
-            <div className='relative text-white'>
-                <Image className='object-contain' width={1080} height={1080} alt="" />
-                <div className="absolute bottom-0 left-0 z-10 p-4">
-                    <h5 className=''>Magna feugiat lorem</h5>
-                    <p className='text-sm'>Nunc blandit nisi ligula magna sodales lectus elementum non. Integer id venenatis velit.</p>
-                </div>
-            </div>
-        </Link>
-    </article>
-)
-// const A = () => {
-//     return (
-//         <>
-//             <div className="aspect-square w-full relative shadow-[inset_0px_-75px_68px_-34px_rgba(0,0,0,0.50)]">
-//                 <Image width={1080} height={1080}
-//                     alt={""}
-//                     className="relative -z-10"
-//                 />
-//                 <div className="absolute bottom-0 p-4 flex items-center gap-4">
-//                     <p>Real Estate Videography</p>
-//                     <FaArrowRight />
-//                 </div>
-//             </div>
-//             <div className="aspect-square w-full relative shadow-[inset_0px_-75px_68px_-34px_rgba(0,0,0,0.50)]">
-//                 <Image width={1080} height={1080}
-//                     alt={""}
-//                     className="relative -z-10"
-//                 />
-//                 <div className="absolute bottom-0 p-4 flex items-center gap-4">
-//                     <p>Content Creation</p>
-//                     <FaArrowRight />
-//                 </div>
-//             </div>
-//             <div className="aspect-square w-full relative shadow-[inset_0px_-75px_68px_-34px_rgba(0,0,0,0.50)]">
-//                 <Image width={1080} height={1080}
-//                     alt={""}
-//                     className="relative -z-10"
-//                 />
-//                 <div className="absolute bottom-0 p-4 flex items-center gap-4">
-//                     <p>Commercial Videography</p>
-//                     <FaArrowRight />
-//                 </div>
-//             </div>
-//         </>
-//     )
-// }
 
 export default PhotoGrid

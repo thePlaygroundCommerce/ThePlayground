@@ -36,6 +36,14 @@ export default function MobileNavigation({ }: Props) {
     )
   }
 
+  const navs = [
+    { name: "Shop", link: "/shop" },
+    { name: "Our Store", link: "/about" },
+    { name: "Stories", link: "/about" },
+    { name: "Shopping Cart", link: "/cart" },
+    // { name: "Account", link: "/account" },
+  ]
+
   return (
     // <Transition show={open}>
     <div
@@ -72,76 +80,23 @@ export default function MobileNavigation({ }: Props) {
           role="list"
           className="k-nav-list w-list-unstyled"
         >
-          <li
-            data-w-id="d28673fe-a739-7b74-1763-af2ee311f258"
-            data-wf-id='["3c4b54f7-5d09-4b8c-b972-66c749e5325c","d28673fe-a739-7b74-1763-af2ee311f258"]'
-            className={clsx(classes.b, "l-nav-list-item")}
-          >
-            <a
-              data-w-id="d28673fe-a739-7b74-1763-af2ee311f259"
-              data-wf-id='["3c4b54f7-5d09-4b8c-b972-66c749e5325c","d28673fe-a739-7b74-1763-af2ee311f259"]'
-              href="/shop"
-              className="k-nav-link-s"
+          {navs.map(nav => (
+            <li
+              key={nav.name}
+              data-w-id="d28673fe-a739-7b74-1763-af2ee311f258"
+              data-wf-id='["3c4b54f7-5d09-4b8c-b972-66c749e5325c","d28673fe-a739-7b74-1763-af2ee311f258"]'
+              className={clsx(classes.b, "l-nav-list-item")}
             >
-              Shop
-            </a>
-          </li>
-          <li
-            data-w-id="d28673fe-a739-7b74-1763-af2ee311f25b"
-            data-wf-id='["3c4b54f7-5d09-4b8c-b972-66c749e5325c","d28673fe-a739-7b74-1763-af2ee311f25b"]'
-            className={clsx(classes.b, "l-nav-list-item")}
-          >
-            <a
-              data-w-id="d28673fe-a739-7b74-1763-af2ee311f25c"
-              data-wf-id='["3c4b54f7-5d09-4b8c-b972-66c749e5325c","d28673fe-a739-7b74-1763-af2ee311f25c"]'
-              href="/our-stores"
-              className="k-nav-link-s"
-            >
-              Our Store
-            </a>
-          </li>
-          <li
-            data-w-id="d28673fe-a739-7b74-1763-af2ee311f25e"
-            data-wf-id='["3c4b54f7-5d09-4b8c-b972-66c749e5325c","d28673fe-a739-7b74-1763-af2ee311f25e"]'
-            className={clsx(classes.b, "l-nav-list-item")}
-          >
-            <a
-              data-w-id="d28673fe-a739-7b74-1763-af2ee311f25f"
-              data-wf-id='["3c4b54f7-5d09-4b8c-b972-66c749e5325c","d28673fe-a739-7b74-1763-af2ee311f25f"]'
-              href="/stories"
-              className="k-nav-link-s"
-            >
-              Stories
-            </a>
-          </li>
-          <li
-            data-w-id="d28673fe-a739-7b74-1763-af2ee311f261"
-            data-wf-id='["3c4b54f7-5d09-4b8c-b972-66c749e5325c","d28673fe-a739-7b74-1763-af2ee311f261"]'
-            className={clsx(classes.b, "l-nav-list-item")}
-          >
-            <a
-              data-w-id="d28673fe-a739-7b74-1763-af2ee311f262"
-              data-wf-id='["3c4b54f7-5d09-4b8c-b972-66c749e5325c","d28673fe-a739-7b74-1763-af2ee311f262"]'
-              href="/shopping-cart"
-              className="k-nav-link-s"
-            >
-              Shopping Cart
-            </a>
-          </li>
-          <li
-            data-w-id="d28673fe-a739-7b74-1763-af2ee311f261"
-            data-wf-id='["3c4b54f7-5d09-4b8c-b972-66c749e5325c","d28673fe-a739-7b74-1763-af2ee311f261"]'
-            className={clsx(classes.b, "l-nav-list-item")}
-          >
-            <a
-              data-w-id="0189d86d-945e-84e9-0637-ff060d0f17a4"
-              data-wf-id='["3c4b54f7-5d09-4b8c-b972-66c749e5325c","0189d86d-945e-84e9-0637-ff060d0f17a4"]'
-              href="/shopping-cart"
-              className="k-nav-link-s"
-            >
-              Account
-            </a>
-          </li>
+              <a
+                data-w-id="d28673fe-a739-7b74-1763-af2ee311f259"
+                data-wf-id='["3c4b54f7-5d09-4b8c-b972-66c749e5325c","d28673fe-a739-7b74-1763-af2ee311f259"]'
+                href={nav.link}
+                className="k-nav-link-s"
+              >
+                {nav.name}
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
       <div className="p-4 pt-8">
