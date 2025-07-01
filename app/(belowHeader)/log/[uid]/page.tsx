@@ -16,7 +16,6 @@ const Page = async ({ params }: PageProps) => {
     redirect("/log")
   }
 
-  console.log(blog)
   const { sections, title, headline } = blog.data
 
   return (
