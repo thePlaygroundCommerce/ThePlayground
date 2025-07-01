@@ -7,7 +7,7 @@ import Showcase from "components/Showcase";
 import Slider, { WebflowSlider } from "components/Slider";
 import Heading from "components/typography/Heading";
 import Link from "next/link";
-import { client } from "prismicio";
+import client from "prismicio";
 import React, { Fragment } from "react";
 import { mapArrayToMap } from "util/index";
 
