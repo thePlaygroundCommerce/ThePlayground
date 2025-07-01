@@ -86,7 +86,7 @@ function Header({ navs, className, logo }: Props) {
   return (
     <header
       className={clsx(
-        overlayState.active && "h-screen overflow-hidden",
+        overlayState.active && "h-svh overflow-hidden",
         "bg-white flex flex-col w-full z-[5000] sticky top-0 col-start-1 row-start-1",
         className
       )}

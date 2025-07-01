@@ -52,5 +52,5 @@ export const createClient = (config: prismicNext.CreateClientConfig = {}) => {
   return client;
 };
 
-export default prismic
-export const client = createClient()
+export default createClient()
+export { prismic }

@@ -8,7 +8,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react";
 
 import { PrismicPreview } from "@prismicio/next";
-import prismic, { createClient, repositoryName } from "prismicio";
+import client, { prismic, repositoryName } from "prismicio";
 import { AppProps } from "index";
 import { Content } from "@prismicio/client";
 import { cookies } from "next/headers";
@@ -59,8 +59,6 @@ export const getMainNavigation: () => Promise<{
   let headerNavs: Nav[] = [];
 
   const crLinks = [".title", ".link"].map((link) => "categorylink" + link);
-
-  const client = createClient();
   const {
     results: [{ data: footerNavs }],
   } = await client.getByType<Content.FooterNavigationDocument>(
@@ -70,7 +68,7 @@ export const getMainNavigation: () => Promise<{
 
   const {
     data: { type, object_ids },
-  } = await createClient().getSingle(HEADER_NAVIGATION);
+  } = await client.getSingle(HEADER_NAVIGATION);
 
   switch (type) {
     case "square":

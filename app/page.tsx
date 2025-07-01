@@ -543,7 +543,7 @@ const page = async (props: Props) => {
           <div className="k-section-header k-s-header--pair">
             <div className="k-s__block k-s--space-r-1">
               <div className="heading-2-wrapper heading-space-2">
-                <h2 className="k-h2">Stay tuned on Instagram</h2>
+                <h2 className="k-h2">Stay Tuned On Instagram</h2>
               </div>
               <div className="k-heading-line"></div>
             </div>

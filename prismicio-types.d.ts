@@ -671,6 +671,145 @@ export type HomepageDocument<Lang extends string = string> =
   >;
 
 /**
+ * Item in *Product Content → Features *
+ */
+export interface ProductContentDocumentDataFeaturesItem {
+  /**
+   * Info Name field in *Product Content → Features *
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: product_content.features[].name
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  name: prismic.KeyTextField;
+
+  /**
+   * Info Value field in *Product Content → Features *
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: product_content.features[].value
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  value: prismic.RichTextField;
+}
+
+/**
+ * Item in *Product Content → Feature Showcases*
+ */
+export interface ProductContentDocumentDataShowcasesItem {
+  /**
+   * Image field in *Product Content → Feature Showcases*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: product_content.showcases[].image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Video field in *Product Content → Feature Showcases*
+   *
+   * - **Field Type**: Embed
+   * - **Placeholder**: *None*
+   * - **API ID Path**: product_content.showcases[].video
+   * - **Documentation**: https://prismic.io/docs/field#embed
+   */
+  video: prismic.EmbedField;
+
+  /**
+   * Title field in *Product Content → Feature Showcases*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: product_content.showcases[].title
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Description field in *Product Content → Feature Showcases*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: product_content.showcases[].description
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  description: prismic.RichTextField;
+}
+
+/**
+ * Content for Product Content documents
+ */
+interface ProductContentDocumentData {
+  /**
+   * Product ID field in *Product Content*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: product_content.product_id
+   * - **Tab**: Info
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  product_id: prismic.KeyTextField;
+
+  /**
+   * Features  field in *Product Content*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: product_content.features[]
+   * - **Tab**: Info
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  features: prismic.GroupField<
+    Simplify<ProductContentDocumentDataFeaturesItem>
+  >;
+
+  /**
+   * Feature Showcases field in *Product Content*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: product_content.showcases[]
+   * - **Tab**: Info
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  showcases: prismic.GroupField<
+    Simplify<ProductContentDocumentDataShowcasesItem>
+  >;
+
+  /**
+   * Full Width Image field in *Product Content*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: product_content.image
+   * - **Tab**: Info
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+}
+
+/**
+ * Product Content document from Prismic
+ *
+ * - **API ID**: `product_content`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type ProductContentDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<ProductContentDocumentData>,
+    "product_content",
+    Lang
+  >;
+
+/**
  * Content for Social Media Handle documents
  */
 interface SocialMediaHandleDocumentData {
@@ -800,6 +939,7 @@ export type AllDocumentTypes =
   | FooterNavigationDocument
   | HeaderDocument
   | HomepageDocument
+  | ProductContentDocument
   | SocialMediaHandleDocument
   | SocialMediaLinksDocument
   | ThePlaygroundDisplayLogoDocument;
@@ -2011,6 +2151,10 @@ declare module "@prismicio/client" {
       HomepageDocument,
       HomepageDocumentData,
       HomepageDocumentDataSlicesSlice,
+      ProductContentDocument,
+      ProductContentDocumentData,
+      ProductContentDocumentDataFeaturesItem,
+      ProductContentDocumentDataShowcasesItem,
       SocialMediaHandleDocument,
       SocialMediaHandleDocumentData,
       SocialMediaLinksDocument,

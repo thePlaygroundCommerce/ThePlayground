@@ -34,14 +34,16 @@ const RetailGridItem = ({ itemData, images, className }: OmitType<Props>) => {
   const displayImage = images.find(image => image.id === imageIds[0])?.imageData;
 
   return (
-    <div className={clsx(className, "border-0 text-center")}>
-      <Image
-        className={`mx-auto md:rounded-lg overflow-hidden w-full`}
-        width={1080}
-        height={1080}
-        src={displayImage?.url || Unavailable}
-        alt={displayImage?.caption || "Picture of shirt"}
-      />
+    <div className={clsx(className, "border-0 text-center h-full flex flex-col")}>
+      <div className='flex-1 flex flex-col justify-center'>
+        <Image
+          className={`mx-auto md:rounded-lg overflow-hidden w-full`}
+          width={1080}
+          height={1080}
+          src={displayImage?.url || Unavailable}
+          alt={displayImage?.caption || "Picture of shirt"}
+        />
+      </div>
       <div className="p-3">
         <div>{name}</div>
         <div>

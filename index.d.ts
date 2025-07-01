@@ -185,6 +185,7 @@ export type ContentData = {
 };
 export type Content = {
   image: ContentImage;
+  video?: ContentImage;
   content?: ContentData | ReactElement;
   contentStyles?: {
     classes?: string;

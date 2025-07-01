@@ -22,11 +22,23 @@ const Showcase = ({
   animate,
   flipped = false,
   image,
+  video,
   content,
   contentStyles: { classes } = {}
 }: ShowcaseProps): JSX.Element => {
   const ImageComponent = isImageProps(image) ? <Image {...image} className="w-full" /> : image;
-
+  const VideoComponent = video && (
+    <video width="320" height="240" controls preload="none">
+      <source src="/path/to/video.mp4" type="video/mp4" />
+      <track
+        src="/path/to/captions.vtt"
+        kind="subtitles"
+        srcLang="en"
+        label="English"
+      />
+      Your browser does not support the video tag.
+    </video>
+  );
   const animationClasses =
     clsx();
   // animate && "ease-in-out transition-transform transform-opacity"
