@@ -3,7 +3,7 @@ import Image from "components/Image";
 import Heading from "components/typography/Heading";
 import { PageProps } from "index";
 import { redirect } from "next/navigation";
-import { client } from "prismicio";
+import client from "prismicio";
 
 const Page = async ({ params }: PageProps) => {
   let blog;
