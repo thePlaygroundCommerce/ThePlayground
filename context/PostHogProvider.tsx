@@ -1,6 +1,5 @@
 'use client'
 
-
 import { usePathname, useSearchParams } from "next/navigation"
 import { PostHog, usePostHog } from 'posthog-js/react'
 import posthog, { PostHogConfig } from 'posthog-js'
@@ -20,22 +19,19 @@ type PostHogProviderProps = {
 
 export function PostHogProvider({ children }: AppProps & PostHogProviderProps) {
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const isNotProduction = process.env.NODE_ENV !== 'production';
-      posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY ?? "", {
-        api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
-        capture_pageview: false,
-        autocapture: isNotProduction,
-        loaded: (ph) => {
-          if (isNotProduction) {
-            ph.opt_out_capturing(); // opts a user out of event capture
-            ph.set_config({ disable_session_recording: true });
-          }
-        },
-        person_profiles: 'identified_only', // or 'always' to create profiles for anonymous users as well
-      })
-    }
-
+    const isProduction = process.env.NODE_ENV === 'production';
+    posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY ?? "", {
+      api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
+      capture_pageview: false,
+      autocapture: isProduction,
+      loaded: (ph) => {
+        if (!isProduction) {
+          ph.opt_out_capturing(); // opts a user out of event capture
+          ph.set_config({ disable_session_recording: true });
+        }
+      },
+      person_profiles: 'identified_only', // or 'always' to create profiles for anonymous users as well
+    })
   }, [])
 
   return (
