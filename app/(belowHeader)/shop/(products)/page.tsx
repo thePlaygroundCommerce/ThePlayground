@@ -6,7 +6,6 @@ import { renderLogo } from "components/LogoComponent";
 
 
 export default async function Page({ params: _params }: PageProps) {
-  const params = await _params
   const { category = "", store = "shop" } = await _params
   let items, images;
 
