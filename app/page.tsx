@@ -116,7 +116,7 @@ const page = async (props: Props) => {
       data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b28"]'
       className="k-insta-feed-slide wf-grid"
     >
-      {[pic1, pic2, pic3].map((image) => <Item {...{ image }} link="https://www.instagram.com/theplaygroundtravel/" />)}
+      {[pic1, pic2, pic3].map((image) => <Item {...{ image }} link={INSTAGRAM_URL} />)}
     </div>,
     <div
       data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b36"
@@ -124,7 +124,7 @@ const page = async (props: Props) => {
       className="k-insta-feed-slide wf-grid"
       aria-hidden="true"
     >
-      {[pic4, pic5, pic6].map((image) => <Item {...{ image }} link="www.instagram.com/" />)}
+      {[pic4, pic5, pic6].map((image) => <Item {...{ image }} link={INSTAGRAM_URL} />)}
     </div>
   ];
 
