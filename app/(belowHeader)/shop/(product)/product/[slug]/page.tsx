@@ -33,7 +33,9 @@ const Page = async ({ params, searchParams }: PageProps) => {
     ;
 
   const { items, images } = await searchCatalogItems("");
-  const { data } = await client.getByUID("product_content", catalogObject.id.toLowerCase())
+
+
+  const { data } = await client.getByUID("product_content", catalogObject.id.toLowerCase()).catch((e) => ({ data: undefined }))
 
   const relatedItems = items
     .filter(({ id }) => id !== catalogObject.id)
