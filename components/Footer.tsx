@@ -33,7 +33,7 @@ async function Footer({ navs }: Props) {
 
   const storeCategoryLinks = mappedCatalogObjects.categories.map((category) => ({
     name: category.categoryData?.name,
-    link: "/shop/" + category.categoryData?.name?.toLowerCase().replace(" ", "")
+    link: "/shop/" + (category.categoryData?.name?.toLowerCase().replace(" ", "") ?? "")
   }))
 
   return (
