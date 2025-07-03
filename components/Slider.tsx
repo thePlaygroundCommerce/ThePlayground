@@ -10,6 +10,7 @@ import { AppProps, Content, ContentData } from "index";
 import staticImages from "util/images";
 import { useRef, useState, useMemo, Children, useEffect } from "react";
 import { Button } from "@headlessui/react";
+import { isArray } from "lodash";
 
 type Props = {
   slide?: boolean;
@@ -261,16 +262,6 @@ export const WebflowSlider = ({
   const indicatorContainerRef = useRef(null);
   const [timeoutInProgress, setTimeoutInProgress] = useState(false); // a boolean for if timeout is im progress, used to stop user from spam clicking next or back in certain conditions
 
-
-
-  /**
-   * Total item
-   */
-  const originalItemsLength = useMemo(
-    () => Children.count(children),
-    [children]
-  );
-
   /**
    * Is the carousel repeating it's item
    */
@@ -284,6 +275,14 @@ export const WebflowSlider = ({
    */
   const [currentIndex, setCurrentIndex] = useState(
     isRepeating ? visibleItemsCount : 0
+  );
+
+  /**
+   * Total item
+   */
+  const originalItemsLength = useMemo(
+    () => Children.count(children),
+    [children]
   );
 
   /**

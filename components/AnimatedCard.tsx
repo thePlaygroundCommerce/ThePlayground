@@ -5,8 +5,8 @@ import { useState, MouseEventHandler } from "react"
 import Image from "./Image"
 import Button from "./Button";
 
-const title = "the new lookbook"
-const description = "Daily Inspiration and Beauty Advices."
+const title = "the new log"
+const description = "Daily Inspiration, local adventures and awesome events."
 
 const AnimatedCard = ({
     items = [

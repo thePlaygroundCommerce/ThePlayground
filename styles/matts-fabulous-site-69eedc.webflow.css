@@ -2163,7 +2163,6 @@ blockquote {
 }
 
 .k-insta-overlay {
-  opacity: 0;
   color: var(--white);
   background-color: #1b1b1b59;
   grid-template-rows: auto auto;

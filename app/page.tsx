@@ -24,12 +24,12 @@ import pic3 from "public/images/nappy.jpg"
 
 import pic4 from "public/images/fotosragrop.jpg"
 import pic5 from "public/images/laptopbag.jpg"
-import pic6 from "public/images/andrea.jpg"
+import pic6 from "public/images/holder.jpg"
 
-import pic7 from "public/images/konyk.jpeg"
+import pic7 from "public/images/work.jpg"
 
-import pic8 from "public/images/field.jpeg"
-import pic9 from "public/images/pawan.jpg"
+import pic8 from "public/images/toilet.jpg"
+import pic9 from "public/images/cubes.jpg"
 import pic10 from "public/images/oliur.jpg"
 
 
@@ -39,6 +39,52 @@ import pic12 from "public/images/lucas.jpg"
 
 type Props = {};
 
+const Item = ({
+  image,
+  link = "#"
+}: {
+  image: any
+  link: string
+}) => (
+  <a
+    data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b29"
+    data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b29"]'
+    href={link}
+    className="k-insta-post w-inline-block"
+  >
+    <Image
+      src={image}
+      loading="lazy"
+      alt=""
+      className="k-insta-img"
+    />
+    <div
+      data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b2b"
+      data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b2b"]'
+      className="k-insta-overlay hover:opacity-100 opacity-0 transition-opacity duration-500"
+    // style={{ opacity: 0 }}
+    >
+      <div
+        data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b2c"
+        data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b2c"]'
+        className="k-icon-24 w-embed"
+      >
+        <svg
+          fill="currentColor"
+          viewBox="0 0 24 24"
+          height={24}
+          width={24}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M16.98 0a6.9 6.9 0 0 1 5.08 1.98A6.94 6.94 0 0 1 24 7.02v9.96c0 2.08-.68 3.87-1.98 5.13A7.14 7.14 0 0 1 16.94 24H7.06a7.06 7.06 0 0 1-5.03-1.89A6.96 6.96 0 0 1 0 16.94V7.02C0 2.8 2.8 0 7.02 0h9.96zm.05 2.23H7.06c-1.45 0-2.7.43-3.53 1.25a4.82 4.82 0 0 0-1.3 3.54v9.92c0 1.5.43 2.7 1.3 3.58a5 5 0 0 0 3.53 1.25h9.88a5 5 0 0 0 3.53-1.25 4.73 4.73 0 0 0 1.4-3.54V7.02a5 5 0 0 0-1.3-3.49 4.82 4.82 0 0 0-3.54-1.3zM12 5.76c3.39 0 6.2 2.8 6.2 6.2a6.2 6.2 0 0 1-12.4 0 6.2 6.2 0 0 1 6.2-6.2zm0 2.22a3.99 3.99 0 0 0-3.97 3.97A3.99 3.99 0 0 0 12 15.92a3.99 3.99 0 0 0 3.97-3.97A3.99 3.99 0 0 0 12 7.98zm6.44-3.77a1.4 1.4 0 1 1 0 2.8 1.4 1.4 0 0 1 0-2.8z" />
+        </svg>
+      </div>
+    </div>
+  </a>
+
+)
+
+const INSTAGRAM_URL = "https://www.instagram.com/theplaygroundtravel/";
 const page = async (props: Props) => {
   const { objects } = await searchItems({ categoryIds: [] });
   const { items, images } = mapArrayToMap(objects);
@@ -70,117 +116,7 @@ const page = async (props: Props) => {
       data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b28"]'
       className="k-insta-feed-slide wf-grid"
     >
-      <Link
-        data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b29"
-        data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b29"]'
-        href="#"
-        className="k-insta-post w-inline-block"
-      >
-        <Image
-          src={pic1}
-          loading="lazy"
-          data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b2a"]'
-          data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b2a"
-          alt="Boy 12 years wearing coat "
-          className="k-insta-img"
-        />
-        <div
-          data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b2b"
-          data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b2b"]'
-          className="k-insta-overlay"
-          style={{ opacity: 0 }}
-        >
-          <div
-            data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b2c"
-            data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b2c"]'
-            className="k-icon-24 w-embed"
-          >
-            <svg
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              height={24}
-              width={24}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M16.98 0a6.9 6.9 0 0 1 5.08 1.98A6.94 6.94 0 0 1 24 7.02v9.96c0 2.08-.68 3.87-1.98 5.13A7.14 7.14 0 0 1 16.94 24H7.06a7.06 7.06 0 0 1-5.03-1.89A6.96 6.96 0 0 1 0 16.94V7.02C0 2.8 2.8 0 7.02 0h9.96zm.05 2.23H7.06c-1.45 0-2.7.43-3.53 1.25a4.82 4.82 0 0 0-1.3 3.54v9.92c0 1.5.43 2.7 1.3 3.58a5 5 0 0 0 3.53 1.25h9.88a5 5 0 0 0 3.53-1.25 4.73 4.73 0 0 0 1.4-3.54V7.02a5 5 0 0 0-1.3-3.49 4.82 4.82 0 0 0-3.54-1.3zM12 5.76c3.39 0 6.2 2.8 6.2 6.2a6.2 6.2 0 0 1-12.4 0 6.2 6.2 0 0 1 6.2-6.2zm0 2.22a3.99 3.99 0 0 0-3.97 3.97A3.99 3.99 0 0 0 12 15.92a3.99 3.99 0 0 0 3.97-3.97A3.99 3.99 0 0 0 12 7.98zm6.44-3.77a1.4 1.4 0 1 1 0 2.8 1.4 1.4 0 0 1 0-2.8z" />
-            </svg>
-          </div>
-        </div>
-      </Link>
-      <Link
-        data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b2d"
-        data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b2d"]'
-        href="#"
-        className="k-insta-post w-inline-block"
-      >
-        <Image
-          src={pic2}
-          loading="lazy"
-          data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b2e"]'
-          data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b2e"
-          alt="Boy wearing hood "
-          className="k-insta-img"
-        />
-        <div
-          data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b2f"
-          data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b2f"]'
-          className="k-insta-overlay"
-          style={{ opacity: 0 }}
-        >
-          <div
-            data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b30"
-            data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b30"]'
-            className="k-icon-24 w-embed"
-          >
-            <svg
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              height={24}
-              width={24}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M16.98 0a6.9 6.9 0 0 1 5.08 1.98A6.94 6.94 0 0 1 24 7.02v9.96c0 2.08-.68 3.87-1.98 5.13A7.14 7.14 0 0 1 16.94 24H7.06a7.06 7.06 0 0 1-5.03-1.89A6.96 6.96 0 0 1 0 16.94V7.02C0 2.8 2.8 0 7.02 0h9.96zm.05 2.23H7.06c-1.45 0-2.7.43-3.53 1.25a4.82 4.82 0 0 0-1.3 3.54v9.92c0 1.5.43 2.7 1.3 3.58a5 5 0 0 0 3.53 1.25h9.88a5 5 0 0 0 3.53-1.25 4.73 4.73 0 0 0 1.4-3.54V7.02a5 5 0 0 0-1.3-3.49 4.82 4.82 0 0 0-3.54-1.3zM12 5.76c3.39 0 6.2 2.8 6.2 6.2a6.2 6.2 0 0 1-12.4 0 6.2 6.2 0 0 1 6.2-6.2zm0 2.22a3.99 3.99 0 0 0-3.97 3.97A3.99 3.99 0 0 0 12 15.92a3.99 3.99 0 0 0 3.97-3.97A3.99 3.99 0 0 0 12 7.98zm6.44-3.77a1.4 1.4 0 1 1 0 2.8 1.4 1.4 0 0 1 0-2.8z" />
-            </svg>
-          </div>
-        </div>
-      </Link>
-      <Link
-        data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b31"
-        data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b31"]'
-        href="#"
-        className="k-insta-post w-inline-block"
-      >
-        <Image
-          src={pic3}
-          loading="lazy"
-          data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b32"]'
-          data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b32"
-          alt="Boy wearongzebra crossing short"
-          className="k-insta-img"
-        />
-        <div
-          data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b33"
-          data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b33"]'
-          className="k-insta-overlay"
-          style={{ opacity: 0 }}
-        >
-          <div
-            data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b34"
-            data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b34"]'
-            className="k-icon-24 w-embed"
-          >
-            <svg
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              height={24}
-              width={24}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M16.98 0a6.9 6.9 0 0 1 5.08 1.98A6.94 6.94 0 0 1 24 7.02v9.96c0 2.08-.68 3.87-1.98 5.13A7.14 7.14 0 0 1 16.94 24H7.06a7.06 7.06 0 0 1-5.03-1.89A6.96 6.96 0 0 1 0 16.94V7.02C0 2.8 2.8 0 7.02 0h9.96zm.05 2.23H7.06c-1.45 0-2.7.43-3.53 1.25a4.82 4.82 0 0 0-1.3 3.54v9.92c0 1.5.43 2.7 1.3 3.58a5 5 0 0 0 3.53 1.25h9.88a5 5 0 0 0 3.53-1.25 4.73 4.73 0 0 0 1.4-3.54V7.02a5 5 0 0 0-1.3-3.49 4.82 4.82 0 0 0-3.54-1.3zM12 5.76c3.39 0 6.2 2.8 6.2 6.2a6.2 6.2 0 0 1-12.4 0 6.2 6.2 0 0 1 6.2-6.2zm0 2.22a3.99 3.99 0 0 0-3.97 3.97A3.99 3.99 0 0 0 12 15.92a3.99 3.99 0 0 0 3.97-3.97A3.99 3.99 0 0 0 12 7.98zm6.44-3.77a1.4 1.4 0 1 1 0 2.8 1.4 1.4 0 0 1 0-2.8z" />
-            </svg>
-          </div>
-        </div>
-      </Link>
+      {[pic1, pic2, pic3].map((image) => <Item {...{ image }} link="https://www.instagram.com/theplaygroundtravel/" />)}
     </div>,
     <div
       data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b36"
@@ -188,147 +124,8 @@ const page = async (props: Props) => {
       className="k-insta-feed-slide wf-grid"
       aria-hidden="true"
     >
-      <Link
-        data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b37"
-        data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b37"]'
-        href="#"
-        className="k-insta-post w-inline-block"
-        tabIndex={-1}
-        aria-hidden="true"
-      >
-        <Image
-          src={pic4}
-          loading="lazy"
-          data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b38"]'
-          data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b38"
-          alt=""
-          className="k-insta-img"
-          aria-hidden="true"
-        />
-        <div
-          data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b39"
-          data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b39"]'
-          className="k-insta-overlay"
-          style={{ opacity: 0 }}
-          aria-hidden="true"
-        >
-          <div
-            data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b3a"
-            data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b3a"]'
-            className="k-icon-24 w-embed"
-            aria-hidden="true"
-          >
-            <svg
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              height={24}
-              width={24}
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-            >
-              <path
-                d="M16.98 0a6.9 6.9 0 0 1 5.08 1.98A6.94 6.94 0 0 1 24 7.02v9.96c0 2.08-.68 3.87-1.98 5.13A7.14 7.14 0 0 1 16.94 24H7.06a7.06 7.06 0 0 1-5.03-1.89A6.96 6.96 0 0 1 0 16.94V7.02C0 2.8 2.8 0 7.02 0h9.96zm.05 2.23H7.06c-1.45 0-2.7.43-3.53 1.25a4.82 4.82 0 0 0-1.3 3.54v9.92c0 1.5.43 2.7 1.3 3.58a5 5 0 0 0 3.53 1.25h9.88a5 5 0 0 0 3.53-1.25 4.73 4.73 0 0 0 1.4-3.54V7.02a5 5 0 0 0-1.3-3.49 4.82 4.82 0 0 0-3.54-1.3zM12 5.76c3.39 0 6.2 2.8 6.2 6.2a6.2 6.2 0 0 1-12.4 0 6.2 6.2 0 0 1 6.2-6.2zm0 2.22a3.99 3.99 0 0 0-3.97 3.97A3.99 3.99 0 0 0 12 15.92a3.99 3.99 0 0 0 3.97-3.97A3.99 3.99 0 0 0 12 7.98zm6.44-3.77a1.4 1.4 0 1 1 0 2.8 1.4 1.4 0 0 1 0-2.8z"
-                aria-hidden="true"
-              />
-            </svg>
-          </div>
-        </div>
-      </Link>
-      <Link
-        data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b3b"
-        data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b3b"]'
-        href="#"
-        className="k-insta-post w-inline-block"
-        tabIndex={-1}
-        aria-hidden="true"
-      >
-        <Image
-          src={pic5}
-          loading="lazy"
-          data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b3c"]'
-          data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b3c"
-          alt=""
-          className="k-insta-img"
-          aria-hidden="true"
-        />
-        <div
-          data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b3d"
-          data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b3d"]'
-          className="k-insta-overlay"
-          style={{ opacity: 0 }}
-          aria-hidden="true"
-        >
-          <div
-            data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b3e"
-            data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b3e"]'
-            className="k-icon-24 w-embed"
-            aria-hidden="true"
-          >
-            <svg
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              height={24}
-              width={24}
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-            >
-              <path
-                d="M16.98 0a6.9 6.9 0 0 1 5.08 1.98A6.94 6.94 0 0 1 24 7.02v9.96c0 2.08-.68 3.87-1.98 5.13A7.14 7.14 0 0 1 16.94 24H7.06a7.06 7.06 0 0 1-5.03-1.89A6.96 6.96 0 0 1 0 16.94V7.02C0 2.8 2.8 0 7.02 0h9.96zm.05 2.23H7.06c-1.45 0-2.7.43-3.53 1.25a4.82 4.82 0 0 0-1.3 3.54v9.92c0 1.5.43 2.7 1.3 3.58a5 5 0 0 0 3.53 1.25h9.88a5 5 0 0 0 3.53-1.25 4.73 4.73 0 0 0 1.4-3.54V7.02a5 5 0 0 0-1.3-3.49 4.82 4.82 0 0 0-3.54-1.3zM12 5.76c3.39 0 6.2 2.8 6.2 6.2a6.2 6.2 0 0 1-12.4 0 6.2 6.2 0 0 1 6.2-6.2zm0 2.22a3.99 3.99 0 0 0-3.97 3.97A3.99 3.99 0 0 0 12 15.92a3.99 3.99 0 0 0 3.97-3.97A3.99 3.99 0 0 0 12 7.98zm6.44-3.77a1.4 1.4 0 1 1 0 2.8 1.4 1.4 0 0 1 0-2.8z"
-                aria-hidden="true"
-              />
-            </svg>
-          </div>
-        </div>
-      </Link>
-      <Link
-        data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b3f"
-        data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b3f"]'
-        href="#"
-        className="k-insta-post w-inline-block"
-        tabIndex={-1}
-        aria-hidden="true"
-      >
-        <Image
-          src={pic6}
-          loading="lazy"
-          data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b40"]'
-          data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b40"
-          alt=""
-          className="k-insta-img"
-          aria-hidden="true"
-        />
-        <div
-          data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b41"
-          data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b41"]'
-          className="k-insta-overlay"
-          style={{ opacity: 0 }}
-          aria-hidden="true"
-        >
-          <div
-            data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b42"
-            data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b42"]'
-            className="k-icon-24 w-embed"
-            aria-hidden="true"
-          >
-            <svg
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              height={24}
-              width={24}
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-            >
-              <path
-                d="M16.98 0a6.9 6.9 0 0 1 5.08 1.98A6.94 6.94 0 0 1 24 7.02v9.96c0 2.08-.68 3.87-1.98 5.13A7.14 7.14 0 0 1 16.94 24H7.06a7.06 7.06 0 0 1-5.03-1.89A6.96 6.96 0 0 1 0 16.94V7.02C0 2.8 2.8 0 7.02 0h9.96zm.05 2.23H7.06c-1.45 0-2.7.43-3.53 1.25a4.82 4.82 0 0 0-1.3 3.54v9.92c0 1.5.43 2.7 1.3 3.58a5 5 0 0 0 3.53 1.25h9.88a5 5 0 0 0 3.53-1.25 4.73 4.73 0 0 0 1.4-3.54V7.02a5 5 0 0 0-1.3-3.49 4.82 4.82 0 0 0-3.54-1.3zM12 5.76c3.39 0 6.2 2.8 6.2 6.2a6.2 6.2 0 0 1-12.4 0 6.2 6.2 0 0 1 6.2-6.2zm0 2.22a3.99 3.99 0 0 0-3.97 3.97A3.99 3.99 0 0 0 12 15.92a3.99 3.99 0 0 0 3.97-3.97A3.99 3.99 0 0 0 12 7.98zm6.44-3.77a1.4 1.4 0 1 1 0 2.8 1.4 1.4 0 0 1 0-2.8z"
-                aria-hidden="true"
-              />
-            </svg>
-          </div>
-        </div>
-      </Link>
+      {[pic4, pic5, pic6].map((image) => <Item {...{ image }} link="www.instagram.com/" />)}
     </div>
-
-
   ];
 
   const gridItems: (ContentImage | ContentData)[] = [
@@ -368,7 +165,7 @@ const page = async (props: Props) => {
       // src: pic1,
       // objectFit: "contain",
       title: "Duffel Bags",
-      src: pic6
+      src: pic10
     },
     {
       // src: pic1,
@@ -392,7 +189,7 @@ const page = async (props: Props) => {
       // src: pic1,
       // objectFit: "contain",
       title: "Travel Accessories",
-      src: pic10
+      src: pic6
     },
     // {
     //   title: <Heading>Our Mission</Heading>,
@@ -549,7 +346,7 @@ const page = async (props: Props) => {
             </div>
             <div className="k-s__block">
               <div className="k-button-wrap k-right-align">
-                <a href="#" className="k-btn w-button">
+                <a href={INSTAGRAM_URL} className="k-btn w-button">
                   follow us
                 </a>
               </div>
