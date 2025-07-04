@@ -40,10 +40,11 @@ const ProductGrid = ({ catalogItems, catalogImages, type }: Props) => {
 
 const EmptyProductGrid = () => (
   <div>
+    <div className="text-center my-5">
+      <p>Oddly, we don't have any products right now.</p>
+    </div>
     <div>
-      <div className="text-center my-5">
-        <p>Oddly, we don't have any products right now.</p>
-      </div>
+      
     </div>
   </div>
 );
