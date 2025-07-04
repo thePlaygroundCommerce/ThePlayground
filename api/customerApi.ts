@@ -25,7 +25,10 @@ export const searchCatalogItems = async (category: string) => {
   else if (!id) return redirect("/shop");
   else searchPayload.categoryIds = [id];
 
-  const { objects = [] } = await searchItems(searchPayload);
+  const { objects = [] } = await searchItems(searchPayload).catch((err) => {
+    console.log(err);
+    return { objects: [] };
+  });
 
   return mapArrayToMap(objects);
 };
