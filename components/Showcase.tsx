@@ -47,7 +47,7 @@ const Showcase = ({
 
   return (
     <div
-      className={clsx(animationClasses, "grid md:max-h-screen sm:h-full lg:grid-cols-2 gap-4")}
+      className={clsx(animationClasses, "grid sm:h-full lg:grid-cols-2 gap-4")}
     >
       <Transition>
         {(start: boolean) => (
