@@ -10,6 +10,7 @@ import Transition from "components/Transition";
 import { loremIpsum } from "lorem-ipsum";
 import { Content } from "index";
 import { renderContent } from "util/index";
+import MuxPlayer from "@mux/mux-player-react";
 
 type ShowcaseProps = Content & {
   flipped?: boolean;
@@ -27,20 +28,23 @@ const Showcase = ({
   contentStyles: { classes } = {}
 }: ShowcaseProps): JSX.Element => {
   const ImageComponent = isImageProps(image) ? <Image {...image} className="w-full" /> : image;
-  const VideoComponent = video && (
-    <video width="320" height="240" controls preload="none">
-      <source src="/path/to/video.mp4" type="video/mp4" />
-      <track
-        src="/path/to/captions.vtt"
-        kind="subtitles"
-        srcLang="en"
-        label="English"
-      />
-      Your browser does not support the video tag.
-    </video>
-  );
-  const animationClasses =
-    clsx();
+  const VideoComponent = video?.playback_id && (
+    <MuxPlayer playbackId={video?.playback_id} autoPlay={true}
+      muted={true}
+      style={{
+        //@ts-ignore
+        "--controls": "none", // Hides the entire control bar
+        "--play-button": "none",
+        "--seek-backward-button": "none",
+        "--seek-forward-button": "none",
+        "--volume-range": "none",
+        "--time-display": "none",
+        "--fullscreen-button": "none",
+        // Add other specific controls you want to hide explicitly
+      }}
+    />
+  )
+  const animationClasses = clsx();
   // animate && "ease-in-out transition-transform transform-opacity"
 
   //delay-[500ms] delay-[1000ms] delay-[1500ms] delay-[3500ms]
@@ -60,7 +64,7 @@ const Showcase = ({
                 // classes?.image
               )}
             >
-              {ImageComponent}
+              {VideoComponent || ImageComponent}
             </div>
             <div className={clsx("w-full", flipped && "sm:order-first")}>
               {renderContent(

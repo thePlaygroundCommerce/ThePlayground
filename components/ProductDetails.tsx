@@ -43,12 +43,12 @@ const ProductDetails = ({
         <Money number={price} />
       </div>
       <h2>{name}</h2>
-      <div
+      {/* <div
         data-wf-sku-bindings="%5B%7B%22from%22%3A%22f_sku_%22%2C%22to%22%3A%22innerHTML%22%7D%5D"
         className="k-product-sku"
       >
         REF. 87035655-ALOHA-LO
-      </div>
+      </div> */}
       <div className="k-heading-line k-line-space-around" />
       <p className="k-product-main-desc">
         {description}

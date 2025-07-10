@@ -335,7 +335,7 @@ const page = async (props: Props) => {
       <div className="section section--spaced-1">
         <PhotoGrid gridItems={gridItems} />
       </div>
-      <div className="section section--spaced-1">
+      <div className="section section--spaced-1 pb-12">
         <div className="k-container-1">
           <div className="k-section-header k-s-header--pair">
             <div className="k-s__block k-s--space-r-1">

@@ -171,6 +171,10 @@ export type ImageProps = Omit<
 export type Modify<T, R> = Omit<T, keyof R> & R;
 
 export type ContentImage = ImageProps | NonNullable<ReactElement>;
+export type ContentVideo = {
+  playback_id?: string
+  src?: string
+}
 export type ContentData = {
   title: ReactElement | string | null;
   description?: ReactElement | string | null;
@@ -185,7 +189,7 @@ export type ContentData = {
 };
 export type Content = {
   image: ContentImage;
-  video?: ContentImage;
+  video?: ContentVideo;
   content?: ContentData | ReactElement;
   contentStyles?: {
     classes?: string;

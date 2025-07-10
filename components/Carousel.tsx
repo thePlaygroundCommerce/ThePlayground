@@ -133,7 +133,7 @@ export const WebflowCarousel = ({
           <div className="sr-only">goto next slide</div>
         </a>
       </div> */}
-      <div id="slides_count_wrapper" className="k-slider-numbers">
+      {/* <div id="slides_count_wrapper" className="k-slider-numbers">
         <div id="counter" className="k-active-no-slide">
           01
         </div>
@@ -141,7 +141,7 @@ export const WebflowCarousel = ({
         <div id="total_Slides" className="k-total-no-slides">
           04
         </div>
-      </div>
+      </div> */}
       <div className="k-slider-mask-2 w-slider-mask">
         <div className="k-hero-slider-slide w-slide" style={{ height: "100%" }}>
           <div

@@ -710,16 +710,6 @@ export interface ProductContentDocumentDataShowcasesItem {
   image: prismic.ImageField<never>;
 
   /**
-   * Video field in *Product Content → Feature Showcases*
-   *
-   * - **Field Type**: Embed
-   * - **Placeholder**: *None*
-   * - **API ID Path**: product_content.showcases[].video
-   * - **Documentation**: https://prismic.io/docs/field#embed
-   */
-  video: prismic.EmbedField;
-
-  /**
    * Title field in *Product Content → Feature Showcases*
    *
    * - **Field Type**: Text
@@ -738,6 +728,16 @@ export interface ProductContentDocumentDataShowcasesItem {
    * - **Documentation**: https://prismic.io/docs/field#rich-text-title
    */
   description: prismic.RichTextField;
+
+  /**
+   * Video Playback ID field in *Product Content → Feature Showcases*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: product_content.showcases[].video_playback_id
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  video_playback_id: prismic.KeyTextField;
 }
 
 /**
