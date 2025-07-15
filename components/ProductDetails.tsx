@@ -40,7 +40,7 @@ const ProductDetails = ({
         data-wf-sku-bindings="%5B%7B%22from%22%3A%22f_price_%22%2C%22to%22%3A%22innerHTML%22%7D%5D"
         className="k-product-price"
       >
-        <Money number={price} />
+        <Money className="font-bold text-xl" number={price} />
       </div>
       <h2>{name}</h2>
       {/* <div

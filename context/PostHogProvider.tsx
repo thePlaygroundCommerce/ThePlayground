@@ -25,7 +25,7 @@ export function PostHogProvider({ children }: AppProps & PostHogProviderProps) {
       capture_pageview: false,
       autocapture: isProduction,
       loaded: (ph) => {
-        if (isProduction) {
+        if (!isProduction) {
           ph.opt_out_capturing(); // opts a user out of event capture
           ph.set_config({ disable_session_recording: true });
         }
