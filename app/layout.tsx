@@ -25,10 +25,10 @@ import { config } from '@fortawesome/fontawesome-svg-core'
 // import '@fortawesome/fontawesome-svg-core/styles.css'
 import LogoComponent, { renderLogo } from "components/LogoComponent";
 import { ReactElement } from "react";
-// import "styles/globals.css";
+import "styles/globals.css";
 // import "lib/js/webflow.js"
-import "styles/webflow.css";
-import "styles/matts-fabulous-site-69eedc.webflow.css";
+// import "styles/webflow.css";
+// import "styles/webflowA.css";
 config.autoAddCss = false
 
 export const metadata: Metadata = {
@@ -113,6 +113,8 @@ export default async function RootLayout({ children, info }: LayoutPageProps & {
     locationId: ""
   }, imageMap = {}, options = [], relatedObjects = [] } = await callGetCart(cookieCartId);
 
+  const test = !cookieCartId? "A" : "B";
+
   const { objects: apparelObjects = [] } = await getCatalogObjects(
     "ITEM,IMAGE,CATEGORY,ITEM_OPTION"
   );
@@ -176,32 +178,3 @@ const Layout = ({ children, info, navs, navs: { footerNavs } }: LayoutProps & { 
   );
 
 }
-
-const A = () => (
-  <html
-    lang="en"
-    className={clsx("h-auto md:h-screen", latoRegular.className)}
-  >
-    <body className="h-full">
-      {/* <CustomProvider>
-        <Providers data={mappedCatalogObjects} cartData={{ _cart: cart, _options: options }} cartImageMap={imageMap}>
-          <Layout info={info} navs={{ headerNavs, footerNavs }}>
-            {children}
-          </Layout>
-        </Providers>
-      </CustomProvider> */}
-      <PrismicPreview repositoryName={repositoryName} />
-      <SpeedInsights />
-      <Analytics />
-      <noscript>
-        <img
-          height="1"
-          width="1"
-          style={{ display: "none" }}
-          src="https://www.facebook.com/tr?id=1052870693055851&ev=PageView&noscript=1"
-        />
-      </noscript>
-    </body>
-    <FacebookPixel />
-  </html>
-)

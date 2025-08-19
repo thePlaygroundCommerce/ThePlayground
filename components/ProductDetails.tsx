@@ -7,6 +7,10 @@ import withProductModifiers, {
   WithProductModifiersProps,
 } from "hocs/withProductModifiers";
 import Button from "./Button";
+import { ReactNode } from "react";
+import Rating from "./Rating";
+import Modal from "./Modal";
+import Selector from "./ColorSelector";
 
 export type ProductDetailsProps = {
   price: number
@@ -14,9 +18,11 @@ export type ProductDetailsProps = {
   description: string
   selectors: Selectors
   cartModifiers: CartModifiers
+  productImageGallery: ReactNode
 } & WithProductModifiersProps
 
 const ProductDetails = ({
+  productImageGallery,
   isCartLoading,
   isCheckoutLoading,
   isProductInCart: _isProductInCart,
@@ -35,24 +41,38 @@ const ProductDetails = ({
   const isProductInCart = _isProductInCart()
 
   return (
-    <div className="k-product-details">
-      <div
-        data-wf-sku-bindings="%5B%7B%22from%22%3A%22f_price_%22%2C%22to%22%3A%22innerHTML%22%7D%5D"
-        className="k-product-price"
-      >
-        <Money className="font-bold text-xl" number={price} />
-      </div>
-      <h2>{name}</h2>
+    <div className="k-product-details relative">
       {/* <div
         data-wf-sku-bindings="%5B%7B%22from%22%3A%22f_sku_%22%2C%22to%22%3A%22innerHTML%22%7D%5D"
         className="k-product-sku"
       >
         REF. 87035655-ALOHA-LO
       </div> */}
-      <div className="k-heading-line k-line-space-around" />
-      <p className="k-product-main-desc">
+      {/* <div className="k-heading-line k-line-space-around" /> */}
+      <div className="min-h-[50vh] flex flex-col">
+        {productImageGallery}
+      </div>
+      <div className="flex justify-between mb-2 mt-6">
+        <div
+          data-wf-sku-bindings="%5B%7B%22from%22%3A%22f_price_%22%2C%22to%22%3A%22innerHTML%22%7D%5D"
+          className="k-product-price"
+        >
+          <Money className="font-bold text-xl" number={price} />
+        </div>
+        <Rating amount={5} />
+      </div>
+      <h2>{name}</h2>
+      {/* <p className="k-product-main-desc">
         {description}
-      </p>
+      </p> */}
+      <div className="mt-4 flex flex-col gap-4">
+        {Object.entries(selectors).map(([k, v]) => (
+          <div key={k}>
+            <p>{_.capitalize(k)}</p>
+            <Selector {...v} />
+          </div>
+        ))}
+      </div>
       <div className="k-add-to-cart-widget">
         <form
           data-node-type="commerce-add-to-cart-form"
@@ -69,13 +89,13 @@ const ProductDetails = ({
                 data-loading-text="Adding to cart..."
                 aria-busy="false"
                 aria-haspopup="dialog"
-                className="w-commerce-commerceaddtocartbutton k-btn min-w-42 justify-center"
+                className="w-commerce-commerceaddtocartbutton k-btn w-full justify-center"
                 onClick={isProductInCart ? cartModifiers.handleRemoveFromCart : cartModifiers.handleAddToCart}
               >
                 {isProductInCart ? "Remove from Cart" : "Add To Cart"}
               </Button>
             </div>
-            <div className="btn-wrap-1">
+            {/* <div className="btn-wrap-1">
               <Button
                 loading={isCheckoutLoading}
                 data-node-type="commerce-buy-now-button"
@@ -90,7 +110,7 @@ const ProductDetails = ({
               >
                 Buy now
               </Button>
-            </div>
+            </div> */}
           </div>
           {/* <div className="grid grid-cols-1 gap-1 justify-around w-full">
             {cartModifiers}
@@ -125,6 +145,9 @@ const ProductDetails = ({
           </div>
         </div>
       </div>
+      {/* <div className="absolute h-screen bg-white top-0 left-0 w-full">
+            Hello
+      </div> */}
     </div>
   )
 };

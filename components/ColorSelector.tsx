@@ -15,12 +15,12 @@ type Props<Data> = {
   data: Data[];
 };
 
-const Selector = <T,>({
+const Selector = ({
   type,
   data,
   onChange,
   ...rest
-}: Props<CatalogObject | undefined>) => {
+}: Props<CatalogObject>) => {
   const Component = selectorCompMap[type ?? "RADIO"];
   if (!Component) throw Error("Selector type doesn't map to a Component");
 
@@ -62,12 +62,13 @@ const RadioSelector = ({
   title = title.split(" ").map(_.capitalize).join(" ");
 
   return (
-    <div className="w-full flex justify-around items-center">
+    <div className="w-full flex flex-col-reverse justify-center items-center gap-2">
       <p>{title}</p>
-      <div className="flex justify-center">
+      <div className="flex justify-center gap-2">
         {data.map(({ label, value }: any, i: string | number) => {
           return (
             <Radio
+              className="size-8"
               onClick={onChange}
               checked={i === selected}
               key={label}
@@ -86,7 +87,7 @@ const DropdownSelector = ({
   data = [],
   onChange,
 }: Props<SelectorProps>) => {
-  return ( null
+  return (null
     // <SelectPicker
     //   data={data}
     //   onChange={onChange}
@@ -163,7 +164,7 @@ const ProductSelector = ({
   );
 };
 
-type SelectorComponentMap = {
+export type SelectorComponentMap = {
   RADIO: ({
     selectedIndex,
     data,

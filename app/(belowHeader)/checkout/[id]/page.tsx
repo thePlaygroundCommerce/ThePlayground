@@ -19,65 +19,86 @@ import { PageProps } from "index";
 const Page = async ({ params, searchParams }: PageProps) => {
   let processedCartImages;
   let processedCart;
-  let options;
   let oldCart;
 
   const { id } = await params;
-  const { quantity = "1", quick = "false" } = await searchParams;
+  const { order, imageMap, options } = await callGetCart(id);
+  if (!order || (order?.tenders ?? []).length === 0) {
+    return redirect("/")
+  }
+
   const cartId = (await cookies()).get("cartId")?.value;
 
-  if (quick) {
-    oldCart = {
-      lineItems: [
-        {
-          catalogObjectId: id,
-          quantity: Array.isArray(quantity) ? quantity[0] : quantity,
-        },
-      ],
-    };
-  } else {
-    const { order, imageMap } = await callGetCart(cartId ?? "");
-    oldCart = order;
-  }
-  if (!oldCart) throw Error("Order missing!");
+  // await callUpdateCart({
+  //   orderId: cartId,
+  //   order: {
+  //     version: order?.version,
+  //     locationId: order?.locationId,
+  //     lineItems: [],
+  //   },
+  // });
+  processedCart = order;
+  processedCartImages = imageMap;
 
-  const isOrderUnprocessed = id === cartId;
-  if (isOrderUnprocessed) {
-    const headers = await _headers();
 
-    oldCart.lineItems = oldCart?.lineItems?.map(
-      ({ catalogObjectId, quantity }) => ({ catalogObjectId, quantity })
-    );
-    const { paymentLink } = await getCheckoutOrderUrl(
-      id,
-      `${headers.get("x-forwarded-proto") || "http"}://${headers.get("host")}/checkout/`
-    );
 
-    if (paymentLink) redirect(paymentLink.url);
-    else {
-      // throw Error("Errors checking out") LOG ERROR TODO
-      redirect("/shop");
-    }
-  } else {
-    const { order, imageMap, options: itemOpts } = await callGetCart(id);
-    await callUpdateCart({
-      orderId: cartId,
-      order: {
-        version: oldCart.version,
-        locationId: oldCart.locationId,
-        lineItems: [],
-      },
-    });
-    options = itemOpts;
-    processedCart = order;
-    processedCartImages = imageMap;
-  }
+  // const oldFlowCheckout = async () => {
 
-  if (!processedCart) redirect("/shop");
+  //   const { quantity = "1", quick = "false" } = await searchParams;
+  //   const cartId = (await cookies()).get("cartId")?.value;
 
-  return isOrderUnprocessed ? (
-    <div>Loading</div>
-  ) : (
+  //   if (quick) {
+  //     oldCart = {
+  //       lineItems: [
+  //         {
+  //           catalogObjectId: id,
+  //           quantity: Array.isArray(quantity) ? quantity[0] : quantity,
+  //         },
+  //       ],
+  //     };
+  //   } else {
+  //     const { order, imageMap } = await callGetCart(cartId ?? "");
+  //     oldCart = order;
+  //   }
+  //   if (!oldCart) throw Error("Order missing!");
+
+  //   const isOrderUnprocessed = id === cartId;
+  //   if (isOrderUnprocessed) {
+  //     const headers = await _headers();
+
+  //     oldCart.lineItems = oldCart?.lineItems?.map(
+  //       ({ catalogObjectId, quantity }) => ({ catalogObjectId, quantity })
+  //     );
+  //     const { paymentLink } = await getCheckoutOrderUrl(
+  //       id,
+  //       `${headers.get("x-forwarded-proto") || "http"}://${headers.get("host")}/checkout/`
+  //     );
+
+  //     if (paymentLink) redirect(paymentLink.url);
+  //     else {
+  //       // throw Error("Errors checking out") LOG ERROR TODO
+  //       redirect("/shop");
+  //     }
+  //   } else {
+  //     const { order, imageMap, options: itemOpts } = await callGetCart(id);
+  //     await callUpdateCart({
+  //       orderId: cartId,
+  //       order: {
+  //         version: oldCart.version,
+  //         locationId: oldCart.locationId,
+  //         lineItems: [],
+  //       },
+  //     });
+  //     options = itemOpts;
+  //     processedCart = order;
+  //     processedCartImages = imageMap;
+  //   }
+  // if (!processedCart) redirect("/shop");
+  // }
+
+
+
+  return (
     <div className="min-h-screen block md:pt-8 p-4 md:container mx-auto">
       <MobileCheckoutConfirmation
         options={options}
@@ -85,7 +106,7 @@ const Page = async ({ params, searchParams }: PageProps) => {
         processedCartImages={processedCartImages}
       />
     </div>
-  );
+  )
 };
 
 export default Page;
@@ -257,9 +278,9 @@ const MobileCheckoutConfirmation = ({
         <div className="min-h-48 pt-4">
           <OrderList
             className="min-h-24 mx-auto"
-            options={options}
+            // options={options}
             allowOrderModify={false}
-            lineItems={processedCart?.lineItems}
+            lineItems={processedCart?.lineItems ?? []}
             lineItemImages={processedCartImages}
           />
         </div>

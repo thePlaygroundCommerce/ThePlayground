@@ -8,9 +8,10 @@ import Image from "components/Image";
 import { AppProps, Content, ContentData } from "index";
 
 import staticImages from "util/images";
-import { useRef, useState, useMemo, Children, useEffect } from "react";
+import { useRef, useState, useMemo, Children, useEffect, SetStateAction } from "react";
 import { Button } from "@headlessui/react";
 import { isArray } from "lodash";
+import { giftCardActivityImportReversalSchema } from "square/dist/types/models/giftCardActivityImportReversal";
 
 type Props = {
   slide?: boolean;
@@ -68,197 +69,16 @@ const Slider = ({ type, title, headline, slides, slide = false }: Props) => {
   );
 };
 
-const B = () => {
-  const b = [
-    <>
-      <a href="#" className="k-insta-post w-inline-block">
-        <Image
-          src={staticImages.laptopbag}
-          loading="lazy"
-          alt=""
-          className="k-insta-img"
-        />
-        <div className="k-insta-overlay">
-          <div className="k-icon-24 w-embed">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <path d="M16.98 0a6.9 6.9 0 0 1 5.08 1.98A6.94 6.94 0 0 1 24 7.02v9.96c0 2.08-.68 3.87-1.98 5.13A7.14 7.14 0 0 1 16.94 24H7.06a7.06 7.06 0 0 1-5.03-1.89A6.96 6.96 0 0 1 0 16.94V7.02C0 2.8 2.8 0 7.02 0h9.96zm.05 2.23H7.06c-1.45 0-2.7.43-3.53 1.25a4.82 4.82 0 0 0-1.3 3.54v9.92c0 1.5.43 2.7 1.3 3.58a5 5 0 0 0 3.53 1.25h9.88a5 5 0 0 0 3.53-1.25 4.73 4.73 0 0 0 1.4-3.54V7.02a5 5 0 0 0-1.3-3.49 4.82 4.82 0 0 0-3.54-1.3zM12 5.76c3.39 0 6.2 2.8 6.2 6.2a6.2 6.2 0 0 1-12.4 0 6.2 6.2 0 0 1 6.2-6.2zm0 2.22a3.99 3.99 0 0 0-3.97 3.97A3.99 3.99 0 0 0 12 15.92a3.99 3.99 0 0 0 3.97-3.97A3.99 3.99 0 0 0 12 7.98zm6.44-3.77a1.4 1.4 0 1 1 0 2.8 1.4 1.4 0 0 1 0-2.8z"></path>
-            </svg>
-          </div>
-        </div>
-      </a>
-      <a href="#" className="k-insta-post w-inline-block">
-        <Image
-          src={staticImages.kal}
-          loading="lazy"
-          alt=""
-          className="k-insta-img"
-        />
-        <div className="k-insta-overlay">
-          <div className="k-icon-24 w-embed">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <path d="M16.98 0a6.9 6.9 0 0 1 5.08 1.98A6.94 6.94 0 0 1 24 7.02v9.96c0 2.08-.68 3.87-1.98 5.13A7.14 7.14 0 0 1 16.94 24H7.06a7.06 7.06 0 0 1-5.03-1.89A6.96 6.96 0 0 1 0 16.94V7.02C0 2.8 2.8 0 7.02 0h9.96zm.05 2.23H7.06c-1.45 0-2.7.43-3.53 1.25a4.82 4.82 0 0 0-1.3 3.54v9.92c0 1.5.43 2.7 1.3 3.58a5 5 0 0 0 3.53 1.25h9.88a5 5 0 0 0 3.53-1.25 4.73 4.73 0 0 0 1.4-3.54V7.02a5 5 0 0 0-1.3-3.49 4.82 4.82 0 0 0-3.54-1.3zM12 5.76c3.39 0 6.2 2.8 6.2 6.2a6.2 6.2 0 0 1-12.4 0 6.2 6.2 0 0 1 6.2-6.2zm0 2.22a3.99 3.99 0 0 0-3.97 3.97A3.99 3.99 0 0 0 12 15.92a3.99 3.99 0 0 0 3.97-3.97A3.99 3.99 0 0 0 12 7.98zm6.44-3.77a1.4 1.4 0 1 1 0 2.8 1.4 1.4 0 0 1 0-2.8z"></path>
-            </svg>
-          </div>
-        </div>
-      </a>
-      <a href="#" className="k-insta-post w-inline-block">
-        <Image
-          src={staticImages.marta1}
-          loading="lazy"
-          sizes="(max-width: 1439px) 25vw, 100vw"
-          alt=""
-          className="k-insta-img"
-        />
-        <div className="k-insta-overlay">
-          <div className="k-icon-24 w-embed">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <path d="M16.98 0a6.9 6.9 0 0 1 5.08 1.98A6.94 6.94 0 0 1 24 7.02v9.96c0 2.08-.68 3.87-1.98 5.13A7.14 7.14 0 0 1 16.94 24H7.06a7.06 7.06 0 0 1-5.03-1.89A6.96 6.96 0 0 1 0 16.94V7.02C0 2.8 2.8 0 7.02 0h9.96zm.05 2.23H7.06c-1.45 0-2.7.43-3.53 1.25a4.82 4.82 0 0 0-1.3 3.54v9.92c0 1.5.43 2.7 1.3 3.58a5 5 0 0 0 3.53 1.25h9.88a5 5 0 0 0 3.53-1.25 4.73 4.73 0 0 0 1.4-3.54V7.02a5 5 0 0 0-1.3-3.49 4.82 4.82 0 0 0-3.54-1.3zM12 5.76c3.39 0 6.2 2.8 6.2 6.2a6.2 6.2 0 0 1-12.4 0 6.2 6.2 0 0 1 6.2-6.2zm0 2.22a3.99 3.99 0 0 0-3.97 3.97A3.99 3.99 0 0 0 12 15.92a3.99 3.99 0 0 0 3.97-3.97A3.99 3.99 0 0 0 12 7.98zm6.44-3.77a1.4 1.4 0 1 1 0 2.8 1.4 1.4 0 0 1 0-2.8z"></path>
-            </svg>
-          </div>
-        </div>
-      </a>
-    </>,
-    <>
-      <a href="#" className="k-insta-post w-inline-block">
-        <Image
-          src={staticImages.laptopbag}
-          loading="lazy"
-          alt=""
-          className="k-insta-img"
-        />
-        <div className="k-insta-overlay">
-          <div className="k-icon-24 w-embed">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <path d="M16.98 0a6.9 6.9 0 0 1 5.08 1.98A6.94 6.94 0 0 1 24 7.02v9.96c0 2.08-.68 3.87-1.98 5.13A7.14 7.14 0 0 1 16.94 24H7.06a7.06 7.06 0 0 1-5.03-1.89A6.96 6.96 0 0 1 0 16.94V7.02C0 2.8 2.8 0 7.02 0h9.96zm.05 2.23H7.06c-1.45 0-2.7.43-3.53 1.25a4.82 4.82 0 0 0-1.3 3.54v9.92c0 1.5.43 2.7 1.3 3.58a5 5 0 0 0 3.53 1.25h9.88a5 5 0 0 0 3.53-1.25 4.73 4.73 0 0 0 1.4-3.54V7.02a5 5 0 0 0-1.3-3.49 4.82 4.82 0 0 0-3.54-1.3zM12 5.76c3.39 0 6.2 2.8 6.2 6.2a6.2 6.2 0 0 1-12.4 0 6.2 6.2 0 0 1 6.2-6.2zm0 2.22a3.99 3.99 0 0 0-3.97 3.97A3.99 3.99 0 0 0 12 15.92a3.99 3.99 0 0 0 3.97-3.97A3.99 3.99 0 0 0 12 7.98zm6.44-3.77a1.4 1.4 0 1 1 0 2.8 1.4 1.4 0 0 1 0-2.8z"></path>
-            </svg>
-          </div>
-        </div>
-      </a>
-      <a href="#" className="k-insta-post w-inline-block">
-        <Image
-          src={staticImages.kal}
-          loading="lazy"
-          alt=""
-          className="k-insta-img"
-        />
-        <div className="k-insta-overlay">
-          <div className="k-icon-24 w-embed">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <path d="M16.98 0a6.9 6.9 0 0 1 5.08 1.98A6.94 6.94 0 0 1 24 7.02v9.96c0 2.08-.68 3.87-1.98 5.13A7.14 7.14 0 0 1 16.94 24H7.06a7.06 7.06 0 0 1-5.03-1.89A6.96 6.96 0 0 1 0 16.94V7.02C0 2.8 2.8 0 7.02 0h9.96zm.05 2.23H7.06c-1.45 0-2.7.43-3.53 1.25a4.82 4.82 0 0 0-1.3 3.54v9.92c0 1.5.43 2.7 1.3 3.58a5 5 0 0 0 3.53 1.25h9.88a5 5 0 0 0 3.53-1.25 4.73 4.73 0 0 0 1.4-3.54V7.02a5 5 0 0 0-1.3-3.49 4.82 4.82 0 0 0-3.54-1.3zM12 5.76c3.39 0 6.2 2.8 6.2 6.2a6.2 6.2 0 0 1-12.4 0 6.2 6.2 0 0 1 6.2-6.2zm0 2.22a3.99 3.99 0 0 0-3.97 3.97A3.99 3.99 0 0 0 12 15.92a3.99 3.99 0 0 0 3.97-3.97A3.99 3.99 0 0 0 12 7.98zm6.44-3.77a1.4 1.4 0 1 1 0 2.8 1.4 1.4 0 0 1 0-2.8z"></path>
-            </svg>
-          </div>
-        </div>
-      </a>
-      <a href="#" className="k-insta-post w-inline-block">
-        <Image
-          src={staticImages.marta1}
-          loading="lazy"
-          sizes="(max-width: 1439px) 25vw, 100vw"
-          alt=""
-          className="k-insta-img"
-        />
-        <div className="k-insta-overlay">
-          <div className="k-icon-24 w-embed">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <path d="M16.98 0a6.9 6.9 0 0 1 5.08 1.98A6.94 6.94 0 0 1 24 7.02v9.96c0 2.08-.68 3.87-1.98 5.13A7.14 7.14 0 0 1 16.94 24H7.06a7.06 7.06 0 0 1-5.03-1.89A6.96 6.96 0 0 1 0 16.94V7.02C0 2.8 2.8 0 7.02 0h9.96zm.05 2.23H7.06c-1.45 0-2.7.43-3.53 1.25a4.82 4.82 0 0 0-1.3 3.54v9.92c0 1.5.43 2.7 1.3 3.58a5 5 0 0 0 3.53 1.25h9.88a5 5 0 0 0 3.53-1.25 4.73 4.73 0 0 0 1.4-3.54V7.02a5 5 0 0 0-1.3-3.49 4.82 4.82 0 0 0-3.54-1.3zM12 5.76c3.39 0 6.2 2.8 6.2 6.2a6.2 6.2 0 0 1-12.4 0 6.2 6.2 0 0 1 6.2-6.2zm0 2.22a3.99 3.99 0 0 0-3.97 3.97A3.99 3.99 0 0 0 12 15.92a3.99 3.99 0 0 0 3.97-3.97A3.99 3.99 0 0 0 12 7.98zm6.44-3.77a1.4 1.4 0 1 1 0 2.8 1.4 1.4 0 0 1 0-2.8z"></path>
-            </svg>
-          </div>
-        </div>
-      </a>
-    </>,
-  ];
-
-  return (
-    <div className="k-slider-wrapper">
-      <div
-        data-delay="4000"
-        data-animation="slide"
-        className="k-insta-slider w-slider"
-        data-autoplay="false"
-        data-easing="ease"
-        data-hide-arrows="false"
-        data-disable-swipe="false"
-        data-autoplay-limit="0"
-        data-nav-spacing="3"
-        data-duration="500"
-        data-infinite="true"
-      >
-        <div className="k-slider-mask-space-around w-slider-mask">
-          {b.map((ele, i) => (
-            <div key={i} className="k-insta-slide w-slide transition duration-500 -translate-x-0">
-              <div className="k-insta-feed-slide">{ele}</div>
-            </div>
-          ))}
-        </div>
-
-        <div className="k-r-arrow w-slider-arrow-right">
-          <div className="k-arrow-icon w-embed">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M9 18l6-6-6-6"></path>
-            </svg>
-          </div>
-        </div>
-        <div className="hide-slider-dots w-slider-nav w-round"></div>
-      </div>
-    </div>
-  );
-};
-
 export const WebflowSlider = ({
+  active = 0,
   children,
   className,
-  onIndexChange = () => {},
+  onIndexChange = () => { },
   visibleItemsCount = 1, // how many items to show
   isInfinite, // is it an infinite loop?
   withIndicator = false, // show dots?
   withControls = false, // show dots?
-}: AppProps & { visibleItemsCount: number; isInfinite: boolean, withIndicator: boolean, withControls: boolean, onIndexChange?: (index: number) => void }) => {
+}: AppProps & { active?: number; visibleItemsCount: number; isInfinite: boolean, withIndicator: boolean, withControls: boolean, onIndexChange?: (index: number) => void }) => {
   const indicatorContainerRef = useRef(null);
   const [timeoutInProgress, setTimeoutInProgress] = useState(false); // a boolean for if timeout is im progress, used to stop user from spam clicking next or back in certain conditions
 
@@ -274,7 +94,7 @@ export const WebflowSlider = ({
    * Current Index Item of the Carousel
    */
   const [currentIndex, setCurrentIndex] = useState(
-    isRepeating ? visibleItemsCount : 0
+    isRepeating ? visibleItemsCount : active
   );
 
   /**
@@ -293,39 +113,50 @@ export const WebflowSlider = ({
   /**
    * First touch position to be used in calculation for the swipe speed
    */
-  const [touchPosition, setTouchPosition] = useState(null);
+  const [touchPosition, setTouchPosition] = useState(null); 
 
   /**
    * Handle if the carousel is repeating
    * and the currentIndex have been set to the last or first item
    */
   useEffect(() => {
-    onIndexChange(currentIndex)
-  //   if (isRepeating) {
-  //     if (
-  //       currentIndex === visibleItemsCount ||
-  //       currentIndex === originalItemsLength
-  //     ) {
-  //       setTransitionEnabled(true);
-  //     }
-  //   }
-  // }, [currentIndex, isRepeating, visibleItemsCount, originalItemsLength]);
+    if (active !== currentIndex) onIndexChange(currentIndex)
 
-  // useEffect(() => {
-  //   if (withIndicator) {
-  //     const active =
-  //       indicatorContainerRef.current?.querySelector(".dots-active");
-  //     if (active) {
-  //       let index = active.getAttribute("data-index");
-  //       if (index !== null && indicatorContainerRef.current?.scrollTo) {
-  //         indicatorContainerRef.current?.scrollTo({
-  //           left: ((Number(index) - 2) / 5) * 50,
-  //           behavior: "smooth",
-  //         });
-  //       }
-  //     }
-  //   }
+    //   if (isRepeating) {
+    //     if (
+    //       currentIndex === visibleItemsCount ||
+    //       currentIndex === originalItemsLength
+    //     ) {
+    //       setTransitionEnabled(true);
+    //     }
+    //   }
+    // }, [currentIndex, isRepeating, visibleItemsCount, originalItemsLength]);
+
+    // useEffect(() => {
+    //   if (withIndicator) {
+    //     const active =
+    //       indicatorContainerRef.current?.querySelector(".dots-active");
+    //     if (active) {
+    //       let index = active.getAttribute("data-index");
+    //       if (index !== null && indicatorContainerRef.current?.scrollTo) {
+    //         indicatorContainerRef.current?.scrollTo({
+    //           left: ((Number(index) - 2) / 5) * 50,
+    //           behavior: "smooth",
+    //         });
+    //       }
+    //     }
+    //   }
   }, [currentIndex]);
+
+  useEffect(() => {
+    if (active !== currentIndex) goToItem(active)
+  }, [active])
+
+  const goToItem = (index: number | SetStateAction<number>) => {
+
+    if (typeof index === "number") onIndexChange(index)
+    setCurrentIndex(index)
+  }
 
   /**
    * Move forward to the next item
@@ -345,7 +176,7 @@ export const WebflowSlider = ({
       ) {
         setTransitionEnabled(true);
       }
-      setCurrentIndex((prevState) => prevState + 1);
+      goToItem((prevState) => prevState + 1);
     }
   };
 
@@ -368,7 +199,7 @@ export const WebflowSlider = ({
       ) {
         setTransitionEnabled(true);
       }
-      setCurrentIndex((prevState) => prevState - 1);
+      goToItem((prevState) => prevState - 1);
     }
   };
   const childrenWrapper = (children: any) => Children.map(children, (child, i) => <div key={i} style={{ width: `calc(100% / ${visibleItemsCount})` }} className="grow shrink-0">{child}</div>)
@@ -377,44 +208,44 @@ export const WebflowSlider = ({
    * Handle when the user start the swipe gesture
    * @param e TouchEvent
    */
-  // const handleTouchStart = (e) => {
-  //   // Save the first position of the touch
-  //   const touchDown = e.touches[0].clientX;
-  //   setTouchPosition(touchDown);
-  // };
+  const handleTouchStart = (e: any) => {
+    // Save the first position of the touch
+    const touchDown = e.touches[0].clientX;
+    setTouchPosition(touchDown);
+  };
 
   /**
    * Handle when the user move the finger in swipe gesture
    * @param e TouchEvent
    */
-  // const handleTouchMove = (e) => {
-  //   // Get initial location
-  //   const touchDown = touchPosition;
+  const handleTouchMove = (e: any) => {
+    // Get initial location
+    const touchDown = touchPosition;
 
-  //   // Proceed only if the initial position is not null
-  //   if (touchDown === null) {
-  //     return;
-  //   }
+    // Proceed only if the initial position is not null
+    if (touchDown === null) {
+      return;
+    }
 
-  //   // Get current position
-  //   const currentTouch = e.touches[0].clientX;
+    // Get current position
+    const currentTouch = e.touches[0].clientX;
 
-  //   // Get the difference between previous and current position
-  //   const diff = touchDown - currentTouch;
+    // Get the difference between previous and current position
+    const diff = touchDown - currentTouch;
 
-  //   // Go to next item
-  //   if (diff > 5) {
-  //     nextItem();
-  //   }
+    // Go to next item
+    if (diff > 5) {
+      nextItem();
+    }
 
-  //   // Go to previous item
-  //   if (diff < -5) {
-  //     previousItem();
-  //   }
+    // Go to previous item
+    if (diff < -5) {
+      previousItem();
+    }
 
-  //   // Reset initial touch position
-  //   setTouchPosition(null);
-  // };
+    // Reset initial touch position
+    setTouchPosition(null);
+  };
 
   /**
    * Handle when carousel transition's ended
@@ -423,11 +254,11 @@ export const WebflowSlider = ({
     if (isRepeating) {
       if (currentIndex === 0) {
         setTransitionEnabled(false);
-        setCurrentIndex(originalItemsLength);
+        goToItem(originalItemsLength);
       } else if (currentIndex === originalItemsLength + visibleItemsCount) {
         console.log("setting transition to false and index to " + visibleItemsCount)
         setTransitionEnabled(false);
-        setCurrentIndex(visibleItemsCount);
+        goToItem(visibleItemsCount);
       }
     }
 
@@ -540,11 +371,13 @@ export const WebflowSlider = ({
             </svg></div>
           </button>
         ) : null}
-        <div className="overflow-hidden w-full h-full" style={{ marginInline: "12.5vw" }}>
+        <div className="overflow-hidden w-full h-full">
           <div
             style={{
               transform: `translateX(-${currentIndex * (100 / visibleItemsCount)}%)`,
             }}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
             onTransitionEnd={() => handleTransitionEnd()}
             className={clsx("flex duration-500", isTransitionEnabled ? "transition" : "transition-none")}
           >

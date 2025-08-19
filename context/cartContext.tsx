@@ -8,6 +8,7 @@ import React, {
   useMemo,
   useContext,
   useRef,
+  useEffect,
 } from "react";
 import { useCookies } from "react-cookie";
 import {
@@ -26,7 +27,6 @@ import { Simplify } from "prismicio-types";
 type CartState = {
   order: Order;
   options?: CatalogObject[];
-  errors: SquareError[];
 };
 
 type ModifiedCartData = {
@@ -54,16 +54,18 @@ const CartProvider = ({
   const [openCart, setOpenCart] = useState<boolean>(false);
   const [cartItemImages, setCartItemImages] =
     useState<Simplify<CatalogImage>>(cartImageMap);
-  const initialCart = {
-    id: cookies.cartId,
-    lineItems: [],
-    locationId: "",
-  };
-  const [{ order: cart, options, errors }, setCart] = useState<CartState>({
-    order: _cart || initialCart,
+  const [{ order: cart, options }, setCart] = useState<CartState>({
+    order: _cart || {
+      id: cookies.cartId,
+      lineItems: [],
+      locationId: "",
+    },
     options: _options,
-    errors: [],
   });
+
+  useEffect(() => {
+    if (_cart && _cart !== cart) populateCartAndImages({ order: _cart, options: _options }, cartImageMap)
+  }, [_cart])
 
   const drawerRef = useRef(null);
   const handleDrawerToggle = (e: any, bool = !openCart) => {
@@ -129,10 +131,10 @@ const CartProvider = ({
   };
 
   const populateCartAndImages = (
-    { order, options, errors = [] }: { order: Order; options: CatalogObject[], errors: SquareError[] },
+    { order, options }: CartState,
     lineItemImageData: Simplify<CatalogImage> = {}
   ): void => {
-    setCart({ order, options, errors });
+    setCart({ order, options });
     setCartItemImages(lineItemImageData);
   };
 

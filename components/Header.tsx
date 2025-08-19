@@ -50,7 +50,7 @@ function Header({ navs, className, logo }: Props) {
 
   const toggleOverlay = (overlayId?: 'cart' | 'nav') => setOverlayState(() => ({ active: overlayId }))
 
-  const Portal = usePortal(overlayState.active === 'cart' ? CartOverlayComp : NavOverlayComp, 'header-overlay')
+  const Portal = usePortal(overlayState.active === 'cart' ? CartOverlayComp : NavOverlayComp, { rootId: 'headerOverlay', showClose: false })
   const path = usePathname();
   const [scroll, setScroll] = useState(0);
   const navRef = useRef<HTMLDivElement | null>(null);
@@ -202,7 +202,7 @@ function Header({ navs, className, logo }: Props) {
             </div>
           </div>
         </div>
-        <div id="header-overlay" className="flex-1" />
+        <div id="headerOverlay" className="flex-1 relative" />
       </div>
     </header>
   );

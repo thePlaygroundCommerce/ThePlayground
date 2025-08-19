@@ -37,7 +37,7 @@ export default async function Page({ params: _params }: PageProps) {
         catalogItems={items}
         catalogImages={images}
       />
-      <Modal logo={renderLogo()} show={false} onClose={func} />
+      {/* <Modal logo={renderLogo()} show={false} onClose={func} /> */}
     </div>
   );
 }

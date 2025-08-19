@@ -1,7 +1,6 @@
 import { clerkMiddleware , currentUser } from "@clerk/nextjs/server";
 
-export default clerkMiddleware((auth, req) => {
-});
+export default clerkMiddleware();
 
 
 // See "Matching Paths" below to learn more

@@ -1,16 +1,12 @@
 "use client";
 
-import React, { Fragment, useMemo } from "react";
-import OrderList from "./OrderList";
-import Button from "./Button";
-import { AppProps, ICartContext, ContentData } from "index";
+import React, { useMemo } from "react";
+ import { AppProps, ICartContext, ContentData } from "index";
 import { useCheckout } from "context/checkoutContext";
-import { useCart } from "context/cartContext";
 import Money from "./Money";
 
 import _ from "lodash";
-import clsx from "clsx";
-import { getCatalogInfo } from "api/catalogApi";
+import Link from "next/link";
 
 type Props = AppProps &
   ICartContext & {
@@ -273,7 +269,7 @@ const CartOverlay = ({
                     </div>
                   </a>
                 </div> */}
-                <a
+                <Link
                   href="/checkout"
                   // value="Continue to Checkout"
                   data-node-type="cart-checkout-button"
@@ -282,8 +278,8 @@ const CartOverlay = ({
                   className="w-commerce-commercecartcheckoutbutton"
                   data-loading-text="Hang Tight..."
                 >
-                  Continue to Checkout
-                </a>
+                  Checkout
+                </Link>
               </div>
             </div>
           </form>

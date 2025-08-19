@@ -38,7 +38,7 @@ const Button = ({
     <button
       type={type}
       aria-disabled={pending}
-      className={clsx(className, `p-${padding} rounded cursor-pointer`, variants[variant])}
+      className={clsx(className, `cursor-pointer`, variants[variant])}
       onClick={onClick}
       {...rest}
     >

@@ -8,6 +8,7 @@ export async function GET() {
   if (!user) redirect("/account/sign-in")
     
   const squareId = user.privateMetadata.squareId
+  const clerk = await clerkClient()
 
   if (squareId && (await getCustomer(squareId)).result.customer) null;
   else {
@@ -17,7 +18,7 @@ export async function GET() {
       lastName: user.lastName ?? "",
       emailAddress: user.primaryEmailAddress?.emailAddress ?? "",
       phoneNumber: user.primaryPhoneNumber?.phoneNumber,
-    }).then(({ result: { customer } }) => customer && clerkClient().users.updateUserMetadata(user.id, {
+    }).then(({ result: { customer } }) => customer && clerk.users.updateUserMetadata(user.id, {
       privateMetadata: {
         squareId: customer.id
       }

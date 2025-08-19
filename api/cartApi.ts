@@ -1,3 +1,5 @@
+'use server'
+
 import { processRes } from "api";
 import { DEFAULT_FETCH_INIT, SQUARE_URL } from "../constants";
 
@@ -10,6 +12,7 @@ import {
   CalculateOrderResponse,
   CatalogImage,
   CatalogObject,
+  CreateOrderRequest,
   CreateOrderResponse,
   Order,
   RetrieveOrderResponse,
@@ -25,8 +28,13 @@ const SQUARE_ORDER_CACHE_REVALIDATION = {
 
 export async function callGetCart(
   orderId: string
-): Promise<{ order?: Order, options: CatalogObject[], relatedObjects: CatalogObject[], imageMap?: Simplify<CatalogImage> }> {
-  return fetch(`${BASE_PATH}/${orderId}`, { cache: "no-store" })
+): Promise<{
+  order?: Order;
+  options: CatalogObject[];
+  relatedObjects: CatalogObject[];
+  imageMap?: Simplify<CatalogImage>;
+}> {
+  return fetch(`${BASE_PATH}/${orderId}`, { next: { tags: ["cart"] } })
     .then((res) => res.json())
     .then((result) => {
       processRes(
@@ -44,7 +52,7 @@ export async function callGetCart(
 
 export async function calculateCart(
   req: CalculateOrderRequest,
-  init = DEFAULT_FETCH_INIT,
+  init = DEFAULT_FETCH_INIT
 ): Promise<ApiResponse<CalculateOrderResponse>> {
   return fetch(`${BASE_PATH}/calculate`, {
     ...DEFAULT_FETCH_INIT,
@@ -87,7 +95,7 @@ export async function callUpdateCart(
 }
 
 export async function callCreateCart(
-  catalogOrder: any,
+  catalogOrder: CreateOrderRequest,
   init = DEFAULT_FETCH_INIT
 ): Promise<ApiResponse<CreateOrderResponse>> {
   return fetch(`${BASE_PATH}/create`, {

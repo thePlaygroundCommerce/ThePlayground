@@ -27,8 +27,6 @@ const Page = async ({ params, searchParams }: PageProps) => {
     ;
 
   const { items, images } = await searchCatalogItems("");
-
-
   const { data } = await client.getByUID("product_content", catalogObject.id.toLowerCase()).catch((e) => ({ data: undefined }))
 
   const relatedItems = items
@@ -72,14 +70,12 @@ const Page = async ({ params, searchParams }: PageProps) => {
       <>
         <div className="k-hero-content">
           <div className="k-full-container k-container--strech block lg:flex">
-            <div className="k-hero-left-side pr-12">
+            <div className="k-hero-left-side block sm:pr-12">
               <ProductDetails
+                productImageGallery={<ProductImageGallery images={filteredRelatedImages} />}
                 catalogItemObject={catalogObject}
                 catalogImageObjects={filteredRelatedImages}
               />
-            </div>
-            <div className="flex flex-col-reverse xl:flex-row flex-1 k-hero-right k-hero-clear k-d-flex">
-              <ProductImageGallery images={filteredRelatedImages} />
             </div>
           </div>
         </div>
@@ -89,6 +85,20 @@ const Page = async ({ params, searchParams }: PageProps) => {
             <div className="p-4 clip-box relative">
               <div className="block md:hidden">
                 <Accordion.Root collapsible>
+
+                  <Accordion.Item value={"description"} className={clsx("p-4 border-b-1 border-zinc-300")}>
+                    <Accordion.ItemTrigger className="flex justify-between items-center w-full">
+                      Description
+                      <Accordion.ItemIndicator>
+                        <FaAngleDown />
+                      </Accordion.ItemIndicator>
+                    </Accordion.ItemTrigger>
+                    <Accordion.ItemContent className="my-4">
+                      <p className="k-product-main-desc">
+                        {catalogObject.itemData?.description}
+                      </p>
+                    </Accordion.ItemContent>
+                  </Accordion.Item>
                   {data.features.map(({ name, value }, i) => (
                     <Accordion.Item key={name} value={name?.toString() ?? ""} className={clsx("p-4 border-b-1 border-zinc-300")}>
                       <Accordion.ItemTrigger className="flex justify-between items-center w-full">
@@ -112,14 +122,14 @@ const Page = async ({ params, searchParams }: PageProps) => {
                   <div className="flex-1 flex flex-col justify-center">
                     <TabList className="flex flex-col">
                       {data.features.map(({ name }) => (
-                        <Tab className="py-2 data-selected:font-bold">{name}</Tab>
+                        <Tab key={name} className="py-2 data-selected:font-bold">{name}</Tab>
                       ))}
                     </TabList>
                   </div>
                   <div className="flex-1 flex flex-col justify-center">
                     <TabPanels className="p-4 py-2 border-zinc-300 border-l-2">
                       {data.features.map(({ value }) => (
-                        <TabPanel className="metafield-rich_text_field">
+                        <TabPanel key={value.toString()} className="metafield-rich_text_field">
                           <PrismicRichText components={{
                             list: ({ children }) => <ul className="list-disc">{children}</ul>,
                             listItem: ({ children }) => <li className="leading-8">{children}</li>,

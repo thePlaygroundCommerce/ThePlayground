@@ -85,6 +85,7 @@ const Item = ({
 )
 
 const INSTAGRAM_URL = "https://www.instagram.com/theplaygroundtravel/";
+
 const page = async (props: Props) => {
   const { objects } = await searchItems({ categoryIds: [] });
   const { items, images } = mapArrayToMap(objects);
@@ -92,23 +93,23 @@ const page = async (props: Props) => {
   const hotItemImage = images.find(
     (obj) => obj.id === hotItem.itemData?.imageIds?.[0]
   )?.imageData;
-  const blogs = await client.getAllByType("blog_post");
-  const blogCards = blogs.map(({ uid, data: { title, headline } }) => (
-    <Fragment key={uid}>
-      <Image style={{ objectFit: "cover" }} alt={""} fill />
-      <div className="absolute flex flex-col justify-end w-full h-full p-4">
-        <div>
-          <Heading level={1}>{title}</Heading>
-          <p className="truncate text-sm">{headline}</p>
-          <Link href={`/log/${uid}`}>
-            <Button padding={0} className="text-xs underline italic">
-              Read More
-            </Button>
-          </Link>
-        </div>
-      </div>
-    </Fragment>
-  ));
+  // const blogs = await client.getAllByType("blog_post");
+  // const blogCards = blogs.map(({ uid, data: { title, headline } }) => (
+  //   <Fragment key={uid}>
+  //     <Image style={{ objectFit: "cover" }} alt={""} fill />
+  //     <div className="absolute flex flex-col justify-end w-full h-full p-4">
+  //       <div>
+  //         <Heading level={1}>{title}</Heading>
+  //         <p className="truncate text-sm">{headline}</p>
+  //         <Link href={`/log/${uid}`}>
+  //           <Button padding={0} className="text-xs underline italic">
+  //             Read More
+  //           </Button>
+  //         </Link>
+  //       </div>
+  //     </div>
+  //   </Fragment>
+  // ));
 
   const b = [
     <div
@@ -116,7 +117,7 @@ const page = async (props: Props) => {
       data-wf-id='["8ecba459-37ab-3465-c53c-c1e98e89dc9b","b32ede34-2bf4-3a18-2fe8-72eb0fd61b28"]'
       className="k-insta-feed-slide wf-grid"
     >
-      {[pic1, pic2, pic3].map((image) => <Item {...{ image }} link={INSTAGRAM_URL} />)}
+      {[pic1, pic2, pic3].map((image) => <Item key={image.src} {...{ image }} link={INSTAGRAM_URL} />)}
     </div>,
     <div
       data-w-id="b32ede34-2bf4-3a18-2fe8-72eb0fd61b36"
@@ -124,7 +125,7 @@ const page = async (props: Props) => {
       className="k-insta-feed-slide wf-grid"
       aria-hidden="true"
     >
-      {[pic4, pic5, pic6].map((image) => <Item {...{ image }} link={INSTAGRAM_URL} />)}
+      {[pic4, pic5, pic6].map((image) => <Item key={image.src} {...{ image }} link={INSTAGRAM_URL} />)}
     </div>
   ];
 

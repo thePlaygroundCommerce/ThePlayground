@@ -8,6 +8,7 @@ import {
   FC,
   MouseEvent,
   MouseEventHandler,
+  ReactNode,
   SetStateAction,
   useEffect,
   useState,
@@ -23,14 +24,16 @@ import { ProductDetailsProps } from "../components/ProductDetails";
 import { useCheckout } from "context/checkoutContext";
 import { useInventory } from "context/inventoryContext";
 import _ from "lodash";
-import Selector from "../components/ColorSelector";
+// import Selector from "../components/ColorSelector";
 import Counter from "components/Counter";
 import Button from "components/Button";
 import { useTracking } from "context/TagManager";
+import { SelectorComponentMap } from "components/ColorSelector";
 
 type Props = AppProps & {
   catalogItemObject: CatalogObject;
   catalogImageObjects: CatalogObject[];
+  productImageGallery: ReactNode
 };
 
 export type WithProductModifiersProps = AppProps & {
@@ -39,7 +42,7 @@ export type WithProductModifiersProps = AppProps & {
   isProductInCart: (id?: string) => OrderLineItem | undefined
   price: number;
   name: string;
-  selectors: any;
+  selectors: Selectors;
   cartModifiers: CartModifiers;
 };
 
@@ -50,6 +53,7 @@ const withProductModifiers =
     ({
       catalogItemObject: { itemData = {} },
       catalogImageObjects,
+      ...rest
     }: Props): JSX.Element => {
       const { itemOptions } = useInventory();
       const { checkoutItem } = useCheckout();
@@ -72,7 +76,6 @@ const withProductModifiers =
       let { variations } = itemData!;
       variations = variations ?? [];
 
-
       const [{ isCartLoading, isCheckoutLoading }, setLoadingState] = useState({
         isCartLoading: false,
         isCheckoutLoading: false,
@@ -94,7 +97,6 @@ const withProductModifiers =
         num_items: lineItems?.length,
       };
 
-
       const isProductInCart = (itemVariationId?: string) => {
         if (!itemVariationId) itemVariationId = variations[selectedVariationIndex].id
         return lineItems?.find(({ catalogObjectId }) => {
@@ -109,7 +111,6 @@ const withProductModifiers =
           }
         });
       };
-
 
       const [quantity, setQuantity] = useState(
         +(isProductInCart()?.quantity ?? 1)
@@ -134,7 +135,11 @@ const withProductModifiers =
 
       const handleAddToCart = () => {
         toggleLoading("cart");
-        track("AddToCart", trackingData);
+        try {
+          track("AddToCart", trackingData);
+        } catch (error) {
+
+        }
         const lineItem: OrderLineItem = {
           quantity: quantity.toString(),
         };
@@ -174,12 +179,10 @@ const withProductModifiers =
       const amount =
         itemData?.variations![0].itemVariationData?.priceMoney?.amount;
 
-      const productOptions: {
-        [k: string]: [string | null | undefined, (CatalogObject | undefined)[]];
-      } = Object.fromEntries(
+      const productOptions: Record<string, [string | null | undefined, (CatalogObject | undefined)[]]> = Object.fromEntries(
         Object.entries(
           variations.reduce(
-            (a: { [key: string]: Set<string> }, { itemVariationData }) => {
+            (a: Record<string, Set<string>>, { itemVariationData }) => {
               if (!itemVariationData?.itemOptionValues) return a;
 
               const { itemOptionValues } = itemVariationData;
@@ -248,7 +251,7 @@ const withProductModifiers =
 
       const selectors: Selectors = Object.entries(productOptions).reduce<Selectors>(
         (acc, [optionId, [option, optionValues]], i) => {
-          const type = option === "colors" ? "PRODUCT" : "CARD";
+          const type = option === "colors" ? "RADIO" : "CARD";
           const data =
             option === "size"
               ? optionValues.map((obj) => {
@@ -323,6 +326,7 @@ const withProductModifiers =
             description: itemData.description ?? "",
             selectors,
             cartModifiers,
+            ...rest
           }}
         />
       );
@@ -387,10 +391,10 @@ const CartModifierButtons = ({
 };
 
 
-export type Selector<TData = {}[]> = {
+export type Selector<TData = CatalogObject> = {
   selectedIndex: number,
-  type: string,
-  data: TData,
+  type: keyof SelectorComponentMap,
+  data: TData[],
   onChange: ChangeEventHandler,
 }
 export type Selectors = { color?: Selector, size?: Selector }
