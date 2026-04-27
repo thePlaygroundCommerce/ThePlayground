@@ -1,9 +1,9 @@
+import { client } from "api/clients";
 import Image from "components/Image";
 import { PageProps } from "index";
-import { createClient } from "prismicio";
 
 const Page = async (props: PageProps) => {
-  const blogs = await createClient().getAllByType("blog_post");
+  const blogs = await client.getAllByType("blog_post");
 
   return (
     <div className="pt-[80px] p-4">

@@ -12,11 +12,12 @@ import {
   Hero2Slice,
 } from "prismicio-types";
 import { ReactNode, createElement } from "react";
-import prismic, { createClient } from "../../../prismicio";
+
 import { AppProps } from "index";
 import clsx from "clsx";
 import Heading from "components/typography/Heading";
 import Showcase from "components/Showcase";
+import { client } from "api/clients";
 
 export type Hero2Props = SliceComponentProps<Content.Hero2Slice>;
 type PrismicImageProps =
@@ -68,7 +69,7 @@ const ProductShowcase = async ({
     primary.call_to_action_link.uid
   ) {
     cta = await getCta(
-      createClient(),
+      client,
       primary.call_to_action_link.type,
       primary.call_to_action_link.uid
     );
