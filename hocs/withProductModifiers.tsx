@@ -44,6 +44,7 @@ export type WithProductModifiersProps = AppProps & {
   name: string;
   selectors: Selectors;
   cartModifiers: CartModifiers;
+  addToCart: ReactNode
 };
 
 type Lookup<T> = { [key: string | number]: undefined | null | T };
@@ -51,7 +52,7 @@ type Lookup<T> = { [key: string | number]: undefined | null | T };
 const withProductModifiers =
   (Component: ComponentType<ProductDetailsProps>): FC<Props> =>
     ({
-      catalogItemObject: { itemData = {} },
+      catalogItemObject,
       catalogImageObjects,
       ...rest
     }: Props): JSX.Element => {
@@ -73,8 +74,14 @@ const withProductModifiers =
         lineItems?.reduce((sum, { quantity }) => sum + +quantity, 0),
       ]);
 
-      let { variations } = itemData!;
-      variations = variations ?? [];
+      const itemData =
+        catalogItemObject.type === "ITEM" ? catalogItemObject.itemData ?? {} : {};
+      const variations: CatalogObject.ItemVariation[] = (
+        itemData.variations ?? []
+      ).filter(
+        (variation): variation is CatalogObject.ItemVariation =>
+          variation.type === "ITEM_VARIATION",
+      );
 
       const [{ isCartLoading, isCheckoutLoading }, setLoadingState] = useState({
         isCartLoading: false,
@@ -82,8 +89,10 @@ const withProductModifiers =
       });
 
       const [selectedVariationIndex, setSelectedVariationIndex] = useState(0);
-      const { id: itemVariationId, itemVariationData: { itemId, name } = {} } =
-        variations[selectedVariationIndex];
+      const selectedVariation = variations[selectedVariationIndex];
+      const itemVariationId = selectedVariation?.id;
+      const itemId = selectedVariation?.itemVariationData?.itemId;
+      const name = selectedVariation?.itemVariationData?.name;
       const lineItem = lineItems?.find(
         ({ catalogObjectId }) => catalogObjectId === itemVariationId
       );
@@ -98,7 +107,7 @@ const withProductModifiers =
       };
 
       const isProductInCart = (itemVariationId?: string) => {
-        if (!itemVariationId) itemVariationId = variations[selectedVariationIndex].id
+        if (!itemVariationId) itemVariationId = variations[selectedVariationIndex]?.id;
         return lineItems?.find(({ catalogObjectId }) => {
           if (itemVariationId) return catalogObjectId == itemVariationId;
           else {
@@ -145,13 +154,18 @@ const withProductModifiers =
         };
 
         if (isProductInCart(itemVariationId) && lineItems !== null) {
-          lineItem.uid = lineItems[selectedVariationIndex].uid;
+          lineItem.uid = lineItems[selectedVariationIndex]?.uid;
         } else {
           lineItem.catalogObjectId = itemVariationId;
         }
+
+        const primaryImageData = catalogImageObjects.find(
+          (obj): obj is CatalogObject.Image => obj.type === "IMAGE",
+        )?.imageData;
+
         const isCartModified = modifyCart(
           lineItem,
-          catalogImageObjects[0].imageData
+          primaryImageData
         );
         if (isCartModified === false) toggleLoading();
       };
@@ -177,39 +191,47 @@ const withProductModifiers =
         checkoutItem(itemVariationID, quantity.toString());
       };
       const amount =
-        itemData?.variations![0].itemVariationData?.priceMoney?.amount;
+        variations[0]?.itemVariationData?.priceMoney?.amount;
 
       const productOptions: Record<string, [string | null | undefined, (CatalogObject | undefined)[]]> = Object.fromEntries(
         Object.entries(
           variations.reduce(
-            (a: Record<string, Set<string>>, { itemVariationData }) => {
+            (
+              a: Record<string, Set<string>>,
+              variation: CatalogObject.ItemVariation,
+            ) => {
+              const itemVariationData = variation.itemVariationData;
               if (!itemVariationData?.itemOptionValues) return a;
 
               const { itemOptionValues } = itemVariationData;
-              itemOptionValues.forEach(({ itemOptionId, itemOptionValueId }) => {
+              itemOptionValues.forEach(
+                ({ itemOptionId, itemOptionValueId }) => {
                 if (!(itemOptionId && itemOptionValueId)) return a;
 
                 if (a[itemOptionId]) a[itemOptionId].add(itemOptionValueId);
                 else a[itemOptionId] = new Set([itemOptionValueId]);
-              });
+                },
+              );
               return a;
             },
             {}
           ) ?? {}
         ).map(([key, val]) => {
-          const itemOptionData =
-            itemOptions.find(({ id }) => id === key)?.itemOptionData ?? {};
+          const itemOptionData = itemOptions.find(
+            (obj): obj is CatalogObject.ItemOption =>
+              obj.type === "ITEM_OPTION" && obj.id === key,
+          )?.itemOptionData;
 
-          const optionValueData = Array.from(val).map((optionValueId) =>
-            itemOptionData.values?.find(({ id }) => id === optionValueId)
+          const optionValueData = Array.from(val as Set<string>).map((optionValueId) =>
+            itemOptionData?.values?.find(({ id }) => id === optionValueId)
           );
 
-          return [key, [itemOptionData.name, optionValueData]];
+          return [key, [itemOptionData?.name, optionValueData]];
         })
       );
 
       const selectedOptions =
-        variations[selectedVariationIndex].itemVariationData?.itemOptionValues;
+        selectedVariation?.itemVariationData?.itemOptionValues;
 
       const getVariantByOptions = ({
         optionId,
@@ -219,7 +241,8 @@ const withProductModifiers =
         optionValueId: string;
       }) => {
         return variations
-          .filter(({ itemVariationData: { itemOptionValues } = {} }) => {
+          .filter((variation) => {
+            const itemOptionValues = variation.itemVariationData?.itemOptionValues;
             const otherSelectedOptions =
               selectedOptions?.filter(
                 ({ itemOptionId }) => itemOptionId !== optionId
@@ -230,7 +253,8 @@ const withProductModifiers =
                 .length < 2
             );
           })
-          .find(({ itemVariationData: { itemOptionValues } = {} }) => {
+          .find((variation) => {
+            const itemOptionValues = variation.itemVariationData?.itemOptionValues;
             return itemOptionValues?.some(
               ({ itemOptionId, itemOptionValueId }) =>
                 itemOptionId === optionId && itemOptionValueId === optionValueId
@@ -243,10 +267,12 @@ const withProductModifiers =
         optionValueId: string;
       }) => {
         const newVariantId = getVariantByOptions(option)?.id;
+        if (!newVariantId) return;
 
-        setSelectedVariationIndex(
-          variations.findIndex(({ id }) => newVariantId === id)
-        );
+        const newIndex = variations.findIndex(({ id }) => newVariantId === id);
+        if (newIndex < 0) return;
+
+        setSelectedVariationIndex(newIndex);
       };
 
       const selectors: Selectors = Object.entries(productOptions).reduce<Selectors>(
@@ -255,32 +281,40 @@ const withProductModifiers =
           const data =
             option === "size"
               ? optionValues.map((obj) => {
-                let { itemOptionValueData: { name } = { name: "" } } =
-                  obj as CatalogObject;
+                let name =
+                  obj?.type === "ITEM_OPTION_VAL"
+                    ? obj.itemOptionValueData?.name
+                    : "";
 
                 name = _.capitalize(name ?? "").slice(0, 1);
                 return obj;
               })
               : optionValues.map((obj) => {
                 if (!obj) return;
+                if (obj.type !== "ITEM_OPTION_VAL") return obj;
 
-                obj.imageData = catalogImageObjects.find(
-                  ({ id }) =>
-                    id ===
-                    getVariantByOptions({
-                      optionId: obj.itemOptionValueData?.itemOptionId ?? "",
-                      optionValueId: obj.id,
-                    })?.itemVariationData?.imageIds?.[0]
+                const linkedVariant = getVariantByOptions({
+                  optionId: obj.itemOptionValueData?.itemOptionId ?? "",
+                  optionValueId: obj.id ?? "",
+                });
+
+                const linkedImageId = linkedVariant?.itemVariationData?.imageIds?.[0];
+                const linkedImageData = catalogImageObjects.find(
+                  (catalogObj): catalogObj is CatalogObject.Image =>
+                    catalogObj.type === "IMAGE" && catalogObj.id === linkedImageId,
                 )?.imageData;
-                return obj;
+
+                return {
+                  ...obj,
+                  imageData: linkedImageData,
+                } as CatalogObject;
               });
 
           const selected = optionValues.findIndex(
-            ({ id } = { id: "", type: "" }) =>
-              id ===
-              selectedOptions?.find(
-                ({ itemOptionId }) => itemOptionId === optionId
-              )?.itemOptionValueId
+            (obj) =>
+              obj?.id ===
+              selectedOptions?.find(({ itemOptionId }) => itemOptionId === optionId)
+                ?.itemOptionValueId,
           );
 
           return {
@@ -305,14 +339,24 @@ const withProductModifiers =
         isProductInCart: isProductInCart,
         handleBuyNow: handleBuyNow,
       };
-      // <CartModifierButtons
-      //   loading={{ isCheckoutLoading, isCartLoading }}
-      //   quantity={quantity}
-      //   setQuantity={setQuantity}
-      //   handleAddToCart={handleAddToCart}
-      //   isProductInCart={isProductInCart}
-      //   handleBuyNow={handleBuyNow}
-      // />
+
+      const addToCart = (
+        <Button
+          loading={isCartLoading}
+          data-node-type="commerce-add-to-cart-button"
+          data-loading-text="Adding to cart..."
+          aria-busy="false"
+          aria-haspopup="dialog"
+          className="w-commerce-commerceaddtocartbutton k-btn w-full justify-center"
+          onClick={
+            isProductInCart(itemVariationId)
+              ? handleRemoveFromCart
+              : handleAddToCart
+          }
+        >
+          {isProductInCart(itemVariationId) ? "Remove from Cart" : "Add To Cart"}
+        </Button>
+      );
 
       return (
         <Component
@@ -326,6 +370,7 @@ const withProductModifiers =
             description: itemData.description ?? "",
             selectors,
             cartModifiers,
+            addToCart,
             ...rest
           }}
         />
@@ -339,7 +384,10 @@ const transformOptionId = (
   itemOptions: CatalogObject[]
 ): [string, (CatalogObject | undefined)[]][] =>
   list.map(([key, val]) => [
-    itemOptions.find(({ id }) => id === key)?.itemOptionData?.name ?? "",
+    itemOptions.find(
+      (obj): obj is CatalogObject.ItemOption =>
+        obj.type === "ITEM_OPTION" && obj.id === key,
+    )?.itemOptionData?.name ?? "",
     val,
   ]);
 

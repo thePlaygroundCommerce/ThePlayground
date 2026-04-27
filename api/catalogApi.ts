@@ -1,22 +1,14 @@
 "use server";
 
-import { URLSearchParams } from "url";
-import { DEFAULT_FETCH_INIT, SQUARE_URL } from "../constants";
 import {
-  ApiResponse,
-  BatchRetrieveCatalogObjectsRequest,
-  BatchRetrieveCatalogObjectsResponse,
+  BatchGetCatalogObjectsRequest,
+  BatchGetCatalogObjectsResponse,
   CatalogObject,
-  RetrieveCatalogObjectResponse,
+  ListCatalogResponse,
   SearchCatalogItemsRequest,
   SearchCatalogItemsResponse,
-  SearchCatalogObjectsRequest,
-  SearchCatalogObjectsResponse,
 } from "square";
-import { batchRetrieveCatalogObjectsResponseSchema } from "square/dist/types/models/batchRetrieveCatalogObjectsResponse";
-import { Simplify } from "prismicio-types";
-import { formatNavigationLinks, mapArrayToMap } from "../util";
-import { PageProps } from "index";
+import square from "./clients/square";
 
 const checkForErrors = (data: any) => {
   if (data.errors) {
@@ -28,164 +20,191 @@ const checkForErrors = (data: any) => {
   return data.result;
 };
 
-export async function getCatalogItemsByCategory(request: any) {
-  const fetchUrl = `${SQUARE_URL}catalog/search`;
-  const init = {
-    ...DEFAULT_FETCH_INIT,
-    body: JSON.stringify(request),
-    next: { revalidate: 0 }, // TODO must set to appropriate value in prod
-  };
-
-  return await fetch(fetchUrl, init)
-    .then((res) => res.json())
-    .then(checkForErrors)
-    .catch((err) => err);
-}
-
 export async function getCatalogObjects(types: any) {
-  const queryParams = new URLSearchParams({ types });
-  const fetchUrl = `${SQUARE_URL}catalog/objects?${queryParams}`;
-
-  return await fetch(fetchUrl, { next: { revalidate: 0 } }) // TODO must set to appropriate value in prod
-    .then((res) => res.json())
-    .then(checkForErrors)
-    .catch((err) => console.log(err));
+  return catalog.listCatalogObjects({ types });
 }
 
 export async function getCatalogInfo(): Promise<{
   categoryNameMap: { [id: string]: string };
   objects: { [type: string]: CatalogObject[] };
 }> {
-  const fetchUrl = `${SQUARE_URL}catalog/info`;
-
-  return await fetch(fetchUrl, { next: { revalidate: 0 } }) // TODO must set to appropriate value in prod
-    .then((res) => res.json())
-    .then((data) => ({
-      ...data,
-      categoryNameMap: Object.fromEntries(
-        Object.entries(data.categoryNameMap).map(([k, v]) => [
-          formatNavigationLinks(k),
-          v,
-        ])
-      ),
-    }))
-    // .then(checkForErrors)
-    .catch((err) => console.log(err));
-}
-
-export async function getCatalogImages(types: any) {
-  const queryParams = new URLSearchParams({ types });
-  const fetchUrl = `${SQUARE_URL}catalog/objects?${queryParams}`;
-
-  return await fetch(fetchUrl, { next: { revalidate: 0 } }) // TODO must set to appropriate value in prod
-    .then((res) => res.json())
-    .then(checkForErrors)
-    .catch((err) => console.log(err));
+  return catalog.getCatalogInformation();
 }
 
 export async function getCatalogItemsAndImages(
   ids: string[],
-  includeRelatedObjects: boolean = true
-): Promise<BatchRetrieveCatalogObjectsResponse> {
-  if (ids.length === 0) {
-  }
-
-  const fetchUrl = `${SQUARE_URL}catalog`;
-  const payload = { objectIds: ids, includeRelatedObjects };
-
-  return await fetch(fetchUrl, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
-    next: { revalidate: 0 },
-  }) // TODO must set to appropriate value in prod
-    .then((res) => res.json())
-    // .then(checkForErrors)
-    .catch((err) => console.log(err));
-}
-
-export async function searchObjects(
   includeRelatedObjects: boolean = true,
-  payload: SearchCatalogObjectsRequest
-): Promise<ApiResponse<SearchCatalogObjectsResponse>> {
-  const fetchUrl = `${SQUARE_URL}catalog/search/objects`;
-  return await fetch(fetchUrl, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
-    next: { revalidate: 0 },
-  }) // TODO must set to appropriate value in prod
-    .then((res) => res.json())
-    // .then(checkForErrors)
-    .catch((err) => console.log(err));
+) {
+  return catalog.getProducts({ objectIds: ids, includeRelatedObjects });
 }
 
-export async function searchItems(
-  payload: SearchCatalogItemsRequest
-): Promise<{
-  objects: CatalogObject[];
-  cursor: SearchCatalogItemsResponse["cursor"];
-}> {
-  const fetchUrl = `${SQUARE_URL}catalog/search`;
-  return await fetch(fetchUrl, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
-    next: { revalidate: 0 },
-  }) // TODO must set to appropriate value in prod
-    .then((res) => res.json())
-    // .then(checkForErrors)
-    .catch((err) => console.log(err));
-}
-
-export const getCategorizedObjects = async (resource: string) => {
-  let products = [],
-    relatedObjects: CatalogObject[] = [];
-  const mappedCatalogItems = {
-    items: [],
-    images: [],
-  };
-  const { objects: categories } = await getCatalogObjects("CATEGORY");
-  const foundCategory = categories.find(
-    ({ categoryData: { name } }: { categoryData: { name: string } }) =>
-      name.split(" ").pop()?.toLowerCase() == resource.toLowerCase()
-  );
-
-  if (foundCategory) {
-    const backendReq = {
-      objectTypes: ["ITEM", "IMAGE"],
-      query: {
-        exactQuery: {
-          attributeName: "category_id",
-          attributeValue: foundCategory.id,
-        },
-      },
-      includeRelatedObjects: true,
-    };
-
-    const { objects = [], relatedObjects: relObjs = [] } =
-      (await searchObjects(false, backendReq)).result;
-
-    products = objects;
-    relatedObjects = relObjs;
-  } else {
-    const { objects } = await getCatalogObjects("ITEM,IMAGE");
-    products = objects;
+export async function searchItems(payload: SearchCatalogItemsRequest): Promise<
+  BatchGetCatalogObjectsResponse & {
+    cursor: SearchCatalogItemsResponse["cursor"];
   }
-  return mapArrayToMap([...products, ...relatedObjects, ...categories]);
+> {
+  const result: Awaited<ReturnType<typeof searchItems>> = {
+    cursor: undefined,
+    objects: [],
+  };
 
+  // retrieve items
+  const { items = [], cursor } = await api.searchItems(payload);
+
+  if (items.length === 0) return result;
+
+  const imageIdSet = items.reduce<Set<string>>((set, obj) => {
+    if (obj.type !== "ITEM") {
+      return set;
+    }
+
+    obj.itemData?.imageIds?.forEach((id: string) => {
+      if (!set.has(id)) {
+        set.add(id);
+      }
+    });
+
+    return set;
+  }, new Set<string>());
+
+  // retrieve item imgs
+  const { objects: imageObjs = [] } = await api.batchGet({
+    objectIds: Array.from(imageIdSet),
+  });
+
+  result.cursor = cursor;
+  result.objects = [...imageObjs, ...items];
+
+  return result;
 }
 
-export async function getProductDetails(slug: string): Promise<ApiResponse<RetrieveCatalogObjectResponse>> {
-  return await fetch(SQUARE_URL + "catalog/" + slug, {
-    next: { revalidate: 0 },
-  })
-    .then((res) => res.json())
-    .catch((err) => err);
+export async function getProductDetails(slug: string) {
+  return catalog.retrieveCatalogObject({ slug });
 }
+
+class Catalog {
+  catalogApi: typeof square.catalog;
+
+  // private readonly logger = new Logger(CatalogController.name);
+
+  constructor() {
+    this.catalogApi = square.catalog;
+  }
+
+  // async searchCatalogItems(
+  //   body: SearchCatalogItemsRequest,
+  // ): Promise<SearchProductsResponse> {
+  //   try {
+  //     const res = await this.catalogService.searchProducts(body);
+  //     return res;
+  //   } catch (error) {
+  //     if (error instanceof ApiError) {
+  //       return error.result;
+  //     } else {
+  //       console.log("Unexpected error occurred: ", error);
+  //     }
+  //   }
+  // }
+
+  // async searchCatalogObjects(
+  //   body: SearchCatalogObjectsRequest,
+  // ): Promise<ApiResponse<SearchCatalogObjectsResponse>> {
+  //   try {
+  //     const res = await this.catalogApi.searchCatalogObjects(body);
+  //     console.debug("Response returned: ", res.statusCode);
+  //     return res;
+  //   } catch (error) {
+  //     if (error instanceof ApiError) {
+  //       return error.result;
+  //     } else {
+  //       console.log("Unexpected error occurred: ", error);
+  //     }
+  //   }
+  // }
+
+  async listCatalogObjects(
+    query: { types: string },
+  ): Promise<ListCatalogResponse> {
+    const page = await this.catalogApi.list({ types: query.types });
+    return {
+      objects: page.data,
+    };
+    // try {
+    //   // this.logger.debug('Response returned: ', res.statusCode);
+    //   return res;
+    // } catch (error) {
+    //   if (error instanceof ApiError) {
+    //     this.logger.log(error);
+    //     return error.result;
+    //   } else {
+    //     this.logger.log('Unexpected error occurred: ', error);
+    //   }
+    // }
+  }
+
+  async getCatalogInformation(): Promise<{
+    categoryNameMap: { [id: string]: string };
+    objects: { [type: string]: CatalogObject[] };
+  }> {
+    const catalogList = (
+      await this.catalogApi.list({
+        types: "CATEGORY,TAX,DISCOUNT,ITEM_OPTION",
+      })
+    ).data;
+
+    // reduce obj list to record string, obj
+    const objects = catalogList.reduce<Record<string, CatalogObject[]>>(
+      (acc, obj) => ({
+        ...acc,
+        [obj.type]: acc[obj.type] ? [...acc[obj.type], obj] : [obj],
+      }),
+      {},
+    );
+
+    const categories = (objects.CATEGORY ?? []).filter(
+      (obj): obj is CatalogObject.Category => obj.type === "CATEGORY",
+    );
+
+    const categoryNameMap: Record<string, string> = {};
+    for (const category of categories) {
+      const name = category.categoryData?.name ?? "";
+      categoryNameMap[name] = category.id ?? "";
+    }
+
+    return {
+      objects,
+      categoryNameMap,
+    };
+  }
+
+  async retrieveCatalogObject({ slug }: { slug: string }) {
+    return api.object.get({ objectId: slug, includeRelatedObjects: true });
+  }
+
+  async getProducts({
+    objectIds,
+    includeRelatedObjects,
+  }: BatchGetCatalogObjectsRequest): Promise<BatchGetCatalogObjectsResponse> {
+    // try {
+    return await this.catalogApi.batchGet({ objectIds, includeRelatedObjects });
+
+    // const result = [...objects, ...relatedObjects].reduce(
+    //   (acc, obj) => ({
+    //     ...acc,
+    //     [obj.type]: acc[obj.type] ? [...acc[obj.type], obj] : [obj],
+    //   }),
+    //   {},
+    // );
+    // return result;
+    // } catch (error) {
+    //   if (error instanceof ApiError) {
+    //     return error.result;
+    //   } else {
+    //     console.log("Unexpected error occurred: ", error);
+    //   }
+    // }
+  }
+}
+
+const catalog = new Catalog();
+const api = square.catalog;

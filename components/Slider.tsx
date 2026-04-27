@@ -4,14 +4,9 @@ import Slide, { SlideProps, TypeOmittedSlideProps } from "components/Slide";
 import { wrapLink } from "util/index";
 import clsx from "clsx";
 import Transition from "components/Transition";
-import Image from "components/Image";
-import { AppProps, Content, ContentData } from "index";
+import { AppProps, ContentData } from "index";
 
-import staticImages from "util/images";
 import { useRef, useState, useMemo, Children, useEffect, SetStateAction } from "react";
-import { Button } from "@headlessui/react";
-import { isArray } from "lodash";
-import { giftCardActivityImportReversalSchema } from "square/dist/types/models/giftCardActivityImportReversal";
 
 type Props = {
   slide?: boolean;

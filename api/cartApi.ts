@@ -1,116 +1,249 @@
-'use server'
-
-import { processRes } from "api";
-import { DEFAULT_FETCH_INIT, SQUARE_URL } from "../constants";
+"use server";
 
 import logger from "util/logger";
-import { revalidatePath } from "next/cache";
 
 import {
-  ApiResponse,
   CalculateOrderRequest,
-  CalculateOrderResponse,
   CatalogImage,
   CatalogObject,
   CreateOrderRequest,
-  CreateOrderResponse,
   Order,
-  RetrieveOrderResponse,
-  UpdateOrderRequest,
-  UpdateOrderResponse,
+  OrderLineItem,
 } from "square";
-import { Simplify } from "prismicio-types";
+import { Square } from "./clients";
 
-const BASE_PATH = SQUARE_URL + "carts";
 const SQUARE_ORDER_CACHE_REVALIDATION = {
   next: { tags: ["square", "order"] },
 };
 
-export async function callGetCart(
-  orderId: string
-): Promise<{
+export async function callGetCart(orderId: string) {
+  return (
+    api
+      .getCart(orderId)
+      // .then((result) => {
+      //   processRes(
+      //     result,
+      //     "Cart Successfully Retrieved!",
+      //     "Cart Retrieval Failed",
+      //   );
+      //   return result;
+      // })
+      .catch((err) => {
+        logger.error(err);
+        throw err;
+      })
+  );
+}
+
+export async function callCalculateCart(req: CalculateOrderRequest) {
+  return api.calculateCart(req);
+}
+
+export async function callUpdateCart({ orderId, order, fieldsToClear }: any) {
+  return api.updateCart({ order, fieldsToClear }, orderId);
+}
+
+export async function callCreateCart(catalogOrder: CreateOrderRequest) {
+  catalogOrder.order = {
+    ...catalogOrder.order,
+    locationId: process.env.SQUARE_MAIN_LOCATION_ID ?? "",
+  };
+  return api.createCart(catalogOrder);
+}
+
+class Carts {
+  catalogApi: typeof Square.catalog;
+  ordersApi: typeof Square.orders;
+  constructor() {
+    this.catalogApi = Square.catalog;
+    this.ordersApi = Square.orders;
+  }
+
+  async createCart(req: CreateOrderRequest): Promise<CartOpResponse> {
+    const { order } = await this.ordersApi.create(req);
+    const data = await this.getLineItemCatalogData(order?.lineItems ?? []);
+    return {
+      order: order,
+      ...data,
+    };
+  }
+
+  async calculateCart(req: CalculateOrderRequest): Promise<CartOpResponse> {
+    const { order } = await this.ordersApi.calculate(req);
+    const data = await this.getLineItemCatalogData(order?.lineItems ?? []);
+    return {
+      order: order,
+      ...data,
+    };
+  }
+
+  async updateCart(
+    req: {
+      order: Order;
+      fieldsToClear: string[];
+    },
+    orderId: string,
+  ): Promise<CartOpResponse> {
+    const { order } = await this.ordersApi.update({ orderId, ...req });
+
+    const data = await this.getLineItemCatalogData(order?.lineItems ?? []);
+    return {
+      order: order,
+      ...data,
+    };
+  }
+
+  async getCart(orderId: string): Promise<CartOpResponse> {
+    const result: CartOpResponse = {};
+    const { order } = await this.ordersApi.get({ orderId });
+
+    const { variationToImageMap, options, relatedObjects } =
+      await this.getLineItemCatalogData(order?.lineItems ?? []);
+
+    result.order = order;
+    result.relatedObjects = relatedObjects;
+    result.imageMap = variationToImageMap;
+    result.options = options;
+
+    return result;
+  }
+
+  async getLineItemCatalogData(lineItems: OrderLineItem[]): Promise<{
+    options: Record<string, Record<string, (CatalogObject | undefined)[]>>;
+    relatedObjects: CatalogObject[];
+    variationToImageMap: { [id: string]: CatalogImage | undefined };
+  }> {
+    lineItems = lineItems.filter((item) => item.itemType === "ITEM");
+    if (lineItems.length == 0) {
+      return {
+        options: {},
+        relatedObjects: [],
+        variationToImageMap: {},
+      };
+    }
+    const objIds = lineItems
+      .map(({ catalogObjectId }) => catalogObjectId)
+      .filter((x): x is string => typeof x === "string");
+    const { objects: itemVariationObjs = [], relatedObjects = [] } =
+      await this.catalogApi.batchGet({
+        objectIds: objIds,
+        includeRelatedObjects: true,
+      });
+
+    const variationToOptionTree = itemVariationObjs.reduce<{
+      [id: string]: {
+        [id: string]: string[];
+      };
+    }>((acc, variationObj) => {
+      if (variationObj.type !== "ITEM_VARIATION") {
+        return acc;
+      }
+
+      const { id, itemVariationData } = variationObj;
+      const itemOptionValues = itemVariationData?.itemOptionValues;
+      acc[id] = {};
+      if (!itemOptionValues) return acc;
+
+      itemOptionValues.forEach(({ itemOptionId, itemOptionValueId }) => {
+        const optId = itemOptionId ?? "";
+        const valId = itemOptionValueId ?? "";
+
+        if (!acc[id][optId]) acc[id][optId] = [valId];
+        else acc[id][optId].push(valId);
+      });
+
+      return acc;
+    }, {});
+
+    // links item obj to obj
+    const itemToVariationAndImageMap = relatedObjects
+      .filter((item): item is CatalogObject.Item => item.type === "ITEM")
+      .reduce<Record<string, { variationIds: string[]; imageIds: string[] }>>(
+        (acc, item) => {
+          return {
+            ...acc,
+            [item.id]: {
+              variationIds: objIds.filter((id) =>
+                item.itemData?.variations?.map(({ id }) => id).includes(id),
+              ),
+              imageIds: item.itemData?.imageIds ?? [],
+            },
+          };
+        },
+        {},
+      );
+
+    const imageIds = Array.from(
+      new Set(
+        relatedObjects
+          .filter((item): item is CatalogObject.Item => item.type === "ITEM")
+          .map((item) => item.itemData?.imageIds ?? [])
+          .flat(),
+      ),
+    );
+
+    const catalogObjs = (
+      await this.catalogApi.batchGet({
+        objectIds: [
+          ...imageIds,
+          ...(Object.values(variationToOptionTree)
+            .map((obj) => Object.values(obj).flat())
+            .flat() as string[]),
+        ],
+      })
+    ).objects;
+
+    const optValueObjs = catalogObjs?.filter(
+      (obj): obj is CatalogObject.ItemOptionVal =>
+        obj.type === "ITEM_OPTION_VAL",
+    );
+    const imgObjs = catalogObjs?.filter(
+      (obj): obj is CatalogObject.Image => obj.type === "IMAGE",
+    );
+
+    const options = Object.fromEntries(
+      Object.entries(variationToOptionTree).map(([itemId, obj]) => {
+        return [
+          itemId,
+          Object.fromEntries(
+            Object.entries(obj).map(([id, arr]) => {
+              const newArr = arr.map((id) =>
+                optValueObjs?.find(({ id: objId }) => id === objId),
+              );
+              return [id, newArr];
+            }),
+          ),
+        ];
+      }),
+    );
+
+    const variationToImageMap = Object.values(
+      itemToVariationAndImageMap,
+    ).reduce<{ [id: string]: CatalogImage | undefined }>(
+      (acc, { variationIds: [id], imageIds: [imageId] }) =>
+        !imgObjs
+          ? acc
+          : {
+              ...acc,
+              [id]: imgObjs.find(({ id }) => id === imageId)?.imageData,
+            },
+      {},
+    );
+
+    return {
+      options,
+      relatedObjects,
+      variationToImageMap,
+    };
+  }
+}
+
+type CartOpResponse = {
+  imageMap?: { [id: string]: CatalogImage | undefined };
+  relatedObjects?: CatalogObject[];
+  // options?: Simplify<Simplify<CatalogObject[]>>;
+  options?: any;
   order?: Order;
-  options: CatalogObject[];
-  relatedObjects: CatalogObject[];
-  imageMap?: Simplify<CatalogImage>;
-}> {
-  return fetch(`${BASE_PATH}/${orderId}`, { next: { tags: ["cart"] } })
-    .then((res) => res.json())
-    .then((result) => {
-      processRes(
-        result,
-        "Cart Successfully Retrieved!",
-        "Cart Retrieval Failed"
-      );
-      return result;
-    })
-    .catch((err) => {
-      logger.error(err);
-      throw err;
-    });
-}
+};
 
-export async function calculateCart(
-  req: CalculateOrderRequest,
-  init = DEFAULT_FETCH_INIT
-): Promise<ApiResponse<CalculateOrderResponse>> {
-  return fetch(`${BASE_PATH}/calculate`, {
-    ...DEFAULT_FETCH_INIT,
-    ...init,
-    body: JSON.stringify(req),
-  })
-    .then((res) => res.json())
-    .then((result) => {
-      processRes(
-        result,
-        "Cart Successfully Calculated",
-        "Cart Calculation Failed"
-      );
-      return result;
-    })
-    .catch((err) => {
-      logger.error(err);
-      throw err;
-    });
-}
-
-export async function callUpdateCart(
-  { orderId, order, fieldsToClear }: any,
-  init = DEFAULT_FETCH_INIT
-): Promise<ApiResponse<UpdateOrderResponse>> {
-  return fetch(`${BASE_PATH}/update/${orderId}`, {
-    ...DEFAULT_FETCH_INIT,
-    ...init,
-    body: JSON.stringify({ order, fieldsToClear }),
-  })
-    .then((res) => res.json())
-    .then((result) => {
-      processRes(result, "Cart Successfully Updated", "Cart Update Failed");
-      return result;
-    })
-    .catch((err) => {
-      logger.error(err);
-      throw err;
-    });
-}
-
-export async function callCreateCart(
-  catalogOrder: CreateOrderRequest,
-  init = DEFAULT_FETCH_INIT
-): Promise<ApiResponse<CreateOrderResponse>> {
-  return fetch(`${BASE_PATH}/create`, {
-    ...init,
-    body: JSON.stringify(catalogOrder),
-  })
-    .then((res) => {
-      return res.json();
-    })
-    .then((result: ApiResponse<CreateOrderResponse>) => {
-      processRes(result, "Cart Successfully Created", "Cart Creation Failed");
-      return result;
-    })
-    .catch((err) => {
-      logger.error(err);
-      throw err;
-    });
-}
+const api = new Carts();

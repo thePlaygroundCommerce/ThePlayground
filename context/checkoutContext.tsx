@@ -6,6 +6,7 @@ import { AppProps, CheckoutContextType } from "index";
 import { doesContextExist } from "util/";
 import { useCart } from "./cartContext";
 import { apiRouteHandlerAdapter } from "apiRouteHandler";
+import { getCheckoutItemUrl } from "api/checkoutApi";
 
 export const CheckoutContext = createContext<CheckoutContextType | null>(null);
 
@@ -14,18 +15,15 @@ const CheckoutProvider = ({ children }: AppProps) => {
   const { push } = useRouter()
 
   const checkoutOrder = () => {
-      push("/checkout/" + cart.id)
+    push("/checkout/" + cart.id)
   }
 
   const checkoutItem = async (catalogObjectId: string, quantity: string) => {
-    const { paymentLink } = await apiRouteHandlerAdapter({
-      method: "POST",
-      url: "/api/checkout",
-      payload: [{
+    const { paymentLink } = await
+      getCheckoutItemUrl([{
         catalogObjectId,
         quantity
-      }]
-    })
+      }])
 
     push(paymentLink.url)
   }

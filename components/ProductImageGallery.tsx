@@ -15,7 +15,7 @@ import Modal from "./Modal";
 import { FaArrowsUpDown } from "react-icons/fa6";
 import { ImageResponse } from "next/server";
 
-function ProductImageGallery({ images }: { images: CatalogObject[] }) {
+function ProductImageGallery({ images }: { images: CatalogObject.Image[] }) {
   const [show, setShow] = useState(false)
   const [activeImageIndex, setActiveVariationIndex] = useState(0);
 
@@ -34,6 +34,7 @@ function ProductImageGallery({ images }: { images: CatalogObject[] }) {
   const handleDecrement = () => carouselRef?.next()
 
   const toggleModal = () => setShow(!show)
+  images = [...images, ...images, ...images] 
 
   const showMainView = (modaView: boolean = false, onClick = () => { }) => (
     <div className={clsx("relative flex-6 mx-auto", modaView && " flex flex-col justify-center")}>
@@ -201,8 +202,8 @@ function ProductImageGallery({ images }: { images: CatalogObject[] }) {
           role="region"
           aria-label="carousel"
         >
-          <div className="k-v-slider-mask relative xl:block flex justify-between overflow-hidden z-[1] h-full whitespace-nowrap inset-x-0 mx-auto" id="w-slider-mask-0">
-            {images.slice(0, 5).map((image, i) => (
+          <div className="k-v-slider-mask relative xl:block flex flex-col justify-between overflow-hidden z-[1] h-full whitespace-nowrap inset-x-0 mx-auto" id="w-slider-mask-0">
+            {images.map((image, i) => (
               <div key={image.imageData?.name ?? i} className="aspect-square w-full">
                 <div
                   className={clsx("k-vertical-slide relative inline-block object-contain align-top w-full h-full whitespace-normal text-left ")}

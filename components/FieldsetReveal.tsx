@@ -5,16 +5,18 @@ import Checkbox from './Checkbox'
 
 type Props = {
     defaultChecked: boolean, checkboxText: string, fieldset: ReactNode
+    onCheck?: (checked: boolean) => void
 }
 
-const FieldsetReveal = ({ defaultChecked = true, checkboxText = "Billing address same as shipping", fieldset = <></> }: Props) => {
+const FieldsetReveal = ({ onCheck = (checked: boolean) => { }, defaultChecked = true, checkboxText = "Billing address same as shipping", fieldset = <></> }: Props) => {
     const [checked, setChecked] = useState(defaultChecked)
+    const handleOnChange = (val: boolean) => {
+        setChecked(val)
+        onCheck(val)
+    }
     return (
         <>
-            <div className="flex gap-4 items-center">
-                <Checkbox onChange={(val) => setChecked(val)} defaultChecked={checked} />
-                <p>{checkboxText}</p>
-            </div>
+            <Checkbox onChange={handleOnChange} defaultChecked={checked}>{checkboxText}</Checkbox>
             {!checked && fieldset}
         </>
     )

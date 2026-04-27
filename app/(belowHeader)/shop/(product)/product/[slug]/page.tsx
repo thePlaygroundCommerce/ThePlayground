@@ -4,30 +4,34 @@ import ProductDetails from "components/ProductDetails";
 import ProductImageGallery from "components/ProductImageGallery";
 import Showcase from "components/Showcase";
 import Slider from "components/Slider";
-import client from "prismicio";
+import { client } from "api/clients";
 import Heading from "components/typography/Heading";
 import { GroupField } from "@prismicio/client";
 import { ContentDocumentDataFeaturesItem, Simplify } from "prismicio-types";
-import { searchCatalogItems } from "api/customerApi";
+import { getCategoryProducts } from "api/customerApi";
 import { PageProps } from "index";
 import { Accordion } from '@ark-ui/react/accordion'
 import { FaAngleDown } from "react-icons/fa6";
 import clsx from "clsx";
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/react";
 import { PrismicRichText } from "@prismicio/react";
+import { CatalogObject } from "square";
 
 const Page = async ({ params, searchParams }: PageProps) => {
   var slug = (await searchParams).id
   if (!slug) slug = (await params).slug
 
   const {
-    result: { object: catalogObject, relatedObjects },
+    object: catalogObject,
+    relatedObjects,
   } = await getProductDetails(slug);
   if (!catalogObject) return <p>Something went wrong!</p>
     ;
 
-  const { items, images } = await searchCatalogItems("");
-  const { data } = await client.getByUID("product_content", catalogObject.id.toLowerCase()).catch((e) => ({ data: undefined }))
+  const { items, images } = await getCategoryProducts("");
+  const { data } = await client
+    .getByUID("product_content", (catalogObject.id ?? "").toLowerCase())
+    .catch((e) => ({ data: undefined }))
 
   const relatedItems = items
     .filter(({ id }) => id !== catalogObject.id)
@@ -36,9 +40,15 @@ const Page = async ({ params, searchParams }: PageProps) => {
   let features: GroupField<Simplify<ContentDocumentDataFeaturesItem>> = [];
 
   if (catalogObject?.customAttributeValues) {
-    const prismicUid = Object.values(catalogObject?.customAttributeValues)
+    const prismicUid = (Object.values(catalogObject.customAttributeValues)
       .flat()
-      .find(({ name }) => name === "prismicContentId")?.stringValue;
+      .find(
+        (attr): attr is { name?: string; stringValue?: string } =>
+          typeof attr === "object" &&
+          attr !== null &&
+          "name" in attr &&
+          (attr as { name?: string }).name === "prismicContentId",
+      )?.stringValue) as string | undefined;
     if (prismicUid) {
       try {
         const { data } = await client.getByUID("content", prismicUid);
@@ -49,28 +59,31 @@ const Page = async ({ params, searchParams }: PageProps) => {
 
   const renderProductDetails = () => {
     const filteredRelatedImages =
-      catalogObject.itemData?.imageIds
-        ?.map((id) => relatedObjects?.find((obj) => obj.id === id))
-        .filter((obj) => obj !== undefined) ?? [];
+      (catalogObject.type === "ITEM" ? catalogObject.itemData?.imageIds : [])
+        ?.map((id: string) => relatedObjects?.find((obj) => obj.id === id))
+        .filter((obj): obj is CatalogObject.Image => obj !== undefined) ??
+      [];
 
     const breadcrumbs = [
       {
         name: "Home",
         link: "/shop",
       },
-      ...(catalogObject.categoryData?.pathToRoot?.map(
-        ({ categoryName: name }) => ({
-          name: name ?? "",
-          link: `/shop/${name}`,
-        })
-      ) ?? []),
+      ...(
+        catalogObject.type === "CATEGORY"
+          ? (catalogObject.categoryData?.pathToRoot?.map(({ categoryName }) => ({
+              name: categoryName ?? "",
+              link: `/shop/${categoryName}`,
+            })) ?? [])
+          : []
+      ),
     ];
 
     return (
       <>
         <div className="k-hero-content">
           <div className="k-full-container k-container--strech block lg:flex">
-            <div className="k-hero-left-side block sm:pr-12">
+            <div className="k-hero-left-side block sm:px-12">
               <ProductDetails
                 productImageGallery={<ProductImageGallery images={filteredRelatedImages} />}
                 catalogItemObject={catalogObject}
@@ -95,7 +108,9 @@ const Page = async ({ params, searchParams }: PageProps) => {
                     </Accordion.ItemTrigger>
                     <Accordion.ItemContent className="my-4">
                       <p className="k-product-main-desc">
-                        {catalogObject.itemData?.description}
+                        {catalogObject.type === "ITEM"
+                          ? catalogObject.itemData?.description
+                          : ""}
                       </p>
                     </Accordion.ItemContent>
                   </Accordion.Item>
@@ -180,15 +195,30 @@ const Page = async ({ params, searchParams }: PageProps) => {
                 type="DEFAULT"
                 title="You Might Also Like"
                 headline={undefined}
-                slides={relatedItems.map(({ id, itemData: { name, variations, imageIds } = {} }) => {
-                  const image = images.find(({ id }) => id === imageIds?.[0])?.imageData
+                slides={relatedItems.map((item) => {
+                  const itemId = item.id ?? "";
+                  const name = item.type === "ITEM" ? item.itemData?.name : "";
+                  const variations =
+                    item.type === "ITEM" ? item.itemData?.variations : [];
+                  const imageIds =
+                    item.type === "ITEM" ? item.itemData?.imageIds : [];
+                  const imageObj = images.find(
+                    (obj): obj is CatalogObject.Image =>
+                      obj.type === "IMAGE" && obj.id === imageIds?.[0],
+                  );
+                  const image = imageObj?.imageData;
+                  const firstVariation = variations?.[0];
+                  const price =
+                    firstVariation?.type === "ITEM_VARIATION"
+                      ? Number(firstVariation.itemVariationData?.priceMoney?.amount ?? 0)
+                      : 0;
 
                   return {
                     image: { fill: true, alt: image?.caption ?? "", src: image?.url ?? "", className: "object-cover" },
                     content: {
-                      link: `/shop/product/${id}`,
+                      link: `/shop/product/${itemId}`,
                       title: name ?? "",
-                      price: Number((variations ?? [])[0]?.itemVariationData?.priceMoney?.amount) ?? 0,
+                      price,
                     },
                   }
                 }
@@ -200,6 +230,7 @@ const Page = async ({ params, searchParams }: PageProps) => {
       </>
     );
   };
+  
   return renderProductDetails();
 };
 

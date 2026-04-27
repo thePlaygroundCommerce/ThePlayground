@@ -8,24 +8,25 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react";
 
 import { PrismicPreview } from "@prismicio/next";
-import client, { prismic, repositoryName } from "prismicio";
+import { Prismic, client, repositoryName } from "api/clients";
 import { AppProps } from "index";
 import { Content } from "@prismicio/client";
 import { cookies } from "next/headers";
 import { callGetCart } from "api/cartApi";
-import clsx from "clsx";
-import { latoRegular } from "./fonts";
 import { ClerkProvider } from "@clerk/nextjs";
 import { FooterNavigationDocumentDataNavsItem } from "prismicio-types";
 import FacebookPixel from "components/FacebookPixel";
 import TagManagerProvider from "context/TagManager";
 import { Metadata } from "next";
+import { CatalogObject } from "square";
 
 import { config } from '@fortawesome/fontawesome-svg-core'
 // import '@fortawesome/fontawesome-svg-core/styles.css'
-import LogoComponent, { renderLogo } from "components/LogoComponent";
+import { renderLogo } from "components/LogoComponent";
 import { ReactElement } from "react";
-import "styles/globals.css";
+import "../styles/globals.css";
+import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
+import _ from "lodash";
 // import "lib/js/webflow.js"
 // import "styles/webflow.css";
 // import "styles/webflowA.css";
@@ -72,56 +73,43 @@ export const getMainNavigation: () => Promise<{
 
   switch (type) {
     case "square":
-      headerNavs = (await getCatalogItemsAndImages(object_ids?.split(",") ?? [], false)).objects?.map(
-        ({ id, categoryData: { name } = { name: "" } }) => {
-          name = name ?? ""
-          return {
-            id,
-            title: name,
-            link: `/${name.toLowerCase()}`,
-          }
-        }
-
-      ) ?? [];
+      headerNavs =
+        (await getCatalogItemsAndImages(object_ids?.split(",") ?? [], false))
+          .objects
+          ?.filter(
+            (obj): obj is CatalogObject.Category => obj.type === "CATEGORY",
+          )
+          .map(({ id, categoryData }) => {
+            const name = categoryData?.name ?? "";
+            return {
+              id: id ?? "",
+              title: name,
+              link: `/${name.toLowerCase()}`,
+            };
+          }) ?? [];
       break;
-    // default:
-    //   headerNavs = (
-    //     await client.getByType<Content.HeaderDocument & Navs>(
-    //       HEADER_NAVIGATION,
-    //       {
-    //         fetchLinks: crLinks,
-    //       }
-    //     )
-    //   ).results[0];
-
-    //   break;
   }
 
   return {
     headerNavs,
     //@ts-ignore
-    footerNavs: footerNavs.navs.filter(({ nav }) => prismic.isFilled.contentRelationship<'nav', string, FooterNavigationDocumentDataNavsItem>(nav)).map(({ nav }) => nav.data),
+    footerNavs: footerNavs.navs.filter(({ nav }) => Prismic.isFilled.contentRelationship<'nav', string, FooterNavigationDocumentDataNavsItem>(nav)).map(({ nav }) => nav.data),
   };
 };
 
 export type LayoutPageProps = { children: React.ReactNode };
 
 export default async function RootLayout({ children, info }: LayoutPageProps & { info: any }) {
-  const cookieCartId = (await cookies()).get("cartId")?.value ?? "";
 
-  const { order: cart = {
-    locationId: ""
-  }, imageMap = {}, options = [], relatedObjects = [] } = await callGetCart(cookieCartId);
-
-  const test = !cookieCartId? "A" : "B";
+  const { order: cart, options, imageMap, relatedObjects } = await getInitialItems(await cookies())
 
   const { objects: apparelObjects = [] } = await getCatalogObjects(
     "ITEM,IMAGE,CATEGORY,ITEM_OPTION"
   );
-
+  
   const { headerNavs, footerNavs } = await getMainNavigation();
   const mappedCatalogObjects = mapArrayToMap([...apparelObjects, ...relatedObjects]);
-
+  
   return (
     <TagManagerProvider>
       <ClerkProvider>
@@ -135,6 +123,7 @@ export default async function RootLayout({ children, info }: LayoutPageProps & {
 
             {/* <!-- This spacer provides the height we want --> */}
             <div className="h-screen col-span-full row-start-1 row-end-[span_2]" />
+            
             <Providers data={mappedCatalogObjects} cartData={{ _cart: cart, _options: options }} cartImageMap={imageMap}>
               <Layout info={info} navs={{ headerNavs, footerNavs }}>
                 {children}
@@ -177,4 +166,21 @@ const Layout = ({ children, info, navs, navs: { footerNavs } }: LayoutProps & { 
     </>
   );
 
+}
+
+const getInitialItems = async (cookies: ReadonlyRequestCookies) => {
+  const id = cookies.get("cartId")?.value;
+
+  let init = {
+    order: {
+      locationId: ""
+    }, imageMap: {}, options: [], relatedObjects: []
+  }
+
+
+  if (id) {
+    init = _.defaults(init, await callGetCart(id));
+  }
+
+  return init
 }

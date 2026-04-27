@@ -15,25 +15,31 @@ export const doesContextExist = <T,>(context: T | null) => {
 }
 
 export function splitCategoryNames(arr: CatalogObject[]): string[][] {
-  return arr?.map(({ categoryData }) =>
-    categoryData?.name ? categoryData.name.split(" ") : [""]
-  );
+  return arr
+    ?.filter((obj): obj is CatalogObject.Category => obj.type === "CATEGORY")
+    .map(({ categoryData }) =>
+      categoryData?.name ? categoryData.name.split(" ") : [""],
+    );
 }
 
 export function splitCategoryNamesWithId(
   arr: CatalogObject[]
 ): SplitCategoryNameWithId[] {
-  return arr?.map(({ id, categoryData }: { id: string; categoryData?: any }) =>
-    categoryData?.name
-      ? {
-        id,
-        category: categoryData.name.split(" "),
-      }
-      : {
-        id: "",
-        category: [],
-      }
-  );
+  const mapped = arr
+    ?.filter((obj): obj is CatalogObject.Category => obj.type === "CATEGORY")
+    .map(({ id, categoryData }) =>
+      categoryData?.name
+        ? {
+            id: id ?? "",
+            category: categoryData.name.split(" "),
+          }
+        : {
+            id: "",
+            category: [],
+          },
+    );
+
+  return mapped as unknown as SplitCategoryNameWithId[];
 }
 
 export function mapArrayToMap(arr: CatalogObject[]) {

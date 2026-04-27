@@ -11,6 +11,8 @@ import { ReactNode } from "react";
 import Rating from "./Rating";
 import Modal from "./Modal";
 import Selector from "./ColorSelector";
+import { BsArrowDownLeftCircle } from "react-icons/bs";
+import AddToCart from "./forms/AddToCart";
 
 export type ProductDetailsProps = {
   price: number
@@ -31,6 +33,7 @@ const ProductDetails = ({
   price,
   selectors,
   cartModifiers,
+  addToCart
 }: ProductDetailsProps) => {
   // const productDesc = itemData.descriptionHtml ? (
   //   ReactHtmlParser(itemData.descriptionHtml)
@@ -49,7 +52,7 @@ const ProductDetails = ({
         REF. 87035655-ALOHA-LO
       </div> */}
       {/* <div className="k-heading-line k-line-space-around" /> */}
-      <div className="min-h-[50vh] flex flex-col">
+      <div className="h-screen flex flex-col overflow-hidden">
         {productImageGallery}
       </div>
       <div className="flex justify-between mb-2 mt-6">
@@ -74,52 +77,8 @@ const ProductDetails = ({
         ))}
       </div>
       <div className="k-add-to-cart-widget">
-        <form
-          data-node-type="commerce-add-to-cart-form"
-          data-commerce-sku-id="6084f36628908f57871aa8fe"
-          data-loading-text="Adding to cart..."
-          data-commerce-product-id="6084f3654a978ce1fb06ead6"
-          className="w-commerce-commerceaddtocartform"
-        >
-          <div className="block sm:flex lg:block justify-between">
-            <div className="btn-wrap-1">
-              <Button
-                loading={isCartLoading}
-                data-node-type="commerce-add-to-cart-button"
-                data-loading-text="Adding to cart..."
-                aria-busy="false"
-                aria-haspopup="dialog"
-                className="w-commerce-commerceaddtocartbutton k-btn w-full justify-center"
-                onClick={isProductInCart ? cartModifiers.handleRemoveFromCart : cartModifiers.handleAddToCart}
-              >
-                {isProductInCart ? "Remove from Cart" : "Add To Cart"}
-              </Button>
-            </div>
-            {/* <div className="btn-wrap-1">
-              <Button
-                loading={isCheckoutLoading}
-                data-node-type="commerce-buy-now-button"
-                data-default-text="Buy now"
-                data-subscription-text="Subscribe now"
-                aria-busy="false"
-                aria-haspopup="false"
-                // style={{ display: "none" }}
-                onClick={cartModifiers.handleBuyNow}
-                className="w-commerce-commercebuynowbutton mt-2 sm:mt-0 lg:mt-2 k-btn bg-black"
-              // href="/checkout"
-              >
-                Buy now
-              </Button>
-            </div> */}
-          </div>
-          {/* <div className="grid grid-cols-1 gap-1 justify-around w-full">
-            {cartModifiers}
-            <div className="p-2">
-              <p className="text-xs text-zinc-600 text-center">🇺🇸 Ships within <span className="text-mintcream-600">3 business days.</span></p>
-            </div>
-          </div> */}
-        </form>
-        <div
+        {addToCart}
+        {/* <div
           style={{ display: "none" }}
           className="w-commerce-commerceaddtocartoutofstock"
           tabIndex={0}
@@ -143,11 +102,8 @@ const ProductDetails = ({
           >
             Product is not available in this quantity.
           </div>
-        </div>
+        </div> */}
       </div>
-      {/* <div className="absolute h-screen bg-white top-0 left-0 w-full">
-            Hello
-      </div> */}
     </div>
   )
 };

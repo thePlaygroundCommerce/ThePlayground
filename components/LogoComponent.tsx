@@ -1,11 +1,10 @@
 import React from "react";
-import { createClient } from "prismicio";
+import { client } from "api/clients/";
 import Image from 'components/Image'
-import clsx from "clsx";
 import { AppProps } from "index";
 
 const LogoComponent = async ({ className }: AppProps) => {
-  const { results: [{ data: { image: { alt, url } } }] } = await createClient().getByType("the_playground_display_logo");
+  const { results: [{ data: { image: { alt, url } } }] } = await client.getByType("the_playground_display_logo");
 
   return (
     <Image

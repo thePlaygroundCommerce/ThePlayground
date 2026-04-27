@@ -1,11 +1,9 @@
 "use server";
 
 import {
-  ApiResponse,
   CreateCustomerRequest,
   CreateCustomerResponse,
-  Customer,
-  RetrieveCustomerResponse,
+  GetCustomerResponse,
   SearchCatalogItemsRequest,
 } from "square";
 import { DEFAULT_FETCH_INIT, SQUARE_URL } from "../constants";
@@ -15,7 +13,7 @@ import { getCatalogInfo, searchItems } from "./catalogApi";
 import Mailgun from "mailgun.js";
 import formdata from "form-data";
 
-export const searchCatalogItems = async (category: string) => {
+export const getCategoryProducts = async (category: string) => {
   const formattedCategory = formatNavigationLinks(category);
   const { categoryNameMap } = await getCatalogInfo();
   const id = categoryNameMap[formattedCategory];
@@ -41,7 +39,7 @@ export type RegisterCustomerRequest = {
 };
 export async function registerCustomer(
   request: RegisterCustomerRequest
-): Promise<ApiResponse<CreateCustomerResponse>> {
+): Promise<CreateCustomerResponse> {
   const fetchUrl = `${SQUARE_URL}customers/register`;
   const init = {
     ...DEFAULT_FETCH_INIT,
@@ -84,7 +82,7 @@ export const sendEmail = async ({
 
 export async function getCustomer(
   id: string
-): Promise<ApiResponse<RetrieveCustomerResponse>> {
+): Promise<GetCustomerResponse> {
   const fetchUrl = `${SQUARE_URL}customers/${id}`;
 
   return await fetch(fetchUrl)

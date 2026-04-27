@@ -1,8 +1,7 @@
 import Link from "next/link";
 import ProductItem, { ProductGridItemMap } from "./ProductGridItem";
 import { AppProps } from "index";
-import { CatalogObject } from "square";
-import React, { ReactElement } from "react";
+import React from "react";
 
 type Props = {
   type: keyof ProductGridItemMap
@@ -12,7 +11,7 @@ type Props = {
 
 const ProductGrid = ({ catalogItems, catalogImages, type }: Props) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 md:grid-rows-3 gap-y-6 gap-x-6 w-full max-w-full">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:grid-rows-3 gap-y-6 gap-x-6 w-full max-w-full px-4">
       {!catalogItems ? (
         <EmptyProductGrid />
       ) : (

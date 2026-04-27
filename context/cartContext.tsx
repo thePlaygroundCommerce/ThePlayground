@@ -14,7 +14,6 @@ import { useCookies } from "react-cookie";
 import {
   CalculateOrderRequest,
   CatalogImage,
-  Error as SquareError,
   Order,
   OrderLineItem,
   CatalogObject,
@@ -23,6 +22,7 @@ import { ICartContext } from "index";
 import { useDebouncedCallback } from "use-debounce";
 import { doesContextExist } from "util/";
 import { Simplify } from "prismicio-types";
+import { callCalculateCart, callCreateCart, callUpdateCart } from "api/cartApi";
 
 type CartState = {
   order: Order;
@@ -74,12 +74,8 @@ const CartProvider = ({
 
   const calculateCart = (req: CalculateOrderRequest) => {
     if (cart?.id) {
-      apiRouteHandlerAdapter({
-        method: "POST",
-        url: `/api/cart/calculate`,
-        payload: req,
-      }).then((data) => {
-        populateCartAndImages(data, cartItemImages);
+      callCalculateCart(req).then(({ order }) => {
+        populateCartAndImages({ order: order ?? { locationId: "" } }, cartItemImages);
       });
     }
   };
@@ -98,12 +94,8 @@ const CartProvider = ({
         },
         fieldsToClear,
       };
-      apiRouteHandlerAdapter({
-        method: "PUT",
-        url: `/api/cart`,
-        payload: body,
-      }).then((data) => {
-        populateCartAndImages(data, lineItemImageData);
+      callUpdateCart(body).then(({ order }) => {
+        populateCartAndImages({ order: order ?? { locationId: "" } }, lineItemImageData);
       });
     } else {
       createCart(lineItems, lineItemImageData, false);
@@ -116,18 +108,16 @@ const CartProvider = ({
     checkout?: boolean
   ) => {
     const state = checkout ? "OPEN" : "DRAFT";
-    apiRouteHandlerAdapter({
-      method: "POST",
-      url: `/api/cart`,
-      payload: { order: { state, lineItems: catalogOrder } },
-    }).then((data) => {
-      if (data.order) {
-        setCookie("cartId", data.order.id, {
-          path: "/",
-        });
-      }
-      populateCartAndImages(data, lineItemImageData);
-    });
+
+    callCreateCart({ order: { locationId: "", state, lineItems: catalogOrder } })
+      .then(({ order }) => {
+        if (order) {
+          setCookie("cartId", order.id, {
+            path: "/",
+          });
+          populateCartAndImages({ order }, lineItemImageData);
+        }
+      });
   };
 
   const populateCartAndImages = (

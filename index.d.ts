@@ -35,7 +35,7 @@ export type CategoryTree = {
 
 export type SplitCategoryNameWithId = {
   id: string;
-  category: string;
+  category: string[];
 };
 
 export type NavigationContextType = {
@@ -52,8 +52,8 @@ export type NavigationContextType = {
 };
 
 export type PageProps<
-  A = { [slug: string]: any },
-  B = { [slug: string]: any },
+  A = { [slug: string]: string },
+  B = { [slug: string]: string },
 > = {
   params: Promise<A>;
   searchParams: Promise<B>;

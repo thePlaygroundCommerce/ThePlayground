@@ -8,6 +8,7 @@ import Heading from "./typography/Heading";
 import Link from "next/link";
 // import StarRating from "./StarRating";
 import Button from "./Button";
+import Badge from "./Badge";
 
 type OmitType<T> = Omit<T, "type">
 type OmmitedTypeProps = Omit<Props, 'type'>
@@ -15,7 +16,7 @@ type OmmitedTypeProps = Omit<Props, 'type'>
 type Props = {
   type: keyof ProductGridItemMap
   itemData: CatalogItem
-  images: CatalogObject[]
+  images: CatalogObject.Image[]
 } & AppProps
 
 export default function ProductGridItem({ type, ...props }: Props) {
@@ -28,26 +29,34 @@ export default function ProductGridItem({ type, ...props }: Props) {
 const RetailGridItem = ({ itemData, images, className }: OmitType<Props>) => {
 
   let { imageIds } = itemData;
-  const { name, variations } = itemData;
+  const { name, variations = [] } = itemData;
   if (!imageIds) imageIds = []
 
   const displayImage = images.find(image => image.id === imageIds[0])?.imageData;
+  const amount = (variations as CatalogObject.ItemVariation[]).at(0)?.itemVariationData?.priceMoney?.amount ?? 0;;
 
   return (
-    <div className={clsx(className, "border-0 text-center h-full flex flex-col")}>
-      <div className='flex-1 flex flex-col justify-center'>
-        <Image
-          className={`mx-auto md:rounded-lg overflow-hidden w-full`}
-          width={1080}
-          height={1080}
-          src={displayImage?.url || Unavailable}
-          alt={displayImage?.caption || "Picture of shirt"}
-        />
+    <div className={clsx(className, "border-0 h-full flex flex-col justify-between")}>
+      <div className="p-2">
+        <Badge>New</Badge>
+        <div className='flex-1 flex flex-col justify-center'>
+          <Image
+            className={`mx-auto md:rounded-lg overflow-hidden w-full`}
+            width={1080}
+            height={1080}
+            src={displayImage?.url || Unavailable}
+            alt={displayImage?.caption || "Picture of shirt"}
+          />
+        </div>
+
       </div>
-      <div className="p-3">
-        <div>{name}</div>
+      <div className="p-3 flex flex-col gap-2">
         <div>
-          <Money number={variations![0].itemVariationData?.priceMoney?.amount ?? 0} />
+          <p className="">{name}</p>
+          <p className="text-zinc-400 text-sm">Black</p>
+        </div>
+        <div>
+          <Money number={amount} />
         </div>
       </div>
     </div>

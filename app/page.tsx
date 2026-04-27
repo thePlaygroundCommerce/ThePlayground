@@ -1,22 +1,14 @@
 import { getProductDetails, searchItems } from "api/catalogApi";
-import Button from "components/Button";
-import NewsletterForm from "components/forms/NewsletterForm";
-import Hero, { WebflowHero } from "components/Hero";
+import { WebflowHero } from "components/Hero";
 import Image from "components/Image";
-import Showcase from "components/Showcase";
-import Slider, { WebflowSlider } from "components/Slider";
-import Heading from "components/typography/Heading";
-import Link from "next/link";
-import client from "prismicio";
-import React, { Fragment } from "react";
+import { WebflowSlider } from "components/Slider";
+import React from "react";
 import { mapArrayToMap } from "util/index";
 
-import staticImages from "util/images.ts";
-import Transition from "../components/Transition";
 import AnimatedComponent from "components/AnimatedComponent";
-import TabSlider from "components/TabSlider";
 import PhotoGrid from "components/PhotoGrid";
 import { ContentImage, ContentData } from "index";
+import { CatalogObject } from "square";
 
 import pic2 from "public/images/goumbik.jpg"
 import pic1 from "public/images/jibarofoto.jpg"
@@ -87,12 +79,16 @@ const Item = ({
 const INSTAGRAM_URL = "https://www.instagram.com/theplaygroundtravel/";
 
 const page = async (props: Props) => {
-  const { objects } = await searchItems({ categoryIds: [] });
+  const { objects = [] } = await searchItems({ categoryIds: [] });
   const { items, images } = mapArrayToMap(objects);
-  const hotItem = (await getProductDetails("")).result?.object ?? items[0];
-  const hotItemImage = images.find(
-    (obj) => obj.id === hotItem.itemData?.imageIds?.[0]
-  )?.imageData;
+  const hotItem = (await getProductDetails("")).object ?? items[0];
+  const hotItemImageId =
+    hotItem?.type === "ITEM" ? hotItem.itemData?.imageIds?.[0] : undefined;
+  const hotItemImageObj = images.find(
+    (obj): obj is CatalogObject.Image =>
+      obj.type === "IMAGE" && obj.id === hotItemImageId,
+  );
+  const hotItemImage = hotItemImageObj?.imageData;
   // const blogs = await client.getAllByType("blog_post");
   // const blogCards = blogs.map(({ uid, data: { title, headline } }) => (
   //   <Fragment key={uid}>

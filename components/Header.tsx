@@ -16,7 +16,6 @@ import MobileNavigation from "./MobileNavigation";
 import CartOverlay from "./CartOverlay";
 import { useCart } from "context/cartContext";
 import { usePortal } from "context/UIKitContext";
-import { OrderLineItem, CatalogImage, CalculateOrderRequest } from "square";
 
 type Props = AppProps & {
   navs: { headerNavs: Nav[]; footerNavs?: Nav[] };
@@ -82,6 +81,8 @@ function Header({ navs, className, logo }: Props) {
   const headerHeight = navRef.current?.offsetHeight;
   const handleCartClick = () => toggleOverlay(overlayState.active !== "cart" ? 'cart' : undefined)
   const handleNavClick = () => toggleOverlay(!overlayState.active ? 'nav' : undefined)
+
+  console.log(cart)
 
   return (
     <header
