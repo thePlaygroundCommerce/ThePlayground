@@ -10,20 +10,20 @@ export async function GET() {
   const squareId = user.privateMetadata.squareId
   const clerk = await clerkClient()
 
-  if (squareId && (await getCustomer(squareId)).result.customer) null;
-  else {
-    registerCustomer({
-      // referenceId: user.id,
-      firstName: user.firstName ?? "",
-      lastName: user.lastName ?? "",
-      emailAddress: user.primaryEmailAddress?.emailAddress ?? "",
-      phoneNumber: user.primaryPhoneNumber?.phoneNumber,
-    }).then(({ result: { customer } }) => customer && clerk.users.updateUserMetadata(user.id, {
-      privateMetadata: {
-        squareId: customer.id
-      }
-    }))
-  }
+  // if (squareId && (await getCustomer(squareId)).result.customer) null;
+  // else {
+  //   registerCustomer({
+  //     // referenceId: user.id,
+  //     firstName: user.firstName ?? "",
+  //     lastName: user.lastName ?? "",
+  //     emailAddress: user.primaryEmailAddress?.emailAddress ?? "",
+  //     phoneNumber: user.primaryPhoneNumber?.phoneNumber,
+  //   }).then(({ result: { customer } }) => customer && clerk.users.updateUserMetadata(user.id, {
+  //     privateMetadata: {
+  //       squareId: customer.id
+  //     }
+  //   }))
+  // }
 
   redirect("/shop")
 
