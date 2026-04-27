@@ -20,18 +20,17 @@ const Selector = ({
   data,
   onChange,
   ...rest
-}: Props<CatalogObject>) => {
+}: Props<CatalogObject.ItemOptionVal>) => {
   const Component = selectorCompMap[type ?? "RADIO"];
   if (!Component) throw Error("Selector type doesn't map to a Component");
 
   const selectorData = data.map(
-    ({ id, itemOptionValueData, imageData } = { id: "", type: "" }) => ({
+    ({ id, itemOptionValueData }) => ({
       label: itemOptionValueData?.name ?? "",
       value: {
         optionId: itemOptionValueData?.itemOptionId,
         optionValueId: id,
-      },
-      imageData,
+      }
     })
   );
 

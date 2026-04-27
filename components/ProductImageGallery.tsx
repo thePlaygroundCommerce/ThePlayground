@@ -1,25 +1,24 @@
 "use client";
-import { Fragment, useEffect, useState } from "react";
-import ProductImageViewer from "./ProductImageViewer";
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdOutlineChevronLeft, MdOutlineChevronRight } from "react-icons/md";
+import { useEffect, useState } from "react";
 
 import Image from "components/Image";
 import clsx from "clsx";
-import Button from "./Button";
-import Carousel from "./Carousel";
 import { CatalogObject } from "square";
 import { KeenSliderInstance } from "keen-slider/react";
 import Divider from "./Divider";
 import { WebflowSlider } from "./Slider";
 import Modal from "./Modal";
-import { FaArrowsUpDown } from "react-icons/fa6";
-import { ImageResponse } from "next/server";
+import { useCounter } from "usehooks-ts";
 
 function ProductImageGallery({ images }: { images: CatalogObject.Image[] }) {
   const [show, setShow] = useState(false)
   const [activeImageIndex, setActiveVariationIndex] = useState(0);
+  const { count, setCount } = useCounter(0)
 
-  const handleImageChange = (index: number) => setActiveVariationIndex(index)
+  const handleImageChange = (index: number) => {
+    setActiveVariationIndex(index)
+    setCount(index)
+  }
   const [carouselRef, setCarouselRef] = useState<KeenSliderInstance<
     unknown,
     {
@@ -34,32 +33,21 @@ function ProductImageGallery({ images }: { images: CatalogObject.Image[] }) {
   const handleDecrement = () => carouselRef?.next()
 
   const toggleModal = () => setShow(!show)
-  images = [...images, ...images, ...images] 
 
   const showMainView = (modaView: boolean = false, onClick = () => { }) => (
     <div className={clsx("relative flex-6 mx-auto", modaView && " flex flex-col justify-center")}>
       <WebflowSlider className="md:hidden" active={activeImageIndex} onIndexChange={(index) => handleImageChange(index)} visibleItemsCount={1} isInfinite={false} withIndicator={false} withControls={false}>
         {images.map((image, i) => (
           <div
-            key={image.imageData?.name ?? i}
+            key={`${image.imageData?.name}${i}`}
             className={clsx("k-main-slide")}
-            aria-label="1 of 5"
-            role="group"
-            style={{
-              transition: "all",
-              transform: "translateX(0px)",
-              opacity: 1
-            }}
           >
             <Image
               alt={image.imageData?.caption ?? ""}
-              src={image.imageData?.url ?? ""}
-              data-wf-sku-bindings="%5B%7B%22from%22%3A%22f_more_images_4dr%5B%5D%22%2C%22to%22%3A%22src%22%7D%5D"
-              sizes="100vw"
+              src={image.imageData?.url ?? ""}              
               height={1080}
               width={1080}
               onClick={onClick}
-              // srcSet="https://cdn.prod.website-files.com/606072483975b0a200b7dff6/6084f34dc96abefb6fa13070_87035655_94-p-500.jpeg 500w, https://cdn.prod.website-files.com/606072483975b0a200b7dff6/6084f34dc96abefb6fa13070_87035655_94.jpeg 640w"
               className="k-slider-full-image object-contain"
             />
           </div>
@@ -86,7 +74,7 @@ function ProductImageGallery({ images }: { images: CatalogObject.Image[] }) {
         >
           {images.map((image, i) => (
             <div
-              key={image.imageData?.name ?? i}
+              key={`${image.imageData?.name}${i}`}
               className={clsx(activeImageIndex !== i ? "hidden" : "block", "k-main-slide")}
               aria-label="1 of 5"
               role="group"
@@ -202,9 +190,9 @@ function ProductImageGallery({ images }: { images: CatalogObject.Image[] }) {
           role="region"
           aria-label="carousel"
         >
-          <div className="k-v-slider-mask relative xl:block flex flex-col justify-between overflow-hidden z-[1] h-full whitespace-nowrap inset-x-0 mx-auto" id="w-slider-mask-0">
+          <div className="k-v-slider-mask relative xl:block flex flex-col justify-between overflow-hidden z-1 h-full whitespace-nowrap inset-x-0 mx-auto" id="w-slider-mask-0">
             {images.map((image, i) => (
-              <div key={image.imageData?.name ?? i} className="aspect-square w-full">
+              <div key={`${image.imageData?.name}${i}`} className="aspect-square w-full">
                 <div
                   className={clsx("k-vertical-slide relative inline-block object-contain align-top w-full h-full whitespace-normal text-left ")}
                   aria-label={i + " of 5"}
@@ -305,9 +293,10 @@ function ProductImageGallery({ images }: { images: CatalogObject.Image[] }) {
           {/* <div className="flex-1">
             {activeImageIndex > 0 && <MdOutlineChevronLeft className="mx-auto" size={24} onClick={() => handleImageChange(activeImageIndex - 1)} />}
           </div> */}
-          {images.map((image, i) => (
+          <SlideIndicator count={count} length={images.length}  />
+          {/* {images.map((image, i) => (
             <div
-              key={image.imageData?.name ?? i}
+              key={`${image.imageData?.name}${i}`}
               onClick={() => handleImageChange(i)}
               className={clsx(activeImageIndex === i && "border-2", "overflow-hidden rounded-lg flex-none h-16 w-16")}
             >
@@ -324,7 +313,7 @@ function ProductImageGallery({ images }: { images: CatalogObject.Image[] }) {
                 className="k-slider-full-image object-contain"
               />
             </div>
-          ))}
+          ))} */}
           {/* <div className="flex-1">
             {activeImageIndex < images.length - 1 && <MdOutlineChevronRight className="mx-auto" size={24} onClick={() => handleImageChange(activeImageIndex + 1)} />}
           </div> */}
@@ -345,7 +334,7 @@ function ProductImageGallery({ images }: { images: CatalogObject.Image[] }) {
             {showMainView(true)}
           </div>
           <div className="flex-1">
-            <p className="bg-gray-300 rounded-full px-8 py-2 border-gray-400 border-1">
+            <p className="bg-gray-300 rounded-full px-8 py-2 border-gray-400 border">
               {activeImageIndex + 1} / {images.length}
             </p>
           </div>
@@ -433,3 +422,18 @@ function ProductImageGallery({ images }: { images: CatalogObject.Image[] }) {
 }
 
 export default ProductImageGallery;
+
+const SlideIndicator = ({
+  count = 0,
+  length = 5
+}) => {
+  
+
+  return (
+    <div className="bg-gray-300 w-full h-1 overflow-hidden">
+      <div style={{ transform: `translateX(${count / length * 100}%)` }} className="transition-transform duration-700 h-full ease-in-out">
+        <div style={{ width: `${1 / length * 100}%` }} className="w-1/10 bg-black h-full rounded-full" />
+      </div>
+    </div>
+  )
+}

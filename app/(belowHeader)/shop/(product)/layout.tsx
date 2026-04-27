@@ -12,9 +12,8 @@ export const metadata = {
 export default async function Layout({ children }: LayoutPageProps) {
   return (
     <>
-      <div className="min-h-screen">
-        {children}
-        {/* <Link href="/shop">
+      {children}
+      {/* <Link href="/shop">
           <Button variant="link" className="text-xs text-zinc-600 flex items-center py-2">
             <Breadcrumbs
             items={breadcrumbs}
@@ -26,7 +25,7 @@ export default async function Layout({ children }: LayoutPageProps) {
           </Button>
         </Link> */}
 
-      </div>
+
       <div className="lg:w-1/3 m-12 mx-auto">
         <NewsletterForm
           {...{

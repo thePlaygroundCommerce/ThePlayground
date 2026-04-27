@@ -9,12 +9,23 @@ import {
   CreateOrderRequest,
   Order,
   OrderLineItem,
+  UpdateOrderRequest,
 } from "square";
 import { Square } from "./clients";
 
 const SQUARE_ORDER_CACHE_REVALIDATION = {
   next: { tags: ["square", "order"] },
 };
+
+type OrderRequest =
+  | UpdateOrderRequest
+  | CreateOrderRequest
+  | CalculateOrderRequest;
+type OrderWithoutLocation = Omit<OrderRequest, "order"> & {
+  order: Omit<OrderRequest["order"], "locationId">;
+};
+
+const locationId = process.env.SQUARE_MAIN_LOCATION_ID ?? "";
 
 export async function callGetCart(orderId: string) {
   return (
@@ -35,20 +46,37 @@ export async function callGetCart(orderId: string) {
   );
 }
 
-export async function callCalculateCart(req: CalculateOrderRequest) {
-  return api.calculateCart(req);
-}
-
-export async function callUpdateCart({ orderId, order, fieldsToClear }: any) {
-  return api.updateCart({ order, fieldsToClear }, orderId);
-}
-
-export async function callCreateCart(catalogOrder: CreateOrderRequest) {
-  catalogOrder.order = {
-    ...catalogOrder.order,
-    locationId: process.env.SQUARE_MAIN_LOCATION_ID ?? "",
+export async function callCalculateCart(req: OrderWithoutLocation) {
+  const nReq: CalculateOrderRequest = {
+    ...req,
+    order: {
+      ...req.order,
+      locationId,
+    },
   };
-  return api.createCart(catalogOrder);
+  return api.calculateCart(nReq);
+}
+
+export async function callUpdateCart(req: OrderWithoutLocation) {
+  const nReq = {
+    ...req,
+    order: {
+      ...req.order,
+      locationId,
+    },
+  } as UpdateOrderRequest;
+  return api.updateCart(nReq);
+}
+
+export async function callCreateCart(req: OrderWithoutLocation) {
+  const nReq = {
+    ...req,
+    order: {
+      ...req.order,
+      locationId,
+    },
+  } as CreateOrderRequest;
+  return api.createCart(nReq);
 }
 
 class Carts {
@@ -78,13 +106,9 @@ class Carts {
   }
 
   async updateCart(
-    req: {
-      order: Order;
-      fieldsToClear: string[];
-    },
-    orderId: string,
+    ...req: Parameters<typeof this.ordersApi.update>
   ): Promise<CartOpResponse> {
-    const { order } = await this.ordersApi.update({ orderId, ...req });
+    const { order } = await this.ordersApi.update(...req);
 
     const data = await this.getLineItemCatalogData(order?.lineItems ?? []);
     return {

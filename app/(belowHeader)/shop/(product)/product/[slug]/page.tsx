@@ -81,15 +81,13 @@ const Page = async ({ params, searchParams }: PageProps) => {
 
     return (
       <>
-        <div className="k-hero-content">
+        <div className="k-hero-content p-0">
           <div className="k-full-container k-container--strech block lg:flex">
-            <div className="k-hero-left-side block sm:px-12">
               <ProductDetails
                 productImageGallery={<ProductImageGallery images={filteredRelatedImages} />}
                 catalogItemObject={catalogObject}
                 catalogImageObjects={filteredRelatedImages}
               />
-            </div>
           </div>
         </div>
 
@@ -99,7 +97,7 @@ const Page = async ({ params, searchParams }: PageProps) => {
               <div className="block md:hidden">
                 <Accordion.Root collapsible>
 
-                  <Accordion.Item value={"description"} className={clsx("p-4 border-b-1 border-zinc-300")}>
+                  <Accordion.Item value={"description"} className={clsx("p-4 border-b border-zinc-300")}>
                     <Accordion.ItemTrigger className="flex justify-between items-center w-full">
                       Description
                       <Accordion.ItemIndicator>
@@ -115,7 +113,7 @@ const Page = async ({ params, searchParams }: PageProps) => {
                     </Accordion.ItemContent>
                   </Accordion.Item>
                   {data.features.map(({ name, value }, i) => (
-                    <Accordion.Item key={name} value={name?.toString() ?? ""} className={clsx("p-4 border-b-1 border-zinc-300")}>
+                    <Accordion.Item key={name} value={name?.toString() ?? ""} className={clsx("p-4 border-b border-zinc-300")}>
                       <Accordion.ItemTrigger className="flex justify-between items-center w-full">
                         {name}
                         <Accordion.ItemIndicator>
@@ -133,7 +131,7 @@ const Page = async ({ params, searchParams }: PageProps) => {
                 </Accordion.Root>
               </div>
               <div className="md:block hidden">
-                <TabGroup vertical className="flex border-t-1 border-b-1 p-2 border-zinc-300 min-h-96">
+                <TabGroup vertical className="flex border-t border-b p-2 border-zinc-300 min-h-96">
                   <div className="flex-1 flex flex-col justify-center">
                     <TabList className="flex flex-col">
                       {data.features.map(({ name }) => (

@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "ignoreDeprecations": "6.0",
     /* Visit https://aka.ms/tsconfig to read more about this file */
     /* Projects */
     // "incremental": true,                              /* Save .tsbuildinfo files to allow for incremental compilation of projects. */
@@ -98,7 +99,7 @@
       "dom.iterable",
       "esnext"
     ],
-    "downlevelIteration": true,
+    // "downlevelIteration": true,
     "allowJs": true,
     "noEmit": true,
     "incremental": true,

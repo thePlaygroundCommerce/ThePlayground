@@ -44,7 +44,16 @@ const ProductDetails = ({
   const isProductInCart = _isProductInCart()
 
   return (
-    <div className="k-product-details relative">
+    <div className="flex flex-col relative">
+      <div className="p-4">
+        <div
+          data-wf-sku-bindings="%5B%7B%22from%22%3A%22f_price_%22%2C%22to%22%3A%22innerHTML%22%7D%5D"
+          className="k-product-price"
+        >
+          <Money className="font-medium text-lg " number={price} />
+        </div>
+        <h1 className="mb-4 p-0 font-bold">{name}</h1>
+      </div>
       {/* <div
         data-wf-sku-bindings="%5B%7B%22from%22%3A%22f_sku_%22%2C%22to%22%3A%22innerHTML%22%7D%5D"
         className="k-product-sku"
@@ -52,10 +61,10 @@ const ProductDetails = ({
         REF. 87035655-ALOHA-LO
       </div> */}
       {/* <div className="k-heading-line k-line-space-around" /> */}
-      <div className="h-screen flex flex-col overflow-hidden">
+      <div className="flex flex-col flex-1 overflow-hidden min-h-0">
         {productImageGallery}
       </div>
-      <div className="flex justify-between mb-2 mt-6">
+      {/* <div className="flex justify-between mb-2 mt-6 flex-1">
         <div
           data-wf-sku-bindings="%5B%7B%22from%22%3A%22f_price_%22%2C%22to%22%3A%22innerHTML%22%7D%5D"
           className="k-product-price"
@@ -63,20 +72,20 @@ const ProductDetails = ({
           <Money className="font-bold text-xl" number={price} />
         </div>
         <Rating amount={5} />
-      </div>
-      <h2>{name}</h2>
+      </div> */}
+      {/* <h2>{name}</h2> */}
       {/* <p className="k-product-main-desc">
         {description}
       </p> */}
-      <div className="mt-4 flex flex-col gap-4">
+      <div className="mt-4 flex flex-col gap-4 p-4">
         {Object.entries(selectors).map(([k, v]) => (
           <div key={k}>
-            <p>{_.capitalize(k)}</p>
+            <p className="font-semibold uppercase mb-4">{_.capitalize(k)}</p>
             <Selector {...v} />
           </div>
         ))}
       </div>
-      <div className="k-add-to-cart-widget">
+      <div className="k-add-to-cart-widget p-4">
         {addToCart}
         {/* <div
           style={{ display: "none" }}

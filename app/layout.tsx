@@ -27,6 +27,7 @@ import { ReactElement } from "react";
 import "../styles/globals.css";
 import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import _ from "lodash";
+import clsx from "clsx";
 // import "lib/js/webflow.js"
 // import "styles/webflow.css";
 // import "styles/webflowA.css";
@@ -119,10 +120,10 @@ export default async function RootLayout({ children, info }: LayoutPageProps & {
             {/* <link href="images/webclip.png" rel="apple-touch-icon" /> */}
             <script src="https://cdn.finsweet.com/files/cmslibrary-v1.8.js"></script>
           </head>
-          <body className="grid grid-rows-[min-content_1fr]">
+          <body className={clsx(false && "grid grid-rows-[min-content_1fr]")}>
 
             {/* <!-- This spacer provides the height we want --> */}
-            <div className="h-screen col-span-full row-start-1 row-end-[span_2]" />
+            {/* <div className="h-screen col-span-full row-start-1 row-end-[span_2]" /> */}
             
             <Providers data={mappedCatalogObjects} cartData={{ _cart: cart, _options: options }} cartImageMap={imageMap}>
               <Layout info={info} navs={{ headerNavs, footerNavs }}>
@@ -157,13 +158,14 @@ type LayoutProps = AppProps & {
 
 const Layout = ({ children, info, navs, navs: { footerNavs } }: LayoutProps & { info: ReactElement }) => {
   return (
-    <>
+    <div className="h-screen flex flex-col">
       <Header navs={navs} logo={renderLogo({ className: "w-full" })} />
-      <main className="col-start-1 row-start-2 overflow-x-hidden">
-        {info}{children}
+      <main className={clsx(" flex-1 min-h-0 overflow-auto", false && "col-start-1 row-start-2 overflow-x-hidden")}>
+        {info}
+        {children}
         <Footer navs={footerNavs} />
       </main>
-    </>
+    </div>
   );
 
 }

@@ -69,48 +69,47 @@ const SquarePaymentForm = ({
             country: string;
         };
     }) => {
-        const addressTo = await shippo.addresses.create({
-            name: `${state.shippingAddress.firstName} ${state.shippingAddress.lastName}`,
-            // company: "The Playground",
-            street1: state.shippingAddress.addressLine1,
-            city: state.shippingAddress.city,
-            state: state.shippingAddress.state,
-            zip: state.shippingAddress.postalCode,
-            country: "US", // iso2 country code
-            // phone: "+1 555 341 9393",
-            email: state.email,
-        })
-        const addressFrom = await shippo.addresses.create({
-            name: "The Playground",
-            company: "The Playground",
-            street1: "330 E Roosevelt St",
-            street2: "Suite 3066",
-            city: "Phoenix",
-            state: "Arizona",
-            zip: "85004",
-            country: "US", // iso2 country code
-            // phone: "+1 555 341 9393",
-            email: "theplaygroudmedia@outlook.com",
-        })
+        // need shippo api keys in .env
+        // const addressTo = await shippo.addresses.create({
+        //     name: `${state.shippingAddress.firstName} ${state.shippingAddress.lastName}`,
+        //     // company: "The Playground",
+        //     street1: state.shippingAddress.addressLine1,
+        //     city: state.shippingAddress.city,
+        //     state: state.shippingAddress.state,
+        //     zip: state.shippingAddress.postalCode,
+        //     country: "US", // iso2 country code
+        //     // phone: "+1 555 341 9393",
+        //     email: state.email,
+        // })
+        // const addressFrom = await shippo.addresses.create({
+        //     name: "The Playground",
+        //     company: "The Playground",
+        //     street1: "330 E Roosevelt St",
+        //     street2: "Suite 3066",
+        //     city: "Phoenix",
+        //     state: "Arizona",
+        //     zip: "85004",
+        //     country: "US", // iso2 country code
+        //     // phone: "+1 555 341 9393",
+        //     email: "theplaygroudmedia@outlook.com",
+        // })
 
-        const parcel: ParcelCreateRequest = {
-            length: "5",
-            width: "5",
-            height: "5",
-            distanceUnit: DistanceUnitEnum.In,
-            weight: "2",
-            massUnit: WeightUnitEnum.Lb
-        };
+        // const parcel: ParcelCreateRequest = {
+        //     length: "5",
+        //     width: "5",
+        //     height: "5",
+        //     distanceUnit: DistanceUnitEnum.In,
+        //     weight: "2",
+        //     massUnit: WeightUnitEnum.Lb
+        // };
 
-        const shipment = await shippo.shipments.create({
-            addressFrom: addressFrom,
-            addressTo: addressTo,
-            carrierAccounts: ["1cfc09e9beee46229bf7e3ac6801aa0a"],
-            parcels: [parcel],
-            async: false
-        });
-
-        console.log(shipment)
+        // const shipment = await shippo.shipments.create({
+        //     addressFrom: addressFrom,
+        //     addressTo: addressTo,
+        //     carrierAccounts: ["1cfc09e9beee46229bf7e3ac6801aa0a"],
+        //     parcels: [parcel],
+        //     async: false
+        // });
 
     }
 

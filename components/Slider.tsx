@@ -5,8 +5,10 @@ import { wrapLink } from "util/index";
 import clsx from "clsx";
 import Transition from "components/Transition";
 import { AppProps, ContentData } from "index";
+import { useDrag } from "@use-gesture/react";
 
 import { useRef, useState, useMemo, Children, useEffect, SetStateAction } from "react";
+import { createContentSecurityPolicyHeaders } from "node_modules/@clerk/nextjs/dist/types/server/content-security-policy";
 
 type Props = {
   slide?: boolean;
@@ -41,7 +43,7 @@ const Slider = ({ type, title, headline, slides, slide = false }: Props) => {
               <div
                 key={i}
                 className={clsx(
-                  "basis-4/5 md:basis-1/4 shrink-0 md:shrink ease-in-out transition-transform duration-[1000ms]",
+                  "basis-4/5 md:basis-1/4 shrink-0 md:shrink ease-in-out transition-transform duration-1000",
                   `delay-[${i + 1}000ms]`
                   // !start ? "-translate-x-full" : "-translate-x-0"
                 )}
@@ -74,7 +76,7 @@ export const WebflowSlider = ({
   withIndicator = false, // show dots?
   withControls = false, // show dots?
 }: AppProps & { active?: number; visibleItemsCount: number; isInfinite: boolean, withIndicator: boolean, withControls: boolean, onIndexChange?: (index: number) => void }) => {
-  const indicatorContainerRef = useRef(null);
+  const ref = useRef(null);
   const [timeoutInProgress, setTimeoutInProgress] = useState(false); // a boolean for if timeout is im progress, used to stop user from spam clicking next or back in certain conditions
 
   /**
@@ -108,7 +110,7 @@ export const WebflowSlider = ({
   /**
    * First touch position to be used in calculation for the swipe speed
    */
-  const [touchPosition, setTouchPosition] = useState(null); 
+  const [touchPosition, setTouchPosition] = useState(null);
 
   /**
    * Handle if the carousel is repeating
@@ -199,47 +201,15 @@ export const WebflowSlider = ({
   };
   const childrenWrapper = (children: any) => Children.map(children, (child, i) => <div key={i} style={{ width: `calc(100% / ${visibleItemsCount})` }} className="grow shrink-0">{child}</div>)
 
-  /**
-   * Handle when the user start the swipe gesture
-   * @param e TouchEvent
-   */
-  const handleTouchStart = (e: any) => {
-    // Save the first position of the touch
-    const touchDown = e.touches[0].clientX;
-    setTouchPosition(touchDown);
-  };
+  const handleDrag: Parameters<typeof useDrag>[0] = ({ last, movement: [mx] }) => {
+    const DRAG_THRESHOLD_PX = 50;
+    if (!last || timeoutInProgress) return;
 
-  /**
-   * Handle when the user move the finger in swipe gesture
-   * @param e TouchEvent
-   */
-  const handleTouchMove = (e: any) => {
-    // Get initial location
-    const touchDown = touchPosition;
-
-    // Proceed only if the initial position is not null
-    if (touchDown === null) {
-      return;
-    }
-
-    // Get current position
-    const currentTouch = e.touches[0].clientX;
-
-    // Get the difference between previous and current position
-    const diff = touchDown - currentTouch;
-
-    // Go to next item
-    if (diff > 5) {
+    if (mx <= -DRAG_THRESHOLD_PX) {
       nextItem();
-    }
-
-    // Go to previous item
-    if (diff < -5) {
+    } else if (mx >= DRAG_THRESHOLD_PX) {
       previousItem();
     }
-
-    // Reset initial touch position
-    setTouchPosition(null);
   };
 
   /**
@@ -346,8 +316,10 @@ export const WebflowSlider = ({
     btnControl: "absolute z-10 top-1/2"
   }
 
+  useDrag(handleDrag, { target: ref, axis: "x" })
+
   return (
-    <div className={clsx("flex flex-col relative w-full text-center", className)}>
+    <div className={clsx("flex flex-col relative w-full text-center touch-none", className)}>
       <div className="flex w-full relative">
         {withControls && isPrevButtonVisible ? (
           <button
@@ -371,10 +343,12 @@ export const WebflowSlider = ({
             style={{
               transform: `translateX(-${currentIndex * (100 / visibleItemsCount)}%)`,
             }}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
+
+            // onTouchStart={handleTouchStart}
+            // onTouchMove={handleTouchMove}
+            ref={ref}
             onTransitionEnd={() => handleTransitionEnd()}
-            className={clsx("flex duration-500", isTransitionEnabled ? "transition" : "transition-none")}
+            className={clsx("flex duration-500 touch-none", isTransitionEnabled ? "transition" : "transition-none")}
           >
             {isRepeating && extraPreviousItems}
             {childrenWrapper(children)}

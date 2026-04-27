@@ -439,10 +439,10 @@ const CartModifierButtons = ({
 };
 
 
-export type Selector<TData = CatalogObject> = {
+export type Selector = {
   selectedIndex: number,
   type: keyof SelectorComponentMap,
-  data: TData[],
+  data: CatalogObject.ItemOptionVal[],
   onChange: ChangeEventHandler,
 }
 export type Selectors = { color?: Selector, size?: Selector }

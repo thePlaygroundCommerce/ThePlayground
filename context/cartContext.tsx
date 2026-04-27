@@ -109,7 +109,7 @@ const CartProvider = ({
   ) => {
     const state = checkout ? "OPEN" : "DRAFT";
 
-    callCreateCart({ order: { locationId: "", state, lineItems: catalogOrder } })
+    callCreateCart({ order: { state, lineItems: catalogOrder } })
       .then(({ order }) => {
         if (order) {
           setCookie("cartId", order.id, {
