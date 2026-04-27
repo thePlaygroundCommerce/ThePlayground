@@ -13,7 +13,6 @@ import { AppProps, UIKitContextType } from "index";
 import { createPortal } from "react-dom";
 import { FaRegCircleXmark } from "react-icons/fa6";
 import { Button } from "@headlessui/react";
-import { listSitesResponseSchema } from "square/dist/types/models/listSitesResponse";
 import clsx from "clsx";
 
 export const UIKitContext = createContext<UIKitContextType | null>(null);

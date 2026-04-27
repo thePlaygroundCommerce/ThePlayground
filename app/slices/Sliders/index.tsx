@@ -5,6 +5,7 @@ import { BlogPostDocumentData } from "prismicio-types";
 import { SlideProps, TypeOmittedSlideProps } from "components/Slide";
 import Slider from "components/Slider";
 import { ImageProps } from "index";
+import { CatalogObject } from "square";
 
 /**
  * Props for `Sliders`.
@@ -59,9 +60,9 @@ const getProducts = async (object_ids: string | KeyTextField, imagefit: ImagePro
   const ids = object_ids?.split(",").map(id => id.replace(" ", "")).filter(id => id !== null) ?? []
   const { objects = [], relatedObjects } = (await getCatalogItemsAndImages(ids))
 
-  return objects.map(({ itemData: { name, imageIds, variations } = {} }) => {
-    const [{ itemVariationData: { priceMoney: { amount = BigInt(0) } = {} } = {} }] = variations ?? []
-    const { url, caption: alt } = relatedObjects?.find(({ id }) => imageIds?.[0] === id)?.imageData ?? {}
+  return (objects as CatalogObject.Item[]).map(({ itemData: { name, imageIds, variations } = {} }) => {
+    const [{ itemVariationData: { priceMoney: { amount = BigInt(0) } = {} } = {} }] = (variations as CatalogObject.ItemVariation[]) ?? []
+    const { url, caption: alt } = (relatedObjects as CatalogObject.Image[])?.find(({ id }) => imageIds?.[0] === id)?.imageData ?? {}
     return {
       image: {
         imagefit,

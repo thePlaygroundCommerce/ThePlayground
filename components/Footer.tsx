@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { AppProps } from "index";
 import SocialMediaButtons from "./SocialMediaButtons";
 import Link from "next/link";

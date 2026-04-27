@@ -12,7 +12,6 @@ import { HiXMark } from "react-icons/hi2";
 import Button from "./Button";
 import Divider from "./Divider";
 import { AppProps } from "index";
-import { invoiceAttachmentSchema } from "square/dist/types/models/invoiceAttachment";
 
 const OrderList = ({ children, allowOrderItemDeletion = true, allowOrderModify = false, lineItems, lineItemImages, options, ...rest }: {
   lineItems?: OrderLineItem[]
