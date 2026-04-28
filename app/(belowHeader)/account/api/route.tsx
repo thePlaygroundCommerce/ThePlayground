@@ -1,14 +1,14 @@
-import { clerkClient, currentUser } from '@clerk/nextjs/server';
+// import { clerkClient, currentUser } from '@clerk/nextjs/server';
 import { registerCustomer, getCustomer } from 'api/customerApi'
 import { redirect } from 'next/navigation';
 
 
 export async function GET() {
-  const user = await currentUser();
-  if (!user) redirect("/account/sign-in")
+  // const user = await currentUser();
+  // if (!user) redirect("/account/sign-in")
     
-  const squareId = user.privateMetadata.squareId
-  const clerk = await clerkClient()
+  // const squareId = user.privateMetadata.squareId
+  // const clerk = await clerkClient()
 
   // if (squareId && (await getCustomer(squareId)).result.customer) null;
   // else {

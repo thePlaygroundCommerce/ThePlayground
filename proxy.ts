@@ -1,6 +1,6 @@
-import { clerkMiddleware , currentUser } from "@clerk/nextjs/server";
+// import { clerkMiddleware , currentUser } from "@clerk/nextjs/server";
 
-export default clerkMiddleware();
+export default null;
 
 
 // See "Matching Paths" below to learn more

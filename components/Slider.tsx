@@ -8,7 +8,6 @@ import { AppProps, ContentData } from "index";
 import { useDrag } from "@use-gesture/react";
 
 import { useRef, useState, useMemo, Children, useEffect, SetStateAction } from "react";
-import { createContentSecurityPolicyHeaders } from "node_modules/@clerk/nextjs/dist/types/server/content-security-policy";
 
 type Props = {
   slide?: boolean;

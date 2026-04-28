@@ -13,7 +13,7 @@ import { AppProps } from "index";
 import { Content } from "@prismicio/client";
 import { cookies } from "next/headers";
 import { callGetCart } from "api/cartApi";
-import { ClerkProvider } from "@clerk/nextjs";
+// import { ClerkProvider } from "@clerk/nextjs";
 import { FooterNavigationDocumentDataNavsItem } from "prismicio-types";
 import FacebookPixel from "components/FacebookPixel";
 import TagManagerProvider from "context/TagManager";
