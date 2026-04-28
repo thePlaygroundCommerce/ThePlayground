@@ -34,7 +34,7 @@ const Page = async ({ params, searchParams }: PageProps) => {
           <SquarePaymentForm onSubmit={pay} />
         </div>
         <div className="flex-1">
-          <div className="border-1 hidden md:block bg-white rounded border-zinc-200">
+          <div className="border hidden md:block bg-white rounded border-zinc-200">
             <div className="p-4 border-b border-zinc-200">
               <h3>Order Summary</h3>
             </div>

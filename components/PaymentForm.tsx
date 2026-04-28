@@ -255,7 +255,7 @@ const SquarePaymentForm = ({
     ]
 
     return fieldset.map(({ name: fieldsetName, display, required, fields, element, type }) => (
-        <Fieldset key={fieldsetName} className="border-1 bg-white rounded-3xl border-zinc-200">
+        <Fieldset key={fieldsetName} className="border bg-white rounded-3xl border-zinc-200">
             <div className="p-4 border-b border-zinc-200">
                 <Legend className="flex justify-between">
                     <h1 className="text-lg p-0">{display || _.capitalize(fieldsetName)}</h1>
@@ -349,13 +349,13 @@ const RadioGroup = ({ defaultValue, fields = [] }: { defaultValue?: string, fiel
 }
 const Input = ({ name, display, onChange, ...rest }: any) => {
     const classes = clsx(
-        'mt-3 block w-full rounded-full border-1 bg-zinc-100 border-zinc-300 bg-white/5 px-6 py-3 text-sm/6 ',
+        'mt-3 block w-full rounded-full border bg-zinc-100 border-zinc-300 bg-white/5 px-6 py-3 text-sm/6 ',
         'focus:not-data-focus:outline-none data-focus:outline-2 data-focus:-outline-offset-2 data-focus:outline-white/25'
     )
 
     return (
         <Field className="rounded">
-            <Label className="text-sm/6 font-medium relative left-6 top-6 bg-white px-1.5 py-1 rounded-lg border-1 border-zinc-300">{display || _.capitalize(name)}</Label>
+            <Label className="text-sm/6 font-medium relative left-6 top-6 bg-white px-1.5 py-1 rounded-lg border border-zinc-300">{display || _.capitalize(name)}</Label>
             <input name={name} className={classes} onChange={onChange} {...rest} />
         </Field>
     )

@@ -113,7 +113,7 @@ export default async function RootLayout({ children, info }: LayoutPageProps & {
   
   return (
     <TagManagerProvider>
-      <ClerkProvider>
+      {/* <ClerkProvider> */}
         <html data-wf-page="67f9692e7e88b9a05d707c83" data-wf-site="67f9692d7e88b9a05d707c22">
           <head>
             {/* <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" /> */}
@@ -144,7 +144,7 @@ export default async function RootLayout({ children, info }: LayoutPageProps & {
             <FacebookPixel />
           </body>
         </html>
-      </ClerkProvider>
+      {/* </ClerkProvider> */}
     </TagManagerProvider>
   );
 }
