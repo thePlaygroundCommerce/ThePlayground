@@ -9,7 +9,7 @@ export default new Client({
     silent: true,
   },
   environment:
-    process.env.NODE_ENV === "production"
+    process.env.VERCEL_ENV === "production"
       ? Environment.Production
       : Environment.Sandbox,
 });
