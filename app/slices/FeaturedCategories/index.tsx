@@ -21,7 +21,7 @@ const FeaturedCategories = ({
       data-slice-variation={slice.variation}
       className="flex gap-24 p-16"
     >
-      {items.map(({ category }) => {
+      {/* {items.map(({ category }) => {
 
         if (!isFilled.contentRelationship<string, string, { uid: string, title: string }>(category)) return null
 
@@ -32,7 +32,7 @@ const FeaturedCategories = ({
             {title}
           </div>
         )
-      })}
+      })} */}
     </section>
   );
 };

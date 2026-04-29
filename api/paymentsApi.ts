@@ -11,7 +11,7 @@ import { randomUUID } from "crypto";
 import { Address } from "square";
 
 const pay = async (
-  { token }: Square.TokenResult,
+  tokenRes: Square.TokenResult,
   {
     email: buyerEmailAddress,
     billingAddress,
@@ -21,6 +21,10 @@ const pay = async (
   // Implement server-side payment processing logic here
   // This could involve calling an API to process the payment
   // and returning a response to the client.
+
+  if(tokenRes.status !== "OK") return 
+
+  const { token } = tokenRes
 
   const store = await cookies();
   const cartId = store.get("cartId")?.value;

@@ -24,20 +24,20 @@ const Sliders = async ({ slice, slice: { slice_type, primary, variation, primary
       break;
     case "blog":
       slice.primary.items.forEach(({ blog }) => {
-        if (!isFilled.contentRelationship<'blog', string, BlogPostDocumentData>(blog)) return
-        const { data: { title, headline, image: { url = "", alt = "", dimensions = {} } = {} } = {} } = blog
-        slides.push({
-          content: {
-            link: "",
-            title: title ?? "",
-            headline: headline ?? "",
-          },
-          image: {
-            objectFit: primary.imagefit,
-            src: url ?? "",
-            alt: alt ?? ""
-          }
-        })
+        // if (!isFilled.contentRelationship<'blog', string, BlogPostDocumentData>(blog)) return
+        // const { data: { title, headline, image: { url = "", alt = "", dimensions = {} } = {} } = {} } = blog
+        // slides.push({
+        //   content: {
+        //     link: "",
+        //     title: title ?? "",
+        //     headline: headline ?? "",
+        //   },
+        //   image: {
+        //     objectFit: primary.imagefit,
+        //     src: url ?? "",
+        //     alt: alt ?? ""
+        //   }
+        // })
       })
       break;
     case "default":
