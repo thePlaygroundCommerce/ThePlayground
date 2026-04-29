@@ -1,6 +1,6 @@
 import React from 'react'
 import { SignInButton, SignUpButton } from '@clerk/nextjs'
-import { Clerk } from '@clerk/clerk-js'
+// import { Clerk } from '@clerk/clerk-js'
 
 type Props = unknown
 

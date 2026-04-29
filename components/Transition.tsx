@@ -2,12 +2,12 @@
 
 import { LayoutPageProps } from "../app/layout";
 import { ReactNode, useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
+// import gsap from "gsap";
+// import { useGSAP } from "@gsap/react";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 
-gsap.registerPlugin(useGSAP);
+// gsap.registerPlugin(useGSAP);
 
 const Transition = ({ children }: { children: ReactNode | ((start: boolean) => ReactNode) }) => {
   const b = usePathname();

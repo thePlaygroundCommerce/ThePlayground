@@ -9,9 +9,11 @@ import {
   CreateOrderRequest,
   Order,
   OrderLineItem,
+  Square,
   UpdateOrderRequest,
 } from "square";
-import { Square } from "./clients";
+import square from "./clients/square";
+import { isSuccessfulSquareApiCall } from "./clients/util";
 
 const SQUARE_ORDER_CACHE_REVALIDATION = {
   next: { tags: ["square", "order"] },
@@ -28,22 +30,7 @@ type OrderWithoutLocation = Omit<OrderRequest, "order"> & {
 const locationId = process.env.SQUARE_MAIN_LOCATION_ID ?? "";
 
 export async function callGetCart(orderId: string) {
-  return (
-    api
-      .getCart(orderId)
-      // .then((result) => {
-      //   processRes(
-      //     result,
-      //     "Cart Successfully Retrieved!",
-      //     "Cart Retrieval Failed",
-      //   );
-      //   return result;
-      // })
-      .catch((err) => {
-        logger.error(err);
-        throw err;
-      })
-  );
+  return api.getCart(orderId);
 }
 
 export async function callCalculateCart(req: OrderWithoutLocation) {
@@ -80,11 +67,11 @@ export async function callCreateCart(req: OrderWithoutLocation) {
 }
 
 class Carts {
-  catalogApi: typeof Square.catalog;
-  ordersApi: typeof Square.orders;
+  catalogApi: typeof square.catalog;
+  ordersApi: typeof square.orders;
   constructor() {
-    this.catalogApi = Square.catalog;
-    this.ordersApi = Square.orders;
+    this.catalogApi = square.catalog;
+    this.ordersApi = square.orders;
   }
 
   async createCart(req: CreateOrderRequest): Promise<CartOpResponse> {
@@ -119,7 +106,12 @@ class Carts {
 
   async getCart(orderId: string): Promise<CartOpResponse> {
     const result: CartOpResponse = {};
-    const { order } = await this.ordersApi.get({ orderId });
+    if(!orderId) return result
+
+    const res = await this.ordersApi.get({ orderId }).catch((err) => err as Square.Error_);
+    if(!isSuccessfulSquareApiCall(res)) return result
+
+    const { order } = res
 
     const { variationToImageMap, options, relatedObjects } =
       await this.getLineItemCatalogData(order?.lineItems ?? []);

@@ -126,20 +126,10 @@ class Catalog {
     query: { types: string },
   ): Promise<ListCatalogResponse> {
     const page = await this.catalogApi.list({ types: query.types });
+
     return {
       objects: page.data,
     };
-    // try {
-    //   // this.logger.debug('Response returned: ', res.statusCode);
-    //   return res;
-    // } catch (error) {
-    //   if (error instanceof ApiError) {
-    //     this.logger.log(error);
-    //     return error.result;
-    //   } else {
-    //     this.logger.log('Unexpected error occurred: ', error);
-    //   }
-    // }
   }
 
   async getCatalogInformation(): Promise<{

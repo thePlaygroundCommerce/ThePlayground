@@ -81,14 +81,14 @@ const INSTAGRAM_URL = "https://www.instagram.com/theplaygroundtravel/";
 const page = async (props: Props) => {
   const { objects = [] } = await searchItems({ categoryIds: [] });
   const { items, images } = mapArrayToMap(objects);
-  const hotItem = (await getProductDetails("")).object ?? items[0];
-  const hotItemImageId =
-    hotItem?.type === "ITEM" ? hotItem.itemData?.imageIds?.[0] : undefined;
-  const hotItemImageObj = images.find(
-    (obj): obj is CatalogObject.Image =>
-      obj.type === "IMAGE" && obj.id === hotItemImageId,
-  );
-  const hotItemImage = hotItemImageObj?.imageData;
+  // const hotItem = (await getProductDetails("")).object ?? items[0];
+  // const hotItemImageId =
+  //   hotItem?.type === "ITEM" ? hotItem.itemData?.imageIds?.[0] : undefined;
+  // const hotItemImageObj = images.find(
+  //   (obj): obj is CatalogObject.Image =>
+  //     obj.type === "IMAGE" && obj.id === hotItemImageId,
+  // );
+  // const hotItemImage = hotItemImageObj?.imageData;
   // const blogs = await client.getAllByType("blog_post");
   // const blogCards = blogs.map(({ uid, data: { title, headline } }) => (
   //   <Fragment key={uid}>

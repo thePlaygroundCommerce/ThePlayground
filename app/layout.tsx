@@ -120,7 +120,7 @@ export default async function RootLayout({ children, info }: LayoutPageProps & {
             {/* <link href="images/webclip.png" rel="apple-touch-icon" /> */}
             <script src="https://cdn.finsweet.com/files/cmslibrary-v1.8.js"></script>
           </head>
-          <body className={clsx(false && "grid grid-rows-[min-content_1fr]")}>
+          <body className={clsx(false && "grid grid-rows-[min-content_1fr]")} suppressHydrationWarning>
 
             {/* <!-- This spacer provides the height we want --> */}
             {/* <div className="h-screen col-span-full row-start-1 row-end-[span_2]" /> */}
@@ -181,7 +181,7 @@ const getInitialItems = async (cookies: ReadonlyRequestCookies) => {
 
 
   if (id) {
-    init = _.defaults(init, await callGetCart(id));
+    init = _.defaults(init, await callGetCart("1"));
   }
 
   return init

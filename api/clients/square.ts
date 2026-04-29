@@ -4,10 +4,9 @@ import {
 } from "square";
 
 export default new Client({
-
   token: process.env.SQUARE_ACCESS_TOKEN,
   logging: {
-    silent: false,
+    silent: true,
   },
   environment:
     process.env.NODE_ENV === "production"
