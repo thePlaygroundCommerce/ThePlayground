@@ -82,8 +82,6 @@ function Header({ navs, className, logo }: Props) {
   const handleCartClick = () => toggleOverlay(overlayState.active !== "cart" ? 'cart' : undefined)
   const handleNavClick = () => toggleOverlay(!overlayState.active ? 'nav' : undefined)
 
-  console.log(cart)
-
   return (
     <header
       className={clsx(

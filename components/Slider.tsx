@@ -204,9 +204,13 @@ export const WebflowSlider = ({
     const DRAG_THRESHOLD_PX = 50;
     if (!last || timeoutInProgress) return;
 
-    if (mx <= -DRAG_THRESHOLD_PX) {
+    const childrenLength = Children.count(children)
+
+    if (mx <= -DRAG_THRESHOLD_PX && currentIndex !== childrenLength - 1) {
+      console.log("next")
       nextItem();
-    } else if (mx >= DRAG_THRESHOLD_PX) {
+    } else if (mx >= DRAG_THRESHOLD_PX && currentIndex !== 0) {
+      console.log("prev")
       previousItem();
     }
   };
