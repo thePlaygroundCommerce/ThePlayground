@@ -1,0 +1,89 @@
+import { CatalogObject } from "square";
+import { SplitCategoryNameWithId, CategoryTree, Content, ContentData } from "index";
+import { ReactElement, ReactNode } from "react";
+import Link from "next/link";
+
+export const wrapLink = (link: string | undefined, elem: ReactElement) =>
+  link ? <Link href={link}>{elem}</Link> : elem;
+
+export const doesContextExist = <T,>(context: T | null) => {
+  if (!context) {
+    throw new Error("Hooks have to be used within Providers");
+  }
+
+  return context;
+}
+
+export function splitCategoryNames(arr: CatalogObject[]): string[][] {
+  return arr
+    ?.filter((obj): obj is CatalogObject.Category => obj.type === "CATEGORY")
+    .map(({ categoryData }) =>
+      categoryData?.name ? categoryData.name.split(" ") : [""],
+    );
+}
+
+export function splitCategoryNamesWithId(
+  arr: CatalogObject[]
+): SplitCategoryNameWithId[] {
+  const mapped = arr
+    ?.filter((obj): obj is CatalogObject.Category => obj.type === "CATEGORY")
+    .map(({ id, categoryData }) =>
+      categoryData?.name
+        ? {
+          id: id ?? "",
+          category: categoryData.name.split(" "),
+        }
+        : {
+          id: "",
+          category: [],
+        },
+    );
+
+  return mapped as unknown as SplitCategoryNameWithId[];
+}
+
+export function mapArrayToMap(arr: CatalogObject[]) {
+  const mappedCatalogObjects: {
+    [key: string]: CatalogObject[];
+  } = {};
+
+  arr?.forEach((item) => {
+    const lowerCaseItemType = item.type.toLowerCase();
+    const key: string =
+      lowerCaseItemType == "category"
+        ? lowerCaseItemType.slice(0, -1) + "ies"
+        : lowerCaseItemType + "s";
+
+    mappedCatalogObjects[key] =
+      mappedCatalogObjects[key] === undefined
+        ? [item]
+        : mappedCatalogObjects[key].concat(item);
+  });
+  return mappedCatalogObjects;
+}
+
+export const formatNavigationLinks = (string: string) => string.trim().replace(" ", "").toLowerCase();
+
+export const makeCategoryTree = (
+  arr: SplitCategoryNameWithId[]
+): CategoryTree =>
+  arr?.reduce((acc: CategoryTree, { id, category }) => {
+    const categoryLowercase = category[0].toLowerCase();
+    if (acc[categoryLowercase] !== undefined) {
+      acc[categoryLowercase].categoryList.push(
+        makeCategoryTree([{ id, category: category.slice(1) }])
+      );
+    } else {
+      acc[categoryLowercase] = { id: id, categoryList: [] };
+    }
+    return acc;
+  }, {});
+
+
+
+export const renderContent = (
+  content: Content["content"],
+  contentDataRenderer: (content: ContentData) => ReactNode
+) => {
+  return content && "title" in content ? contentDataRenderer(content) : content;
+};

@@ -1,0 +1,345 @@
+"use client";
+import { apiRouteHandlerAdapter } from "apiRouteHandler";
+import Counter from "@/components/Counter";
+import _ from "lodash";
+import React, {
+  createContext,
+  useState,
+  useMemo,
+  useContext,
+  useRef,
+  useEffect,
+} from "react";
+import { useCookies } from "react-cookie";
+import {
+  CalculateOrderRequest,
+  CatalogImage,
+  Order,
+  OrderLineItem,
+  CatalogObject,
+} from "square";
+import { ICartContext } from "index";
+import { useDebouncedCallback } from "use-debounce";
+import { doesContextExist } from "@/util/";
+import { Simplify } from "prismicio-types";
+import { callCalculateCart, callCreateCart, callUpdateCart } from "@/api/cartApi";
+
+type CartState = {
+  order: Order;
+  options?: CatalogObject[];
+};
+
+type ModifiedCartData = {
+  lineItems?: OrderLineItem[];
+  fieldsToClear?: string[];
+  lineItemImageData?: { [id: string]: CatalogImage };
+};
+type OrUndefined<T> = T | undefined;
+
+export const CartContext = createContext<ICartContext | null>(null);
+
+const CartProvider = ({
+  data: { _cart, _options } = { _cart: { locationId: "" }, _options: [] },
+  images: cartImageMap,
+  children,
+}: {
+  children: any;
+  images: Simplify<CatalogImage>;
+  data?: {
+    _options: CatalogObject[];
+    _cart?: Order;
+  }
+}) => {
+  const [cookies, setCookie] = useCookies();
+  const [openCart, setOpenCart] = useState<boolean>(false);
+  const [cartItemImages, setCartItemImages] =
+    useState<Simplify<CatalogImage>>(cartImageMap);
+  const [{ order: cart, options }, setCart] = useState<CartState>({
+    order: _cart || {
+      id: cookies.cartId,
+      lineItems: [],
+      locationId: "",
+    },
+    options: _options,
+  });
+
+  useEffect(() => {
+    if (_cart && _cart !== cart) populateCartAndImages({ order: _cart, options: _options }, cartImageMap)
+  }, [_cart])
+
+  const drawerRef = useRef(null);
+  const handleDrawerToggle = (e: any, bool = !openCart) => {
+    setOpenCart(bool);
+  };
+
+  const calculateCart = (req: CalculateOrderRequest) => {
+    if (cart?.id) {
+      callCalculateCart(req).then(({ order }) => {
+        populateCartAndImages({ order: order ?? { locationId: "" } }, cartItemImages);
+      });
+    }
+  };
+
+  const updateCart = ({
+    lineItems,
+    fieldsToClear,
+    lineItemImageData,
+  }: ModifiedCartData = {}) => {
+    if (cart.id) {
+      const body = {
+        orderId: cart.id,
+        order: {
+          version: cart.version,
+          lineItems: lineItems,
+        },
+        fieldsToClear,
+      };
+      callUpdateCart(body).then(({ order }) => {
+        populateCartAndImages({ order: order ?? { locationId: "" } }, lineItemImageData);
+      });
+    } else {
+      createCart(lineItems, lineItemImageData, false);
+    }
+  };
+
+  const createCart = (
+    catalogOrder: any,
+    lineItemImageData?: { [id: string]: CatalogImage },
+    checkout?: boolean
+  ) => {
+    const state = checkout ? "OPEN" : "DRAFT";
+
+    callCreateCart({ order: { state, lineItems: catalogOrder } })
+      .then(({ order, ...rest }) => {
+        console.log(order, rest)
+        if (order) {
+          setCookie("cartId", order.id, {
+            path: "/",
+          });
+          populateCartAndImages({ order }, lineItemImageData);
+        }
+      });
+  };
+
+  const populateCartAndImages = (
+    { order, options }: CartState,
+    lineItemImageData: Simplify<CatalogImage> = {}
+  ): void => {
+    setCart({ order, options });
+    setCartItemImages(lineItemImageData);
+  };
+
+  return (
+    <CartContext.Provider
+      //@ts-ignore
+      value={useMemo(
+        () => ({
+          cart,
+          options,
+          cartItemImages,
+          drawerRef,
+          handleDrawerToggle,
+          mutators: {
+            updateCart,
+            createCart,
+          },
+          calculation: {
+            subtotal: cart.netAmountDueMoney?.amount ?? 0,
+            discounts: cart.totalDiscountMoney?.amount ?? 0,
+            shipping: cart.serviceCharges?.find(service => service.name === 'shipping')?.amountMoney?.amount ?? 0,
+            taxes: cart.totalTaxMoney?.amount ?? 0,
+            calculateCart,
+          },
+          toggleCartOverlay: [openCart, setOpenCart],
+        }),
+        [cart, cartItemImages, openCart]
+      )}
+    >
+      {children}
+    </CartContext.Provider>
+  );
+};
+
+export const useCartModifier = () => {
+  const { cart, mutators: { updateCart }, cartItemImages } =
+    doesContextExist<ICartContext>(useContext(CartContext));
+  const debounced = useDebouncedCallback(
+    (
+      quantity: number,
+      lineItem: OrderLineItem,
+      lineItemImageData?: CatalogImage
+    ) => {
+      modifyCart(
+        { ...lineItem, quantity: quantity.toString() },
+        lineItemImageData,
+        quantity === 0
+      );
+    },
+    1500
+  );
+
+  const addCartItem = (
+    lineItem: OrderLineItem,
+    lineItemImageData?: CatalogImage
+  ): {
+    lineItems: OrderLineItem[];
+    fieldsToClear?: undefined;
+    lineItemImageData?: { [id: string]: CatalogImage };
+  } => {
+    const lineItems = cart.lineItems ?? [];
+    return {
+      lineItems: lineItems.concat(lineItem),
+      fieldsToClear: undefined,
+      lineItemImageData: {
+        ...cartItemImages,
+        [lineItem.catalogObjectId ?? ""]: lineItemImageData ?? {},
+      },
+    }
+  };
+
+  const deleteCartItem = (
+    lineItemUid: string
+  ): {
+    lineItems: undefined;
+    fieldsToClear?: string[];
+    lineItemImageData?: { [id: string]: CatalogImage };
+  } => {
+    const lineItems = undefined;
+    const fieldsToClear = [`line_items[${lineItemUid}]`];
+    const key =
+      cart.lineItems?.find((item) => item.uid == lineItemUid)
+        ?.catalogObjectId ?? "";
+    const lineItemImageData = {
+      ...cartItemImages,
+    };
+
+    delete lineItemImageData[key];
+    return { lineItems, fieldsToClear, lineItemImageData };
+  };
+
+  const modifyCartItem = (
+    existingCartItemIndex: number,
+    newCartItem: OrderLineItem
+  ): {
+    lineItems: OrderLineItem[];
+    fieldsToClear?: string[];
+    lineItemImageData?: { [id: string]: CatalogImage };
+  } | undefined => {
+    if (!Array.isArray(cart.lineItems)) {
+      throw new Error("Cart line items must be an Array!");
+    }
+
+    const lineItems = [...cart.lineItems];
+    const existingCartItem = lineItems[existingCartItemIndex];
+
+    const mergedCartItem = {
+      ...existingCartItem,
+      ...newCartItem,
+    };
+
+    if (_.isEqual(mergedCartItem, existingCartItem)) {
+      console.log("No changes in merged cart item!");
+      return;
+    }
+
+    lineItems[existingCartItemIndex] = mergedCartItem;
+
+    return { lineItems, fieldsToClear: undefined, lineItemImageData: cartItemImages };
+  };
+
+  const modifyCart = (
+    lineItem: OrderLineItem,
+    lineItemImageData: CatalogImage = {},
+    deletion: boolean = false
+  ) => {
+    let modifiedCartItemData: OrUndefined<ModifiedCartData>;
+    const isExistingItemIndex =
+      (cart.lineItems?.findIndex((item) => item.uid === lineItem.uid) ?? -1);
+
+    if (deletion)
+      modifiedCartItemData = deleteCartItem(lineItem.uid ?? "");
+    else if (isExistingItemIndex > -1) {
+      modifiedCartItemData = modifyCartItem(isExistingItemIndex, lineItem) ?? undefined;
+    } else
+      modifiedCartItemData = addCartItem(lineItem, lineItemImageData);
+
+    if (modifiedCartItemData === undefined) return false
+
+    updateCart(modifiedCartItemData);
+  };
+
+  return {
+    cart,
+    cartItemImages,
+    addCartItem,
+    deleteCartItem,
+    modifyCartItem,
+    modifyCart,
+    CartQuantityCounter: (
+      lineItem: OrderLineItem,
+      lineItemImageData?: CatalogImage
+    ) => (
+      <Counter
+        className="p-1 mx-auto"
+        allowDeletion={true}
+        onCountChange={(quantity: number) =>
+          debounced(quantity, lineItem, lineItemImageData)
+        }
+        count={Number.parseInt(lineItem.quantity)}
+      />
+    ),
+  };
+};
+
+export const useLineItemModifier = () => {
+  const { cart: { lineItems }, mutators: { updateCart } } = doesContextExist<ICartContext>(useContext(CartContext));
+  const { modifyCartItem } = useCartModifier()
+
+  const isProductInCart = (itemVariationId: string) => lineItems?.find(({ catalogObjectId }) => catalogObjectId == itemVariationId);
+  const productCartIndex = (itemVariationId: string) => lineItems?.findIndex(({ catalogObjectId }) => catalogObjectId == itemVariationId);
+
+  const increaseQuantity = (variationId: string) => {
+    const lineItem = isProductInCart(variationId)
+    if (!lineItem) throw Error("Product not found in cart!");
+    const modifiedItem = modifyCartItem(productCartIndex(variationId) ?? 0, { ...lineItem, quantity: String(+(lineItem.quantity) + 1) })
+
+    if (modifiedItem === undefined) throw Error("Modifying cart item failed!")
+    updateCart(modifiedItem)
+  }
+  const decreaseQuantity = (variationId: string) => {
+    const lineItem = isProductInCart(variationId)
+    if (!lineItem) throw Error("Product not found in cart!")
+    else if (+(lineItem.quantity) === 0) throw Error("Product quantity can't be decreased!")
+    const modifiedItem = modifyCartItem(productCartIndex(variationId) ?? 0, { ...lineItem, quantity: String(+(lineItem.quantity) - 1) })
+
+    if (modifiedItem === undefined) throw Error("Modifying cart item failed!")
+    updateCart(modifiedItem)
+
+  }
+  const setQuantity = (variationId: string, quantity: number) => {
+    const lineItem = isProductInCart(variationId)
+    if (!lineItem) throw Error("Product not found in cart!")
+    if (quantity < 0) quantity = 0
+    const modifiedItem = modifyCartItem(productCartIndex(variationId) ?? 0, { ...lineItem, quantity: String(quantity) })
+
+    if (modifiedItem === undefined) throw Error("Modifying cart item failed!")
+    updateCart(modifiedItem)
+  }
+
+  return {
+    increaseQuantity,
+    decreaseQuantity,
+    setQuantity,
+  };
+};
+
+export const useCart = () => {
+  const currentCart = useContext(CartContext);
+  if (!currentCart) {
+    throw new Error("Hooks have to be used within Providers");
+  }
+
+  return currentCart;
+};
+
+export default CartProvider;

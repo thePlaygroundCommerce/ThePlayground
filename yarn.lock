@@ -697,13 +697,6 @@
   resolved "https://registry.yarnpkg.com/@floating-ui/utils/-/utils-0.2.11.tgz#a269e055e40e2f45873bae9d1a2fdccbd314ea3f"
   integrity sha512-RiB/yIh78pcIxl6lLMG0CgBXAZ2Y0eVHqMPYugu+9U0AeT6YBeiJpf7lbdJNIugFP5SIjwNRgo4DhR1Qxi26Gg==
 
-"@formatjs/intl-localematcher@^0.5.2":
-  version "0.5.10"
-  resolved "https://registry.yarnpkg.com/@formatjs/intl-localematcher/-/intl-localematcher-0.5.10.tgz#1e0bd3fc1332c1fe4540cfa28f07e9227b659a58"
-  integrity sha512-af3qATX+m4Rnd9+wHcjJ4w2ijq+rAVP3CCinJQvFv1kgSu1W6jypUmvleJxcewdxmutM8dmIRZFxO/IQBZmP2Q==
-  dependencies:
-    tslib "2"
-
 "@formkit/auto-animate@^0.8.2":
   version "0.8.4"
   resolved "https://registry.yarnpkg.com/@formkit/auto-animate/-/auto-animate-0.8.4.tgz#2c857102bbf612c0e7bd4a0aac0e05a7f0efd8e7"
@@ -1503,7 +1496,7 @@
   dependencies:
     imgix-url-builder "^0.0.5"
 
-"@prismicio/client@^7.1.0", "@prismicio/client@latest":
+"@prismicio/client@^7.1.0", "@prismicio/client@^7.21.8":
   version "7.21.8"
   resolved "https://registry.yarnpkg.com/@prismicio/client/-/client-7.21.8.tgz#d20ab0ed92e59361fa4716d0457f32cce78ac616"
   integrity sha512-HFXrV/XdbVy/AL7V5K/976gr4SEa7WA7xuZuSNuseLK5VSl0DlMSgy7GTUk+ngjz9QvN0Xu3nxWzUGFxnD8RIA==
@@ -1536,16 +1529,16 @@
     tslib "^2.3.1"
     uuid "^9.0.1"
 
-"@prismicio/next@^1.7.1":
-  version "1.7.2"
-  resolved "https://registry.yarnpkg.com/@prismicio/next/-/next-1.7.2.tgz#f446461043492a922e42adbd0e715cbb6d013f55"
-  integrity sha512-dS9fRujiqK+uyhA5vCJgvxp4k7w3s6jm5Ln4fh1NSMS00yo7lHVL4GnhNmrxqATnIn/nHLbQmO24+yZVRWvxjw==
+"@prismicio/next@^2.2.4":
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/@prismicio/next/-/next-2.2.4.tgz#927977bdb0ff9b2c6a22855441c400c677bbae65"
+  integrity sha512-xeICqjZkTTVJ3xBObG0eh/D7IOa9Pfog4yQ9Qs+wgLr8GyO6B2wo8oBMJFd1k3g6fFJNL5Oij6j9B/81h/xwWA==
   dependencies:
-    "@formatjs/intl-localematcher" "^0.5.2"
-    imgix-url-builder "^0.0.4"
-    negotiator "^0.6.3"
+    "@prismicio/simulator" "^0.2.2"
+    imgix-url-builder "^0.0.6"
+    lz-string "^1.5.0"
 
-"@prismicio/react@latest":
+"@prismicio/react@^3.4.1":
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/@prismicio/react/-/react-3.4.1.tgz#5bd50b0bf6b4fcf223c92312b10e784ed974e724"
   integrity sha512-OR/F1+B6tlPMGm5YCE7Ir0FXXfobyQDQvNGl22TUYVbyCMc7qyY4VtPIxyEbKJBQNRRM22UYc8a4THS49Fwetg==
@@ -1560,6 +1553,11 @@
     "@prismicio/client" "^7.1.0"
     "@types/statuses" "^2.0.1"
     statuses "^2.0.1"
+
+"@prismicio/simulator@^0.2.2":
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/@prismicio/simulator/-/simulator-0.2.3.tgz#58d611bd2ec0d2f6ca4d09e796c4d7a3238bd096"
+  integrity sha512-n4fNZzDxKnRnPoRVi9pzjn+7HR0s7/cxjmf9CNnYg7GE9jkqlqLD8B0k91iNnoFDxpCK5ITRqnRr7ApBem+M9w==
 
 "@prismicio/types-internal@3.11.2":
   version "3.11.2"
@@ -1967,7 +1965,7 @@
   resolved "https://registry.yarnpkg.com/@sideway/pinpoint/-/pinpoint-2.0.0.tgz#cff8ffadc372ad29fd3f78277aeb29e632cc70df"
   integrity sha512-RNiOoTPkptFtSVzQevY/yWtZwf/RxyVnPy/OcA9HBM3MlGDnBEYL5B41H0MTn0Uec8Hi+2qUtTfG2WWZBmMejQ==
 
-"@slicemachine/adapter-next@^0.3.51":
+"@slicemachine/adapter-next@^0.3.95":
   version "0.3.95"
   resolved "https://registry.yarnpkg.com/@slicemachine/adapter-next/-/adapter-next-0.3.95.tgz#644bfa536a6f5d0b4a39508227052675a7f8b23a"
   integrity sha512-DxixgXFKxTdSFPmQaVt/6npH6Hf9+HpTJ0beTfKVj1K42aN0BZtl940HiJstItH9SRVWzUu5/DZF0AoWOgt+DQ==
@@ -6176,11 +6174,6 @@ ignore@^5.2.0, ignore@^5.3.1:
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.3.2.tgz#3cd40e729f3643fd87cb04e50bf0eb722bc596f5"
   integrity sha512-hsBTNUqQTDwkWtcdYI2i06Y/nUBEsNEDJKjWdigLvegy8kDuJAS8uRlpkkcQpyEXL0Z/pjDy5HBmMjRCJ2gq+g==
 
-imgix-url-builder@^0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/imgix-url-builder/-/imgix-url-builder-0.0.4.tgz#c0e9569eb069178b1462d6ce0b8d0943cb334a1c"
-  integrity sha512-JRLydfxGTTbSSOG82ewuCgnmw/CzIPzoDqpP3UYD7RE+QWS8ZZbpF87ZuRqtcbEKdxahRsExinuKRxPZVvukWA==
-
 imgix-url-builder@^0.0.5:
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/imgix-url-builder/-/imgix-url-builder-0.0.5.tgz#641e4af7fc1443d3f9f30f3c1331e4c1a2ad9832"
@@ -6979,7 +6972,7 @@ lru-cache@^7.5.1:
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-7.18.3.tgz#f793896e0fd0e954a59dfdd82f0773808df6aa89"
   integrity sha512-jumlc0BIUrS3qJGgIkWZsyfAM7NCWiBcCDhnd+3NNM5KbBmLTgHVfWBcg6W+rLUsIpzpERPsvwUP7CckAQSOoA==
 
-lz-string@1.5.0:
+lz-string@1.5.0, lz-string@^1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/lz-string/-/lz-string-1.5.0.tgz#c1ab50f77887b712621201ba9fd4e3a6ed099941"
   integrity sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ==
@@ -7227,11 +7220,6 @@ negotiator@0.6.3:
   version "0.6.3"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.3.tgz#58e323a72fedc0d6f9cd4d31fe49f51479590ccd"
   integrity sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg==
-
-negotiator@^0.6.3:
-  version "0.6.4"
-  resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.4.tgz#777948e2452651c570b712dd01c23e262713fff7"
-  integrity sha512-myRT3DiWPHqho5PrJaIRyaMv2kgYf0mUVgBNOYMuCH5Ki1yEiQaf/ZJuQ62nvpc44wL5WDbTX7yGJi1Neevw8w==
 
 newtype-ts@^0.3.5:
   version "0.3.5"
@@ -8655,7 +8643,7 @@ slice-ansi@^4.0.0:
     astral-regex "^2.0.0"
     is-fullwidth-code-point "^3.0.0"
 
-slice-machine-ui@^2.8.1:
+slice-machine-ui@^2.21.2:
   version "2.21.2"
   resolved "https://registry.yarnpkg.com/slice-machine-ui/-/slice-machine-ui-2.21.2.tgz#2cf6e9b62d5b9c6529853ab76c2d01d07ecb2581"
   integrity sha512-l4Tw2h7EYGORFdrc21rLoDoM02CJNCY+RfY5meZJDyyRUNvUfInGiDytVR3Vvwhkt5IKSKKP/BGC5bvUorAJKQ==
@@ -9163,7 +9151,7 @@ tsconfig-paths@^3.15.0:
     minimist "^1.2.6"
     strip-bom "^3.0.0"
 
-tslib@2, tslib@2.8.1, tslib@^2.0.0, tslib@^2.0.3, tslib@^2.1.0, tslib@^2.3.1, tslib@^2.4.0, tslib@^2.4.1, tslib@^2.5.0, tslib@^2.8.0, tslib@^2.8.1:
+tslib@2.8.1, tslib@^2.0.0, tslib@^2.0.3, tslib@^2.1.0, tslib@^2.3.1, tslib@^2.4.0, tslib@^2.4.1, tslib@^2.5.0, tslib@^2.8.0, tslib@^2.8.1:
   version "2.8.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.8.1.tgz#612efe4ed235d567e8aba5f2a5fab70280ade83f"
   integrity sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==

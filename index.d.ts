@@ -190,7 +190,7 @@ export type ContentData = {
 export type Content = {
   image: ContentImage;
   video?: ContentVideo;
-  content?: ContentData | ReactElement;
+  content?: ContentData | ReactNode;
   contentStyles?: {
     classes?: string;
     content_alignment?: KeyTextField;
