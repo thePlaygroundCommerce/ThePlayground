@@ -37,23 +37,31 @@ const DropList: FC<DropListProps> = (props) => {
   // }
 
   const text = (
-    <div>
-      {primary.dropitems.map(({ title, description }) => (
-        <Disclosure as="div" className="p-6" >
-          <DisclosureButton className="group flex w-full items-center justify-between">
-            <span className="text-sm/6 font-medium text-black group-data-hover:text-black/80">
-              {title}
-            </span>
-            <FaChevronDown className="size-5 fill-black/60 group-data-hover:fill-black/50 group-data-open:rotate-180" />
-          </DisclosureButton>
-          <DisclosurePanel className="mt-2 text-sm/5 text-black/50">
-            {description}
-          </DisclosurePanel>
-        </Disclosure>
-      ))}
+    <div className="flex justify-center items-center min-h-[50vh]">
+      <div className="w-3/4">
+        {
+          primary.dropitems.map(({ title, description }) => (
+            <Disclosure as="div" className="p-6" >
+              <DisclosureButton className="group flex w-full items-center justify-between">
+                <span className="text-sm/6 font-medium text-black group-data-hover:text-black/80">
+                  {title}
+                </span>
+                <FaChevronDown className="size-5 fill-black/60 group-data-hover:fill-black/50 group-data-open:rotate-180" />
+              </DisclosureButton>
+              <DisclosurePanel className="mt-2 text-sm/5 text-black/50">
+                {description}
+              </DisclosurePanel>
+            </Disclosure>
+          ))
+        }
+      </div >
+    </div >
+  );
+  const content = (
+    <div className="w-full min-h-[50vh]">
+      <PrismicNextImage field={primary.image} className="object-contain w-full h-full" />
     </div>
   );
-  const content = <PrismicNextImage field={primary.image} />;
   // const cta = <CtaContent {...{ linkLabel: primary.call_to_action_label }} />
 
   return (

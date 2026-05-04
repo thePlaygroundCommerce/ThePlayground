@@ -138,7 +138,7 @@ const Window = ({ children, makeFirst }: AppProps & { makeFirst: boolean }) => (
   <div className="h-full w-full p-48">{children}</div>
 );
 const Showcase1 = ({ text, content, flipped }: Omit<ShowcaseProps, 'id'>) => (
-  <div className={clsx("h-screen flex", flipped && "order-first")}>
+  <div className={clsx("min-h-[50vh] flex", flipped && "order-first")}>
     <div className="flex-1 overflow-hidden">{content}</div>
     <div className="flex-1">{text}</div>
   </div>

@@ -10,14 +10,14 @@
 					"width": 12288,
 					"height": 16384
 				},
-				"url": "https://images.unsplash.com/photo-1587613865763-4b8b0d19e8ab",
-				"width": 12288,
-				"height": 16384,
+				"url": "https://images.unsplash.com/photo-1587613865763-4b8b0d19e8ab?rect=0%2C2048%2C12288%2C12288&w=12000&h=12000",
+				"width": 12000,
+				"height": 12000,
 				"edit": {
 					"zoom": 1,
 					"crop": {
 						"x": 0,
-						"y": 0
+						"y": 2048
 					},
 					"background": "transparent"
 				},
@@ -79,8 +79,7 @@
 									"value": "MADE WITH ONLY CLEAN INGREDIENTS"
 								}
 							]
-						],
-						"key": "73bd5d02-5678-4acc-ba1c-d086b929c821"
+						]
 					},
 					{
 						"__TYPE__": "GroupItemContent",
@@ -101,8 +100,7 @@
 									"value": "READY TO EAT IN 1 MINUTE"
 								}
 							]
-						],
-						"key": "66902d4e-24d0-4fff-88c4-26b24e50c977"
+						]
 					},
 					{
 						"__TYPE__": "GroupItemContent",
@@ -123,8 +121,7 @@
 									"value": "MOUTHWATERING FLAVORS"
 								}
 							]
-						],
-						"key": "9a3c91c2-ca3f-43a0-8161-279274f90770"
+						]
 					}
 				]
 			},
