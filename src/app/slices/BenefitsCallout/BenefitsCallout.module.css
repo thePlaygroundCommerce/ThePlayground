@@ -1,0 +1,134 @@
+.container {
+  background-color: #f5e6d3;
+  padding: 60px 40px;
+  border-radius: 8px;
+}
+
+.content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.headline {
+  text-align: center;
+  font-size: 48px;
+  font-weight: 900;
+  color: #1a1a1a;
+  margin-bottom: 16px;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+}
+
+.headline h2,
+.headline h3,
+.headline h1,
+.headline p {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+}
+
+.subheading {
+  text-align: center;
+  font-family: "Georgia", "Garamond", serif;
+  font-size: 24px;
+  color: #2d2d2d;
+  margin-bottom: 40px;
+  font-weight: normal;
+}
+
+.subheading p,
+.subheading h2,
+.subheading h3,
+.subheading h1 {
+  margin: 0;
+  font-size: inherit;
+  font-family: inherit;
+  color: inherit;
+  font-weight: inherit;
+}
+
+.benefitsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: fit-content;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.benefitItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.checkmark {
+  flex-shrink: 0;
+  width: 54px;
+  height: 54px;
+  background-color: #3d1a1f;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: #f5e6d3;
+  font-weight: bold;
+}
+
+.benefitText {
+  font-family: "Georgia", "Garamond", serif;
+  font-size: 18px;
+  color: #2d2d2d;
+  line-height: 1.6;
+  padding-top: 6px;
+}
+
+.benefitText p,
+.benefitText h2,
+.benefitText h3,
+.benefitText h1 {
+  margin: 0;
+  font-size: inherit;
+  font-family: inherit;
+  color: inherit;
+  line-height: inherit;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 40px 24px;
+  }
+
+  .headline {
+    font-size: 32px;
+  }
+
+  .subheading {
+    font-size: 18px;
+    margin-bottom: 32px;
+  }
+
+  .benefitsList {
+    gap: 18px;
+  }
+
+  .benefitItem {
+    gap: 16px;
+  }
+
+  .checkmark {
+    width: 48px;
+    height: 48px;
+    font-size: 24px;
+  }
+
+  .benefitText {
+    font-size: 16px;
+  }
+}

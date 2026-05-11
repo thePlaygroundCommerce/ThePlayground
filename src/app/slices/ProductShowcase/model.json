@@ -107,6 +107,19 @@
                   "label": "description",
                   "placeholder": ""
                 }
+              },
+              "type": {
+                "type": "Select",
+                "config": {
+                  "label": "type",
+                  "placeholder": "",
+                  "options": [
+                    "image",
+                    "review",
+                    "step"
+                  ],
+                  "default_value": "image"
+                }
               }
             }
           }
@@ -121,6 +134,15 @@
               "card"
             ],
             "default_value": "image"
+          }
+        },
+        "reverse": {
+          "type": "Boolean",
+          "config": {
+            "label": "reverse",
+            "placeholder_false": "false",
+            "placeholder_true": "true",
+            "default_value": false
           }
         }
       },
@@ -147,7 +169,7 @@
             "label": "description",
             "placeholder": "",
             "allowTargetBlank": true,
-            "multi": "paragraph,preformatted,hyperlink,embed,rtl,strong,em,list-item,o-list-item"
+            "multi": "paragraph,preformatted,strong,em,hyperlink,embed,list-item,o-list-item,rtl"
           }
         },
         "image": {
@@ -229,6 +251,19 @@
                   "label": "description",
                   "placeholder": ""
                 }
+              },
+              "type": {
+                "type": "Select",
+                "config": {
+                  "label": "type",
+                  "placeholder": "",
+                  "options": [
+                    "image",
+                    "review",
+                    "step"
+                  ],
+                  "default_value": "image"
+                }
               }
             }
           }
@@ -243,6 +278,15 @@
               "card"
             ],
             "default_value": "image"
+          }
+        },
+        "reverse": {
+          "type": "Boolean",
+          "config": {
+            "label": "reverse",
+            "placeholder_false": "false",
+            "placeholder_true": "true",
+            "default_value": false
           }
         }
       },
@@ -351,6 +395,19 @@
                   "label": "description",
                   "placeholder": ""
                 }
+              },
+              "type": {
+                "type": "Select",
+                "config": {
+                  "label": "type",
+                  "placeholder": "",
+                  "options": [
+                    "image",
+                    "review",
+                    "step"
+                  ],
+                  "default_value": "image"
+                }
               }
             }
           }
@@ -365,6 +422,15 @@
               "card"
             ],
             "default_value": "image"
+          }
+        },
+        "reverse": {
+          "type": "Boolean",
+          "config": {
+            "label": "reverse",
+            "placeholder_false": "false",
+            "placeholder_true": "true",
+            "default_value": false
           }
         }
       },

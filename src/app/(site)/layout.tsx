@@ -1,6 +1,6 @@
 import { callGetCart } from '@/api/cartApi'
 import { getCatalogObjects } from '@/api/catalogApi'
-import { getMainNavigation, Nav } from '@/app/layout'
+import { Nav } from '@/app/layout'
 import FacebookPixel from '@/components/FacebookPixel'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
@@ -22,7 +22,8 @@ const Layout = async ({ children }: AppProps) => {
         "ITEM,IMAGE,CATEGORY,ITEM_OPTION"
     );
 
-    const { headerNavs, footerNavs } = await getMainNavigation();
+    // const { headerNavs, footerNavs } = await getMainNavigation();
+
     const mappedCatalogObjects = mapArrayToMap([...apparelObjects, ...relatedObjects]);
     return (
         <div className={clsx(false && "grid grid-rows-[min-content_1fr]")} suppressHydrationWarning>
@@ -31,7 +32,7 @@ const Layout = async ({ children }: AppProps) => {
             {/* <div className="h-screen col-span-full row-start-1 row-end-[span_2]" /> */}
 
             <Providers data={mappedCatalogObjects} cartData={{ _cart: cart, _options: options }} cartImageMap={imageMap}>
-                <LayoutComponent navs={{ headerNavs, footerNavs }}>
+                <LayoutComponent navs={{ headerNavs: [], footerNavs: [] }}>
                     {children}
                 </LayoutComponent>
             </Providers>
@@ -53,7 +54,7 @@ const Layout = async ({ children }: AppProps) => {
 export default Layout
 
 
-const getInitialItems = async (cookies: ReadonlyRequestCookies) => {
+export const getInitialItems = async (cookies: ReadonlyRequestCookies) => {
     const id = cookies.get("cartId")?.value;
 
     let init = {

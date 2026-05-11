@@ -1,9 +1,9 @@
+'use client'
+
 import { FC } from "react";
-import { Content, isFilled } from "@prismicio/client";
+import { Content } from "@prismicio/client";
 import { PrismicRichText, SliceComponentProps } from "@prismicio/react";
-import { client } from "@/api/clients";
 import Showcase from "@/components/Showcase";
-import { TextContent, CtaContent, renderContent } from "../ProductShowcase";
 import Heading from "@/components/typography/Heading";
 import clsx from "clsx";
 import { PrismicNextImage } from "@prismicio/next";
@@ -41,16 +41,28 @@ const DropList: FC<DropListProps> = (props) => {
       <div className="w-3/4">
         {
           primary.dropitems.map(({ title, description }) => (
-            <Disclosure as="div" className="p-6" >
-              <DisclosureButton className="group flex w-full items-center justify-between">
-                <span className="text-sm/6 font-medium text-black group-data-hover:text-black/80">
-                  {title}
-                </span>
-                <FaChevronDown className="size-5 fill-black/60 group-data-hover:fill-black/50 group-data-open:rotate-180" />
-              </DisclosureButton>
-              <DisclosurePanel className="mt-2 text-sm/5 text-black/50">
-                {description}
-              </DisclosurePanel>
+            <Disclosure key={title} as="div" className="py-6" >
+              {({ open }) => (
+                <>
+                  <DisclosureButton className="group flex w-full items-center justify-between">
+                    <span className="text-sm/6 font-medium text-black group-data-hover:text-black/80">
+                      {title}
+                    </span>
+                    <FaChevronDown className="size-5 fill-black/60 transition-transform duration-400 ease-in-out group-data-hover:fill-black/50 group-data-open:rotate-180" />
+                  </DisclosureButton>
+                  <DisclosurePanel
+                    static
+                    className={clsx(
+                      "mt-2 overflow-hidden text-sm/5 text-black/50 transition-all duration-400 ease-in-out",
+                      open
+                        ? "max-h-80 translate-y-0 opacity-100"
+                        : "max-h-0 -translate-y-2 opacity-0"
+                    )}
+                  >
+                    <div className="pt-1">{description}</div>
+                  </DisclosurePanel>
+                </>
+              )}
             </Disclosure>
           ))
         }
@@ -68,15 +80,16 @@ const DropList: FC<DropListProps> = (props) => {
     <section
       data-slice-type={slice_type}
       data-slice-variation={variation}
+      className="p-24"
     >
       <div
         className={clsx(
-          "text-center text-black mb-12"
+          "text-center text-black w-2/3 mx-auto"
         )}
       >
-        <div className="mb-2">
+        <div className="mb-4">
           {typeof primary.title === "string" ? (
-            <Heading level={1}>
+            <Heading level={2}>
               {primary.title}
             </Heading>
           ) : (
@@ -84,7 +97,7 @@ const DropList: FC<DropListProps> = (props) => {
           )}
         </div>
         <p className="text-sm italic">{primary.headline}</p>
-        <div className="text-center text-xl">
+        <div className="text-center text-base mb-12">
           <PrismicRichText field={primary.description} />
         </div>
       </div>

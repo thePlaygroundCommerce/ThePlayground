@@ -174,7 +174,7 @@ const Page = async ({ params, searchParams }: PageProps) => {
             </div>
             <div className="p-4 py-8 flex flex-col gap-8 w-full">
               <Heading level={2} className="text-center">Packed With Features</Heading>
-              {data.showcases.map(
+              {/* {data.showcases.map(
                 ({
                   title,
                   description,
@@ -185,23 +185,22 @@ const Page = async ({ params, searchParams }: PageProps) => {
                     key={i}
                     flipped={i % 2 !== 0}
                     // animate={{ delay: (5 * (i + 1)) * 100 }}
-                    content={{
-                      title: title,
-                      description: <PrismicRichText field={description} />,
-                    }}
-                    video={{
-                      playback_id: video_playback_id?.toString()
-                    }}
-                    image={{
-                      width: 300, height: 500,
-                      src,
-                      alt: alt ?? "",
-                      className: "object-cover",
-                    }}
-                    contentStyles={{}}
+                    // content={{
+                    //   title: title,
+                    //   description: <PrismicRichText field={description} />,
+                    // }}
+                    // video={{
+                    //   playback_id: video_playback_id?.toString()
+                    // }}
+                    // image={{
+                    //   width: 300, height: 500,
+                    //   src,
+                    //   alt: alt ?? "",
+                    //   className: "object-cover",
+                    // }}
                   />
                 )
-              )}
+              )} */}
             </div>
             <div className="">
               <Image {...{ alt: data.image.alt ?? "", src: data.image.url, ...data.image.dimensions }} />

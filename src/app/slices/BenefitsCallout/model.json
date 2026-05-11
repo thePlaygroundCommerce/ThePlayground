@@ -1,0 +1,47 @@
+{
+  "id": "benefits_callout",
+  "type": "SharedSlice",
+  "name": "BenefitsCallout",
+  "description": "A callout section with urgency headline, subheading, and a list of benefits with checkmarks",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default variation",
+      "imageUrl": "",
+      "primary": {
+        "headline": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Headline",
+            "single": "heading1"
+          }
+        },
+        "subheading": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Subheading",
+            "single": "paragraph"
+          }
+        },
+        "benefits": {
+          "type": "Group",
+          "config": {
+            "label": "Benefits",
+            "fields": {
+              "benefit_text": {
+                "type": "StructuredText",
+                "config": {
+                  "label": "Benefit Text",
+                  "single": "paragraph"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

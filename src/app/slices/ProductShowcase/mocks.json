@@ -71,6 +71,28 @@
 				"__TYPE__": "FieldContent",
 				"value": "handsome",
 				"type": "Text"
+			},
+			"cards": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"type",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "review",
+									"type": "Select"
+								}
+							]
+						]
+					}
+				]
+			},
+			"reverse": {
+				"__TYPE__": "BooleanContent",
+				"value": false
 			}
 		},
 		"items": []
@@ -85,16 +107,8 @@
 					{
 						"type": "paragraph",
 						"content": {
-							"text": "There's no doubt about it: Healthy eating is one of the highest impact ways to improve your life. But eating well isn't always easy...\n\nYou're constantly meal planning every week. There's never any time to cook. And it's tiring to eat the same boring foods over and over again..\n‍\nWhat if eating well was magically effortless?\n‍\nNo more eating the same bland foods...No more temptations to get takeout after a long day...",
-							"spans": [
-								{
-									"type": "strong",
-									"start": 281,
-									"end": 327
-								}
-							]
-						},
-						"direction": "ltr"
+							"text": "Reprehenderit anim nostrud mollit. Ullamco esse nostrud fugiat consectetur laboris eu proident commodo aliquip. Officia sunt non deserunt magna sit reprehenderit adipisicing laborum ex sit."
+						}
 					}
 				]
 			},
@@ -139,6 +153,19 @@
 				"__TYPE__": "FieldContent",
 				"type": "Text",
 				"value": "GET YOUR BONE BROTH →"
+			},
+			"cards": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": []
+					}
+				]
+			},
+			"reverse": {
+				"__TYPE__": "BooleanContent",
+				"value": false
 			}
 		},
 		"items": [
@@ -392,6 +419,10 @@
 				"__TYPE__": "FieldContent",
 				"type": "Text",
 				"value": "Learn More"
+			},
+			"reverse": {
+				"__TYPE__": "BooleanContent",
+				"value": false
 			}
 		},
 		"items": [

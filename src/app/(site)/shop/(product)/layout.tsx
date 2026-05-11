@@ -1,9 +1,5 @@
-import { getMainNavigation, LayoutPageProps } from "@/app/layout";
-import Button from "@/components/Button";
+import { LayoutPageProps } from "@/app/layout";
 import NewsletterForm from "@/components/forms/NewsletterForm";
-import Header from "@/components/Header";
-import Link from "next/link";
-import { GoChevronLeft } from "react-icons/go";
 
 export const metadata = {
   title: "The Playground | Shop",

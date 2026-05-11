@@ -17,6 +17,18 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "testimonial_gallery": {
+              "type": "SharedSlice"
+            },
+            "faq_accordion": {
+              "type": "SharedSlice"
+            },
+            "benefits_callout": {
+              "type": "SharedSlice"
+            },
+            "drop_list": {
+              "type": "SharedSlice"
+            },
             "hero_2": {
               "type": "SharedSlice"
             },

@@ -14,6 +14,10 @@ import { config } from '@fortawesome/fontawesome-svg-core'
 // import '@fortawesome/fontawesome-svg-core/styles.css'
 import "../styles/globals.css";
 import _ from "lodash";
+import CartProvider from "@/context/cartContext";
+import { cookies } from "next/headers";
+import { getInitialItems } from "./(site)/layout";
+import CheckoutProvider from "@/context/checkoutContext";
 // import "lib/js/webflow.js"
 // import "styles/webflow.css";
 // import "styles/webflowA.css";
@@ -45,37 +49,48 @@ export const getMainNavigation: () => Promise<{
   const HEADER_NAVIGATION = "header";
 
   let headerNavs: Nav[] = [];
+  let footerNavs: Navs = { navs: { data: [] } };
 
   const crLinks = [".title", ".link"].map((link) => "categorylink" + link);
-  const {
-    results: [{ data: footerNavs }],
-  } = await client.getByType<Content.FooterNavigationDocument>(
-    FOOTER_NAVIGATION,
-    { fetchLinks: crLinks }
-  );
 
-  const {
-    data: { type, object_ids },
-  } = await client.getSingle(HEADER_NAVIGATION);
+  try {
+    const {
+      results: [{ data: footerNavs }],
+    } = await client.getByType<Content.FooterNavigationDocument>(
+      FOOTER_NAVIGATION,
+      { fetchLinks: crLinks }
+    );
 
-  switch (type) {
-    case "square":
-      headerNavs =
-        (await getCatalogItemsAndImages(object_ids?.split(",") ?? [], false))
-          .objects
-          ?.filter(
-            (obj): obj is CatalogObject.Category => obj.type === "CATEGORY",
-          )
-          .map(({ id, categoryData }) => {
-            const name = categoryData?.name ?? "";
-            return {
-              id: id ?? "",
-              title: name,
-              link: `/${name.toLowerCase()}`,
-            };
-          }) ?? [];
-      break;
+
+
+    const {
+      data: { type, object_ids },
+    } = await client.getSingle(HEADER_NAVIGATION);
+
+    switch (type) {
+      case "square":
+        headerNavs =
+          (await getCatalogItemsAndImages(object_ids?.split(",") ?? [], false))
+            .objects
+            ?.filter(
+              (obj): obj is CatalogObject.Category => obj.type === "CATEGORY",
+            )
+            .map(({ id, categoryData }) => {
+              const name = categoryData?.name ?? "";
+              return {
+                id: id ?? "",
+                title: name,
+                link: `/${name.toLowerCase()}`,
+              };
+            }) ?? [];
+        break;
+    }
+  } catch (error) {
+
   }
+
+  console.log(footerNavs)
+
 
   return {
     headerNavs,
@@ -87,6 +102,7 @@ export const getMainNavigation: () => Promise<{
 export type LayoutPageProps = { children: React.ReactNode };
 
 export default async function RootLayout({ children, info }: LayoutPageProps & { info: any }) {
+  const { order: cart, options, imageMap, relatedObjects } = await getInitialItems(await cookies())
 
   return (
     <TagManagerProvider>
@@ -98,7 +114,9 @@ export default async function RootLayout({ children, info }: LayoutPageProps & {
           <script src="https://cdn.finsweet.com/files/cmslibrary-v1.8.js"></script>
         </head>
         <body>
-          {children}
+          <CartProvider data={{ _cart: cart, _options: options }} images={imageMap}>
+            <CheckoutProvider>{children}</CheckoutProvider>
+          </CartProvider>
           <PrismicPreview repositoryName={repositoryName} />
         </body>
       </html>

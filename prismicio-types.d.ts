@@ -871,7 +871,13 @@ export type ProductContentDocument<Lang extends string = string> =
     Lang
   >;
 
-type ProductLandingPageDocumentDataSlicesSlice = Hero2Slice | HeroSlice;
+type ProductLandingPageDocumentDataSlicesSlice =
+  | TestimonialGallerySlice
+  | FaqAccordionSlice
+  | BenefitsCalloutSlice
+  | DropListSlice
+  | Hero2Slice
+  | HeroSlice;
 
 /**
  * Content for Product Landing Page documents
@@ -1073,6 +1079,88 @@ export type AllDocumentTypes =
   | ThePlaygroundDisplayLogoDocument;
 
 /**
+ * Item in *BenefitsCallout → Default → Primary → Benefits*
+ */
+export interface BenefitsCalloutSliceDefaultPrimaryBenefitsItem {
+  /**
+   * Benefit Text field in *BenefitsCallout → Default → Primary → Benefits*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: benefits_callout.default.primary.benefits[].benefit_text
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  benefit_text: prismic.RichTextField;
+}
+
+/**
+ * Primary content in *BenefitsCallout → Default → Primary*
+ */
+export interface BenefitsCalloutSliceDefaultPrimary {
+  /**
+   * Headline field in *BenefitsCallout → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: benefits_callout.default.primary.headline
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  headline: prismic.RichTextField;
+
+  /**
+   * Subheading field in *BenefitsCallout → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: benefits_callout.default.primary.subheading
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  subheading: prismic.RichTextField;
+
+  /**
+   * Benefits field in *BenefitsCallout → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: benefits_callout.default.primary.benefits[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  benefits: prismic.GroupField<
+    Simplify<BenefitsCalloutSliceDefaultPrimaryBenefitsItem>
+  >;
+}
+
+/**
+ * Default variation for BenefitsCallout Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default variation
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type BenefitsCalloutSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<BenefitsCalloutSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *BenefitsCallout*
+ */
+type BenefitsCalloutSliceVariation = BenefitsCalloutSliceDefault;
+
+/**
+ * BenefitsCallout Shared Slice
+ *
+ * - **API ID**: `benefits_callout`
+ * - **Description**: A callout section with urgency headline, subheading, and a list of benefits with checkmarks
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type BenefitsCalloutSlice = prismic.SharedSlice<
+  "benefits_callout",
+  BenefitsCalloutSliceVariation
+>;
+
+/**
  * Item in *DropList → Default → Primary → DropItems*
  */
 export interface DropListSliceDefaultPrimaryDropitemsItem {
@@ -1182,6 +1270,98 @@ type DropListSliceVariation = DropListSliceDefault;
 export type DropListSlice = prismic.SharedSlice<
   "drop_list",
   DropListSliceVariation
+>;
+
+/**
+ * Item in *FaqAccordion → Default → Primary → Questions*
+ */
+export interface FaqAccordionSliceDefaultPrimaryFaqItemsItem {
+  /**
+   * Question field in *FaqAccordion → Default → Primary → Questions*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: faq_accordion.default.primary.faq_items[].question
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  question: prismic.KeyTextField;
+
+  /**
+   * Answer field in *FaqAccordion → Default → Primary → Questions*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: faq_accordion.default.primary.faq_items[].answer
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  answer: prismic.RichTextField;
+}
+
+/**
+ * Primary content in *FaqAccordion → Default → Primary*
+ */
+export interface FaqAccordionSliceDefaultPrimary {
+  /**
+   * Section Title field in *FaqAccordion → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: faq_accordion.default.primary.title
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  title: prismic.RichTextField;
+
+  /**
+   * Section Intro field in *FaqAccordion → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: faq_accordion.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Questions field in *FaqAccordion → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: faq_accordion.default.primary.faq_items[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  faq_items: prismic.GroupField<
+    Simplify<FaqAccordionSliceDefaultPrimaryFaqItemsItem>
+  >;
+}
+
+/**
+ * Default variation for FaqAccordion Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Standard FAQ accordion with a section title, description, and collapsible items for each question and answer.
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type FaqAccordionSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<FaqAccordionSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *FaqAccordion*
+ */
+type FaqAccordionSliceVariation = FaqAccordionSliceDefault;
+
+/**
+ * FaqAccordion Shared Slice
+ *
+ * - **API ID**: `faq_accordion`
+ * - **Description**: *None*
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type FaqAccordionSlice = prismic.SharedSlice<
+  "faq_accordion",
+  FaqAccordionSliceVariation
 >;
 
 /**
@@ -1566,6 +1746,17 @@ export interface Hero2SliceDefaultPrimaryCardsItem {
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
   description: prismic.KeyTextField;
+
+  /**
+   * type field in *ProductShowcase → 1 → Primary → cards*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: *None*
+   * - **Default Value**: image
+   * - **API ID Path**: hero_2.default.primary.cards[].type
+   * - **Documentation**: https://prismic.io/docs/fields/select
+   */
+  type: prismic.SelectField<"image" | "review" | "step", "filled">;
 }
 
 /**
@@ -1611,6 +1802,17 @@ export interface Hero2SliceStyle2PrimaryCardsItem {
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
   description: prismic.KeyTextField;
+
+  /**
+   * type field in *ProductShowcase → 2 → Primary → cards*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: *None*
+   * - **Default Value**: image
+   * - **API ID Path**: hero_2.style2.primary.cards[].type
+   * - **Documentation**: https://prismic.io/docs/fields/select
+   */
+  type: prismic.SelectField<"image" | "review" | "step", "filled">;
 }
 
 /**
@@ -1656,6 +1858,17 @@ export interface Hero2SliceStyle3PrimaryCardsItem {
    * - **Documentation**: https://prismic.io/docs/fields/text
    */
   description: prismic.KeyTextField;
+
+  /**
+   * type field in *ProductShowcase → 3 → Primary → cards*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: *None*
+   * - **Default Value**: image
+   * - **API ID Path**: hero_2.style3.primary.cards[].type
+   * - **Documentation**: https://prismic.io/docs/fields/select
+   */
+  type: prismic.SelectField<"image" | "review" | "step", "filled">;
 }
 
 /**
@@ -1763,6 +1976,17 @@ export interface Hero2SliceDefaultPrimary {
    * - **Documentation**: https://prismic.io/docs/fields/select
    */
   content: prismic.SelectField<"image" | "card", "filled">;
+
+  /**
+   * reverse field in *ProductShowcase → 1 → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: hero_2.default.primary.reverse
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  reverse: prismic.BooleanField;
 }
 
 /**
@@ -1883,6 +2107,17 @@ export interface Hero2SliceStyle2Primary {
    * - **Documentation**: https://prismic.io/docs/fields/select
    */
   content: prismic.SelectField<"image" | "card", "filled">;
+
+  /**
+   * reverse field in *ProductShowcase → 2 → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: hero_2.style2.primary.reverse
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  reverse: prismic.BooleanField;
 }
 
 /**
@@ -2003,6 +2238,17 @@ export interface Hero2SliceStyle3Primary {
    * - **Documentation**: https://prismic.io/docs/fields/select
    */
   content: prismic.SelectField<"image" | "card", "filled">;
+
+  /**
+   * reverse field in *ProductShowcase → 3 → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: hero_2.style3.primary.reverse
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  reverse: prismic.BooleanField;
 }
 
 /**
@@ -2389,6 +2635,145 @@ export type SocialMediaLinksSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Item in *TestimonialGallery → Default → Primary → Gallery Images*
+ */
+export interface TestimonialGallerySliceDefaultPrimaryGalleryImagesItem {
+  /**
+   * Image field in *TestimonialGallery → Default → Primary → Gallery Images*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: testimonial_gallery.default.primary.gallery_images[].image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+}
+
+/**
+ * Item in *TestimonialGallery → Default → Primary → Testimonials*
+ */
+export interface TestimonialGallerySliceDefaultPrimaryTestimonialsItem {
+  /**
+   * Rating Count field in *TestimonialGallery → Default → Primary → Testimonials*
+   *
+   * - **Field Type**: Number
+   * - **Placeholder**: *None*
+   * - **API ID Path**: testimonial_gallery.default.primary.testimonials[].rating_count
+   * - **Documentation**: https://prismic.io/docs/fields/number
+   */
+  rating_count: prismic.NumberField;
+
+  /**
+   * Quote field in *TestimonialGallery → Default → Primary → Testimonials*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: testimonial_gallery.default.primary.testimonials[].quote
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  quote: prismic.RichTextField;
+
+  /**
+   * Author Name field in *TestimonialGallery → Default → Primary → Testimonials*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: testimonial_gallery.default.primary.testimonials[].author_name
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  author_name: prismic.KeyTextField;
+
+  /**
+   * title field in *TestimonialGallery → Default → Primary → Testimonials*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: testimonial_gallery.default.primary.testimonials[].title
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  title: prismic.RichTextField;
+}
+
+/**
+ * Primary content in *TestimonialGallery → Default → Primary*
+ */
+export interface TestimonialGallerySliceDefaultPrimary {
+  /**
+   * Heading field in *TestimonialGallery → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: testimonial_gallery.default.primary.heading
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  heading: prismic.RichTextField;
+
+  /**
+   * Description field in *TestimonialGallery → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: testimonial_gallery.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Gallery Images field in *TestimonialGallery → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: testimonial_gallery.default.primary.gallery_images[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  gallery_images: prismic.GroupField<
+    Simplify<TestimonialGallerySliceDefaultPrimaryGalleryImagesItem>
+  >;
+
+  /**
+   * Testimonials field in *TestimonialGallery → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: testimonial_gallery.default.primary.testimonials[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  testimonials: prismic.GroupField<
+    Simplify<TestimonialGallerySliceDefaultPrimaryTestimonialsItem>
+  >;
+}
+
+/**
+ * Default variation for TestimonialGallery Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default variation
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type TestimonialGallerySliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<TestimonialGallerySliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *TestimonialGallery*
+ */
+type TestimonialGallerySliceVariation = TestimonialGallerySliceDefault;
+
+/**
+ * TestimonialGallery Shared Slice
+ *
+ * - **API ID**: `testimonial_gallery`
+ * - **Description**: Customer testimonials with gallery and reviews
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type TestimonialGallerySlice = prismic.SharedSlice<
+  "testimonial_gallery",
+  TestimonialGallerySliceVariation
+>;
+
+/**
  * Primary content in *WindowPanels → Items*
  */
 export interface WindowPanelsSliceDefaultItem {
@@ -2561,11 +2946,21 @@ declare module "@prismicio/client" {
       ThePlaygroundDisplayLogoDocument,
       ThePlaygroundDisplayLogoDocumentData,
       AllDocumentTypes,
+      BenefitsCalloutSlice,
+      BenefitsCalloutSliceDefaultPrimaryBenefitsItem,
+      BenefitsCalloutSliceDefaultPrimary,
+      BenefitsCalloutSliceVariation,
+      BenefitsCalloutSliceDefault,
       DropListSlice,
       DropListSliceDefaultPrimaryDropitemsItem,
       DropListSliceDefaultPrimary,
       DropListSliceVariation,
       DropListSliceDefault,
+      FaqAccordionSlice,
+      FaqAccordionSliceDefaultPrimaryFaqItemsItem,
+      FaqAccordionSliceDefaultPrimary,
+      FaqAccordionSliceVariation,
+      FaqAccordionSliceDefault,
       FeaturedCategoriesSlice,
       FeaturedCategoriesSliceDefaultItem,
       FeaturedCategoriesSliceVariation,
@@ -2609,6 +3004,12 @@ declare module "@prismicio/client" {
       SocialMediaLinksSliceDefaultItem,
       SocialMediaLinksSliceVariation,
       SocialMediaLinksSliceDefault,
+      TestimonialGallerySlice,
+      TestimonialGallerySliceDefaultPrimaryGalleryImagesItem,
+      TestimonialGallerySliceDefaultPrimaryTestimonialsItem,
+      TestimonialGallerySliceDefaultPrimary,
+      TestimonialGallerySliceVariation,
+      TestimonialGallerySliceDefault,
       WindowPanelsSlice,
       WindowPanelsSliceDefaultItem,
       WindowPanelsSliceDoubledUpPrimary,

@@ -1,5 +1,5 @@
 "use client";
-import { apiRouteHandlerAdapter } from "apiRouteHandler";
+
 import Counter from "@/components/Counter";
 import _ from "lodash";
 import React, {

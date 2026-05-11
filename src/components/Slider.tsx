@@ -9,6 +9,44 @@ import { useDrag } from "@use-gesture/react";
 
 import { useRef, useState, useMemo, Children, useEffect, SetStateAction } from "react";
 
+type ResponsivePeekOffset = {
+  base?: number;
+  sm?: number;
+  md?: number;
+  lg?: number;
+  xl?: number;
+  "2xl"?: number;
+};
+
+const resolvePeekOffsetPx = (
+  peekOffsetPx: number | ResponsivePeekOffset,
+  viewportWidth: number | null
+) => {
+  if (typeof peekOffsetPx === "number") return peekOffsetPx;
+
+  const width = viewportWidth ?? 0;
+  const responsivePeekOffset = peekOffsetPx;
+  let offset = responsivePeekOffset.base ?? 0;
+
+  if (width >= 640 && typeof responsivePeekOffset.sm === "number") {
+    offset = responsivePeekOffset.sm;
+  }
+  if (width >= 768 && typeof responsivePeekOffset.md === "number") {
+    offset = responsivePeekOffset.md;
+  }
+  if (width >= 1024 && typeof responsivePeekOffset.lg === "number") {
+    offset = responsivePeekOffset.lg;
+  }
+  if (width >= 1280 && typeof responsivePeekOffset.xl === "number") {
+    offset = responsivePeekOffset.xl;
+  }
+  if (width >= 1536 && typeof responsivePeekOffset["2xl"] === "number") {
+    offset = responsivePeekOffset["2xl"];
+  }
+
+  return offset;
+};
+
 type Props = {
   slide?: boolean;
   animate?: boolean;
@@ -71,12 +109,14 @@ export const WebflowSlider = ({
   className,
   onIndexChange = () => { },
   visibleItemsCount = 1, // how many items to show
+  peekOffsetPx = 0, // how much of the next item should be visible (can be responsive)
   isInfinite, // is it an infinite loop?
   withIndicator = false, // show dots?
   withControls = false, // show dots?
-}: AppProps & { active?: number; visibleItemsCount: number; isInfinite: boolean, withIndicator: boolean, withControls: boolean, onIndexChange?: (index: number) => void }) => {
+}: AppProps & { active?: number; visibleItemsCount: number; peekOffsetPx?: number | ResponsivePeekOffset; isInfinite: boolean, withIndicator: boolean, withControls: boolean, onIndexChange?: (index: number) => void }) => {
   const ref = useRef(null);
   const [timeoutInProgress, setTimeoutInProgress] = useState(false); // a boolean for if timeout is im progress, used to stop user from spam clicking next or back in certain conditions
+  const [viewportWidth, setViewportWidth] = useState<number | null>(null);
 
   /**
    * Is the carousel repeating it's item
@@ -105,6 +145,26 @@ export const WebflowSlider = ({
    * Is the carousel's transition enabled
    */
   const [isTransitionEnabled, setTransitionEnabled] = useState(true);
+
+  useEffect(() => {
+    const onResize = () => setViewportWidth(window.innerWidth);
+    onResize();
+    window.addEventListener("resize", onResize);
+
+    return () => {
+      window.removeEventListener("resize", onResize);
+    };
+  }, []);
+
+  const resolvedPeekOffsetPx = useMemo(
+    () => resolvePeekOffsetPx(peekOffsetPx, viewportWidth),
+    [peekOffsetPx, viewportWidth]
+  );
+
+  const itemWidth = useMemo(
+    () => `calc((100% - ${resolvedPeekOffsetPx}px) / ${visibleItemsCount})`,
+    [resolvedPeekOffsetPx, visibleItemsCount]
+  );
 
   /**
    * Handle if the carousel is repeating
@@ -193,7 +253,12 @@ export const WebflowSlider = ({
       goToItem((prevState) => prevState - 1);
     }
   };
-  const childrenWrapper = (children: any) => Children.map(children, (child, i) => <div key={i} style={{ width: `calc(100% / ${visibleItemsCount})` }} className="grow shrink-0">{child}</div>)
+  const childrenWrapper = (children: any) =>
+    Children.map(children, (child, i) => (
+      <div key={i} style={{ width: itemWidth }} className="grow shrink-0">
+        {child}
+      </div>
+    ));
 
   const handleDrag: Parameters<typeof useDrag>[0] = ({ last, movement: [mx] }) => {
     const DRAG_THRESHOLD_PX = 50;
@@ -334,12 +399,11 @@ export const WebflowSlider = ({
             </svg></div>
           </button>
         ) : null}
-        <div className="overflow-hidden w-full h-full">
+        <div className="w-full h-full px-4">
           <div
             style={{
-              transform: `translateX(-${currentIndex * (100 / visibleItemsCount)}%)`,
+              transform: `translateX(calc(-1 * ${currentIndex} * ${itemWidth}))`,
             }}
-
             // onTouchStart={handleTouchStart}
             // onTouchMove={handleTouchMove}
             ref={ref}

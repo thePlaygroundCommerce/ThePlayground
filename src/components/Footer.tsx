@@ -3,7 +3,7 @@
 import { AppProps } from "index";
 import SocialMediaButtons from "./SocialMediaButtons";
 import Link from "next/link";
-import { getMainNavigation, Nav } from "@/app/layout";
+import { Nav } from "@/app/layout";
 import LogoComponent from "./LogoComponent";
 import { getCatalogObjects } from "@/api/catalogApi";
 import { mapArrayToMap } from "@/util/index";

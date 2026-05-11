@@ -4,12 +4,12 @@ import Image from '@/components/Image'
 import { AppProps } from "index";
 
 const LogoComponent = async ({ className }: AppProps) => {
-  const { results: [{ data: { image: { alt, url } } }] } = await client.getByType("the_playground_display_logo");
+  // const { results: [{ data: { image: { alt, url } } }] } = await client.getByType("the_playground_display_logo");
 
   return (
     <Image
-      src={url ?? ""}
-      alt={alt ?? "The Playground Logo"}
+      // src={""}
+      alt={"The Playground Logo"}
       width={1080}
       height={1080}
       className="w-44"

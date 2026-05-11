@@ -19,8 +19,8 @@ const routes: prismic.ClientConfig["routes"] = [
     path: "/comingsoon",
   },
   {
-    type: "homepage",
-    path: "/",
+    type: "product_landing_page",
+    path: "/landing/:uid",
   },
 ];
 
