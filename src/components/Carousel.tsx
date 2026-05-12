@@ -6,7 +6,7 @@ import { KeenSliderInstance, useKeenSlider } from "keen-slider/react";
 import React, { useState } from "react";
 import Image from "./Image";
 
-import staticImages from "@/util/images.ts";
+import staticImages from "@/util/images";
 import Link from "next/link";
 import AnimatedCard from "./AnimatedCard";
 

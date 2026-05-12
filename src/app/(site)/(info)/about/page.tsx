@@ -115,7 +115,7 @@ const Page = () => {
           </div>
           <Link href="/faqs"><Button variant="primary">View FAQs</Button></Link>
         </div> */}
-        <div className="container mx-auto">
+        {/* <div className="container mx-auto">
           <Showcase image={{ alt: "", width: 1080, height: 1080 }} content={{
             title: (
               <div className="text-center">
@@ -136,7 +136,7 @@ const Page = () => {
               />
             )
           }} />
-        </div>
+        </div> */}
       </div>
     </div>
   );

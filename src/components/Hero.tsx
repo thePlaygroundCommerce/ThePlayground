@@ -10,7 +10,7 @@ import { contentPositions } from "@/util/styles";
 import { ImageProps } from "index";
 import { latoLight } from "@/app/fonts";
 
-import staticImages from "@/util/images.ts"
+import staticImages from "@/util/images"
 import Heading from "./typography/Heading";
 import ProductDetails from "./ProductDetails";
 import ProductImageGallery from "./ProductImageGallery";
@@ -74,101 +74,6 @@ const Hero = ({
       {/* <div className={contentContainer}>
         {type === "static" && <HeroContent {...items[0]} image={undefined} />}
       </div> */}
-    </div>
-  );
-};
-
-const HeroContent = ({
-  image,
-  content
-}: Modify<Content, { image: ContentImage | undefined }>) => {
-  let ImageComponent: ReactNode;
-  let render: ReactNode;
-
-  if (image && isImageProps(image)) {
-    ImageComponent = <Image
-      {...{
-        ...image,
-        className: "z-10 h-full object-cover w-full brightness-50",
-      }}
-    />
-  } else {
-    ImageComponent = image
-  }
-
-  const renderContentData = ({
-    description,
-    title,
-    form,
-    last_publication_date,
-    cta,
-    social_media_handles,
-    link,
-    linkLabel
-  }: ContentData) => (
-    <div className="absolute z-20 w-full flex text-left bottom-0 p-4">
-      <div className=" flex flex-col gap-4 text-slate-300">
-        <div>
-          <Heading level={3} className="w3-animate-top">
-            {title}
-          </Heading>
-          <p className={"text-lg italic" + ` ${latoLight.className}`}>{description}</p>
-          {last_publication_date && (
-            <p className="text-lg">
-              {new Date(last_publication_date).toDateString()}
-            </p>
-          )}
-        </div>
-        {link && (
-          <Link href={link}>
-            <Button variant="primary">{linkLabel || "READ MORE"}</Button>
-          </Link>
-        )}
-      </div>
-      {/* {isFilled.contentRelationship<string, string, { slices: [] }>(cta) && (
-          <div>
-            <SliceZone slices={cta.data?.slices} components={components} />
-          </div>
-        )}
-        {isFilled.contentRelationship(social_media_handles) && (
-          <div className="flex justify-center ">
-            {slice.items.map(
-              ({
-                social_media_handle,
-              }:
-                | HeroSliceHandlesCtaItem
-                | HeroSliceHeroWithSocialMediaHandlesItem) => {
-                if (hasContentRelationshipData(social_media_handle)) {
-                  const slug = social_media_handle.uid;
-                  const IconComponent: IconType =
-                    SocialMediaComponentMap[slug as keyof SocialMediaIcons];
-
-                  return (
-                    <a
-                      target="_blank"
-                      id={social_media_handle.data.social_media_name}
-                      href={social_media_handle.data.social_media_url}
-                      className="m-2"
-                      key={slug}
-                    >
-                      <IconComponent />
-                    </a>
-                  );
-                }
-              }
-            )}
-          </div>
-        )} */}
-    </div>
-  )
-  return (
-    <div className="w-full h-full relative">
-      {image && (
-        <div className="w-full h-full absolute">
-          {ImageComponent}
-        </div>
-      )}
-      {content && 'title' in content ? renderContentData(content) : content}
     </div>
   );
 };

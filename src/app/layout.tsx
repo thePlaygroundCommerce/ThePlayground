@@ -11,16 +11,12 @@ import { Metadata } from "next";
 import { CatalogObject } from "square";
 
 import { config } from '@fortawesome/fontawesome-svg-core'
-// import '@fortawesome/fontawesome-svg-core/styles.css'
 import "../styles/globals.css";
 import _ from "lodash";
 import CartProvider from "@/context/cartContext";
 import { cookies } from "next/headers";
 import { getInitialItems } from "./(site)/layout";
 import CheckoutProvider from "@/context/checkoutContext";
-// import "lib/js/webflow.js"
-// import "styles/webflow.css";
-// import "styles/webflowA.css";
 config.autoAddCss = false
 
 export const metadata: Metadata = {
@@ -101,7 +97,7 @@ export const getMainNavigation: () => Promise<{
 
 export type LayoutPageProps = { children: React.ReactNode };
 
-export default async function RootLayout({ children, info }: LayoutPageProps & { info: any }) {
+export default async function RootLayout({ children }: LayoutPageProps) {
   const { order: cart, options, imageMap, relatedObjects } = await getInitialItems(await cookies())
 
   return (

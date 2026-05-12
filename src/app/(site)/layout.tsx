@@ -1,6 +1,6 @@
 import { callGetCart } from '@/api/cartApi'
 import { getCatalogObjects } from '@/api/catalogApi'
-import { Nav } from '@/app/layout'
+import { LayoutPageProps, Nav } from '@/app/layout'
 import FacebookPixel from '@/components/FacebookPixel'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
@@ -78,7 +78,7 @@ type LayoutProps = AppProps & {
     };
 };
 
-const LayoutComponent = ({ children, navs, navs: { footerNavs } }: LayoutProps) => {
+const LayoutComponent = ({ children, navs, navs: { footerNavs } }: any) => {
     return (
         <div className="h-screen flex flex-col">
             <Header navs={navs} logo={renderLogo({ className: "w-full" })} />

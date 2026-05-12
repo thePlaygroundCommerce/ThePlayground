@@ -54,7 +54,7 @@ const pay = async (
         })
         .then((res) => res.payment)
     )
-    .catch((err) => console.log(err));
+    // .catch((err) => console.log(err));
 
   if (payment?.status === "COMPLETED") {
     store.delete("cartId");

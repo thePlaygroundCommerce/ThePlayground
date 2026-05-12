@@ -8,7 +8,7 @@ import { ReactElement, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
-import staticImages from "@/util/images.ts";
+import staticImages from "@/util/images";
 import { Button } from "@headlessui/react";
 import LogoComponent from "./LogoComponent";
 import Hamburger from "./Hamburger";

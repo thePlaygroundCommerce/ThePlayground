@@ -5,7 +5,6 @@ import { createContext, useContext } from "react";
 import { AppProps, CheckoutContextType } from "index";
 import { doesContextExist } from "@/util/";
 import { useCart } from "./cartContext";
-import { apiRouteHandlerAdapter } from "apiRouteHandler";
 import { getCheckoutItemUrl } from "@/api/checkoutApi";
 
 export const CheckoutContext = createContext<CheckoutContextType | null>(null);
