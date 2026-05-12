@@ -399,7 +399,7 @@ export const WebflowSlider = ({
             </svg></div>
           </button>
         ) : null}
-        <div className="w-full h-full px-4">
+        <div className="w-full h-full px-4 ">
           <div
             style={{
               transform: `translateX(calc(-1 * ${currentIndex} * ${itemWidth}))`,

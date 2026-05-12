@@ -871,6 +871,21 @@ export type ProductContentDocument<Lang extends string = string> =
     Lang
   >;
 
+/**
+ * Item in *Product Landing Page → quick points*
+ */
+export interface ProductLandingPageDocumentDataQuickPointsItem {
+  /**
+   * point field in *Product Landing Page → quick points*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: product_landing_page.quick_points[].point
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  point: prismic.KeyTextField;
+}
+
 type ProductLandingPageDocumentDataSlicesSlice =
   | TestimonialGallerySlice
   | FaqAccordionSlice
@@ -883,6 +898,41 @@ type ProductLandingPageDocumentDataSlicesSlice =
  * Content for Product Landing Page documents
  */
 interface ProductLandingPageDocumentData {
+  /**
+   * quick points field in *Product Landing Page*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: product_landing_page.quick_points[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  quick_points: prismic.GroupField<
+    Simplify<ProductLandingPageDocumentDataQuickPointsItem>
+  >;
+
+  /**
+   * title field in *Product Landing Page*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: product_landing_page.title
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * description field in *Product Landing Page*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: product_landing_page.description
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  description: prismic.KeyTextField;
+
   /**
    * Slice Zone field in *Product Landing Page*
    *
@@ -2937,6 +2987,7 @@ declare module "@prismicio/client" {
       ProductContentDocumentDataShowcasesItem,
       ProductLandingPageDocument,
       ProductLandingPageDocumentData,
+      ProductLandingPageDocumentDataQuickPointsItem,
       ProductLandingPageDocumentDataSlicesSlice,
       SocialMediaHandleDocument,
       SocialMediaHandleDocumentData,

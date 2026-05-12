@@ -38,7 +38,7 @@ const TestimonialGallery: FC<TestimonialGalleryProps> = ({ slice }) => {
           <PrismicRichText field={slice.primary.description} />
         </div>
 
-        <div className="flex md:flex-row-reverse gap-12">
+        <div className="flex md:flex-row-reverse flex-col gap-12">
           <div className={clsx(styles.galleryContainer, "flex-1")}>
             {slice.primary.gallery_images.map((item, index) => (
               <div key={index} className={styles.galleryItem}>

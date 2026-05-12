@@ -12,6 +12,36 @@
           "label": "UID"
         }
       },
+      "quick_points": {
+        "type": "Group",
+        "config": {
+          "label": "quick points",
+          "repeat": true,
+          "fields": {
+            "point": {
+              "type": "Text",
+              "config": {
+                "label": "point",
+                "placeholder": ""
+              }
+            }
+          }
+        }
+      },
+      "title": {
+        "type": "Text",
+        "config": {
+          "label": "title",
+          "placeholder": ""
+        }
+      },
+      "description": {
+        "type": "Text",
+        "config": {
+          "label": "description",
+          "placeholder": ""
+        }
+      },
       "slices": {
         "type": "Slices",
         "fieldset": "Slice Zone",

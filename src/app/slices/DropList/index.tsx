@@ -80,11 +80,11 @@ const DropList: FC<DropListProps> = (props) => {
     <section
       data-slice-type={slice_type}
       data-slice-variation={variation}
-      className="p-24"
+      className="p-4 md:p-24"
     >
       <div
         className={clsx(
-          "text-center text-black w-2/3 mx-auto"
+          "text-center text-black md:w-2/3 mx-auto"
         )}
       >
         <div className="mb-4">
@@ -105,7 +105,7 @@ const DropList: FC<DropListProps> = (props) => {
         text,
         content,
         cta: undefined,
-        flipped: false
+        reverse: false
       }} />
     </section>
   )

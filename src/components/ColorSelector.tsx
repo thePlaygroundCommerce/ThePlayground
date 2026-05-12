@@ -61,9 +61,8 @@ const RadioSelector = ({
   title = title.split(" ").map(_.capitalize).join(" ");
 
   return (
-    <div className="w-full flex flex-col-reverse justify-center items-center gap-2">
-      <p>{title}</p>
-      <div className="flex justify-center gap-2">
+    <div className="w-full flex items-center gap-2">
+      <div className="flex gap-2">
         {data.map(({ label, value }: any, i: string | number) => {
           return (
             <Radio
@@ -77,6 +76,7 @@ const RadioSelector = ({
           );
         })}
       </div>
+      <p>{title}</p>
     </div>
   );
 };
@@ -115,7 +115,7 @@ const CardSelector = ({
           onClick={() => onChange(value)}
           className={clsx(
             selectedIndex == i && "bg-mintcream-600 text-white",
-            "border rounded flex-1 w-0 shadow-md"
+            "border rounded shadow-md  w-fit p-2"
           )}
         >
           {label?.slice(0, 1).toUpperCase()}

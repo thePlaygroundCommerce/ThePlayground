@@ -139,8 +139,8 @@ const Window = ({ children, makeFirst }: AppProps & { makeFirst: boolean }) => (
 );
 const Showcase1 = ({ text, content, cta, reverse }: Omit<ShowcaseProps, 'id'>) => (
   <div className={clsx("min-h-[25vh] flex flex-col lg:grid lg:grid-cols-2 gap-4 lg:gap-8 lg:items-center", reverse && "lg:order-first")}>
-    {content && <div className="flex-1 overflow-hidden m-0 aspect-square rounded-3xl">{content}</div>}
-    <div className={clsx("flex-1", reverse && "order-first")}>
+    {content && <div className="flex-1 overflow-hidden aspect-square rounded-3xl md:m-8">{content}</div>}
+    <div className={clsx("flex-1", reverse && "md:order-first")}>
       {text && <div className="flex-1">{text}</div>}
       {cta && <div className="flex-1 w-full">{cta}</div>}
     </div>
@@ -169,8 +169,8 @@ const Showcase3 = ({ text, content, cta, reverse }: Omit<ShowcaseProps, 'id'>) =
 
   return (
     <div className={clsx("min-h-[25vh] flex flex-col gap-4 lg:gap-8 lg:items-center", reverse && "lg:order-first")}>
-      {text && <div className="flex-1 p-4">{text}</div>}
-      <div className="flex-1">
+      {text && <div className="flex-1">{text}</div>}
+      <div className="flex-1 over">
         {content && <div className="flex-1 lg:flex-none">{content}</div>}
         {cta && <div className="flex-1 w-full">{cta}</div>}
       </div>
