@@ -1,6 +1,5 @@
 .container {
   background-color: #f5e6d3;
-  padding: 60px 40px;
 }
 
 .content {
@@ -130,10 +129,6 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-  .container {
-    padding: 40px 20px;
-  }
-
   .headline {
     font-size: 36px;
     margin-bottom: 16px;
@@ -174,9 +169,6 @@
 }
 
 @media (max-width: 480px) {
-  .container {
-    padding: 30px 16px;
-  }
 
   .headline {
     font-size: 28px;

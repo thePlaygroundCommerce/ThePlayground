@@ -1,4 +1,3 @@
-
 import { WebflowSlider as Slider } from "@/components/Slider";
 import { Content, isFilled } from "@prismicio/client";
 import { PrismicNextImage } from "@prismicio/next";
@@ -12,11 +11,11 @@ export { default as CardContent } from "./CardContent"
 
 
 export const renderContent = (contentType: Hero2SliceVariation['primary']['content'], content: Simplify<Content.Hero2SliceDefaultPrimary> | Simplify<Content.Hero2SliceStyle2Primary> | Simplify<Content.Hero2SliceStyle3Primary>) => {
-    const createImage = (props: ComponentProps<typeof PrismicNextImage>) => <PrismicNextImage {...props} className="h-full w-full object-cover" />
+    const createImage = (props: ComponentProps<typeof PrismicNextImage>) => <PrismicNextImage {...props} className="h-full w-full object-cover rounded-3xl" />
 
     switch (contentType) {
         case "image":
-            return isFilled.image(content.image) && createImage({ field: content.image, className: "object-contain w-full h-full" });
+            return isFilled.image(content.image) && <div className="p-12 md:m-0 h-full">{createImage({ field: content.image })}</div>;
         case "card":
             return (
                 <>

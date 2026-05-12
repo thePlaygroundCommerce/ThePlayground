@@ -51,7 +51,7 @@ const ProductShowcase = async (props: Hero2Props): Promise<JSX.Element> => {
     <section
       data-slice-type={slice_type}
       data-slice-variation={variation}
-      className="p-8 md:p-24 overflow-hidden"
+      className="my-8 md:m-0 md:p-12"
     >
       <Showcase {...{
         id: componentToVariationMap[variation],

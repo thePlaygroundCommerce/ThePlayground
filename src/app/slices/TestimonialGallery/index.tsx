@@ -17,7 +17,7 @@ export type TestimonialGalleryProps =
 const TestimonialGallery: FC<TestimonialGalleryProps> = ({ slice }) => {
   return (
     <section
-      className={styles.container}
+      className={clsx(styles.container, "p-8")}
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >

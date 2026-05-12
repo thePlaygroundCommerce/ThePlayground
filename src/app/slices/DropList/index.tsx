@@ -70,8 +70,8 @@ const DropList: FC<DropListProps> = (props) => {
     </div >
   );
   const content = (
-    <div className="w-full min-h-[50vh]">
-      <PrismicNextImage field={primary.image} className="object-contain w-full h-full" />
+    <div className="w-full min-h-[50vh] p-8">
+      <PrismicNextImage field={primary.image} className="object-contain w-full h-full rounded-3xl" />
     </div>
   );
   // const cta = <CtaContent {...{ linkLabel: primary.call_to_action_label }} />

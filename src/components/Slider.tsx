@@ -380,7 +380,7 @@ export const WebflowSlider = ({
   useDrag(handleDrag, { target: ref, axis: "x" })
 
   return (
-    <div className={clsx("flex flex-col relative w-full text-center", className)}>
+    <div className={clsx("flex flex-col relative w-full text-center p-2 overflow-x-hidden", className)}>
       <div className="flex w-full relative h-full">
         {withControls && isPrevButtonVisible ? (
           <button

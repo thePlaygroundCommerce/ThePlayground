@@ -21,9 +21,7 @@ const TextContent = (
         <div
             className={clsx(
                 "w-full duration-2000 delay-2000",
-                // !start ? "opacity-0" : "opacity-1",
-                // animate?.delay && `delay-[${animate.delay + 2000}ms]`,
-                "flex flex-col justify-start md:justify-center md:items-center md:h-full md:px-6 lg:px-8"
+                "flex flex-col justify-start md:justify-center md:items-center md:h-full md:px-6 lg:px-8 p-8"
             )}
         >
             <div
