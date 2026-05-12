@@ -19,6 +19,8 @@ export default async function Page({ params }: PageProps<LANDING_URL>) {
   let description: string;
   let quick_points = [];
 
+  console.log(uid, process.env.PRISMIC_ACCESS_TOKEN)
+
   const calls = await Promise.allSettled([
 
     client.getByUID("product_landing_page", uid)
