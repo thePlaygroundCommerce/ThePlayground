@@ -50,6 +50,8 @@ export default async function Page({ params }: PageProps<LANDING_URL>) {
     </div>
   )
 
+  console.log(calls)
+
   if (calls.every(isFulfilledCall)) {
     const [pageSliceZone, productGallery] = calls.map((call: PromiseFulfilledResult<JSX.Element>) => call.value)
 
