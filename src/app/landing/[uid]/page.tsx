@@ -138,8 +138,7 @@ export async function generateMetadata({
 export async function generateStaticParams() {
   const pages = await client.getAllByType("product_landing_page").catch(() => undefined);;
 
-  return [{ uid: "1" }]
-  return pages.map((page) => ({ uid: 1 }));
+  return pages.map((page) => ({ uid: page.uid }));
 }
 
 // const AddToCart = withProductModifiers(({ addToCart }) => 
