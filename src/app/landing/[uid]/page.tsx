@@ -19,6 +19,8 @@ export default async function Page({ params }) {
   let description: string;
   let quick_points = [];
 
+  console.log(process.env.SQUARE_ACCESS_TOKEN)
+
   const calls = await Promise.allSettled([
 
     client.getByUID("product_landing_page", uid)
@@ -49,8 +51,6 @@ export default async function Page({ params }) {
       <p className="text-lg">{description}</p>
     </div>
   )
-
-  console.log(calls)
 
   if (calls.every(isFulfilledCall)) {
     const [pageSliceZone, productGallery] = calls.map((call: PromiseFulfilledResult<JSX.Element>) => call.value)
