@@ -18,19 +18,8 @@ export default async function Page({ params }) {
   return client.getByUID("product_landing_page", uid)
     .then(({ data: { slices, product_id: slug, ...rest } }) => {
 
-<<<<<<< Updated upstream
-  const calls = await Promise.allSettled([
-
-    client.getByUID("product_landing_page", uid)
-      .then(({ data: { slices, title: _title, description: _description, quick_points: _quick_points } }) => {
-        title = _title
-        description = _description
-        quick_points = _quick_points
-        return <SliceZone slices={slices} components={components} />
-=======
       if (!slug) {
         throw new Error("Missing product slug");
->>>>>>> Stashed changes
       }
       return {
         ...rest,
