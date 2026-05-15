@@ -1,7 +1,6 @@
-import { LayoutPageProps } from '@/app/layout'
 import Link from 'next/link'
 
-const layout = ({ children }: LayoutPageProps) => {
+const layout = ({ children }: LayoutProps<"/">) => {
     const a = [
         {name: "Contact", link: "contact" },
         {name: "About", link: "about" },

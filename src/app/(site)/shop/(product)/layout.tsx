@@ -1,27 +1,14 @@
-import { LayoutPageProps } from "@/app/layout";
+
 import NewsletterForm from "@/components/forms/NewsletterForm";
 
 export const metadata = {
   title: "The Playground | Shop",
 };
 
-export default async function Layout({ children }: LayoutPageProps) {
+export default async function Layout({ children }: LayoutProps<"/shop">) {
   return (
     <>
       {children}
-      {/* <Link href="/shop">
-          <Button variant="link" className="text-xs text-zinc-600 flex items-center py-2">
-            <Breadcrumbs
-            items={breadcrumbs}
-          />
-            <div className="mx-4">
-              <GoChevronLeft size={20} />
-            </div>
-            <div>BACK TO PRODUCTS</div>
-          </Button>
-        </Link> */}
-
-
       <div className="lg:w-1/3 m-12 mx-auto">
         <NewsletterForm
           {...{

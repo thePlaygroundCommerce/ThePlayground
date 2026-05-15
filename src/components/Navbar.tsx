@@ -39,9 +39,9 @@ const Navbar = (props: Props) => {
                             className="w-commerce-commercecartwrapper  k-cart-mobile"
                         >
                             <CartButton overlay={
-                                <Suspense fallback={<div>Hello</div>} name="cartOverlay">
+                                // <Suspense fallback={<div>Hello</div>} name="cartOverlay">
                                     <Cart />
-                                </Suspense>
+                                // </Suspense>
                             } />
                         </div>
                     </div>

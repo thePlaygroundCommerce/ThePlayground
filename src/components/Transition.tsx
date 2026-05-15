@@ -1,6 +1,5 @@
 "use client";
 
-import { LayoutPageProps } from "../app/layout";
 import { ReactNode, useEffect, useRef, useState } from "react";
 // import gsap from "gsap";
 // import { useGSAP } from "@gsap/react";

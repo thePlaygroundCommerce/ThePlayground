@@ -1,10 +1,10 @@
-import { LayoutPageProps } from "@/app/layout";
+
 
 export const metadata = {
   title: "The Playground | Shop",
 };
 
-export default async function ProductsPageLayout({ children }: LayoutPageProps) {
+export default async function ProductsPageLayout({ children }: LayoutProps<"/shop">) {
   // const { headerNavs } = await getMainNavigation()
 
   return (

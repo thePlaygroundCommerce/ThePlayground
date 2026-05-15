@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import CartProvider from "@/context/cartContext";
 import { CookiesProvider } from "react-cookie";
-import NavigationProvider from "@/context/navigationContext";
 import CheckoutProvider from "@/context/checkoutContext";
 import InventoryProvider from "../context/inventoryContext";
 import { AppProps } from "index";
@@ -25,23 +24,18 @@ const Providers = ({ cartImageMap, data, cartData, children }: Props) => {
   }, [])
 
   return (
-    <UIKitProvider>
-      {/* <PostHogProvider client={posthog}> */}
-        <NavigationProvider apparelCategories={data.categories}>
-          <CookiesProvider>
-            <InventoryProvider
-              _itemOptions={data.item_options}
-              apparelData={{ apparelItems: data.items, apparelImages: data.images }}
-            // handleCategoryChange={handleCategoryChange}
-            >
-              <CartProvider data={cartData} images={cartImageMap}>
-                <CheckoutProvider>{children}</CheckoutProvider>
-              </CartProvider>
-            </InventoryProvider>
-          </CookiesProvider>
-        </NavigationProvider>
-      {/* </PostHogProvider> */}
-    </UIKitProvider>
+    < CookiesProvider >
+      <InventoryProvider
+        _itemOptions={data.item_options}
+        apparelData={{ apparelItems: data.items, apparelImages: data.images }}
+      >
+        <CartProvider data={cartData} images={cartImageMap}>
+          <UIKitProvider>
+            <CheckoutProvider>{children}</CheckoutProvider>
+          </UIKitProvider>
+        </CartProvider>
+      </InventoryProvider>
+    </CookiesProvider >
   );
 };
 

@@ -85,9 +85,7 @@ export type Nav = {
 //   };
 // };
 
-export type LayoutPageProps = { children: React.ReactNode };
-
-export default function RootLayout({ children }: LayoutPageProps) {
+export default function RootLayout({ children }: LayoutProps<"/">) {
 
   return (
     <TagManagerProvider>
@@ -100,9 +98,6 @@ export default function RootLayout({ children }: LayoutPageProps) {
         </head>
         <body>
           {children}
-          <CartProvider data={{ _cart: { locationId: '' }, _options: [] }} images={{}}>
-            <CheckoutProvider>{children}</CheckoutProvider>
-          </CartProvider>
           <PrismicPreview repositoryName={repositoryName} />
         </body>
       </html>
