@@ -75,11 +75,8 @@ function ProductImageGallery({ images }: { images: CatalogObject.Image[] }) {
               <Image
                 alt={image.imageData?.caption ?? ""}
                 src={image.imageData?.url ?? ""}
-                data-wf-sku-bindings="%5B%7B%22from%22%3A%22f_more_images_4dr%5B%5D%22%2C%22to%22%3A%22src%22%7D%5D"
-                sizes="100vw"
                 height={1080}
                 width={1080}
-                // srcSet="https://cdn.prod.website-files.com/606072483975b0a200b7dff6/6084f34dc96abefb6fa13070_87035655_94-p-500.jpeg 500w, https://cdn.prod.website-files.com/606072483975b0a200b7dff6/6084f34dc96abefb6fa13070_87035655_94.jpeg 640w"
                 className="k-slider-full-image object-contain"
               />
             </div>
