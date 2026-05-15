@@ -14,6 +14,7 @@ import {
 } from "square";
 import square from "./clients/square";
 import { isSuccessfulSquareApiCall } from "./clients/util";
+import { cookies } from "next/headers";
 
 const SQUARE_ORDER_CACHE_REVALIDATION = {
   next: { tags: ["square", "order"] },
@@ -29,7 +30,7 @@ type OrderWithoutLocation = Omit<OrderRequest, "order"> & {
 
 const locationId = process.env.SQUARE_MAIN_LOCATION_ID ?? "";
 
-export async function callGetCart(orderId: string) {
+export async function callGetCart(orderId?: string) {
   return api.getCart(orderId);
 }
 
@@ -106,12 +107,14 @@ class Carts {
 
   async getCart(orderId: string): Promise<CartOpResponse> {
     const result: CartOpResponse = {};
-    if(!orderId) return result
+    if (!orderId) return result;
 
-    const res = await this.ordersApi.get({ orderId }).catch((err) => err as Square.Error_);
-    if(!isSuccessfulSquareApiCall(res)) return result
+    const res = await this.ordersApi
+      .get({ orderId })
+      .catch((err) => err as Square.Error_);
+    if (!isSuccessfulSquareApiCall(res)) return result;
 
-    const { order } = res
+    const { order } = res;
 
     const { variationToImageMap, options, relatedObjects } =
       await this.getLineItemCatalogData(order?.lineItems ?? []);

@@ -1,13 +1,4 @@
-import Button from "@/components/Button";
 import Image from "@/components/Image";
-import NewsletterForm from "@/components/forms/NewsletterForm";
-import Hero from "@/components/Hero";
-import PhotoGrid from "@/components/PhotoGrid";
-import Showcase from "@/components/Showcase";
-import { SlideProps, TypeOmittedSlideProps } from "@/components/Slide";
-import Slider, { WebflowSlider } from "@/components/Slider";
-import Heading from "@/components/typography/Heading";
-import Link from "next/link";
 
 const Page = () => {
   return (

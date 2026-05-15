@@ -1,6 +1,4 @@
-import { getMainNavigation, LayoutPageProps } from "@/app/layout";
-import Divider from "@/components/Divider";
-import ShopNavigation from "@/components/ShopNavigation";
+import { LayoutPageProps } from "@/app/layout";
 
 export const metadata = {
   title: "The Playground | Shop",

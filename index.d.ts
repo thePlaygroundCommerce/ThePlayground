@@ -110,13 +110,6 @@ export type CheckoutContextType = {
   checkoutItem: (catalogObjectId: string, quantity: string) => void;
 };
 
-export type UIKitContextType = {
-  // drawerKit: {
-  //   open: boolean;
-  // };
-  // handleUIChange: ({ open }: { open: boolean }, e?: any) => void;
-};
-
 declare global {
   interface UserPrivateMetadata {
     squareId: string | undefined;

@@ -4,7 +4,7 @@ import { components } from "@/app/slices";
 import { client } from "@/api/clients";
 import { notFound, redirect } from "next/navigation";
 import ProductDetails from "@/components/ProductDetails";
-import { getProductDetails } from "@/app/(site)/shop/(product)/product/[slug]/page";
+import { getProductDetails } from "../../(site)/shop/(product)/product/[slug]/page";
 import ProductImageGallery from "@/components/ProductImageGallery";
 import { FaCircleCheck } from "react-icons/fa6";
 import Image from "@/components/Image";
@@ -12,14 +12,12 @@ import Button from "@/components/Button";
 
 type LANDING_URL = "/landing/[uid]"
 
-export default async function Page({ params }: PageProps<LANDING_URL>) {
+export default async function Page({ params }) {
   const { uid } = await params;
 
   let title: string;
   let description: string;
   let quick_points = [];
-
-  console.log(uid, process.env.PRISMIC_ACCESS_TOKEN)
 
   const calls = await Promise.allSettled([
 

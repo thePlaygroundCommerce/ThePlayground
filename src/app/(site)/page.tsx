@@ -1,14 +1,10 @@
-import { getProduct, searchItems } from "@/api/catalogApi";
 import { WebflowHero } from "@/components/Hero";
 import Image from "@/components/Image";
 import { WebflowSlider } from "@/components/Slider";
-import React from "react";
-import { mapArrayToMap } from "@/util/index";
 
 import AnimatedComponent from "@/components/AnimatedComponent";
 import PhotoGrid from "@/components/PhotoGrid";
 import { ContentImage, ContentData } from "index";
-import { CatalogObject } from "square";
 
 import pic2 from "public/images/goumbik.jpg"
 import pic1 from "public/images/jibarofoto.jpg"
@@ -78,9 +74,9 @@ const Item = ({
 
 const INSTAGRAM_URL = "https://www.instagram.com/theplaygroundtravel/";
 
-const page = async (props: Props) => {
-  const { objects = [] } = await searchItems({ categoryIds: [] });
-  const { items, images } = mapArrayToMap(objects);
+const page = () => {
+  // const { objects = [] } = await searchItems({ categoryIds: [] });
+  // const { items, images } = mapArrayToMap(objects);
   // const hotItem = (await getProductDetails("")).object ?? items[0];
   // const hotItemImageId =
   //   hotItem?.type === "ITEM" ? hotItem.itemData?.imageIds?.[0] : undefined;

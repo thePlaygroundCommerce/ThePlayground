@@ -1,58 +1,54 @@
 "use client";
 
-import React, {
+import {
   createContext,
   useState,
   useMemo,
   useContext,
   useRef,
   useEffect,
+  ReactNode,
+  ReactPortal,
 } from "react";
-import { usePathname } from "next/navigation";
-import { AppProps, UIKitContextType } from "index";
+import { AppProps } from "index";
 import { createPortal } from "react-dom";
 import { FaRegCircleXmark } from "react-icons/fa6";
 import { Button } from "@headlessui/react";
 import clsx from "clsx";
 
+export type UIKitContextType = {
+  portals: { id: string, node: ReactNode, container?: Element }[]
+  mount: (id: string, node: ReactNode) => void
+  unmount: (id: string) => void
+};
+
 export const UIKitContext = createContext<UIKitContextType | null>(null);
 
+const HEADER_ID = "headerOverlay";
 const DRAWER_ID = "drawerContainer";
 const MODAL_ID = "modalContainer";
 
 const UIKitProvider = ({ children }: any) => {
-  const path = usePathname();
+  const [portals, setPortals] = useState([]);
 
-  // useEffect(() => {
-  //   handleUIChange({ open: false })
-  // }, [path])
+  const mount = (id: string, node: ReactNode) => {
+    const container = document.getElementById(id ?? "");
+    setPortals((prev) => [...prev, { id, node, container }]);
+    return id;
+  };
 
-  const [uiState, setUIState] = useState({
-    drawerKit: {
-      id: "",
-      placement: null,
-      open: false,
-      ref: useRef(null),
-    },
-    headerOverlay: {
-      id: "headerOverlay",
-      placement: null,
-      open: false,
-      ref: useRef(null),
-    },
-  });
+  const unmount = (id: string) => {
+    setPortals((prev) => prev.filter((p) => p.id !== id));
+  };
 
   return (
     <UIKitContext.Provider
-      value={useMemo(
-        () => ({
-          state: uiState,
-          handleUIChange: setUIState,
-        }),
-        [uiState]
-      )}
+      value={{ portals, mount, unmount }}
     >
       {children}
+      {portals.map(({ node, container }) =>
+        createPortal(node, container)
+      )}
       <div id={DRAWER_ID} className="" />
       <div id={MODAL_ID} />
     </UIKitContext.Provider>
@@ -84,12 +80,6 @@ export const usePortal = (
   const docBody = useRef<HTMLElement | null>(null);
   const [show, setShow] = useState(false);
 
-  const toggleScroll = () => {
-    const list = docBody.current?.classList
-    if (list?.contains("h-screen") && list.contains("overflow-hidden")) list.remove("h-screen", "overflow-hidden")
-    else list?.add("h-screen", "overflow-hidden")
-    console.log(list)
-  };
   const handleClosePortal = () => {
     setShow(false)
     cleanup()

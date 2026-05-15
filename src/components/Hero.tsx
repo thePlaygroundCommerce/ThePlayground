@@ -16,7 +16,7 @@ import ProductDetails from "./ProductDetails";
 import ProductImageGallery from "./ProductImageGallery";
 import { getProduct } from "@/api/catalogApi";
 import { notFound } from "next/navigation";
-import { getProductDetails } from "@/app/(site)/shop/(product)/product/[slug]/page";
+import { getProductDetails } from "../app/(site)/shop/(product)/product/[slug]/page";
 
 export type HeroProps = {
   type: "static" | "carousel";

@@ -1,5 +1,3 @@
-'use client'
-
 import Money from '@/components/Money';
 import OrderList from '@/components/OrderList';
 import { useCart, useCartModifier } from '@/context/cartContext';

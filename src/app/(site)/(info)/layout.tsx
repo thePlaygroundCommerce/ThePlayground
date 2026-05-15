@@ -1,8 +1,5 @@
 import { LayoutPageProps } from '@/app/layout'
-import Button from '@/components/Button'
-import Heading from '@/components/typography/Heading'
 import Link from 'next/link'
-import React from 'react'
 
 const layout = ({ children }: LayoutPageProps) => {
     const a = [

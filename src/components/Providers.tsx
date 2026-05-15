@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CartProvider from "@/context/cartContext";
 import { CookiesProvider } from "react-cookie";
 import NavigationProvider from "@/context/navigationContext";
@@ -8,13 +8,7 @@ import InventoryProvider from "../context/inventoryContext";
 import { AppProps } from "index";
 import UIKitProvider from "@/context/UIKitContext";
 import { CatalogObject, Order } from "square";
-import Portal from "./Portal";
 import { Simplify } from "prismicio-types";
-import TagManagerProvider from "@/context/TagManager";
-import posthog from 'posthog-js'
-import { PostHogProvider } from '@/context/PostHogProvider'
-import img from 'public/comingsoon.jpeg'
-import Modal from "./Modal";
 
 
 type Props = AppProps & {
@@ -32,7 +26,7 @@ const Providers = ({ cartImageMap, data, cartData, children }: Props) => {
 
   return (
     <UIKitProvider>
-      <PostHogProvider client={posthog}>
+      {/* <PostHogProvider client={posthog}> */}
         <NavigationProvider apparelCategories={data.categories}>
           <CookiesProvider>
             <InventoryProvider
@@ -46,7 +40,7 @@ const Providers = ({ cartImageMap, data, cartData, children }: Props) => {
             </InventoryProvider>
           </CookiesProvider>
         </NavigationProvider>
-      </PostHogProvider>
+      {/* </PostHogProvider> */}
     </UIKitProvider>
   );
 };
