@@ -11,29 +11,13 @@ export const InventoryContext = createContext<{
 });
 
 type Props = AppProps & {
-  _itemOptions: CatalogObject[];
-  apparelData: {
-    apparelImages: any;
-    apparelItems: any;
-  };
-  handleCategoryChange?: () => void;
+  itemOptions: CatalogObject[];
 };
 
 const InventoryProvider = ({
   children,
-  apparelData,
-  _itemOptions,
-  handleCategoryChange = () => { },
+  itemOptions,
 }: Props) => {
-  const [{ itemOptions }] = useState({
-    itemOptions: _itemOptions
-  })
-  const [catalogItems, setCatalogItems] = useState(apparelData.apparelItems);
-
-  const onCategoryChange = () => {
-    setCatalogItems(handleCategoryChange());
-  };
-
   return (
     <InventoryContext.Provider
       value={{ itemOptions }}

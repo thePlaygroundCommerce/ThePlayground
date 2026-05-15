@@ -6,7 +6,6 @@ import {
   ComponentType,
   Dispatch,
   FC,
-  MouseEvent,
   MouseEventHandler,
   ReactNode,
   SetStateAction,
@@ -15,8 +14,6 @@ import {
 } from "react";
 import { AppProps } from "index";
 import {
-  CatalogItem,
-  CatalogItemOptionForItem,
   CatalogObject,
   OrderLineItem,
 } from "square";
@@ -25,7 +22,6 @@ import { useCheckout } from "@/context/checkoutContext";
 import { useInventory } from "@/context/inventoryContext";
 import _ from "lodash";
 // import Selector from "../components/ColorSelector";
-import Counter from "@/components/Counter";
 import Button from "@/components/Button";
 import { useTracking } from "@/context/TagManager";
 import { SelectorComponentMap } from "@/components/ColorSelector";
@@ -61,7 +57,6 @@ const withProductModifiers =
       const {
         cart: { lineItems = [] },
         modifyCart,
-        deleteCartItem,
       } = useCartModifier();
 
       const lineItemModifiers = useLineItemModifier()

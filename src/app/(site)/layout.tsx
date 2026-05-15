@@ -9,13 +9,14 @@ import _ from 'lodash'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import HeaderWrapper from '@/components/HeaderWrapper'
+import { getCatalogObjects } from '@/api/catalogApi'
 
-const Layout = ({ children }: LayoutProps<"/">) => {
+const Layout = async ({ children }: LayoutProps<"/">) => {
     // const { order: cart, options, imageMap, relatedObjects } = await getInitialItems(await cookies())
 
-    // const { objects: apparelObjects = [] } = await getCatalogObjects(
-    //     "ITEM,IMAGE,CATEGORY,ITEM_OPTION"
-    // );
+    const { objects: apparelObjects = [] } = await getCatalogObjects(
+        "ITEM,IMAGE,CATEGORY,ITEM_OPTION"
+    );
 
     // const { headerNavs, footerNavs } = await getMainNavigation();
 
@@ -26,7 +27,7 @@ const Layout = ({ children }: LayoutProps<"/">) => {
             {/* <!-- This spacer provides the height we want --> */}
             {/* <div className="h-screen col-span-full row-start-1 row-end-[span_2]" /> */}
 
-            <Providers data={{}} cartData={{ _cart: { locationId: ""}, _options: [] }} cartImageMap={{}}>
+            <Providers data={apparelObjects} cartData={{ _cart: { locationId: ""}, _options: [] }} cartImageMap={{}}>
                 <LayoutComponent navs={{ headerNavs: [], footerNavs: [] }}>
                     {children}
                 </LayoutComponent>
