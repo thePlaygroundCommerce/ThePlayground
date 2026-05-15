@@ -19,8 +19,6 @@ export default async function Page({ params }) {
   let description: string;
   let quick_points = [];
 
-  console.log(process.env.SQUARE_ACCESS_TOKEN)
-
   const calls = await Promise.allSettled([
 
     client.getByUID("product_landing_page", uid)
