@@ -35,7 +35,7 @@ export type CategoryTree = {
 
 export type SplitCategoryNameWithId = {
   id: string;
-  category: string;
+  category: string[];
 };
 
 export type NavigationContextType = {
@@ -52,8 +52,8 @@ export type NavigationContextType = {
 };
 
 export type PageProps<
-  A = { [slug: string]: any },
-  B = { [slug: string]: any },
+  A = { [slug: string]: string },
+  B = { [slug: string]: string },
 > = {
   params: Promise<A>;
   searchParams: Promise<B>;
@@ -108,13 +108,6 @@ export type ICartContext = {
 export type CheckoutContextType = {
   checkout: () => void;
   checkoutItem: (catalogObjectId: string, quantity: string) => void;
-};
-
-export type UIKitContextType = {
-  // drawerKit: {
-  //   open: boolean;
-  // };
-  // handleUIChange: ({ open }: { open: boolean }, e?: any) => void;
 };
 
 declare global {
@@ -190,7 +183,7 @@ export type ContentData = {
 export type Content = {
   image: ContentImage;
   video?: ContentVideo;
-  content?: ContentData | ReactElement;
+  content?: ContentData | ReactNode;
   contentStyles?: {
     classes?: string;
     content_alignment?: KeyTextField;

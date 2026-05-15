@@ -1,0 +1,144 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"image": {
+				"origin": {
+					"id": "main",
+					"url": "https://images.unsplash.com/photo-1587613865763-4b8b0d19e8ab",
+					"width": 12288,
+					"height": 16384
+				},
+				"url": "https://images.unsplash.com/photo-1587613865763-4b8b0d19e8ab?rect=0%2C2048%2C12288%2C12288&w=12000&h=12000",
+				"width": 12000,
+				"height": 12000,
+				"edit": {
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 2048
+					},
+					"background": "transparent"
+				},
+				"alt": "applied",
+				"credits": null,
+				"__TYPE__": "ImageContent",
+				"thumbnails": {}
+			},
+			"title": {
+				"__TYPE__": "FieldContent",
+				"type": "Text",
+				"value": "Why Kettle & Fire?"
+			},
+			"headline": {
+				"__TYPE__": "FieldContent",
+				"value": "valley",
+				"type": "Text"
+			},
+			"dropitems": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"title",
+								{
+									"__TYPE__": "FieldContent",
+									"type": "Text",
+									"value": "ALL-IN-ONE NUTRITION"
+								}
+							],
+							[
+								"description",
+								{
+									"__TYPE__": "FieldContent",
+									"type": "Text",
+									"value": "Through our slow-simmering process, we extract special nutrients from our bones that aren't found in other whole foods. Anti-inflammatory agents for digestion and mobility. Collagen for glowing skin. Glycine for calmness and peace of mind. The list goes on and on. It's all-in-one nutrition your body needs to thrive."
+								}
+							]
+						]
+					},
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"description",
+								{
+									"__TYPE__": "FieldContent",
+									"type": "Text",
+									"value": "We're committed to high-quality standards for every product we make. If a highly educated health fanatic wouldn't eat it, it doesn't belong in our bone broth. Each ingredient is carefully inspected for quality. All our bones are sourced from 100% grass-fed cattle and organically raised chickens. Nothing artificial, No B.S. Only the good stuff."
+								}
+							],
+							[
+								"title",
+								{
+									"__TYPE__": "FieldContent",
+									"type": "Text",
+									"value": "MADE WITH ONLY CLEAN INGREDIENTS"
+								}
+							]
+						]
+					},
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"description",
+								{
+									"__TYPE__": "FieldContent",
+									"type": "Text",
+									"value": "Get peace of mind in having easily accessible nutrition on hand. Our broths are designed for busy lifestyles and are ready to eat in only one minute. With zero meal-prep. You can also safely store Kettle & Fire for up to 2 years. That way you can indulge any time at your convenience."
+								}
+							],
+							[
+								"title",
+								{
+									"__TYPE__": "FieldContent",
+									"type": "Text",
+									"value": "READY TO EAT IN 1 MINUTE"
+								}
+							]
+						]
+					},
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"description",
+								{
+									"__TYPE__": "FieldContent",
+									"type": "Text",
+									"value": "Each recipe is meticulously crafted to ensure the best flavor possible and our world-class chef goes through 30+ versions to get it perfect. It's the taste of a cheat meal that satisfies the strictest dietary standards. So you can enjoy again and again."
+								}
+							],
+							[
+								"title",
+								{
+									"__TYPE__": "FieldContent",
+									"type": "Text",
+									"value": "MOUTHWATERING FLAVORS"
+								}
+							]
+						]
+					}
+				]
+			},
+			"description": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Our mission is to make living healthy easier, enjoyable, and more convenient. Everything from using clean ingredients, our production process, and the packaging, our bone broth is thoughtfully designed with your health in mind.",
+							"spans": []
+						},
+						"direction": "ltr"
+					}
+				]
+			}
+		},
+		"items": []
+	}
+]

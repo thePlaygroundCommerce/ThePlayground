@@ -1,0 +1,435 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"description": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Learn how prismic.io helps thousands of businesses around the world with some of our customers’ use-cases",
+							"spans": []
+						},
+						"direction": "ltr"
+					}
+				]
+			},
+			"image": {
+				"provider": "imgix",
+				"url": "https://images.unsplash.com/photo-1654509504219-b8e1afea885e?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzc0NjN8MHwxfHNlYXJjaHwyMHx8Y2l0cnVzJTIwZnJ1aXR8ZW58MHx8fHwxNzc3NzQyOTg3fDA&ixlib=rb-4.1.0&q=85",
+				"alt": "a tree filled with lots of oranges under a blue sky",
+				"origin": {
+					"id": "aCDxUXLMnAM",
+					"url": "https://images.unsplash.com/photo-1654509504219-b8e1afea885e?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzc0NjN8MHwxfHNlYXJjaHwyMHx8Y2l0cnVzJTIwZnJ1aXR8ZW58MHx8fHwxNzc3NzQyOTg3fDA&ixlib=rb-4.1.0&q=85",
+					"width": 2268,
+					"height": 4032
+				},
+				"width": 2268,
+				"height": 4032,
+				"edit": {
+					"background": "transparent",
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					}
+				},
+				"credits": null,
+				"__TYPE__": "ImageContent",
+				"thumbnails": {}
+			},
+			"description_align": {
+				"__TYPE__": "FieldContent",
+				"value": "measure",
+				"type": "Text"
+			},
+			"window": {
+				"__TYPE__": "BooleanContent",
+				"value": true
+			},
+			"call_to_action_link": {
+				"key": "6c5a664c-ed2f-48c5-bbdb-48ed2132cf93",
+				"__TYPE__": "LinkContent",
+				"value": {
+					"__TYPE__": "DocumentLink",
+					"id": "mock_document_id"
+				}
+			},
+			"call_to_action_label": {
+				"__TYPE__": "FieldContent",
+				"value": "raw",
+				"type": "Text"
+			},
+			"headline": {
+				"__TYPE__": "FieldContent",
+				"value": "essential",
+				"type": "Text"
+			},
+			"title": {
+				"__TYPE__": "FieldContent",
+				"value": "handsome",
+				"type": "Text"
+			},
+			"cards": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"type",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "review",
+									"type": "Select"
+								}
+							]
+						]
+					}
+				]
+			},
+			"reverse": {
+				"__TYPE__": "BooleanContent",
+				"value": false
+			}
+		},
+		"items": []
+	},
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "style2",
+		"primary": {
+			"description": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Reprehenderit anim nostrud mollit. Ullamco esse nostrud fugiat consectetur laboris eu proident commodo aliquip. Officia sunt non deserunt magna sit reprehenderit adipisicing laborum ex sit."
+						}
+					}
+				]
+			},
+			"image": {
+				"origin": {
+					"id": "main",
+					"url": "https://images.unsplash.com/photo-1493119508027-2b584f234d6c",
+					"width": 3424,
+					"height": 3424
+				},
+				"url": "https://images.unsplash.com/photo-1493119508027-2b584f234d6c",
+				"width": 3424,
+				"height": 3424,
+				"edit": {
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					},
+					"background": "transparent"
+				},
+				"alt": "parent",
+				"credits": null,
+				"__TYPE__": "ImageContent",
+				"thumbnails": {}
+			},
+			"description_align": {
+				"__TYPE__": "FieldContent",
+				"value": "fifty",
+				"type": "Text"
+			},
+			"window": {
+				"__TYPE__": "BooleanContent",
+				"value": true
+			},
+			"title": {
+				"__TYPE__": "FieldContent",
+				"type": "Text",
+				"value": "\"It just makes my life better, period.\""
+			},
+			"call_to_action_label": {
+				"__TYPE__": "FieldContent",
+				"type": "Text",
+				"value": "GET YOUR BONE BROTH →"
+			},
+			"cards": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": []
+					}
+				]
+			},
+			"reverse": {
+				"__TYPE__": "BooleanContent",
+				"value": false
+			}
+		},
+		"items": [
+			{
+				"__TYPE__": "GroupItemContent",
+				"value": []
+			}
+		]
+	},
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "style3",
+		"primary": {
+			"description": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Content management systems (CMS) have evolved alongside these changing demands. Once simple publishing tools, today's CMS platforms have become the central, technical anchor that supports the entire content lifecycle. This evolution represents a fundamental shift in how we approach content technology – from basic infrastructure to production, publishing, and distribution.",
+							"spans": []
+						},
+						"direction": "ltr"
+					}
+				]
+			},
+			"image": {
+				"origin": {
+					"id": "main",
+					"url": "https://images.unsplash.com/photo-1576662712957-9c79ae1280f8",
+					"width": 3456,
+					"height": 3456
+				},
+				"url": "https://images.unsplash.com/photo-1576662712957-9c79ae1280f8",
+				"width": 3456,
+				"height": 3456,
+				"edit": {
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					},
+					"background": "transparent"
+				},
+				"alt": "lie",
+				"credits": null,
+				"__TYPE__": "ImageContent",
+				"thumbnails": {}
+			},
+			"description_align": {
+				"__TYPE__": "FieldContent",
+				"value": "place",
+				"type": "Text"
+			},
+			"window": {
+				"__TYPE__": "BooleanContent",
+				"value": false
+			},
+			"call_to_action_link": {
+				"key": "f647e0a9-c036-42ea-9d7a-0ff416c95c28",
+				"__TYPE__": "LinkContent",
+				"value": {
+					"__TYPE__": "DocumentLink",
+					"id": "mock_document_id"
+				}
+			},
+			"title": {
+				"__TYPE__": "FieldContent",
+				"type": "Text",
+				"value": "Leveraging integrations and content modules"
+			},
+			"cards": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"image",
+								{
+									"provider": "imgix",
+									"url": "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzc0NjN8MHwxfHNlYXJjaHw3fHxjYXJzfGVufDB8fHx8MTc3Nzg1Njg3NXww&ixlib=rb-4.1.0&q=85",
+									"alt": "yellow porsche 911 on road during daytime",
+									"origin": {
+										"id": "DwxlhTvC16Q",
+										"url": "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzc0NjN8MHwxfHNlYXJjaHw3fHxjYXJzfGVufDB8fHx8MTc3Nzg1Njg3NXww&ixlib=rb-4.1.0&q=85",
+										"width": 2724,
+										"height": 3405
+									},
+									"width": 2724,
+									"height": 3405,
+									"edit": {
+										"background": "transparent",
+										"zoom": 1,
+										"crop": {
+											"x": 0,
+											"y": 0
+										}
+									},
+									"credits": null,
+									"__TYPE__": "ImageContent",
+									"thumbnails": {}
+								}
+							],
+							[
+								"title",
+								{
+									"__TYPE__": "FieldContent",
+									"type": "Text",
+									"value": "enjoy yoour day"
+								}
+							],
+							[
+								"headline",
+								{
+									"__TYPE__": "FieldContent",
+									"type": "Text",
+									"value": "enjoy yoour day"
+								}
+							],
+							[
+								"description",
+								{
+									"__TYPE__": "FieldContent",
+									"type": "Text",
+									"value": "Developers empower marketers to style content—such as applying rounded corners, shadows, or custom colors—by creating a structured content model that maps CMS fields to CSS classes."
+								}
+							]
+						]
+					},
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"image",
+								{
+									"provider": "imgix",
+									"url": "https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzc0NjN8MHwxfHNlYXJjaHw2fHxjYXJzfGVufDB8fHx8MTc3Nzg1Njg3NXww&ixlib=rb-4.1.0&q=85",
+									"alt": "orange Lamborghini car",
+									"origin": {
+										"id": "oUBjd22gF6w",
+										"url": "https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzc0NjN8MHwxfHNlYXJjaHw2fHxjYXJzfGVufDB8fHx8MTc3Nzg1Njg3NXww&ixlib=rb-4.1.0&q=85",
+										"width": 1937,
+										"height": 2490
+									},
+									"width": 1937,
+									"height": 2490,
+									"edit": {
+										"background": "transparent",
+										"zoom": 1,
+										"crop": {
+											"x": 0,
+											"y": 0
+										}
+									},
+									"credits": null,
+									"__TYPE__": "ImageContent",
+									"thumbnails": {}
+								}
+							],
+							[
+								"title",
+								{
+									"__TYPE__": "FieldContent",
+									"type": "Text",
+									"value": "enjoy your day"
+								}
+							],
+							[
+								"headline",
+								{
+									"__TYPE__": "FieldContent",
+									"type": "Text",
+									"value": "enjoy your day"
+								}
+							],
+							[
+								"description",
+								{
+									"__TYPE__": "FieldContent",
+									"type": "Text",
+									"value": "Developers empower marketers to style content—such as applying rounded corners, shadows, or custom colors—by creating a structured content model that maps CMS fields to CSS classes."
+								}
+							]
+						]
+					},
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"image",
+								{
+									"provider": "imgix",
+									"url": "https://images.unsplash.com/photo-1514316454349-750a7fd3da3a?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzc0NjN8MHwxfHNlYXJjaHwxMXx8Y2Fyc3xlbnwwfHx8fDE3Nzc4NTY4NzV8MA&ixlib=rb-4.1.0&q=85",
+									"alt": "black Mercedes-Benz car",
+									"origin": {
+										"id": "YApS6TjKJ9c",
+										"url": "https://images.unsplash.com/photo-1514316454349-750a7fd3da3a?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzc0NjN8MHwxfHNlYXJjaHwxMXx8Y2Fyc3xlbnwwfHx8fDE3Nzc4NTY4NzV8MA&ixlib=rb-4.1.0&q=85",
+										"width": 3456,
+										"height": 5184
+									},
+									"width": 3456,
+									"height": 5184,
+									"edit": {
+										"background": "transparent",
+										"zoom": 1,
+										"crop": {
+											"x": 0,
+											"y": 0
+										}
+									},
+									"credits": null,
+									"__TYPE__": "ImageContent",
+									"thumbnails": {}
+								}
+							],
+							[
+								"description",
+								{
+									"__TYPE__": "FieldContent",
+									"type": "Text",
+									"value": "Developers empower marketers to style content—such as applying rounded corners, shadows, or custom colors—by creating a structured content model that maps CMS fields to CSS classes."
+								}
+							],
+							[
+								"title",
+								{
+									"__TYPE__": "FieldContent",
+									"type": "Text",
+									"value": "enjoy your day"
+								}
+							],
+							[
+								"headline",
+								{
+									"__TYPE__": "FieldContent",
+									"type": "Text",
+									"value": "enjoy your day"
+								}
+							]
+						]
+					}
+				]
+			},
+			"content": {
+				"__TYPE__": "FieldContent",
+				"type": "Select",
+				"value": "card"
+			},
+			"call_to_action_label": {
+				"__TYPE__": "FieldContent",
+				"type": "Text",
+				"value": "Learn More"
+			},
+			"reverse": {
+				"__TYPE__": "BooleanContent",
+				"value": false
+			}
+		},
+		"items": [
+			{
+				"__TYPE__": "GroupItemContent",
+				"value": []
+			}
+		]
+	}
+]

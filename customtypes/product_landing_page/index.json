@@ -1,0 +1,100 @@
+{
+  "format": "page",
+  "id": "product_landing_page",
+  "label": "Product Landing Page",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": {
+        "type": "UID",
+        "config": {
+          "label": "UID"
+        }
+      },
+      "quick_points": {
+        "type": "Group",
+        "config": {
+          "label": "quick points",
+          "repeat": true,
+          "fields": {
+            "point": {
+              "type": "Text",
+              "config": {
+                "label": "point",
+                "placeholder": ""
+              }
+            }
+          }
+        }
+      },
+      "title": {
+        "type": "Text",
+        "config": {
+          "label": "title",
+          "placeholder": ""
+        }
+      },
+      "description": {
+        "type": "Text",
+        "config": {
+          "label": "description",
+          "placeholder": ""
+        }
+      },
+      "slices": {
+        "type": "Slices",
+        "fieldset": "Slice Zone",
+        "config": {
+          "choices": {
+            "testimonial_gallery": {
+              "type": "SharedSlice"
+            },
+            "faq_accordion": {
+              "type": "SharedSlice"
+            },
+            "benefits_callout": {
+              "type": "SharedSlice"
+            },
+            "drop_list": {
+              "type": "SharedSlice"
+            },
+            "hero_2": {
+              "type": "SharedSlice"
+            },
+            "hero": {
+              "type": "SharedSlice"
+            }
+          }
+        }
+      }
+    },
+    "SEO & Metadata": {
+      "meta_title": {
+        "config": {
+          "label": "Meta Title",
+          "placeholder": "A title of the page used for social media and search engines"
+        },
+        "type": "Text"
+      },
+      "meta_description": {
+        "config": {
+          "label": "Meta Description",
+          "placeholder": "A brief summary of the page"
+        },
+        "type": "Text"
+      },
+      "meta_image": {
+        "config": {
+          "constraint": {
+            "height": 1260,
+            "width": 2400
+          },
+          "label": "Meta Image",
+          "thumbnails": []
+        },
+        "type": "Image"
+      }
+    }
+  }
+}
