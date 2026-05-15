@@ -934,6 +934,17 @@ interface ProductLandingPageDocumentData {
   description: prismic.KeyTextField;
 
   /**
+   * product id field in *Product Landing Page*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: product_landing_page.product_id
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  product_id: prismic.KeyTextField;
+
+  /**
    * Slice Zone field in *Product Landing Page*
    *
    * - **Field Type**: Slice Zone

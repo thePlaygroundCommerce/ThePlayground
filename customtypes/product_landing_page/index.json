@@ -42,6 +42,13 @@
           "placeholder": ""
         }
       },
+      "product_id": {
+        "type": "Text",
+        "config": {
+          "label": "product id",
+          "placeholder": ""
+        }
+      },
       "slices": {
         "type": "Slices",
         "fieldset": "Slice Zone",
