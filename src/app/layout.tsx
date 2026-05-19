@@ -9,8 +9,6 @@ import { Metadata } from "next";
 import { config } from '@fortawesome/fontawesome-svg-core'
 import "../styles/globals.css";
 import _ from "lodash";
-import CartProvider from "@/context/cartContext";
-import CheckoutProvider from "@/context/checkoutContext";
 config.autoAddCss = false
 
 export const metadata: Metadata = {

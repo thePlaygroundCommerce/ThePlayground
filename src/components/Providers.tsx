@@ -10,6 +10,7 @@ import { CatalogObject, Order } from "square";
 import { Simplify } from "prismicio-types";
 import { callGetCart } from "@/api/cartApi";
 import { mapArrayToMap } from "@/util";
+import { usePathname } from "next/navigation";
 
 
 type Props = AppProps & {
@@ -18,9 +19,11 @@ type Props = AppProps & {
   cartData?: { _cart: Order, _options: Simplify<CatalogObject[]> }
 };
 
-const Providers = ({ cartImageMap, data, cartData, children }: Props) => {
-  const [cookies] = useCookies(["cartId"]);
+const Providers = ({ data, children }: Props) => {
+  const [{ cartId }] = useCookies(["cartId"]);
   const [{ imageMap, options, relatedObjects = [], order }, setInit] = useState<Awaited<ReturnType<typeof callGetCart>>>({})
+
+  const path = usePathname()
 
   useEffect(() => {
     async function fetchCartAndItems(id: string) {
@@ -31,9 +34,8 @@ const Providers = ({ cartImageMap, data, cartData, children }: Props) => {
         console.error('Failed to load cart', error);
       }
     }
-    const id = cookies.cartId
-    id && fetchCartAndItems(id);
-  }, []);
+    cartId && fetchCartAndItems(cartId);
+  }, [cartId]);
 
   const { item_options } = mapArrayToMap([...data, ...relatedObjects])
 
@@ -42,7 +44,7 @@ const Providers = ({ cartImageMap, data, cartData, children }: Props) => {
       <InventoryProvider
         itemOptions={item_options}
       >
-        <CartProvider data={cartData} images={cartImageMap}>
+        <CartProvider data={{ _cart: order, _options: options }} images={imageMap}>
           <UIKitProvider>
             <CheckoutProvider>{children}</CheckoutProvider>
           </UIKitProvider>

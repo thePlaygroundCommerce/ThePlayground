@@ -15,6 +15,7 @@ import { BsArrowDownLeftCircle } from "react-icons/bs";
 import AddToCart from "./forms/AddToCart";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { FaCircleCheck } from "react-icons/fa6";
+import Link from "next/link";
 
 export type ProductDetailsProps = {
   price: number
@@ -35,7 +36,8 @@ const ProductDetails = ({
   price,
   selectors,
   cartModifiers,
-  addToCart
+  addToCart,
+  buyNow
 }: ProductDetailsProps) => {
   // const productDesc = itemData.descriptionHtml ? (
   //   ReactHtmlParser(itemData.descriptionHtml)
@@ -85,13 +87,14 @@ const ProductDetails = ({
                 </div>
               ))}
             </div>
-            <div className=" flex flex-col gap-2 items-center ">
-              <div className="px-4 w-full md:w-3/4 mx-auto mt-8">
-                <Button className="border rounded-full p-4 gradient_mesh text-white w-full">Buy Now</Button>
-              </div>
+            <div className=" flex flex-col gap-2 items-center mt-8 ">
               {/* <div className="text-xs uppercase">
                 <p>use code HG25 for 20% off</p>
               </div> */}
+              {buyNow}
+              <div className="k-add-to-cart-widget m-0 p-4">
+                {addToCart}
+              </div>
             </div>
           </div>
         </div>

@@ -80,7 +80,9 @@ class Carts {
     const data = await this.getLineItemCatalogData(order?.lineItems ?? []);
     return {
       order: order,
-      ...data,
+      relatedObjects: data.relatedObjects,
+      imageMap: data.variationToImageMap,
+      options: data.options
     };
   }
 

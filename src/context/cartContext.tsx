@@ -24,6 +24,7 @@ import { doesContextExist } from "@/util/";
 import { Simplify } from "prismicio-types";
 import { callCalculateCart, callCreateCart, callGetCart, callUpdateCart } from "@/api/cartApi";
 import { cookie } from "@prismicio/client";
+import { usePathname } from "next/navigation";
 
 type CartState = {
   order: Order;
@@ -51,35 +52,35 @@ const CartProvider = ({
     _cart?: Order;
   }
 }) => {
-  const [cookies, setCookie] = useCookies(["cartId"]);
-  const [openCart, setOpenCart] = useState<boolean>(false);
-  const [cartItemImages, setCartItemImages] =
-    useState<Simplify<CatalogImage>>(cartImageMap);
-  const [{ order: cart, options }, setCart] = useState<CartState>({
+  const [{ cartId }, setCookie] = useCookies(["cartId"]);
+  const initialCart = {
     order: _cart || {
-      id: cookies.cartId,
+      id: cartId,
       lineItems: [],
       locationId: "",
     },
     options: _options,
-  });
+  }
+  const path = usePathname()
+  const [openCart, setOpenCart] = useState<boolean>(false);
+  const [cartItemImages, setCartItemImages] =
+    useState<Simplify<CatalogImage>>(cartImageMap);
+  const [{ order: cart, options }, setCart] = useState<CartState>(initialCart);
 
   useEffect(() => {
     if (_cart && _cart !== cart) populateCartAndImages({ order: _cart, options: _options }, cartImageMap)
   }, [_cart])
 
   useEffect(() => {
-    async function fetchCart(id: string) {
-      try {
-        const { order, options } = await callGetCart(id);
-        setCart({ order, options });
-      } catch (error) {
-        console.error('Failed to load cart', error);
-      }
+    const splitPathArr = path.split("/").filter(x => x)
+
+    const isPathCheckoutConfirmation = splitPathArr.length === 2 && splitPathArr[0] == 'checkout'
+    const isCartInvolved = cartId === splitPathArr[1]
+    if (isPathCheckoutConfirmation && isCartInvolved) {
+      populateCartAndImages({ order: { locationId: "" } })
     }
-    const id = cookies.cartId
-    id && fetchCart(id);
-  }, []);
+
+  }, [path])
 
   const drawerRef = useRef(null);
   const handleDrawerToggle = (e: any, bool = !openCart) => {
@@ -125,7 +126,6 @@ const CartProvider = ({
 
     callCreateCart({ order: { state, lineItems: catalogOrder } })
       .then(({ order, ...rest }) => {
-        console.log(order, rest)
         if (order) {
           setCookie("cartId", order.id, {
             path: "/",

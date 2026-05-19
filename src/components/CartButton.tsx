@@ -4,11 +4,12 @@ import Button from "./Button";
 import Image from "./Image";
 import staticImages from "@/util/images";
 import { useUIKit } from "@/context/UIKitContext";
+import { useCart } from "@/context/cartContext";
 
 const CartButton = ({
-  itemsCount = 0,
   overlay
 }) => {
+  const { cart: { lineItems } } = useCart()
   const { portals, mount, unmount } = useUIKit()
   const targetOverlay = "headerOverlay"
 
@@ -22,8 +23,10 @@ const CartButton = ({
 
     isOverlayActive ? unMountOverlay() : mountOverlay()
   }
-  const isOverlayActive = portals.some(({ id }) => id === targetOverlay)
 
+  const isOverlayActive = portals.some(({ id }) => id === targetOverlay)
+  const count = lineItems?.length ?? 0
+  
   return (
     <>
       <div className="block md:hidden">
@@ -45,7 +48,7 @@ const CartButton = ({
           />
           <div className="hidden sm:inline-block">Cart</div>
           <div className="w-commerce-commercecartopenlinkcount k-cart-quantity-mobile">
-            {itemsCount}
+            {count}
           </div>
         </Button>
       </div>
@@ -68,7 +71,7 @@ const CartButton = ({
             />
             <div className="hidden sm:inline-block text-xs">Cart</div>
             <div className="w-commerce-commercecartopenlinkcount k-cart-quantity-mobile">
-              {itemsCount}
+              {count}
             </div>
           </Button>
         </Link>

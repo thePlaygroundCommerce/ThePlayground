@@ -25,6 +25,7 @@ import _ from "lodash";
 import Button from "@/components/Button";
 import { useTracking } from "@/context/TagManager";
 import { SelectorComponentMap } from "@/components/ColorSelector";
+import Link from "next/link";
 
 type Props = AppProps & {
   catalogItemObject: CatalogObject;
@@ -41,6 +42,7 @@ export type WithProductModifiersProps = AppProps & {
   selectors: Selectors;
   cartModifiers: CartModifiers;
   addToCart: ReactNode
+  buyNow: ReactNode
 };
 
 type Lookup<T> = { [key: string | number]: undefined | null | T };
@@ -201,10 +203,10 @@ const withProductModifiers =
               const { itemOptionValues } = itemVariationData;
               itemOptionValues.forEach(
                 ({ itemOptionId, itemOptionValueId }) => {
-                if (!(itemOptionId && itemOptionValueId)) return a;
+                  if (!(itemOptionId && itemOptionValueId)) return a;
 
-                if (a[itemOptionId]) a[itemOptionId].add(itemOptionValueId);
-                else a[itemOptionId] = new Set([itemOptionValueId]);
+                  if (a[itemOptionId]) a[itemOptionId].add(itemOptionValueId);
+                  else a[itemOptionId] = new Set([itemOptionValueId]);
                 },
               );
               return a;
@@ -342,7 +344,7 @@ const withProductModifiers =
           data-loading-text="Adding to cart..."
           aria-busy="false"
           aria-haspopup="dialog"
-          className="w-commerce-commerceaddtocartbutton k-btn w-full justify-center text-white border-white"
+          className="w-commerce-commerceaddtocartbutton k-btn w-full justify-center"
           onClick={
             isProductInCart(itemVariationId)
               ? handleRemoveFromCart
@@ -352,6 +354,12 @@ const withProductModifiers =
           {isProductInCart(itemVariationId) ? "Remove from Cart" : "Add To Cart"}
         </Button>
       );
+
+      const buyNow = (
+        <Link href={`/checkout?buyNow=${itemVariationId}`} className="px-4 w-full md:w-3/4 mx-auto">
+          <Button className="border rounded-full p-4 gradient_mesh text-white w-full k-btn ">Buy Now</Button>
+        </Link>
+      )
 
       return (
         <Component
@@ -366,6 +374,7 @@ const withProductModifiers =
             selectors,
             cartModifiers,
             addToCart,
+            buyNow,
             ...rest
           }}
         />

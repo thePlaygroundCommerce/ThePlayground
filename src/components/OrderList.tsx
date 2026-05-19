@@ -12,8 +12,9 @@ import { HiXMark } from "react-icons/hi2";
 import Button from "./Button";
 import Divider from "./Divider";
 import { AppProps } from "index";
+import { useInventory } from "@/context/inventoryContext";
 
-const OrderList = ({ children, allowOrderItemDeletion = true, allowOrderModify = false, lineItems, lineItemImages, options, ...rest }: {
+const OrderList = ({ children, allowOrderItemDeletion = true, allowOrderModify = false, lineItems, lineItemImages, options: opts, ...rest }: {
   lineItems?: OrderLineItem[]
   lineItemImages?: Record<string, CatalogImage>
   options?: Record<string, [string | null | undefined, (CatalogObject | undefined)[]]>
@@ -24,89 +25,113 @@ const OrderList = ({ children, allowOrderItemDeletion = true, allowOrderModify =
   const SIZE_ITEM_OPTION = isEnvProd ? "TJKR2ZFECR3FKAEFBKWZTGDT" : "HIIUIQFG2DNYNZAPP5ULBHVF";
   const COLOR_ITEM_OPTION = isEnvProd ? "YX56PMWCLQTWXRB3TRZWZGRT" : "IUGCLICCHV4GAWV2KD5C2NF7";
   const {
-    cart,
     cart: { lineItems: _lineItems = [] },
     cartItemImages,
     modifyCart,
     CartQuantityCounter,
   } = useCartModifier();
 
+  const { itemOptions } = useInventory()
+
+  const options = opts;
   const items = lineItems ?? _lineItems
   const images = lineItemImages ?? cartItemImages
 
   const render = (
-    <div {...rest}>
-      {items?.map((item: OrderLineItem, i: number) => {
-        const catalogObjectId = item.catalogObjectId as string
-        const lineItemImage = images[catalogObjectId];
+    <div className="k-cart-list-wrapper">
+      {/* <div className="k-cart-header">
+        <div className="text-uppercase">Product</div>
+        <div className="text-uppercase">description</div>
+        <div className="text-uppercase">price</div>
+        <div className="text-uppercase">quanity</div>
+        <div className="text-uppercase">TOTAL</div>
+        <div className="text-uppercase" />
+      </div> */}
+      <div className="w-dyn-list"  {...rest}>
+        <div role="list" className="w-dyn-items">
+          {items?.map((item: OrderLineItem, i: number) => {
+            const catalogObjectId = item.catalogObjectId as string
+            const lineItemImage = images[catalogObjectId];
 
 
-        let sizeOpt: string = "";
-        let colorOpt: string = "";
+            let sizeOpt: string = "";
+            let colorOpt: string = "";
 
-        if (options) {
-          // sizeOpt = (options[item.catalogObjectId as string][SIZE_ITEM_OPTION] ?? [])[0]?.itemOptionValueData.name
-          // colorOpt = (options[item.catalogObjectId as string][COLOR_ITEM_OPTION] ?? [])[0]?.itemOptionValueData.name
-        }
+            if (options) {
+              // sizeOpt = (options[item.catalogObjectId as string][SIZE_ITEM_OPTION] ?? [])[0]?.itemOptionValueData.name
+              // colorOpt = (options[item.catalogObjectId as string][COLOR_ITEM_OPTION] ?? [])[0]?.itemOptionValueData.name
+            }
 
-        return (
-          <Fragment key={item.uid}>
-            <div className={clsx("min-h-48 grid grid-cols-5 py-4")}>
-              <div className="col-span-2 w-1/2 md:w-auto mx-auto relative">
-                {lineItemImage?.url && (
-                  <Image
-                    src={lineItemImage.url}
-                    alt={lineItemImage.caption ?? ""}
-                    objectFit="contain"
-                    fill
-                  />
-                )}
-              </div>
-
-              <div className="col-span-3 p-4">
-
-                <div className="flex justify-between">
-                  <Heading level={6}>{item.name}</Heading>
-                  {allowOrderItemDeletion && <Button onClick={() => modifyCart(item, undefined, true)}><HiXMark size={24} /></Button>}
-                </div>
-
-                <div className="">
-                  <div>
-                    <div className="flex gap-3">
-                      <p className="m-0">
-                        {sizeOpt && `SIZE : ${sizeOpt.split("#").shift()!.slice(0, 1).toUpperCase()}`}
-                      </p>
-                      <p className="m-0">
-                        {colorOpt && `COLOR : ${colorOpt.split("#").shift()!.toUpperCase()}`}
-                      </p>
+            return (
+              <div key={item.uid} role="listitem" className="k-cart-cl-item w-dyn-item">
+                {/* <div className="w-fit ml-auto text-xs mr-8"><Button className="underline text-gray-700">MODIFY</Button></div> */}
+                <div className="k-cart-item justify-center min-h-30">
+                  <div className="k-cart-block relative">
+                    {lineItemImage?.url && (
+                      <Image
+                        src={lineItemImage.url}
+                        alt={lineItemImage.caption ?? ""}
+                        className="k-cart-p-image"
+                        width={1080}
+                        height={1080}
+                      />
+                    )}
+                  </div>
+                  <div className="k-cart-block">
+                    <div className="k-cart-p-name mx-auto">
+                      {item.name}
+                    </div>
+                    <div
+                      data-wf-sku-bindings="%5B%7B%22from%22%3A%22f_sku_%22%2C%22to%22%3A%22innerHTML%22%7D%5D"
+                      className="k-product-sku k-sku--margin-2 w-dyn-bind-empty"
+                    />
+                  </div>
+                  <div className="k-cart-block">
+                    <div className="k-cart-p-name mx-auto">
+                      {item.quantity}
                     </div>
                   </div>
-                  <div className="flex justify-between items-center gap-4">
-                    {allowOrderModify && (
-                      <div className="my-3">
-                        {CartQuantityCounter(item)}
-                      </div>
-                    )}
-                    <div className="grow">
+                  <div className="k-cart-block">
+                    <div
+                      data-wf-sku-bindings="%5B%7B%22from%22%3A%22f_price_%22%2C%22to%22%3A%22innerHTML%22%7D%5D"
+                      className="k-cart-p-name mx-auto"
+                    >
                       <Money className="m-0" number={item.basePriceMoney?.amount ?? 0} />
                     </div>
-
                   </div>
+                  {allowOrderItemDeletion && (
+                    <div className="k-cart-block">
+                      <a href="#" className="w-inline-block mx-auto">
+                        <Button onClick={() => modifyCart(item, undefined, true)} className="k-cross-link w-embed">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width={24}
+                            height={24}
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <line x1={18} y1={6} x2={6} y2={18} />
+                            <line x1={6} y1={6} x2={18} y2={18} />
+                          </svg>
+                        </Button>
+                      </a>
+                    </div>
+                  )}
                 </div>
               </div>
-            </div>
-            {i != items.length - 1 && <Divider />}
-          </Fragment>
-        );
-      })}
-      { }
+            )
+          })}
+        </div>
+      </div>
     </div>
   )
 
   if (items?.length === 0)
     return <p className=" m-4 text-center">There are no items in the cart.</p>;
-  // if (typeof children === 'function')
-  //   return children(cart, render)
 
   return render;
 };
