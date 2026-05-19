@@ -167,7 +167,6 @@ const Page = async ({ params, searchParams }: PageProps) => {
                   className="w-commerce-commercecheckoutemailinput k-input k-input--clear"
                   type="text"
                   name="email"
-                  defaultValue="max@outlook.com"
                 />
               </div>
             </fieldset>
@@ -192,7 +191,6 @@ const Page = async ({ params, searchParams }: PageProps) => {
                   className="w-commerce-commercecheckoutshippingfullname k-input"
                   name="name"
                   type="text"
-                  defaultValue="Max Take"
                 />
               </div>
               <div className="k-input-wrap">
@@ -206,7 +204,6 @@ const Page = async ({ params, searchParams }: PageProps) => {
                   className="w-commerce-commercecheckoutshippingstreetaddress k-input"
                   name="address_line1"
                   type="text"
-                  defaultValue="12345 Main Street"
                 />
               </div>
               <div className="k-input-wrap">
@@ -221,7 +218,6 @@ const Page = async ({ params, searchParams }: PageProps) => {
                   className="w-commerce-commercecheckoutshippingstreetaddressoptional k-input"
                   name="address_line2"
                   type="text"
-                  defaultValue="APT 3066"
                 />
               </div>
               <div className="w-commerce-commercecheckoutrow k-input-row">
@@ -237,7 +233,6 @@ const Page = async ({ params, searchParams }: PageProps) => {
                       className="w-commerce-commercecheckoutshippingcity k-input"
                       name="address_city"
                       type="text"
-                      defaultValue="Miami"
                     />
                   </div>
                 </div>
@@ -253,7 +248,6 @@ const Page = async ({ params, searchParams }: PageProps) => {
                       className="w-commerce-commercecheckoutshippingstateprovince k-input"
                       name="address_state"
                       type="text"
-                      defaultValue="Florida"
                     />
                   </div>
                 </div>
@@ -270,7 +264,6 @@ const Page = async ({ params, searchParams }: PageProps) => {
                       className="w-commerce-commercecheckoutshippingzippostalcode k-input"
                       name="address_zip"
                       type="text"
-                      defaultValue="85004"
                     />
                   </div>
                 </div>
@@ -285,7 +278,6 @@ const Page = async ({ params, searchParams }: PageProps) => {
                 <select
                   className="w-commerce-commercecheckoutshippingcountryselector k-select-input"
                   name="address_country"
-                  defaultValue="US"
                 >
                   {supportedCountries.map(({ short, name }) => (
                     <option key={short} value={short}>{name}</option>
@@ -426,7 +418,6 @@ const Page = async ({ params, searchParams }: PageProps) => {
                 <select
                   className="w-commerce-commercecheckoutbillingcountryselector k-select-input"
                   name="billing_address_country"
-                  defaultValue="US"
                 >
                   {supportedCountries.map(({ short, name }) => (
                     <option key={short} value={short}>{name}</option>

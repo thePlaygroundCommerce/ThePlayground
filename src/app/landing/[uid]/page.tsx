@@ -9,6 +9,8 @@ import ProductImageGallery from "@/components/ProductImageGallery";
 import { FaCircleCheck } from "react-icons/fa6";
 import Image from "@/components/Image";
 import Button from "@/components/Button";
+import Link from "next/link";
+import { CatalogObject } from "square";
 
 type LANDING_URL = "/landing/[uid]"
 
@@ -29,12 +31,18 @@ export default async function Page({ params }) {
     })
     .then(({ slug, ...rest }) => getProductDetails({ slug }).then((data) => ({ data, ...rest }))
     )
-    .then(({ sliceZone, title, description, data: { filteredRelatedImages }, quick_points }) => {
+    .then(({ sliceZone, title, description, data: { filteredRelatedImages, catalogObject }, quick_points }) => {
       const headAndCaption = (
         <div className="p-4">
           <h1 className="mb-2 p-0 font-black text-3xl">{title}</h1>
           <p className="text-lg">{description}</p>
         </div>
+      )
+
+      const buyNow = (
+        <Link href={`/checkout?buyNow=${(catalogObject as CatalogObject.Item).itemData.variations[0].id}`} className="px-4 w-full md:w-3/4 mx-auto">
+          <Button className="border rounded-full p-4 gradient_mesh text-white w-full k-btn ">Buy Now</Button>
+        </Link>
       )
 
 
@@ -58,9 +66,7 @@ export default async function Page({ params }) {
                   ))}
                 </ul>
                 <div className=" flex flex-col gap-2 items-center ">
-                  <div className="px-4 w-full md:w-3/4 mx-auto">
-                    <Button className="border rounded-full p-4 gradient_mesh text-white w-full">Buy Now</Button>
-                  </div>
+                  {buyNow}
                   <div className="text-xs uppercase">
                     <p>use code HG25 for 20% off</p>
                   </div>
