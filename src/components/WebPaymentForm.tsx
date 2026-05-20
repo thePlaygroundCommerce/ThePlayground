@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import { CreditCard, PaymentForm } from 'react-square-web-payments-sdk';
 import { Input } from '@headlessui/react';
 
@@ -17,46 +17,29 @@ const WebPaymentForm = ({ formId }: Props) => {
     }, [formId, token])
 
     return (
-        <div>
-
+        <Suspense fallback={<p>Loading...</p>}>
             <PaymentForm
-                formProps={{
-
-                }}
                 applicationId={process.env.NEXT_PUBLIC_SQUARE_APPLICATION_ID ?? ""}
                 locationId={process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID ?? ""}
-                // createPaymentRequest={() => ({
-                //     currencyCode: "USD",
-                //     countryCode: "US",
-
-                // })}
                 cardTokenizeResponseReceived={async (token) => {
                     if (token.status === "OK") {
                         setToken(token.token)
                     }
-                    // setSubmitted(true);
-                    // await handleOnSubmit(token).finally(() => setSubmitted(false))
                 }}
             >
                 <CreditCard
                     buttonProps={{
+                        isLoading: true,
                         style: {
                             backgroundColor: "black"
                         },
                     }}
                 >
                     Pay
-                    {/* {submitted ? (
-                    <div className="mx-auto w-fit">
-                        <Spinner className="size-6" />
-                    </div>
-                ) : (
-                    "Pay"
-                )} */}
                 </CreditCard>
             </PaymentForm>
             <Input name='token' readOnly hidden value={token ?? ''} />
-        </div>
+        </Suspense>
     )
 }
 
