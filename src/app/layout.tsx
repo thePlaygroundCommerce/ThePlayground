@@ -93,6 +93,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {/* <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" /> */}
           {/* <link href="images/webclip.png" rel="apple-touch-icon" /> */}
           <script src="https://cdn.finsweet.com/files/cmslibrary-v1.8.js"></script>
+          <meta name="google-site-verification" content="jiZkGWFxc-bqOozCwFfxUPbA2mUquWAiVte_KeulemY" />
         </head>
         <body>
           {children}
