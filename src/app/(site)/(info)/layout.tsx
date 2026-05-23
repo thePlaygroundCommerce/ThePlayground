@@ -5,6 +5,7 @@ const layout = ({ children }: LayoutProps<"/">) => {
         {name: "Contact", link: "contact" },
         {name: "About", link: "about" },
         {name: "Work", link: "work" },
+        {name: "Returns", link: "returns" },
         {name: "T&Cs", link: "terms-and-conditions" },
     ]
     return (

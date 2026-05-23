@@ -5,31 +5,44 @@ type Props = unknown
 
 const Page = (props: Props) => {
     return (
-        <div>
-            <div>
-                <Heading>Returns</Heading>
-                <p>If you're not happy with your purchase, we accept returns within 30 days from the delivery date for all US orders. All returned items must be unused and in their original condition. For orders $99 and over, a $10 return label fee will be deducted from the refund amount to cover the cost of return shipping.</p>
-                <p>Unfortunately, we do not offer international returns or exchanges at this time.</p>
+        <div className='p-4 space-y-8'>
+            <div className='space-y-3'>
+                <Heading>Return Policy</Heading>
+                <p>This return policy applies to orders shipping within the United States.</p>
+                <p>
+                    Returns are accepted for both defective and non-defective products, and exchanges are also accepted as long as the item is returned in new condition within 30 days of delivery.
+                </p>
             </div>
-            <div>
-                <Heading>Standard Policy</Heading>
-                <div>
-                    <p>You have 30 calendar days to return an item from the date you received it.</p>
-                    <p>All returns must be unused and received in its brand new, original condition.</p>
-                    <p>For orders $99 and over, a $10 return label fee will be deducted from the refund amount to cover the cost of return shipping.</p>
-                    <p>Allow up to 2 weeks from the date we receive your return for processing.</p>
-                    <p>Refunds will be issued to your original form of payment. </p>
-                    <p>Only items that have been purchased directly on www.aersf.com can be returned to us.<br /><br />We have the right to deny credit if the return does not meet our policy requirements.</p>
-                    <p>If you'd like an exchange, please make a return and place a new order.<br /><br />All international orders and sales items are final.</p>
+
+            <div className='space-y-4'>
+                <div className='space-y-2'>
+                    <Heading level={3}>Countries</Heading>
+                    <p>United States</p>
+                </div>
+
+                <div className='space-y-2'>
+                    <Heading level={3}>Policy URL</Heading>
+                    <p>
+                        <a className='underline' href='https://www.theplaygroundtravel.com/returns' target='_blank' rel='noreferrer'>
+                            https://www.theplaygroundtravel.com/returns
+                        </a>
+                    </p>
                 </div>
             </div>
-            <div>
-                <div >
-                    <Heading level={3}>Start Your Return</Heading>
-                    <div>
-                        <p>Please email us at <a href="">support@aersf.com</a>, with your order number to start your return. You’ll hear from us within 1 business day with next steps.</p>
-                    </div>
-                </div>
+
+            <div className='space-y-3'>
+                <Heading level={2}>Returns & Exchanges</Heading>
+                <p>We accept returns for both defective and non-defective products.</p>
+                <p>We also accept exchanges.</p>
+                <p>Returned merchandise must be new and sent back within 30 days.</p>
+            </div>
+
+            <div className='space-y-3'>
+                <Heading level={2}>Method & Fees</Heading>
+                <p>Returns are handled by mail.</p>
+                <p>Your return label can be downloaded and printed at no cost.</p>
+                <p>There are no restocking fees.</p>
+                <p>Refunds are processed within 7 days after the return is received and approved.</p>
             </div>
         </div>
     )
