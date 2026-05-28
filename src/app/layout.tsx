@@ -5,10 +5,12 @@ import { repositoryName } from "@/api/clients";
 // import { ClerkProvider } from "@clerk/nextjs";
 import TagManagerProvider from "@/context/TagManager";
 import { Metadata } from "next";
+import { GoogleTagManager } from '@next/third-parties/google'
 
 import { config } from '@fortawesome/fontawesome-svg-core'
 import "../styles/globals.css";
 import _ from "lodash";
+import Script from "next/script";
 config.autoAddCss = false
 
 export const metadata: Metadata = {
@@ -92,7 +94,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <head>
           {/* <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" /> */}
           {/* <link href="images/webclip.png" rel="apple-touch-icon" /> */}
-          <script src="https://cdn.finsweet.com/files/cmslibrary-v1.8.js"></script>
+          <Script src="https://cdn.finsweet.com/files/cmslibrary-v1.8.js"/>
           <meta name="google-site-verification" content="jiZkGWFxc-bqOozCwFfxUPbA2mUquWAiVte_KeulemY" />
         </head>
         <body>

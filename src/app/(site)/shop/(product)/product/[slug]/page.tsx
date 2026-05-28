@@ -17,6 +17,7 @@ import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/react";
 import { PrismicRichText } from "@prismicio/react";
 import { CatalogObject } from "square";
 import { notFound } from "next/navigation";
+import { TextContent } from "@/app/slices/components/content";
 
 export const getProductDetails = async ({
   slug
@@ -202,9 +203,26 @@ const Page = async ({ params, searchParams }: PageProps) => {
                 )
               )} */}
             </div>
-            <div className="">
-              <Image {...{ alt: data.image.alt ?? "", src: data.image.url, ...data.image.dimensions }} />
-            </div>
+            <Showcase
+              content={
+                <div className="h-full w-full object-cover rounded-3xl">
+                  <Image {...{ alt: data.image.alt ?? "", src: data.image.url, width: 1080, height: 1080, ...data.image.dimensions }} />
+                </div>
+              }
+              text={<TextContent title={"All good in the hood"} />}
+              reverse={false}
+              cta={undefined}
+            />
+            <Showcase
+              content={
+                <div className="h-full w-full object-cover rounded-3xl">
+                  <Image {...{ alt: data.image.alt ?? "", src: data.image.url, ...data.image.dimensions }} />
+                </div>
+              }
+              text={<TextContent title={"All good in the hood"} />}
+              reverse={true}
+              cta={undefined}
+            />
             <div className="p-4">
               <Slider
                 type="DEFAULT"

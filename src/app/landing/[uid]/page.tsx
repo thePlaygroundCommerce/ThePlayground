@@ -11,6 +11,7 @@ import Image from "@/components/Image";
 import Button from "@/components/Button";
 import Link from "next/link";
 import { CatalogObject } from "square";
+import { GoogleTagManager } from "@next/third-parties/google";
 
 type LANDING_URL = "/landing/[uid]"
 
@@ -98,6 +99,7 @@ export default async function Page({ params }) {
             </div>
           </div>
           {sliceZone}
+          <GoogleTagManager gtmId="AW-18159252520" />
         </>
       )
     })
