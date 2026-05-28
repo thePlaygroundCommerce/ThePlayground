@@ -60,7 +60,7 @@ const Page = async ({ params, searchParams }: PageProps) => {
     .filter(({ id }) => id !== catalogObject.id)
     .slice(0, 3);
 
-  let features: GroupField<Simplify<ContentDocumentDataFeaturesItem>> = [];
+  console.log(data)
 
   if (catalogObject?.customAttributeValues) {
     const prismicUid = (Object.values(catalogObject.customAttributeValues)
@@ -160,8 +160,8 @@ const Page = async ({ params, searchParams }: PageProps) => {
                   </div>
                   <div className="flex-1 flex flex-col justify-center">
                     <TabPanels className="p-4 py-2 border-zinc-300 border-l-2">
-                      {data.features.map(({ value }) => (
-                        <TabPanel key={value.toString()} className="metafield-rich_text_field">
+                      {data.features.map(({ value }, i) => (
+                        <TabPanel key={`panel-${i}`} className="metafield-rich_text_field">
                           <PrismicRichText components={{
                             list: ({ children }) => <ul className="list-disc">{children}</ul>,
                             listItem: ({ children }) => <li className="leading-8">{children}</li>,
@@ -175,54 +175,23 @@ const Page = async ({ params, searchParams }: PageProps) => {
             </div>
             <div className="p-4 py-8 flex flex-col gap-8 w-full">
               <Heading level={2} className="text-center">Packed With Features</Heading>
-              {/* {data.showcases.map(
-                ({
-                  title,
-                  description,
-                  video_playback_id,
-                  image: { url: src, alt },
-                }, i) => (
-                  <Showcase
-                    key={i}
-                    flipped={i % 2 !== 0}
-                    // animate={{ delay: (5 * (i + 1)) * 100 }}
-                    // content={{
-                    //   title: title,
-                    //   description: <PrismicRichText field={description} />,
-                    // }}
-                    // video={{
-                    //   playback_id: video_playback_id?.toString()
-                    // }}
-                    // image={{
-                    //   width: 300, height: 500,
-                    //   src,
-                    //   alt: alt ?? "",
-                    //   className: "object-cover",
-                    // }}
-                  />
-                )
-              )} */}
+
+              {data.showcases.map(({ title, description }, i) => (
+                <Showcase
+                key={title}
+                  content={
+                    <div className="p-12 md:m-0 h-full">
+                      <div className="h-full w-full object-cover rounded-3xl">
+                        <Image {...{ alt: data.image.alt ?? "", src: data.image.url, width: 1080, height: 1080, ...data.image.dimensions }} />
+                      </div>
+                    </div>
+                  }
+                  text={<TextContent title={title} description={<PrismicRichText field={description} />} />}
+                  reverse={i % 2 === 0}
+                  cta={undefined}
+                />
+              ))}
             </div>
-            <Showcase
-              content={
-                <div className="h-full w-full object-cover rounded-3xl">
-                  <Image {...{ alt: data.image.alt ?? "", src: data.image.url, width: 1080, height: 1080, ...data.image.dimensions }} />
-                </div>
-              }
-              text={<TextContent title={"All good in the hood"} />}
-              reverse={false}
-              cta={undefined}
-            />
-            <Showcase
-              content={
-                <div className="h-full w-full object-cover rounded-3xl">
-                  <Image {...{ alt: data.image.alt ?? "", src: data.image.url, ...data.image.dimensions }} />
-                </div>
-              }
-              text={<TextContent title={"All good in the hood"} />}
-              reverse={true}
-              cta={undefined}
-            />
             <div className="p-4">
               <Slider
                 type="DEFAULT"
