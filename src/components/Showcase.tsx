@@ -170,7 +170,7 @@ const Showcase3 = ({ text, content, cta, reverse }: Omit<ShowcaseProps, 'id'>) =
   return (
     <div className={clsx("min-h-[25vh] flex flex-col gap-4 lg:gap-8 lg:items-center", reverse && "lg:order-first")}>
       {text && <div className="flex-1">{text}</div>}
-      <div className="flex-1 over">
+      <div className="flex-1">
         {content && <div className="flex-1 lg:flex-none">{content}</div>}
         {cta && <div className="flex-1 w-full">{cta}</div>}
       </div>

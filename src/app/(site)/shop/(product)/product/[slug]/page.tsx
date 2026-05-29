@@ -6,8 +6,6 @@ import Showcase from "@/components/Showcase";
 import Slider from "@/components/Slider";
 import { client } from "@/api/clients";
 import Heading from "@/components/typography/Heading";
-import { GroupField } from "@prismicio/client";
-import { ContentDocumentDataFeaturesItem, Simplify } from "prismicio-types";
 import { getCategoryProducts } from "@/api/customerApi";
 import { PageProps } from "index";
 import { Accordion } from '@ark-ui/react/accordion'
@@ -175,12 +173,11 @@ const Page = async ({ params, searchParams }: PageProps) => {
                 </TabGroup>
               </div>
             </div>
+            <Heading level={2} className="text-center">Packed With Features</Heading>
             <div className="p-4 py-8 flex flex-col gap-8 w-full">
-              <Heading level={2} className="text-center">Packed With Features</Heading>
-
               {data.showcases.map(({ title, description }, i) => (
                 <Showcase
-                key={title}
+                  key={title}
                   content={
                     <div className="p-12 md:m-0 h-full">
                       <div className="h-full w-full object-cover rounded-3xl">
