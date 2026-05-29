@@ -62,6 +62,8 @@ const Page = async ({ params, searchParams }: PageProps) => {
 
   console.log(data)
 
+  let features;
+
   if (catalogObject?.customAttributeValues) {
     const prismicUid = (Object.values(catalogObject.customAttributeValues)
       .flat()
