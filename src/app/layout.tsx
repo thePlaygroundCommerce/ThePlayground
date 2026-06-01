@@ -5,7 +5,7 @@ import { repositoryName } from "@/api/clients";
 // import { ClerkProvider } from "@clerk/nextjs";
 import TagManagerProvider from "@/context/TagManager";
 import { Metadata } from "next";
-import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google'
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 import { config } from '@fortawesome/fontawesome-svg-core'
 import "../styles/globals.css";
@@ -92,8 +92,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       {/* <ClerkProvider> */}
       <html data-wf-page="67f9692e7e88b9a05d707c83" data-wf-site="67f9692d7e88b9a05d707c22">
         <head>
-          {/* <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" /> */}
-          {/* <link href="images/webclip.png" rel="apple-touch-icon" /> */}
           <Script src="https://cdn.finsweet.com/files/cmslibrary-v1.8.js"/>
         </head>
         <body>

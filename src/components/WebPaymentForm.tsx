@@ -3,6 +3,7 @@
 import React, { Suspense, useEffect, useState } from 'react'
 import { CreditCard, PaymentForm } from 'react-square-web-payments-sdk';
 import { Input } from '@headlessui/react';
+import { sendGAEvent } from '@next/third-parties/google';
 
 type Props = {
     formId: string
@@ -24,6 +25,13 @@ const WebPaymentForm = ({ formId }: Props) => {
                 cardTokenizeResponseReceived={async (token) => {
                     if (token.status === "OK") {
                         setToken(token.token)
+                        sendGAEvent('event', 'conversion', {
+                            send_to: 'AW-18159252520/og5uCIjO4LEcEKjogNND',
+                            value: 1.0,
+                            currency: 'USD',
+                            transaction_id: ''
+                            // 'new_customer': true /* calculate dynamically, populate with true/false */,
+                        })
                     }
                 }}
             >
