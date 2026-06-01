@@ -29,7 +29,6 @@ const WebPaymentForm = ({ formId }: Props) => {
             >
                 <CreditCard
                     buttonProps={{
-                        isLoading: true,
                         style: {
                             backgroundColor: "black"
                         },
