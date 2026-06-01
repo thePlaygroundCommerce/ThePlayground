@@ -411,7 +411,7 @@ const Page = async ({ params, searchParams }: PageProps) => {
               </div>
             </fieldset>
           </div>
-          <WebPaymentForm formId="paymentForm" transactionId={cartId} value={Number(subtotal)} />
+          <WebPaymentForm formId="paymentForm" transactionId={order.id} value={Number(subtotal)} />
           <div
             data-node-type="commerce-checkout-error-state"
             style={{ display: "none" }}
