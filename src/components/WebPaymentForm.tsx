@@ -7,9 +7,11 @@ import { sendGAEvent } from '@next/third-parties/google';
 
 type Props = {
     formId: string
+    value?: number
+    transactionId?: string
 }
 
-const WebPaymentForm = ({ formId }: Props) => {
+const WebPaymentForm = ({ formId, transactionId = '', value = 1.0 }: Props) => {
     const [token, setToken] = useState<string>()
 
     useEffect(() => {
@@ -27,9 +29,9 @@ const WebPaymentForm = ({ formId }: Props) => {
                         setToken(token.token)
                         sendGAEvent('event', 'conversion', {
                             send_to: 'AW-18159252520/og5uCIjO4LEcEKjogNND',
-                            value: 1.0,
+                            value: value,
                             currency: 'USD',
-                            transaction_id: ''
+                            transaction_id: transactionId
                             // 'new_customer': true /* calculate dynamically, populate with true/false */,
                         })
                     }
