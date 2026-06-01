@@ -99,7 +99,6 @@ export default async function Page({ params }) {
             </div>
           </div>
           {sliceZone}
-          <GoogleAnalytics  gaId="AW-18159252520" />
         </>
       )
     })
