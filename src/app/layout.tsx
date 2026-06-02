@@ -93,11 +93,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <html data-wf-page="67f9692e7e88b9a05d707c83" data-wf-site="67f9692d7e88b9a05d707c22">
         <head>
           <Script src="https://cdn.finsweet.com/files/cmslibrary-v1.8.js"/>
+          <GoogleAnalytics gaId="AW-18159252520" />
         </head>
         <body>
           {children}
           <PrismicPreview repositoryName={repositoryName} />
-          <GoogleAnalytics gaId="AW-18159252520" />
         </body>
       </html>
       {/* </ClerkProvider> */}
