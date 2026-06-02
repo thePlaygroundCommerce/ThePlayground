@@ -5,7 +5,7 @@ import { repositoryName } from "@/api/clients";
 // import { ClerkProvider } from "@clerk/nextjs";
 import TagManagerProvider from "@/context/TagManager";
 import { Metadata } from "next";
-import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google'
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 import { config } from '@fortawesome/fontawesome-svg-core'
 import "../styles/globals.css";
@@ -97,7 +97,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <body>
           {children}
           <PrismicPreview repositoryName={repositoryName} />
-          <GoogleTagManager  gtmId="AW-18159252520" />
+          <GoogleAnalytics gaId="AW-18159252520" />
         </body>
       </html>
       {/* </ClerkProvider> */}
