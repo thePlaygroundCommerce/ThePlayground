@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3005",
+    "test": "jest --passWithNoTests",
     "build": "next build",
     "lint": "next lint --fix",
     "start": "next start -p 3005",
@@ -75,7 +76,11 @@
     "@eslint/compat": "^1.1.0",
     "@eslint/js": "^9.6.0",
     "@slicemachine/adapter-next": "^0.3.95",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
     "@types/geojson": "^7946.0.16",
+    "@types/jest": "^30.0.0",
     "@types/lodash": "^4.17.17",
     "@types/react-html-parser": "^2.0.6",
     "autoprefixer": "^10.4.14",
@@ -85,8 +90,11 @@
     "eslint-plugin-react": "^7.34.3",
     "eslint-plugin-react-hooks": "^4.6.2",
     "globals": "^15.6.0",
+    "jest": "^30.4.2",
+    "jest-environment-jsdom": "^30",
     "postcss": "^8.5.12",
     "slice-machine-ui": "^2.21.2",
+    "ts-jest": "^29.4.11",
     "typescript-eslint": "^7.14.1"
   },
   "resolutions": {

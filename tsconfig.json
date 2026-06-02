@@ -24,6 +24,7 @@
       "esnext"
     ],
     "allowJs": true,
+    "rootDir": "./",
     "skipLibCheck": true,
     "strict": false,
     "noEmit": true,

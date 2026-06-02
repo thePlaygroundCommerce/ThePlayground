@@ -12,6 +12,7 @@ import "../styles/globals.css";
 import _ from "lodash";
 import Script from "next/script";
 config.autoAddCss = false
+import ScrollTracker from "@/components/ScrollTracker";
 
 export const metadata: Metadata = {
   title: "The Playground | Home",
@@ -96,6 +97,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <GoogleAnalytics gaId="AW-18159252520" />
         </head>
         <body>
+          <ScrollTracker />
           {children}
           <PrismicPreview repositoryName={repositoryName} />
         </body>
