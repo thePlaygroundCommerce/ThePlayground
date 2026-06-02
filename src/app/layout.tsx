@@ -13,6 +13,9 @@ import _ from "lodash";
 import Script from "next/script";
 config.autoAddCss = false
 import ScrollTracker from "@/components/ScrollTracker";
+import FacebookPixel from "@/components/FacebookPixel";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: "The Playground | Home",
@@ -93,12 +96,23 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       {/* <ClerkProvider> */}
       <html data-wf-page="67f9692e7e88b9a05d707c83" data-wf-site="67f9692d7e88b9a05d707c22">
         <head>
-          <Script src="https://cdn.finsweet.com/files/cmslibrary-v1.8.js"/>
+          <Script src="https://cdn.finsweet.com/files/cmslibrary-v1.8.js" />
           <GoogleAnalytics gaId="AW-18159252520" />
         </head>
         <body>
           <ScrollTracker />
           {children}
+          <SpeedInsights />
+          <Analytics />
+          <noscript>
+            <img
+              height="1"
+              width="1"
+              style={{ display: "none" }}
+              src="https://www.facebook.com/tr?id=1052870693055851&ev=PageView&noscript=1"
+            />
+          </noscript>
+          <FacebookPixel />
           <PrismicPreview repositoryName={repositoryName} />
         </body>
       </html>

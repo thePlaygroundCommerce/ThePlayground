@@ -32,17 +32,6 @@ const Layout = async ({ children }: LayoutProps<"/">) => {
                     {children}
                 </LayoutComponent>
             </Providers>
-            <SpeedInsights />
-            <Analytics />
-            <noscript>
-                <img
-                    height="1"
-                    width="1"
-                    style={{ display: "none" }}
-                    src="https://www.facebook.com/tr?id=1052870693055851&ev=PageView&noscript=1"
-                />
-            </noscript>
-            <FacebookPixel />
         </div>
     )
 }
