@@ -14,6 +14,7 @@ import { Input } from "@headlessui/react";
 import Money from "@/components/Money";
 import Form from "next/form";
 import { sendGAEvent } from "@next/third-parties/google";
+import PageLoadTracker from "@/components/PageLoadTracker";
 
 const Page = async ({ params, searchParams }: PageProps) => {
   const { show, buyNow } = await searchParams
@@ -23,8 +24,6 @@ const Page = async ({ params, searchParams }: PageProps) => {
     logger.error("No Shopping Cart Found");
     return redirect("/");
   }
-
-  sendGAEvent('event', 'conversion', { send_to: 'AW-18159252520/RQNsCMaDjbocEKjogNND' })
 
   const resolveCart = async () => {
     if (buyNow) {
@@ -49,400 +48,403 @@ const Page = async ({ params, searchParams }: PageProps) => {
   }
 
   return (
-    <Form
-      id="paymentForm"
-      action={payForm}
-      data-node-type="commerce-checkout-form-container"
-      data-wf-checkout-query=""
-      data-wf-page-link-href-prefix=""
-      className="w-commerce-commercecheckoutformcontainer"
-    >
-      <Input name="delete" value={String(buyNow !== undefined)} readOnly hidden />
-      <Input name="cartId" value={order.id} readOnly hidden />
-      <div className="w-commerce-commercelayoutcontainer w-container">
-        <div className="w-commerce-commercelayoutmain">
-          <div
-            data-node-type="commerce-checkout-customer-info-wrapper"
-            className="w-commerce-commercecheckoutcustomerinfowrapper"
-          >
-            <div className="w-commerce-commercecheckoutblockheader k-block-header">
-              <h4>Customer Info</h4>
-              <div className="note-label">* Required</div>
-            </div>
-            <fieldset className="w-commerce-commercecheckoutblockcontent k-block-header">
-              <div className="k-input-wrap">
-                <label
-                  htmlFor=""
-                  className="w-commerce-commercecheckoutlabel k-input-label"
-                >
-                  Email *
-                </label>
-                <input
-                  className="w-commerce-commercecheckoutemailinput k-input k-input--clear"
-                  type="text"
-                  name="email"
-                />
-              </div>
-            </fieldset>
-          </div>
-          <div
-            data-node-type="commerce-checkout-shipping-address-wrapper"
-            className="w-commerce-commercecheckoutshippingaddresswrapper"
-          >
-            <div className="w-commerce-commercecheckoutblockheader k-block-header">
-              <h4>Shipping Address</h4>
-              <div className="note-label">* Required</div>
-            </div>
-            <fieldset className="w-commerce-commercecheckoutblockcontent k-block-header">
-              <div className="k-input-wrap">
-                <label
-                  htmlFor=""
-                  className="w-commerce-commercecheckoutlabel k-input-label"
-                >
-                  Full Name *
-                </label>
-                <input
-                  className="w-commerce-commercecheckoutshippingfullname k-input"
-                  name="name"
-                  type="text"
-                />
-              </div>
-              <div className="k-input-wrap">
-                <label
-                  htmlFor=""
-                  className="w-commerce-commercecheckoutlabel k-input-label"
-                >
-                  Street Address *
-                </label>
-                <input
-                  className="w-commerce-commercecheckoutshippingstreetaddress k-input"
-                  name="address_line1"
-                  type="text"
-                />
-              </div>
-              <div className="k-input-wrap">
-                <label
-                  htmlFor=""
-                  className="w-commerce-commercecheckoutlabel k-input-label"
-                >
-                  APT / UNIT
-                </label>
-                <input
-                  aria-label=""
-                  className="w-commerce-commercecheckoutshippingstreetaddressoptional k-input"
-                  name="address_line2"
-                  type="text"
-                />
-              </div>
-              <div className="w-commerce-commercecheckoutrow k-input-row">
-                <div className="w-commerce-commercecheckoutcolumn">
-                  <div className="k-input-wrap">
-                    <label
-                      htmlFor=""
-                      className="w-commerce-commercecheckoutlabel k-input-label"
-                    >
-                      City *
-                    </label>
-                    <input
-                      className="w-commerce-commercecheckoutshippingcity k-input"
-                      name="address_city"
-                      type="text"
-                    />
-                  </div>
-                </div>
-                <div className="w-commerce-commercecheckoutcolumn">
-                  <div className="k-input-wrap">
-                    <label
-                      htmlFor=""
-                      className="w-commerce-commercecheckoutlabel k-input-label"
-                    >
-                      State/Province
-                    </label>
-                    <input
-                      className="w-commerce-commercecheckoutshippingstateprovince k-input"
-                      name="address_state"
-                      type="text"
-                    />
-                  </div>
-                </div>
-                <div className="w-commerce-commercecheckoutcolumn">
-                  <div className="k-input-wrap">
-                    <label
-                      htmlFor=""
-                      className="w-commerce-commercecheckoutlabel k-input-label"
-                    >
-                      Zip/Postal Code *
-                    </label>
-                    <input
-                      data-node-type="commerce-checkout-shipping-zip-field"
-                      className="w-commerce-commercecheckoutshippingzippostalcode k-input"
-                      name="address_zip"
-                      type="text"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="k-input-wrap">
-                <label
-                  htmlFor=""
-                  className="w-commerce-commercecheckoutlabel k-input-label"
-                >
-                  Country *
-                </label>
-                <select
-                  className="w-commerce-commercecheckoutshippingcountryselector k-select-input"
-                  name="address_country"
-                  defaultValue="US"
-                >
-                  {supportedCountries.map(({ short, name }) => (
-                    <option key={short} value={short}>{name}</option>
-                  ))}
-                </select>
-              </div>
-            </fieldset>
-          </div>
-
-          <div className="w-commerce-commercecheckoutbillingaddresstogglewrapper my-8">
-            <Link href={!showBilling ? "?show=billing#billing" : "/checkout"} >
-              <Input
-                id="billing-address-toggle"
-                data-node-type="commerce-checkout-billing-address-toggle-checkbox"
-                className="w-commerce-commercecheckoutbillingaddresstogglecheckbox"
-                type="checkbox"
-                readOnly
-                checked={!showBilling}
-              />
-            </Link>
-            <label
-              htmlFor="billing-address-toggle"
-              className="w-commerce-commercecheckoutbillingaddresstogglelabel"
+    <>
+      <PageLoadTracker />
+      <Form
+        id="paymentForm"
+        action={payForm}
+        data-node-type="commerce-checkout-form-container"
+        data-wf-checkout-query=""
+        data-wf-page-link-href-prefix=""
+        className="w-commerce-commercecheckoutformcontainer"
+      >
+        <Input name="delete" value={String(buyNow !== undefined)} readOnly hidden />
+        <Input name="cartId" value={order.id} readOnly hidden />
+        <div className="w-commerce-commercelayoutcontainer w-container">
+          <div className="w-commerce-commercelayoutmain">
+            <div
+              data-node-type="commerce-checkout-customer-info-wrapper"
+              className="w-commerce-commercecheckoutcustomerinfowrapper"
             >
-              Billing address same as shipping
-            </label>
-          </div>
-
-          <div
-            id="billing"
-            data-node-type="commerce-checkout-billing-address-wrapper"
-            className={clsx("w-commerce-commercecheckoutbillingaddresswrapper", !showBilling && "hidden")}
-          >
-            <div className="w-commerce-commercecheckoutblockheader k-block-header">
-              <h4>Billing Address</h4>
-              <div className="note-label">* Required</div>
+              <div className="w-commerce-commercecheckoutblockheader k-block-header">
+                <h4>Customer Info</h4>
+                <div className="note-label">* Required</div>
+              </div>
+              <fieldset className="w-commerce-commercecheckoutblockcontent k-block-header">
+                <div className="k-input-wrap">
+                  <label
+                    htmlFor=""
+                    className="w-commerce-commercecheckoutlabel k-input-label"
+                  >
+                    Email *
+                  </label>
+                  <input
+                    className="w-commerce-commercecheckoutemailinput k-input k-input--clear"
+                    type="text"
+                    name="email"
+                  />
+                </div>
+              </fieldset>
             </div>
-            <fieldset className="w-commerce-commercecheckoutblockcontent">
-              <div className="k-input-wrap">
-                <label
-                  htmlFor=""
-                  className="w-commerce-commercecheckoutlabel k-input-label"
-                >
-                  Full Name *
-                </label>
-                <input
-                  className="w-commerce-commercecheckoutbillingfullname k-input"
-                  name="billing_name"
-                  type="text"
-
-                />
+            <div
+              data-node-type="commerce-checkout-shipping-address-wrapper"
+              className="w-commerce-commercecheckoutshippingaddresswrapper"
+            >
+              <div className="w-commerce-commercecheckoutblockheader k-block-header">
+                <h4>Shipping Address</h4>
+                <div className="note-label">* Required</div>
               </div>
-              <div className="k-input-wrap">
-                <label
-                  htmlFor=""
-                  className="w-commerce-commercecheckoutlabel k-input-label"
-                >
-                  Street Address *
-                </label>
-                <input
-                  className="w-commerce-commercecheckoutbillingstreetaddress k-input"
-                  name="billing_address_line1"
-
-                  type="text"
-                />
-              </div>
-              <div className="k-input-wrap">
-                <label
-                  htmlFor=""
-                  className="w-commerce-commercecheckoutlabel k-input-label"
-                >
-                  APT / UNIT
-                </label>
-                <input
-                  aria-label=""
-                  className="w-commerce-commercecheckoutbillingstreetaddressoptional k-input"
-                  name="billing_address_line2"
-                  type="text"
-                />
-              </div>
-              <div className="w-commerce-commercecheckoutrow">
-                <div className="w-commerce-commercecheckoutcolumn">
-                  <div className="k-input-wrap">
-                    <label
-                      htmlFor=""
-                      className="w-commerce-commercecheckoutlabel k-input-label"
-                    >
-                      City *
-                    </label>
-                    <input
-                      className="w-commerce-commercecheckoutbillingcity k-input"
-                      name="billing_address_city"
-                      type="text"
-
-                    />
+              <fieldset className="w-commerce-commercecheckoutblockcontent k-block-header">
+                <div className="k-input-wrap">
+                  <label
+                    htmlFor=""
+                    className="w-commerce-commercecheckoutlabel k-input-label"
+                  >
+                    Full Name *
+                  </label>
+                  <input
+                    className="w-commerce-commercecheckoutshippingfullname k-input"
+                    name="name"
+                    type="text"
+                  />
+                </div>
+                <div className="k-input-wrap">
+                  <label
+                    htmlFor=""
+                    className="w-commerce-commercecheckoutlabel k-input-label"
+                  >
+                    Street Address *
+                  </label>
+                  <input
+                    className="w-commerce-commercecheckoutshippingstreetaddress k-input"
+                    name="address_line1"
+                    type="text"
+                  />
+                </div>
+                <div className="k-input-wrap">
+                  <label
+                    htmlFor=""
+                    className="w-commerce-commercecheckoutlabel k-input-label"
+                  >
+                    APT / UNIT
+                  </label>
+                  <input
+                    aria-label=""
+                    className="w-commerce-commercecheckoutshippingstreetaddressoptional k-input"
+                    name="address_line2"
+                    type="text"
+                  />
+                </div>
+                <div className="w-commerce-commercecheckoutrow k-input-row">
+                  <div className="w-commerce-commercecheckoutcolumn">
+                    <div className="k-input-wrap">
+                      <label
+                        htmlFor=""
+                        className="w-commerce-commercecheckoutlabel k-input-label"
+                      >
+                        City *
+                      </label>
+                      <input
+                        className="w-commerce-commercecheckoutshippingcity k-input"
+                        name="address_city"
+                        type="text"
+                      />
+                    </div>
+                  </div>
+                  <div className="w-commerce-commercecheckoutcolumn">
+                    <div className="k-input-wrap">
+                      <label
+                        htmlFor=""
+                        className="w-commerce-commercecheckoutlabel k-input-label"
+                      >
+                        State/Province
+                      </label>
+                      <input
+                        className="w-commerce-commercecheckoutshippingstateprovince k-input"
+                        name="address_state"
+                        type="text"
+                      />
+                    </div>
+                  </div>
+                  <div className="w-commerce-commercecheckoutcolumn">
+                    <div className="k-input-wrap">
+                      <label
+                        htmlFor=""
+                        className="w-commerce-commercecheckoutlabel k-input-label"
+                      >
+                        Zip/Postal Code *
+                      </label>
+                      <input
+                        data-node-type="commerce-checkout-shipping-zip-field"
+                        className="w-commerce-commercecheckoutshippingzippostalcode k-input"
+                        name="address_zip"
+                        type="text"
+                      />
+                    </div>
                   </div>
                 </div>
-                <div className="w-commerce-commercecheckoutcolumn">
-                  <div className="k-input-wrap">
-                    <label
-                      htmlFor=""
-                      className="w-commerce-commercecheckoutlabel k-input-label"
-                    >
-                      State/Province
-                    </label>
-                    <input
-                      className="w-commerce-commercecheckoutbillingstateprovince k-input"
-                      name="billing_address_state"
-                      type="text"
-                    />
-                  </div>
+                <div className="k-input-wrap">
+                  <label
+                    htmlFor=""
+                    className="w-commerce-commercecheckoutlabel k-input-label"
+                  >
+                    Country *
+                  </label>
+                  <select
+                    className="w-commerce-commercecheckoutshippingcountryselector k-select-input"
+                    name="address_country"
+                    defaultValue="US"
+                  >
+                    {supportedCountries.map(({ short, name }) => (
+                      <option key={short} value={short}>{name}</option>
+                    ))}
+                  </select>
                 </div>
-                <div className="w-commerce-commercecheckoutcolumn">
-                  <div className="k-input-wrap">
-                    <label
-                      htmlFor=""
-                      className="w-commerce-commercecheckoutlabel k-input-label"
-                    >
-                      Zip/Postal Code *
-                    </label>
-                    <input
-                      data-node-type="commerce-checkout-billing-zip-field"
-                      className="w-commerce-commercecheckoutbillingzippostalcode k-input"
-                      name="billing_address_zip"
-                      type="text"
-
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="k-input-wrap">
-                <label
-                  htmlFor=""
-                  className="w-commerce-commercecheckoutlabel k-input-label"
-                >
-                  Country *
-                </label>
-                <select
-                  className="w-commerce-commercecheckoutbillingcountryselector k-select-input"
-                  name="billing_address_country"
-                  defaultValue="US"
-                >
-                  {supportedCountries.map(({ short, name }) => (
-                    <option key={short} value={short}>{name}</option>
-                  ))}
-                </select>
-              </div>
-            </fieldset>
-          </div>
-
-          <div
-            data-node-type="commerce-checkout-shipping-methods-wrapper"
-            className="w-commerce-commercecheckoutshippingmethodswrapper"
-          >
-            <div className="w-commerce-commercecheckoutblockheader k-block-header">
-              <h4>Shipping Method</h4>
+              </fieldset>
             </div>
-            <fieldset>
-              <div
-                data-node-type="commerce-checkout-shipping-methods-list"
-                className="w-commerce-commercecheckoutshippingmethodslist"
-                data-wf-collection="database.commerceOrder.availableShippingMethods"
-                data-wf-template-id="wf-template-606072483975b0cfb7b7e007000000000042"
+
+            <div className="w-commerce-commercecheckoutbillingaddresstogglewrapper my-8">
+              <Link href={!showBilling ? "?show=billing#billing" : "/checkout"} >
+                <Input
+                  id="billing-address-toggle"
+                  data-node-type="commerce-checkout-billing-address-toggle-checkbox"
+                  className="w-commerce-commercecheckoutbillingaddresstogglecheckbox"
+                  type="checkbox"
+                  readOnly
+                  checked={!showBilling}
+                />
+              </Link>
+              <label
+                htmlFor="billing-address-toggle"
+                className="w-commerce-commercecheckoutbillingaddresstogglelabel"
               >
-                <label className="w-commerce-commercecheckoutshippingmethoditem">
-                  <input type="radio" name="shipping-method" defaultValue="free" defaultChecked />
-                  <div className="w-commerce-commercecheckoutshippingmethoddescriptionblock">
-                    <div className="w-commerce-commerceboldtextblock">FREE {"( 3 - 7 BUSINESS DAYS )"}</div>
+                Billing address same as shipping
+              </label>
+            </div>
+
+            <div
+              id="billing"
+              data-node-type="commerce-checkout-billing-address-wrapper"
+              className={clsx("w-commerce-commercecheckoutbillingaddresswrapper", !showBilling && "hidden")}
+            >
+              <div className="w-commerce-commercecheckoutblockheader k-block-header">
+                <h4>Billing Address</h4>
+                <div className="note-label">* Required</div>
+              </div>
+              <fieldset className="w-commerce-commercecheckoutblockcontent">
+                <div className="k-input-wrap">
+                  <label
+                    htmlFor=""
+                    className="w-commerce-commercecheckoutlabel k-input-label"
+                  >
+                    Full Name *
+                  </label>
+                  <input
+                    className="w-commerce-commercecheckoutbillingfullname k-input"
+                    name="billing_name"
+                    type="text"
+
+                  />
+                </div>
+                <div className="k-input-wrap">
+                  <label
+                    htmlFor=""
+                    className="w-commerce-commercecheckoutlabel k-input-label"
+                  >
+                    Street Address *
+                  </label>
+                  <input
+                    className="w-commerce-commercecheckoutbillingstreetaddress k-input"
+                    name="billing_address_line1"
+
+                    type="text"
+                  />
+                </div>
+                <div className="k-input-wrap">
+                  <label
+                    htmlFor=""
+                    className="w-commerce-commercecheckoutlabel k-input-label"
+                  >
+                    APT / UNIT
+                  </label>
+                  <input
+                    aria-label=""
+                    className="w-commerce-commercecheckoutbillingstreetaddressoptional k-input"
+                    name="billing_address_line2"
+                    type="text"
+                  />
+                </div>
+                <div className="w-commerce-commercecheckoutrow">
+                  <div className="w-commerce-commercecheckoutcolumn">
+                    <div className="k-input-wrap">
+                      <label
+                        htmlFor=""
+                        className="w-commerce-commercecheckoutlabel k-input-label"
+                      >
+                        City *
+                      </label>
+                      <input
+                        className="w-commerce-commercecheckoutbillingcity k-input"
+                        name="billing_address_city"
+                        type="text"
+
+                      />
+                    </div>
                   </div>
-                </label>
-              </div>
-              <div
-                data-node-type="commerce-checkout-shipping-methods-empty-state"
-                style={{ display: "none" }}
-                className="w-commerce-commercecheckoutshippingmethodsemptystate"
-              >
-                <div>No shipping methods are available for the address given.</div>
-              </div>
-            </fieldset>
-          </div>
-          <div className="w-commerce-commercecheckoutorderitemswrapper">
-            <div className="w-commerce-commercecheckoutsummaryblockheader k-block-header">
-              <h4>Items in Order</h4>
+                  <div className="w-commerce-commercecheckoutcolumn">
+                    <div className="k-input-wrap">
+                      <label
+                        htmlFor=""
+                        className="w-commerce-commercecheckoutlabel k-input-label"
+                      >
+                        State/Province
+                      </label>
+                      <input
+                        className="w-commerce-commercecheckoutbillingstateprovince k-input"
+                        name="billing_address_state"
+                        type="text"
+                      />
+                    </div>
+                  </div>
+                  <div className="w-commerce-commercecheckoutcolumn">
+                    <div className="k-input-wrap">
+                      <label
+                        htmlFor=""
+                        className="w-commerce-commercecheckoutlabel k-input-label"
+                      >
+                        Zip/Postal Code *
+                      </label>
+                      <input
+                        data-node-type="commerce-checkout-billing-zip-field"
+                        className="w-commerce-commercecheckoutbillingzippostalcode k-input"
+                        name="billing_address_zip"
+                        type="text"
+
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="k-input-wrap">
+                  <label
+                    htmlFor=""
+                    className="w-commerce-commercecheckoutlabel k-input-label"
+                  >
+                    Country *
+                  </label>
+                  <select
+                    className="w-commerce-commercecheckoutbillingcountryselector k-select-input"
+                    name="billing_address_country"
+                    defaultValue="US"
+                  >
+                    {supportedCountries.map(({ short, name }) => (
+                      <option key={short} value={short}>{name}</option>
+                    ))}
+                  </select>
+                </div>
+              </fieldset>
             </div>
-            <fieldset className="w-commerce-commercecheckoutblockcontent">
-              <OrderList lineItemImages={imageMap} lineItems={order.lineItems} allowOrderItemDeletion={buyNow == undefined} />
-            </fieldset>
-          </div>
-        </div>
-        <div className="w-commerce-commercelayoutsidebar">
-          <div className="w-commerce-commercecheckoutordersummarywrapper">
-            <div className="w-commerce-commercecheckoutsummaryblockheader k-block-header">
-              <h4>Order Summary</h4>
+
+            <div
+              data-node-type="commerce-checkout-shipping-methods-wrapper"
+              className="w-commerce-commercecheckoutshippingmethodswrapper"
+            >
+              <div className="w-commerce-commercecheckoutblockheader k-block-header">
+                <h4>Shipping Method</h4>
+              </div>
+              <fieldset>
+                <div
+                  data-node-type="commerce-checkout-shipping-methods-list"
+                  className="w-commerce-commercecheckoutshippingmethodslist"
+                  data-wf-collection="database.commerceOrder.availableShippingMethods"
+                  data-wf-template-id="wf-template-606072483975b0cfb7b7e007000000000042"
+                >
+                  <label className="w-commerce-commercecheckoutshippingmethoditem">
+                    <input type="radio" name="shipping-method" defaultValue="free" defaultChecked />
+                    <div className="w-commerce-commercecheckoutshippingmethoddescriptionblock">
+                      <div className="w-commerce-commerceboldtextblock">FREE {"( 3 - 7 BUSINESS DAYS )"}</div>
+                    </div>
+                  </label>
+                </div>
+                <div
+                  data-node-type="commerce-checkout-shipping-methods-empty-state"
+                  style={{ display: "none" }}
+                  className="w-commerce-commercecheckoutshippingmethodsemptystate"
+                >
+                  <div>No shipping methods are available for the address given.</div>
+                </div>
+              </fieldset>
             </div>
-            <fieldset className="w-commerce-commercecheckoutblockcontent">
-              {/* <div className="w-commerce-commercecheckoutsummarylineitem">
+            <div className="w-commerce-commercecheckoutorderitemswrapper">
+              <div className="w-commerce-commercecheckoutsummaryblockheader k-block-header">
+                <h4>Items in Order</h4>
+              </div>
+              <fieldset className="w-commerce-commercecheckoutblockcontent">
+                <OrderList lineItemImages={imageMap} lineItems={order.lineItems} allowOrderItemDeletion={buyNow == undefined} />
+              </fieldset>
+            </div>
+          </div>
+          <div className="w-commerce-commercelayoutsidebar">
+            <div className="w-commerce-commercecheckoutordersummarywrapper">
+              <div className="w-commerce-commercecheckoutsummaryblockheader k-block-header">
+                <h4>Order Summary</h4>
+              </div>
+              <fieldset className="w-commerce-commercecheckoutblockcontent">
+                {/* <div className="w-commerce-commercecheckoutsummarylineitem">
                 <div>Subtotal</div>
                 <div className="flex gap-1">
                   <Money number={subtotal} /> USD
                 </div>
               </div> */}
-              <div
-                className="w-commerce-commercecheckoutordersummaryextraitemslist"
-                data-wf-collection="database.commerceOrder.extraItems"
-                data-wf-template-id="wf-template-606072483975b0cfb7b7e0070000000000a0"
-              >
-                <div className="w-commerce-commercecheckoutordersummaryextraitemslistitem">
-                  <div />
-                  <div />
-                </div>
-              </div>
-              <div className="w-commerce-commercecheckoutsummarylineitem">
-                <div>Total</div>
-                <div className="w-commerce-commercecheckoutsummarytotal">
-                  <div className="flex gap-1">
-                    <Money number={subtotal} /> USD
+                <div
+                  className="w-commerce-commercecheckoutordersummaryextraitemslist"
+                  data-wf-collection="database.commerceOrder.extraItems"
+                  data-wf-template-id="wf-template-606072483975b0cfb7b7e0070000000000a0"
+                >
+                  <div className="w-commerce-commercecheckoutordersummaryextraitemslistitem">
+                    <div />
+                    <div />
                   </div>
                 </div>
-              </div>
-            </fieldset>
-          </div>
-          <WebPaymentForm formId="paymentForm" transactionId={order.id} value={Number(subtotal)} />
-          <div
-            data-node-type="commerce-checkout-error-state"
-            style={{ display: "none" }}
-            className="w-commerce-commercecheckouterrorstate"
-          >
+                <div className="w-commerce-commercecheckoutsummarylineitem">
+                  <div>Total</div>
+                  <div className="w-commerce-commercecheckoutsummarytotal">
+                    <div className="flex gap-1">
+                      <Money number={subtotal} /> USD
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            <WebPaymentForm formId="paymentForm" transactionId={order.id} value={Number(subtotal)} />
             <div
-              aria-live="polite"
-              className="w-checkout-error-msg"
-              data-w-info-error="There was an error processing your customer info. Please try again, or contact us if you continue to have problems."
-              data-w-shipping-error="Sorry. We can’t ship your order to the address provided."
-              data-w-billing-error="Your payment could not be completed with the payment information provided. Please make sure that your card and billing address information is correct, or try a different payment card, to complete this order. Contact us if you continue to have problems."
-              data-w-payment-error="There was an error processing your payment. Please try again, or contact us if you continue to have problems."
-              data-w-pricing-error="The prices of one or more items in your cart have changed. Please refresh this page and try again."
-              data-w-minimum-error="The order minimum was not met. Add more items to your cart to continue."
-              data-w-extras-error="A merchant setting has changed that impacts your cart. Please refresh and try again."
-              data-w-product-error="One or more of the products in your cart have been removed. Please refresh the page and try again."
-              data-w-invalid-discount-error="This discount is invalid."
-              data-w-expired-discount-error="This discount is no longer available."
-              data-w-usage-reached-discount-error="This discount is no longer available."
-              data-w-requirements-not-met-error="Your order does not meet the requirements for this discount."
+              data-node-type="commerce-checkout-error-state"
+              style={{ display: "none" }}
+              className="w-commerce-commercecheckouterrorstate"
             >
-              There was an error processing your customer info. Please try again, or
-              contact us if you continue to have problems.
+              <div
+                aria-live="polite"
+                className="w-checkout-error-msg"
+                data-w-info-error="There was an error processing your customer info. Please try again, or contact us if you continue to have problems."
+                data-w-shipping-error="Sorry. We can’t ship your order to the address provided."
+                data-w-billing-error="Your payment could not be completed with the payment information provided. Please make sure that your card and billing address information is correct, or try a different payment card, to complete this order. Contact us if you continue to have problems."
+                data-w-payment-error="There was an error processing your payment. Please try again, or contact us if you continue to have problems."
+                data-w-pricing-error="The prices of one or more items in your cart have changed. Please refresh this page and try again."
+                data-w-minimum-error="The order minimum was not met. Add more items to your cart to continue."
+                data-w-extras-error="A merchant setting has changed that impacts your cart. Please refresh and try again."
+                data-w-product-error="One or more of the products in your cart have been removed. Please refresh the page and try again."
+                data-w-invalid-discount-error="This discount is invalid."
+                data-w-expired-discount-error="This discount is no longer available."
+                data-w-usage-reached-discount-error="This discount is no longer available."
+                data-w-requirements-not-met-error="Your order does not meet the requirements for this discount."
+              >
+                There was an error processing your customer info. Please try again, or
+                contact us if you continue to have problems.
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </Form>
+      </Form>
+    </>
   )
 };
 
