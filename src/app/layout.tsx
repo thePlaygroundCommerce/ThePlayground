@@ -18,7 +18,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
-  title: "The Playground | Home",
+  title: "The Playground",
 };
 
 type Navs = {

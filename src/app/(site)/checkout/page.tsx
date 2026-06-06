@@ -13,6 +13,7 @@ import Link from "next/link";
 import { Input } from "@headlessui/react";
 import Money from "@/components/Money";
 import Form from "next/form";
+import { sendGAEvent } from "@next/third-parties/google";
 
 const Page = async ({ params, searchParams }: PageProps) => {
   const { show, buyNow } = await searchParams
@@ -22,6 +23,8 @@ const Page = async ({ params, searchParams }: PageProps) => {
     logger.error("No Shopping Cart Found");
     return redirect("/");
   }
+
+  sendGAEvent('event', 'conversion', { send_to: 'AW-18159252520/RQNsCMaDjbocEKjogNND' })
 
   const resolveCart = async () => {
     if (buyNow) {

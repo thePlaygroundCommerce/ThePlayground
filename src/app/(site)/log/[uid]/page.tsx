@@ -2,6 +2,7 @@ import { PrismicRichText } from "@prismicio/react";
 import { client } from "@/api/clients";
 import Image from "@/components/Image";
 import Heading from "@/components/typography/Heading";
+import BlogTableOfContents from "@/components/BlogTableOfContents";
 import { PageProps } from "index";
 import { redirect } from "next/navigation";
 
@@ -18,8 +19,21 @@ const Page = async ({ params }: PageProps) => {
 
   const { sections, title, headline } = blog.data
 
+  const slugify = (text: string | undefined, index: number) =>
+    (text || `section-${index + 1}`)
+      .toString()
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '')
+
+  const tableOfContents = sections.map(({ heading }, i) => ({
+    heading,
+    id: slugify(heading, i),
+  }))
+
   return (
-    <div className="pt-[60px] p-4 flex flex-col gap-4">
+    <div className="pt-15 p-4 flex flex-col gap-4">
       <div className="flex flex-col gap-4">
         <Heading level={1} className="my-4">{title}</Heading>
         <div>
@@ -36,12 +50,22 @@ const Page = async ({ params }: PageProps) => {
         </div>
         <Heading>{headline}</Heading>
       </div>
-      {sections.map(({ heading, paragraph, image }, i) => (
-        <div key={i}>
-          <Heading level={2} className="mb-2">{heading}</Heading>
-          <PrismicRichText field={paragraph} />
+      {tableOfContents.length > 0 && (
+        <div className="w-3/4 mx-auto my-12">
+          <BlogTableOfContents items={tableOfContents} />
         </div>
-      ))}
+      )}
+      {sections.map(({ heading, paragraph, image }, i) => {
+        const id = tableOfContents[i]?.id || `section-${i + 1}`
+        return (
+          <div key={i} className="scroll-mt-24">
+            <Heading id={id} level={2} className="mb-2">{heading}</Heading>
+            <div className="max-w-4/5 text-lg tracking-wider inline-block">
+              <PrismicRichText field={paragraph} />
+            </div>
+          </div>
+        )
+      })}
     </div>
   );
 };

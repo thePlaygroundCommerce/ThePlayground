@@ -1,42 +1,31 @@
 import { client } from "@/api/clients";
 import Image from "@/components/Image";
-import { PageProps } from "index";
+import { Paginate } from "@/components/Paginate";
+import { Metadata } from "next";
+import Link from "next/link";
 
-const Page = async (props: PageProps) => {
-  const blogs = await client.getAllByType("blog_post");
+export const metadata: Metadata = {
+  title: "The Playground | Blog",
+};
+
+const BLOG_PAGE_SIZE = 5
+
+const Page = async ({ searchParams }: PageProps<"/log">) => {
+  const { page: pge = 1 } = await searchParams
+  const { results: blogs, total_pages: max, page } = await client.getByType("blog_post", {
+    page: Number(pge),
+    pageSize: BLOG_PAGE_SIZE
+  }); 
 
   return (
-    <div className="pt-[80px] p-4">
-      <div className="flex">
-        <div>
-          <div className="aspect-square relative">
-            <Image alt="" />
-          </div>
-          <div>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Numquam dolores rem architecto veniam cupiditate cumque.</p>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Numquam dolores rem architecto veniam cupiditate cumque.</p>
-            <p>Author</p>
-            <p>Date</p>
-          </div>
-        </div>
-        <div></div>
-        {/* <Hero
-          type="static"
-          items={blogs.map(
-            ({
-              data: {
-                image: { dimensions, url, alt },
-                ...rest
-              },
-              last_publication_date
-            }) => ({ image: { ...dimensions, src: url ?? undefined, alt: alt ?? "" }, last_publication_date, link: "", ...rest })
-          )}
-        /> */}
-      </div>
-      <div className="flex flex-col md:flex-row justify-center container mx-auto flex-wrap gap-6 py-12">
-        {blogs.map(({ data: { image, title, headline } }, i) => (
-          <div key={i} className="md:w-1/4 text-center flex flex-col gap-4">
-            {/* <div className="w-full">
+    <div className="mt-24 p-4 sm:p-0">
+      <h2 className="mb-12">Travel Tips & Stories</h2>
+
+      {blogs.map(({ data: { image, title } }) => (
+        <div key={title} className="flex flex-col lg:flex-row gap-4 mb-24">
+
+          <div className="flex-1">
+            <div className="aspect-square w-full relative">
               <Image
                 {...{
                   alt: "",
@@ -45,15 +34,23 @@ const Page = async (props: PageProps) => {
                   className: "h-auto rounded-lg",
                 }}
               />
-            </div> */}
-            <div>
-              <p>{title}</p>
-              <p>maybe date</p>
             </div>
-            <p>{headline}</p>
-            <p>Read More</p>
           </div>
-        ))}
+          <div className="flex-1 lg:flex lg:flex-col">
+            <div className="sm:flex lg:flex-col mb-12">
+              <div className="flex-3 mb-4">
+                <h2 className="text-bold text-3xl">Header</h2>
+                <p className="text-gray-300 text-sm">Date</p>
+              </div>
+              <p className="flex-2 text-ellipsis">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Numquam dolores rem architecto veniam cupiditate cumque.</p>
+            </div>
+            <Link className="block text-center m-auto bg-black w-1/2 p-4 rounded-2xl text-gray-200" href="#">Read</Link>
+          </div>
+        </div>
+      ))}
+
+      <div className="flex justify-center items-center m-12">
+        <Paginate page={Number(page)} max={max} />
       </div>
     </div>
   );

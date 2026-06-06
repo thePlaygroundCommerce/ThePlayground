@@ -2077,6 +2077,7 @@
   }
 
   .k-r-arrow {
+    background-color: var(--white);
     border: 1px solid var(--border);
     color: var(--slightly);
     border-radius: 100%;
@@ -2110,6 +2111,7 @@
   }
 
   .k-l-arrow {
+    background-color: var(--white);
     border: 1px solid var(--border);
     color: var(--slightly);
     border-radius: 100%;

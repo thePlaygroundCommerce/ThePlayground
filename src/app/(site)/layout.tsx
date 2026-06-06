@@ -1,13 +1,9 @@
-import FacebookPixel from '@/components/FacebookPixel'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 // import { renderLogo } from '@/components/LogoComponent'
 import Providers from '@/components/Providers'
-import { AppProps } from 'index'
 import clsx from 'clsx'
 import _ from 'lodash'
-import { Analytics } from '@vercel/analytics/next'
-import { SpeedInsights } from '@vercel/speed-insights/next'
 import HeaderWrapper from '@/components/HeaderWrapper'
 import { getCatalogObjects } from '@/api/catalogApi'
 

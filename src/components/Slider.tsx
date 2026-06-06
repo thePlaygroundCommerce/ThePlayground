@@ -374,67 +374,73 @@ export const WebflowSlider = ({
     [isRepeating, currentIndex]
   );
   const classes = {
-    btnControl: "absolute z-10 top-1/2"
+    btnControl: ""
   }
 
   useDrag(handleDrag, { target: ref, axis: "x" })
 
   return (
-    <div className={clsx("flex flex-col relative w-full text-center p-2 overflow-x-hidden", className)}>
-      <div className="flex w-full relative h-full">
-        {withControls && isPrevButtonVisible ? (
-          <button
-            disabled={timeoutInProgress}
-            style={{
-              cursor: timeoutInProgress ? "not-allowed" : "pointer",
-              pointerEvents: timeoutInProgress ? "none" : "inherit"
-            }}
-            onClick={previousItem}
-            className={clsx(classes.btnControl, " k-l-arrow w-slider-arrow-left")}
-          >
-            <div className="k-arrow-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-              viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round"
-              strokeLinejoin="round">
-              <path d="M15 18l-6-6 6-6"></path>
-            </svg></div>
-          </button>
-        ) : null}
-        <div className="w-full h-full px-4 ">
-          <div
-            style={{
-              transform: `translateX(calc(-1 * ${currentIndex} * ${itemWidth}))`,
-            }}
-            // onTouchStart={handleTouchStart}
-            // onTouchMove={handleTouchMove}
-            ref={ref}
-            onTransitionEnd={() => handleTransitionEnd()}
-            className={clsx("flex duration-500 touch-none h-full", isTransitionEnabled ? "transition" : "transition-none")}
-          >
-            {isRepeating && extraPreviousItems}
-            {childrenWrapper(children)}
-            {isRepeating && extraNextItems}
-          </div>
-          <div className="flex justify-center gap-6">
-            {withIndicator && renderDots}
+    <div className="relative">
+      {withControls && (
+        <div className="absolute -top-5 right-5 z-10 flex gap-2">
+          {isPrevButtonVisible && (
+            <button
+              disabled={timeoutInProgress}
+              style={{
+                cursor: timeoutInProgress ? "not-allowed" : "pointer",
+                pointerEvents: timeoutInProgress ? "none" : "inherit"
+              }}
+              onClick={previousItem}
+              className={clsx(classes.btnControl, "k-l-arrow w-slider-arrow-left")}
+            >
+              <div className="k-arrow-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round"
+                strokeLinejoin="round">
+                <path d="M15 18l-6-6 6-6"></path>
+              </svg></div>
+            </button>
+          )}
+          {isNextButtonVisible && (
+            <button
+              disabled={timeoutInProgress}
+              style={{
+                cursor: timeoutInProgress ? "not-allowed" : "pointer",
+                pointerEvents: timeoutInProgress ? "none" : "inherit"
+              }}
+              onClick={nextItem}
+              className={clsx(classes.btnControl, "k-r-arrow w-slider-arrow-right")}
+            >
+              <div className="k-arrow-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round"
+                strokeLinejoin="round">
+                <path d="M9 18l6-6-6-6"></path>
+              </svg></div>
+            </button>
+          )}
+        </div>
+      )}
+      <div className={clsx("flex flex-col relative w-full text-center p-2 overflow-x-hidden", className)}>
+        <div className="w-full h-full">
+          <div className="w-full h-full px-4 ">
+            <div
+              style={{
+                transform: `translateX(calc(-1 * ${currentIndex} * ${itemWidth}))`,
+              }}
+              // onTouchStart={handleTouchStart}
+              // onTouchMove={handleTouchMove}
+              ref={ref}
+              onTransitionEnd={() => handleTransitionEnd()}
+              className={clsx("flex duration-500 touch-none h-full", isTransitionEnabled ? "transition" : "transition-none")}
+            >
+              {isRepeating && extraPreviousItems}
+              {childrenWrapper(children)}
+              {isRepeating && extraNextItems}
+            </div>
+            <div className="flex justify-center gap-6">
+              {withIndicator && renderDots}
+            </div>
           </div>
         </div>
-        {withControls && isNextButtonVisible ? (
-          <button
-            disabled={timeoutInProgress}
-            style={{
-              cursor: timeoutInProgress ? "not-allowed" : "pointer",
-              pointerEvents: timeoutInProgress ? "none" : "inherit"
-            }}
-            onClick={nextItem}
-            className={clsx(classes.btnControl, " k-r-arrow w-slider-arrow-right")}
-          >
-            <div className="k-arrow-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-              viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round"
-              strokeLinejoin="round">
-              <path d="M9 18l6-6-6-6"></path>
-            </svg></div>
-          </button>
-        ) : null}
       </div>
     </div>
   );

@@ -1,7 +1,6 @@
 import { latoHeavy, latoBlack } from '@/app/fonts'
 import clsx from 'clsx'
-import { AppProps } from 'index'
-import { createElement } from 'react'
+import { createElement, HTMLAttributes } from 'react'
 
 type A = {
     element: string
@@ -17,7 +16,7 @@ const ComponentMap: { [id: number]: A } = {
     6: { element: "h4", }
 }
 
-const Heading = ({ children, className, level = 3, ...rest }: AppProps & { level?: 3 | 1 | 2 | 4 | 5 | 6 }) => {
+const Heading = ({ children, className, level = 3, ...rest }: HTMLAttributes<HTMLElement> & { level?: 1 | 2 | 3 | 4 | 5 | 6 }) => {
     const { element, classes } = ComponentMap[level];
     return createElement(element, {
         ...rest,

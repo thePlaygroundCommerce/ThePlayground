@@ -23,7 +23,12 @@ import pic10 from "public/images/oliur.jpg"
 
 import pic11 from "public/images/samuel.jpeg"
 import pic12 from "public/images/lucas.jpg"
+import { Metadata } from "next";
 
+
+export const metadata: Metadata = {
+  title: "The Playground",
+};
 
 type Props = {};
 

@@ -92,7 +92,7 @@ export type ICartContext = {
     createCart: (
       catalogOrder: any,
       lineItemImageData?: CatalogImage,
-      checkout?: boolean
+      checkout?: boolean,
     ) => void;
   };
   calculation: {
@@ -165,9 +165,9 @@ export type Modify<T, R> = Omit<T, keyof R> & R;
 
 export type ContentImage = ImageProps | NonNullable<ReactElement>;
 export type ContentVideo = {
-  playback_id?: string
-  src?: string
-}
+  playback_id?: string;
+  src?: string;
+};
 export type ContentData = {
   title: ReactElement | string | null;
   description?: ReactElement | string | null;
@@ -190,3 +190,10 @@ export type Content = {
     text_content_position?: KeyTextField;
   };
 };
+
+export interface PaginateProps {
+  page: number;
+  max: number;
+  previousIcon?: React.ReactElement;
+  nextIcon?: React.ReactElement;
+}
