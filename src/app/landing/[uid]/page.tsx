@@ -11,7 +11,6 @@ import Image from "@/components/Image";
 import Button from "@/components/Button";
 import Link from "next/link";
 import { CatalogObject } from "square";
-import { GoogleAnalytics } from "@next/third-parties/google";
 
 type LANDING_URL = "/landing/[uid]"
 

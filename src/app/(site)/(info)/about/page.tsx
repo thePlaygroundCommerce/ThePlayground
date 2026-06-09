@@ -6,7 +6,7 @@ const Page = () => {
       <div className="flex flex-col gap-12">
         <div className="leading-7">
           <Image width={1080} height={1080} alt={""} />
-          <div className="bg-gray-100 p-4 flex flex-col gap-4">
+          <div className="p-4 flex flex-col gap-4">
             <h3>Our Story</h3>
             <p>
               At The Playground, we are passionate about making travel accessible,

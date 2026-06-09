@@ -103,6 +103,21 @@
                 "constraint": {},
                 "thumbnails": []
               }
+            },
+            "table": {
+              "type": "Table",
+              "config": {
+                "label": "table"
+              }
+            },
+            "includeDividers": {
+              "type": "Boolean",
+              "config": {
+                "label": "includeDividers",
+                "placeholder_false": "false",
+                "placeholder_true": "true",
+                "default_value": true
+              }
             }
           }
         }

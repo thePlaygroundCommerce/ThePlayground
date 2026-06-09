@@ -18,10 +18,12 @@ type PostHogProviderProps = {
 };
 
 export function PostHogProvider({ children }: AppProps & PostHogProviderProps) {
+  if(!process.env.NEXT_PUBLIC_POSTHOG_KEY) return null
   useEffect(() => {
-    const isProduction = process.env.NODE_ENV === 'production';
-    posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY ?? "", {
-      api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
+    const isProduction = process.env.VERCEL_ENV === 'production';
+    posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY, {
+      api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST ?? '/phg',
+      ui_host: process.env.NEXT_PUBLIC_POSTHOG_UI_HOST ?? 'https://us.posthog.com',
       capture_pageview: false,
       autocapture: isProduction,
       loaded: (ph) => {

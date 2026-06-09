@@ -104,6 +104,27 @@ export interface BlogPostDocumentDataSectionsItem {
    * - **Documentation**: https://prismic.io/docs/fields/image
    */
   image: prismic.ImageField<never>;
+
+  /**
+   * table field in *Blog Post → sections*
+   *
+   * - **Field Type**: Table
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog_post.sections[].table
+   * - **Documentation**: https://prismic.io/docs/fields/table
+   */
+  table: prismic.TableField;
+
+  /**
+   * includeDividers field in *Blog Post → sections*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: true
+   * - **API ID Path**: blog_post.sections[].includeDividers
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  includeDividers: prismic.BooleanField;
 }
 
 /**
