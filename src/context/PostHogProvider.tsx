@@ -10,24 +10,6 @@ import { track } from "@vercel/analytics"
 
 export function PostHogProvider({ children }: AppProps) {
   if (!process.env.NEXT_PUBLIC_POSTHOG_KEY) return null
-  useEffect(() => {
-    const isProduction = process.env.VERCEL_ENV === 'production';
-    posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY, {
-      api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST ?? '/phg',
-      ui_host: process.env.NEXT_PUBLIC_POSTHOG_UI_HOST ?? 'https://us.posthog.com',
-      capture_pageview: false,
-      autocapture: isProduction,
-      loaded: (ph) => {
-        if (!isProduction) {
-          ph.opt_out_capturing(); // opts a user out of event capture
-          ph.set_config({ disable_session_recording: true });
-        }
-      },
-      person_profiles: 'identified_only', // or 'always' to create profiles for anonymous users as well
-    })
-
-    console.log("ph", posthog)
-  }, [])
 
   return (
     <PHProvider client={posthog}>
@@ -46,17 +28,21 @@ function PostHogPageView() {
   const maxPercentage = useRef(0)
   const maxPixels = useRef(0)
 
-  const trackedValues = {
-    'max scroll percentage': maxPercentage.current,
-    'max scroll pixels': maxPixels.current,
-    'last scroll percentage': Math.min(1, Number(((window.innerHeight + window.pageYOffset) / document.body.scrollHeight).toPrecision(2))),
-    'last scroll pixels': window.innerHeight + window.pageYOffset,
-    'scrolled': maxPixels.current > 0,
+  const getTrackedValues = (window: Window & typeof globalThis) => {
+    return {
+      'max scroll percentage': maxPercentage.current,
+      'max scroll pixels': maxPixels.current,
+      'last scroll percentage': Math.min(1, Number(((window.innerHeight + window.pageYOffset) / document.body.scrollHeight).toPrecision(2))),
+      'last scroll pixels': window.innerHeight + window.pageYOffset,
+      'scrolled': maxPixels.current > 0,
+    }
   }
 
   // Track pageviews
   useEffect(() => {
     const url = pathname + searchParams
+    const trackedValues = getTrackedValues(window)
+    console.log(posthog)
 
     if (pathname && posthog) {
       let url = window.origin + pathname
@@ -76,6 +62,7 @@ function PostHogPageView() {
   }, [pathname, searchParams, posthog])
 
   useEffect(() => {
+    const trackedValues = getTrackedValues(window)
     function handleScroll() {
       const lastPercentage = Math.min(1, Number(((window.innerHeight + window.pageYOffset) / document.body.scrollHeight).toPrecision(2)))
       const lastPixels = window.innerHeight + window.pageYOffset

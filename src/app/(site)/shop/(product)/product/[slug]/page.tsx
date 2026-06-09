@@ -58,8 +58,6 @@ const Page = async ({ params, searchParams }: PageProps) => {
     .filter(({ id }) => id !== catalogObject.id)
     .slice(0, 3);
 
-  console.log(data)
-
   let features;
 
   if (catalogObject?.customAttributeValues) {
