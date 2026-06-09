@@ -16,6 +16,7 @@ import ScrollTracker from "@/components/ScrollTracker";
 import FacebookPixel from "@/components/FacebookPixel";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { PostHogProvider } from "@/context/PostHogProvider";
 
 export const metadata: Metadata = {
   title: "The Playground",
@@ -100,8 +101,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <GoogleAnalytics gaId="AW-18159252520" />
         </head>
         <body>
-          <ScrollTracker />
-          {children}
+          {/* <ScrollTracker /> */}
+          <PostHogProvider>
+            {children}
+          </PostHogProvider>
           <SpeedInsights />
           <Analytics />
           <noscript>
