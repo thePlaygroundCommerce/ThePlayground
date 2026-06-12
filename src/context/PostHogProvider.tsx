@@ -24,69 +24,87 @@ function PostHogPageView() {
   const searchParams = useSearchParams()
   const [prevPath, setPrevPath] = useState(pathname + searchParams)
   const posthog = usePostHog()
-
-  const maxPercentage = useRef(0)
-  const maxPixels = useRef(0)
-
-  const getTrackedValues = (window: Window & typeof globalThis) => {
-    return {
-      'max scroll percentage': maxPercentage.current,
-      'max scroll pixels': maxPixels.current,
-      'last scroll percentage': Math.min(1, Number(((window.innerHeight + window.pageYOffset) / document.body.scrollHeight).toPrecision(2))),
-      'last scroll pixels': window.innerHeight + window.pageYOffset,
-      'scrolled': maxPixels.current > 0,
-    }
+  const initScrollValues = {
+    'max scroll percentage': 0,
+    'max scroll pixels': 0,
+    'last scroll percentage': 0,
+    'last scroll pixels': 0,
+    'scrolled': false,
   }
+
+  const trackedScrollValues = useRef(initScrollValues)
 
   // Track pageviews
   useEffect(() => {
     const url = pathname + searchParams
-    const trackedValues = getTrackedValues(window)
-    console.log(posthog)
+    const trackedValues = trackedScrollValues.current
 
-    if (pathname && posthog) {
-      let url = window.origin + pathname
-      if (searchParams.toString()) {
-        url = url + `?${searchParams.toString()}`
-      }
+    // if (pathname && posthog) {
+    //   let url = main.origin + pathname
+    //   if (searchParams.toString()) {
+    //     url = url + `?${searchParams.toString()}`
+    //   }
 
-      console.log('pageview captured', posthog.capture('$pageview', { '$current_url': url }))
-    }
+    //   console.log('pageview captured', posthog.capture('$pageview', { '$current_url': url }))
+    // }
 
     if (url !== prevPath) {
       track("left_page", { path: pathname, ...trackedValues });
-      console.log('left_page captured', posthog.capture('left_page', trackedValues))
+      console.log('left_page captured', posthog.capture('left_page', trackedValues), trackedValues)
+
+      // reset trackedValues
+      trackedScrollValues.current = initScrollValues
       setPrevPath(pathname)
     }
 
   }, [pathname, searchParams, posthog])
 
   useEffect(() => {
-    const trackedValues = getTrackedValues(window)
+    const main = document.querySelector<HTMLElement>('main')
+    const trackedValues = trackedScrollValues.current
+
+    if (!main) {
+      console.warn('PostHogPageView: <main> element not found, scroll tracking disabled')
+      return
+    }
+
+    function getMainScrollInfo() {
+      const scrollTop = main.scrollTop
+      const scrollHeight = main.scrollHeight
+      const viewHeight = main.clientHeight
+      return { scrollTop, scrollHeight, viewHeight }
+    }
+
     function handleScroll() {
-      const lastPercentage = Math.min(1, Number(((window.innerHeight + window.pageYOffset) / document.body.scrollHeight).toPrecision(2)))
-      const lastPixels = window.innerHeight + window.pageYOffset
+      const { scrollTop, scrollHeight, viewHeight } = getMainScrollInfo()
+      const lastScrollPixels = viewHeight + scrollTop
+      const lastScrollPercentage = scrollHeight > 0 ? Math.min(1, Number((lastScrollPixels / scrollHeight).toPrecision(2))) : 0
 
-      if (lastPercentage > maxPercentage.current) {
-        maxPercentage.current = lastPercentage
+      trackedValues['last scroll percentage'] = lastScrollPercentage
+      trackedValues['last scroll pixels'] = lastScrollPixels
+
+      if (lastScrollPercentage > trackedValues['max scroll percentage']) {
+        trackedValues['max scroll percentage'] = lastScrollPercentage
       }
 
-      if (lastPixels > maxPixels.current) {
-        maxPixels.current = lastPixels
+      if (lastScrollPixels > trackedValues['max scroll pixels']) {
+        trackedValues['max scroll pixels'] = lastScrollPixels
       }
+
+      if (!trackedValues.scrolled && scrollTop > 0) trackedValues.scrolled = true
+
     }
 
     const handlePageleave = () => {
-      track("page_leave", { path: pathname, ...trackedValues });
-      console.log('pageleave captured', posthog.capture('$pageleave', trackedValues))
-
+      track('page_leave', { path: pathname, ...trackedValues })
+      console.log('pageleave captured', posthog.capture('$pageleave', trackedValues), trackedValues)
     }
 
     window.addEventListener('beforeunload', handlePageleave)
-    window.addEventListener('scroll', handleScroll)
+    main.addEventListener('scroll', handleScroll, { passive: true })
 
     return () => {
-      window.removeEventListener('scroll', handleScroll)
+      main.removeEventListener('scroll', handleScroll)
       window.removeEventListener('beforeunload', handlePageleave)
     }
   }, [])

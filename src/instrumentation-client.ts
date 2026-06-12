@@ -4,8 +4,8 @@ posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
   defaults: "2026-01-30",
   api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
   ui_host: process.env.NEXT_PUBLIC_POSTHOG_UI_HOST,
-  capture_pageview: true,
-  autocapture: true,
+  capture_pageview: false,
+  capture_pageleave: false,
   // loaded: (ph) => {
   //   ph.opt_out_capturing(); // opts a user out of event capture
   //   ph.set_config({ disable_session_recording: true });
