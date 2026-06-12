@@ -45,8 +45,7 @@ function PostHogPageView() {
         url = url + `?${searchParams.toString()}`
       }
 
-      track("pageview", { path: pathname, ...trackedValues });
-      //   console.log('pageview captured', posthog.capture('$pageview', { '$current_url': url }))
+      track("page scroll", { path: pathname, ...trackedValues });
       console.log('left_page captured', posthog.capture('$pageview', { $current_url: url, ...trackedValues }))
 
       // reset trackedValues
