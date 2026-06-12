@@ -39,18 +39,15 @@ function PostHogPageView() {
     const url = pathname + searchParams
     const trackedValues = trackedScrollValues.current
 
-    // if (pathname && posthog) {
-    //   let url = main.origin + pathname
-    //   if (searchParams.toString()) {
-    //     url = url + `?${searchParams.toString()}`
-    //   }
+    if (pathname && posthog) {
+      let url = window.origin + pathname
+      if (searchParams.toString()) {
+        url = url + `?${searchParams.toString()}`
+      }
 
-    //   console.log('pageview captured', posthog.capture('$pageview', { '$current_url': url }))
-    // }
-
-    if (url !== prevPath) {
-      track("left_page", { path: pathname, ...trackedValues });
-      console.log('left_page captured', posthog.capture('left_page', trackedValues), trackedValues)
+      track("pageview", { path: pathname, ...trackedValues });
+      //   console.log('pageview captured', posthog.capture('$pageview', { '$current_url': url }))
+      console.log('left_page captured', posthog.capture('$pageview', { $current_url: url, ...trackedValues }))
 
       // reset trackedValues
       trackedScrollValues.current = initScrollValues
