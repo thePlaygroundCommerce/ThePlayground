@@ -15,6 +15,8 @@ import {
 import square from "./clients/square";
 import { isSuccessfulSquareApiCall } from "./clients/util";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 const SQUARE_ORDER_CACHE_REVALIDATION = {
   next: { tags: ["square", "order"] },
@@ -82,7 +84,7 @@ class Carts {
       order: order,
       relatedObjects: data.relatedObjects,
       imageMap: data.variationToImageMap,
-      options: data.options
+      options: data.options,
     };
   }
 
@@ -268,3 +270,4 @@ type CartOpResponse = {
 };
 
 const api = new Carts();
+

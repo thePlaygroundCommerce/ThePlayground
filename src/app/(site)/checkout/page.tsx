@@ -13,20 +13,21 @@ import Link from "next/link";
 import { Input } from "@headlessui/react";
 import Money from "@/components/Money";
 import Form from "next/form";
-import { sendGAEvent } from "@next/third-parties/google";
 import PageLoadTracker from "@/components/PageLoadTracker";
+import Divider from "@/components/Divider";
 
 const Page = async ({ params, searchParams }: PageProps) => {
-  const { show, buyNow } = await searchParams
+  const sP = await searchParams
+  const { show, buyNow, error, message, promoApplied, cartId: paramCartId } = sP
   const showBilling = show?.length > 0
-  const cartId = (await cookies()).get("cartId")?.value;
+  const cartId = paramCartId ?? (await cookies()).get("cartId")?.value;
   if (!cartId && !buyNow) {
     logger.error("No Shopping Cart Found");
     return redirect("/");
   }
 
   const resolveCart = async () => {
-    if (buyNow) {
+    if (buyNow && !paramCartId) {
       return callCreateCart({ order: { lineItems: [{ catalogObjectId: buyNow, quantity: "1" }] } })
     } else {
       return callGetCart(cartId)
@@ -41,10 +42,16 @@ const Page = async ({ params, searchParams }: PageProps) => {
   }
 
   const { taxes, subtotal, discounts, shipping } = {
-    subtotal: order.netAmountDueMoney?.amount ?? 0,
-    discounts: order.totalDiscountMoney?.amount ?? 0,
-    shipping: order.serviceCharges?.find(service => service.name === 'shipping')?.amountMoney?.amount ?? 0,
-    taxes: order.totalTaxMoney?.amount ?? 0
+    subtotal: Number(order.totalMoney?.amount ?? 0),
+    discounts: Number(order.totalDiscountMoney?.amount ?? 0),
+    shipping: Number(order.serviceCharges?.find(service => service.name === 'shipping')?.amountMoney?.amount ?? 0),
+    taxes: Number(order.totalTaxMoney?.amount ?? 0)
+  }
+
+  const urlSearchParams = new URLSearchParams({ ...sP })
+  const removeBilling = () => {
+    urlSearchParams.delete("show")
+    return urlSearchParams
   }
 
   return (
@@ -59,6 +66,7 @@ const Page = async ({ params, searchParams }: PageProps) => {
         className="w-commerce-commercecheckoutformcontainer"
       >
         <Input name="delete" value={String(buyNow !== undefined)} readOnly hidden />
+        <Input name="params" value={urlSearchParams.toString()} readOnly hidden />
         <Input name="cartId" value={order.id} readOnly hidden />
         <div className="w-commerce-commercelayoutcontainer w-container">
           <div className="w-commerce-commercelayoutmain">
@@ -204,7 +212,7 @@ const Page = async ({ params, searchParams }: PageProps) => {
             </div>
 
             <div className="w-commerce-commercecheckoutbillingaddresstogglewrapper my-8">
-              <Link href={!showBilling ? "?show=billing#billing" : "/checkout"} >
+              <Link href={!showBilling ? `?${new URLSearchParams({ ...sP, show: "billing" }).toString()}#billing` : `?${removeBilling().toString()}`} >
                 <Input
                   id="billing-address-toggle"
                   data-node-type="commerce-checkout-billing-address-toggle-checkbox"
@@ -389,12 +397,6 @@ const Page = async ({ params, searchParams }: PageProps) => {
                 <h4>Order Summary</h4>
               </div>
               <fieldset className="w-commerce-commercecheckoutblockcontent">
-                {/* <div className="w-commerce-commercecheckoutsummarylineitem">
-                <div>Subtotal</div>
-                <div className="flex gap-1">
-                  <Money number={subtotal} /> USD
-                </div>
-              </div> */}
                 <div
                   className="w-commerce-commercecheckoutordersummaryextraitemslist"
                   data-wf-collection="database.commerceOrder.extraItems"
@@ -405,15 +407,69 @@ const Page = async ({ params, searchParams }: PageProps) => {
                     <div />
                   </div>
                 </div>
-                <div className="w-commerce-commercecheckoutsummarylineitem">
-                  <div>Total</div>
-                  <div className="w-commerce-commercecheckoutsummarytotal">
+                <div className="w-commerce-commercecheckoutsummarylineitem text-sm">
+                  <div>Subtotal</div>
+                  <div className="">
                     <div className="flex gap-1">
                       <Money number={subtotal} /> USD
                     </div>
                   </div>
                 </div>
+                <div className="w-commerce-commercecheckoutsummarylineitem text-sm">
+                  <div>Shipping</div>
+                  <div className="">
+                    <div className="flex gap-1">
+                      <Money number={shipping} /> USD
+                    </div>
+                  </div>
+                </div>
+                <div className="w-commerce-commercecheckoutsummarylineitem text-sm">
+                  <div>Discounts</div>
+                  <div className="">
+                    <div className="flex gap-1">
+                      <Money number={discounts} /> USD
+                    </div>
+                  </div>
+                </div>
+                <div className="w-commerce-commercecheckoutsummarylineitem text-sm">
+                  <div>Taxes</div>
+                  <div className="">
+                    <div className="flex gap-1">
+                      <Money number={taxes} /> USD
+                    </div>
+                  </div>
+                </div>
+                <Divider className="border-b mb-2" />
+                <div className="w-commerce-commercecheckoutsummarylineitem font-bold">
+                  <div>Total</div>
+                  <div className="w-commerce-commercecheckoutsummarytotal">
+                    <div className="flex gap-1">
+                      <Money number={subtotal + taxes + shipping - discounts} /> USD
+                    </div>
+                  </div>
+                </div>
               </fieldset>
+            </div>
+            <div className="my-4">
+              <div className="flex items-center bg-white text-black h-12 mb-2">
+                <Input
+                  name="promo"
+                  placeholder="Coupon code"
+                  className="flex-4 pl-2 h-full border border-gray-300"
+                />
+                <button
+                  type="submit"
+                  className="bg-black text-white flex-1 h-full flex justify-center items-center"
+                >
+                  Apply
+                </button>
+              </div>
+              {error === "promo" && (
+                <div className="text-red-600 text-sm ml-2">{message}</div>
+              )}
+              {promoApplied && (
+                <div className="text-green-600 text-sm ml-2">Coupon applied successfully.</div>
+              )}
             </div>
             <WebPaymentForm formId="paymentForm" transactionId={order.id} value={Number(subtotal)} />
             <div

@@ -40,13 +40,13 @@ function PostHogPageView() {
     const trackedValues = trackedScrollValues.current
 
     if (pathname && posthog) {
-      let url = window.origin + pathname
-      if (searchParams.toString()) {
-        url = url + `?${searchParams.toString()}`
-      }
+      const fullUrl = window.origin + url
+      // if (searchParams.toString()) {
+      //   url = url + `?${searchParams.toString()}`
+      // }
 
-      track("page scroll", { path: pathname, ...trackedValues });
-      console.log('left_page captured', posthog.capture('$pageview', { $current_url: url, ...trackedValues }))
+      console.log("page view track vercel", track("$pageview", { path: pathname, ...trackedValues }));
+      console.log('left_page captured', posthog.capture('$pageview', { $current_url: fullUrl, ...trackedValues }))
 
       // reset trackedValues
       trackedScrollValues.current = initScrollValues

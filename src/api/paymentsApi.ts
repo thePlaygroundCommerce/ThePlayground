@@ -4,11 +4,11 @@ import { redirect } from "next/navigation";
 import logger from "@/util/logger";
 import { callGetCart } from "./cartApi";
 import { revalidatePath } from "next/cache";
-import { Square as client } from "./clients";
 import { randomUUID } from "crypto";
-import { Address } from "square";
+import { Address, Order, OrderLineItemDiscount } from "square";
 import { Country } from "square";
 import { cookies } from "next/headers";
+import { square } from "./clients";
 
 type CheckoutAddress = {
   name?: string;
@@ -78,13 +78,13 @@ const processPayment = async ({
     return redirect("/");
   }
 
-  const payment = await client.orders
+  const payment = await square.orders
     .update({
       orderId: order.id ?? "",
       order: { ...order, state: "OPEN" },
     })
     .then(() =>
-      client.payments
+      square.payments
         .create({
           idempotencyKey: randomUUID(),
           sourceId: token,
@@ -98,7 +98,7 @@ const processPayment = async ({
     );
 
   if (payment?.status === "COMPLETED") {
-    deleteCookie && (await cookies()).delete("cartId")
+    deleteCookie && (await cookies()).delete("cartId");
     revalidatePath("/", "layout");
     redirect(`/checkout/${payment.orderId}?paymentId=${payment.id}`);
   }
@@ -108,12 +108,34 @@ const processPayment = async ({
 };
 
 const payForm = async (formData: FormData): Promise<void> => {
+  let redirectUrl = "/checkout";
+  let params = new URLSearchParams(getField(formData, "params"));
+
+  const promoCode = getField(formData, "promo");
+  const cartId = getField(formData, "cartId");
+
+  promoCode
+    ? await applyDiscount(promoCode, cartId)
+        .then((order) => {
+          params.append("cartId", order.id);
+          revalidatePath(redirectUrl);
+        })
+        .catch((err) => {
+          console.log(err);
+          params.append("error", "promo");
+          params.append("messsage", err.message);
+        })
+    : await checkout(formData, cartId);
+
+  redirect(`${redirectUrl}?${params.toString()}`);
+};
+
+const checkout = async (formData: FormData, cartId: string) => {
   const token = getField(formData, "token");
   const buyerEmailAddress = getField(formData, "email");
-  const cartId = getField(formData, "cartId");
   const deleteCookie = Boolean(getField(formData, "delete"));
 
-  if (!token && !cartId) return;
+  if (!token && !cartId) throw Error("Token or cart missing!");
 
   const shippingAddress = toSquareAddress({
     name: getField(formData, "name"),
@@ -125,7 +147,7 @@ const payForm = async (formData: FormData): Promise<void> => {
     country: getField(formData, "address_country"),
   });
 
-  if (!shippingAddress) return;
+  if (!shippingAddress) throw Error("Shipping missing!");
 
   const billingName = getField(formData, "billing_name");
   const billingAddressLine1 = getField(formData, "billing_address_line1");
@@ -169,5 +191,51 @@ const payForm = async (formData: FormData): Promise<void> => {
     billingAddress,
   });
 };
+
+async function applyDiscount(promo: string, cartId: string): Promise<Order> {
+  const promoCode = promo.trim();
+  const cartIdValue = cartId.trim();
+  const { order } = await square.orders.get({
+    orderId: cartIdValue,
+  });
+
+  if (!order) throw Error("Order not found!");
+
+  const { objects = [] } = await square.catalog.search({
+    objectTypes: ["DISCOUNT"],
+    query: {
+      exactQuery: {
+        attributeName: "name",
+        attributeValue: promoCode,
+      },
+    },
+  });
+
+  const matched = objects.find(
+    (o: any) =>
+      (o?.discountData?.name ?? "").toLowerCase() === promoCode.toLowerCase(),
+  );
+
+  if (!matched) throw Error("Discount not found!");
+
+  const discountCatalogId = matched.id;
+  const existingDiscounts = order.discounts ?? [];
+  const newDiscount: OrderLineItemDiscount = {
+    catalogObjectId: discountCatalogId,
+    scope: "ORDER",
+  };
+
+  const { order: result, errors = [] } = await square.orders.update({
+    orderId: order.id,
+    order: {
+      ...order,
+      discounts: [...existingDiscounts, newDiscount],
+    },
+  });
+
+  if (errors[0]) throw new Error(errors[0].detail);
+
+  return result;
+}
 
 export { payForm };
