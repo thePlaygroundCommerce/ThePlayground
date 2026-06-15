@@ -14,6 +14,24 @@ const Layout = async ({ children }: LayoutProps<"/">) => {
         "ITEM,IMAGE,CATEGORY,ITEM_OPTION"
     );
 
+    const footerNavs = [
+        {
+            id: "about",
+            link: "/about",
+            title: "About"
+        },
+        {
+            id: "contact",
+            link: "/contact",
+            title: "Contact Us"
+        },
+        {
+            id: "blog",
+            link: "/log",
+            title: "News & Stories"
+        },
+    ]
+
     // const { headerNavs, footerNavs } = await getMainNavigation();
 
     // const mappedCatalogObjects = mapArrayToMap([...apparelObjects, ...relatedObjects]);
@@ -24,7 +42,7 @@ const Layout = async ({ children }: LayoutProps<"/">) => {
             {/* <div className="h-screen col-span-full row-start-1 row-end-[span_2]" /> */}
 
             <Providers data={apparelObjects} cartData={{ _cart: { locationId: ""}, _options: [] }} cartImageMap={{}}>
-                <LayoutComponent navs={{ headerNavs: [], footerNavs: [] }}>
+                <LayoutComponent navs={{ headerNavs: [], footerNavs }}>
                     {children}
                 </LayoutComponent>
             </Providers>

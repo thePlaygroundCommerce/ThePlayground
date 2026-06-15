@@ -88,28 +88,28 @@ async function Footer({ navs }: Props) {
     </footer>
   );
 
-  return (
-    <footer className="border-t border-gray-300 grid md:grid-cols-2 grid-cols-1 w-full p-4">
+  // return (
+  //   <footer className="border-t border-gray-300 grid md:grid-cols-2 grid-cols-1 w-full p-4">
 
-      <div className="w-full py-4">
-        <div className="">
-          {navs.map(renderLink)}
-        </div>
-      </div>
-      <div className="p-4 w-full">
-        <div className="flex justify-center">
-          <div className="min-w-1 min-h-6 relative">
-            <Link href="/">
-              <LogoComponent className="w-full" />
-            </Link>
-          </div>
-        </div>
-        <div className="w-48 m-auto mt-4">
-          <SocialMediaButtons align="around" />
-        </div>
-      </div>
-    </footer>
-  );
+  //     <div className="w-full py-4">
+  //       <div className="">
+  //         {navs.map(renderLink)}
+  //       </div>
+  //     </div>
+  //     <div className="p-4 w-full">
+  //       <div className="flex justify-center">
+  //         <div className="min-w-1 min-h-6 relative">
+  //           <Link href="/">
+  //             <LogoComponent className="w-full" />
+  //           </Link>
+  //         </div>
+  //       </div>
+  //       <div className="w-48 m-auto mt-4">
+  //         <SocialMediaButtons align="around" />
+  //       </div>
+  //     </div>
+  //   </footer>
+  // );
 }
 
 export default Footer;
