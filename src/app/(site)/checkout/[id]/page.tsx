@@ -12,14 +12,14 @@ import { latoHeavy } from "@/app/fonts";
 import clsx from "clsx";
 import { Simplify } from "prismicio-types";
 import { PageProps } from "index";
-import { Square } from "@/api/clients";
+import { square } from "@/api/clients";
 import Money from "@/components/Money";
 
 const Page = async ({ params, searchParams }: PageProps) => {
   const cks = await cookies();
   const { id } = await params;
   const { paymentId } = await searchParams;
-  const [{ order: order, imageMap, options }, { payment }] = await Promise.all([callGetCart(id), (await Square.payments.get({ paymentId }))])
+  const [{ order: order, imageMap, options }, { payment }] = await Promise.all([callGetCart(id), (await square.payments.get({ paymentId }))])
 
   if (!order || (order?.tenders ?? []).length === 0) {
     return redirect("/")
