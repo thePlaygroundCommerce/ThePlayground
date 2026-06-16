@@ -22,7 +22,7 @@ export function PostHogProvider({ children }: AppProps) {
 function PostHogPageView() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const [prevPath, setPrevPath] = useState(pathname + searchParams)
+  const [prevPath, setPrevPath] = useState("")
   const posthog = usePostHog()
   const initScrollValues = {
     'max scroll percentage': 0,
@@ -38,23 +38,32 @@ function PostHogPageView() {
   useEffect(() => {
     const url = pathname + searchParams
     const trackedValues = trackedScrollValues.current
+    const fullUrl = window.origin + url
 
     if (pathname && posthog) {
-      const fullUrl = window.origin + url
       // if (searchParams.toString()) {
       //   url = url + `?${searchParams.toString()}`
       // }
 
-      console.log("page view track vercel", track("$pageview", { path: pathname, ...trackedValues }));
-      console.log('left_page captured', posthog.capture('$pageview', { $current_url: fullUrl, ...trackedValues }))
+      track("$pageview", { path: pathname, ...trackedValues })
+      posthog.capture('$pageview', { $current_url: fullUrl, ...trackedValues, path: pathname })
 
       // reset trackedValues
       trackedScrollValues.current = initScrollValues
-      setPrevPath(pathname)
+      if (prevPath && (pathname !== prevPath)) {
+        track("$pageleave", { path: pathname, ...trackedValues });
+        posthog.capture('$pageleave', { $current_url: fullUrl, ...trackedValues, path: pathname })
+        setPrevPath(pathname)
+      }
+
+      trackedScrollValues.current = initScrollValues
     }
+
 
   }, [pathname, searchParams, posthog])
 
+
+  // track pageleaves
   useEffect(() => {
     const main = document.querySelector<HTMLElement>('main')
     const trackedValues = trackedScrollValues.current
@@ -91,7 +100,9 @@ function PostHogPageView() {
 
     }
 
-    const handlePageleave = () => {
+    const handlePageleave = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+
       track('page_leave', { path: pathname, ...trackedValues })
       console.log('pageleave captured', posthog.capture('$pageleave', trackedValues), trackedValues)
     }

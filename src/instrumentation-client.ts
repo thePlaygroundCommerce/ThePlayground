@@ -5,7 +5,7 @@ posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
   api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
   ui_host: process.env.NEXT_PUBLIC_POSTHOG_UI_HOST,
   capture_pageview: false,
-  capture_pageleave: false,
+  capture_pageleave: "if_capture_pageview",
   // loaded: (ph) => {
   //   ph.opt_out_capturing(); // opts a user out of event capture
   //   ph.set_config({ disable_session_recording: true });

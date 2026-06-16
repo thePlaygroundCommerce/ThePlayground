@@ -16,7 +16,6 @@ import { square } from "@/api/clients";
 import Money from "@/components/Money";
 
 const Page = async ({ params, searchParams }: PageProps) => {
-  const cks = await cookies();
   const { id } = await params;
   const { paymentId } = await searchParams;
   const [{ order: order, imageMap, options }, { payment }] = await Promise.all([callGetCart(id), (await square.payments.get({ paymentId }))])
