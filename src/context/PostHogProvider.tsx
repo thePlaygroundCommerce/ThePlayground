@@ -49,7 +49,6 @@ function PostHogPageView() {
       posthog.capture('$pageview', { $current_url: fullUrl, ...trackedValues, path: pathname })
 
       // reset trackedValues
-      trackedScrollValues.current = initScrollValues
       if (prevPath && (pathname !== prevPath)) {
         track("$pageleave", { path: pathname, ...trackedValues });
         posthog.capture('$pageleave', { $current_url: fullUrl, ...trackedValues, path: pathname })
