@@ -36,7 +36,7 @@ function PostHogPageView() {
 
   // Track pageviews
   useEffect(() => {
-    const url = pathname + searchParams
+    const url = `${pathname}?${searchParams}`
     const trackedValues = trackedScrollValues.current
     const fullUrl = window.origin + url
 
