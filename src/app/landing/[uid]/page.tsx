@@ -68,31 +68,31 @@ export default async function Page({ params }) {
                 <div className=" flex flex-col gap-2 items-center ">
                   {buyNow}
                   <div className="text-xs uppercase">
-                    <p>use code HG25 for 20% off</p>
+                    <p>use code PLAY10 for 10% off</p>
                   </div>
                 </div>
               </div>
               <div className="px-8 py-2 md:hidden">
                 <div className="h-.5 rounded border mx-auto bg-black" />
               </div>
-              <div className="flex justify-center py-2 gap-4 md:gap-12">
-                <div className="flex flex-col items-center text-center">
+              <div className="flex justify-center py-2 gap-4 md:gap-24">
+                <div className="flex flex-col grow-0 shrink items-center text-center">
                   <div className="size-12 overflow-hidden relative mb-2">
                     <Image src={"/handshake.png"} alt={""} />
                   </div>
-                  <p>Mouthwatering<br />Flavors</p>
+                  <p>Quality<br />Guaranteed</p>
                 </div>
-                <div className="flex flex-col items-center text-center">
+                <div className="flex flex-col grow-0 shrink items-center text-center">
                   <div className="size-12 overflow-hidden relative mb-2">
                     <Image src={"/feather.png"} alt={""} />
                   </div>
-                  <p>Mouthwatering<br />Flavors</p>
+                  <p>Light & Compact<br />Design</p>
                 </div>
-                <div className="flex flex-col items-center text-center">
+                <div className="flex flex-col grow-0 shrink items-center text-center">
                   <div className="size-12 overflow-hidden relative mb-2">
                     <Image src={"/security.png"} alt={""} />
                   </div>
-                  <p>Mouthwatering<br />Flavors</p>
+                  <p>Zero Questions<br />Return</p>
                 </div>
               </div>
             </div>
