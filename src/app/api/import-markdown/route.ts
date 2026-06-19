@@ -8,9 +8,7 @@ import prismic, { repositoryName } from "@/api/clients/prismicio";
 
 export async function POST(req: Request) {
   const writeClient = prismic.createWriteClient(repositoryName, {
-    // process.env.PRISMIC_WRITE_TOKEN,
-    writeToken:
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoibWFjaGluZTJtYWNoaW5lIiwiZGJpZCI6InRoZXBsYXlncm91bmRtZWRpYS04YTg3Yzc4My01OThiLTQyNDgtOWNjYy1hMDQxYTUzNGY5ZjJfNCIsImRhdGUiOjE3ODE3NjIzNjQsImRvbWFpbiI6InRoZXBsYXlncm91bmRtZWRpYSIsImFwcE5hbWUiOiJUaGUgUGxheWdyb3VuZCIsImlhdCI6MTc4MTc2MjM2NH0.DdHTObl5dJiAC1D5YWbRGdH16NulttctiNwTkk_dhRk",
+    writeToken: process.env.PRISMIC_WRITE_TOKEN,
   });
   const migration = prismic.createMigration();
 
