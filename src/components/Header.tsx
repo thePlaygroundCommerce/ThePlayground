@@ -1,7 +1,6 @@
 import { Nav } from "@/app/layout";
 import { AppProps } from "index";
 import { ReactElement } from "react";
-
 import Navbar from "./Navbar";
 
 type Props = AppProps & {
@@ -9,20 +8,15 @@ type Props = AppProps & {
   logo: ReactElement;
 };
 
-function Header() {
+function Header({ children }) {
   return (
-    <div
-      data-collapse="medium"
-      data-animation="default"
-      data-duration="400"
-      data-easing="ease"
-      data-easing2="ease"
-      role="banner"
+    <header
       className="k-navbar w-nav overflow-hidden flex-1"
     >
-      <Navbar />
+      {children}
+      {/* <Navbar /> */}
       <div id="headerOverlay" className="flex-1 relative" />
-    </div>
+    </header>
   );
 }
 

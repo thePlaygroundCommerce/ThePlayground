@@ -61,7 +61,7 @@ const Page = async ({ params }: PageProps) => {
       )}
       {sections.map(({ heading, paragraph, table, includeDividers }, i, arr) => {
         const id = tableOfContents[i]?.id || `section-${i + 1}`
-        console.log(isFilled.table(table), heading)
+        // console.log(isFilled.table(table), heading)
         return (
           <Fragment key={`section${i}`}>
             <div className="scroll-mt-24">

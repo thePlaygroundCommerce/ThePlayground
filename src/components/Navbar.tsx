@@ -18,6 +18,7 @@ const Navbar = (props: Props) => {
                     >
                         <div>play.</div>
                     </Link>
+                    
                     <Hamburger />
 
                 </div>

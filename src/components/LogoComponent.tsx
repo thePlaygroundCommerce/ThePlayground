@@ -8,8 +8,9 @@ const LogoComponent = async ({ className }: AppProps) => {
 
   return (
     <Image
-      // src={""}
+      src={"/playground_logo.png"}
       alt={"The Playground Logo"}
+      fill={false}
       width={1080}
       height={1080}
       className="w-44"

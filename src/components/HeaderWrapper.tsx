@@ -3,14 +3,24 @@
 import { AppProps } from "index";
 import clsx from "clsx";
 import { useUIKit } from "@/context/UIKitContext";
+import { ReactNode } from "react";
 
 
 type Props = AppProps
 
 function HeaderWrapper({ className, children }: Props) {
-  const { portals } = useUIKit()
+  let portals: {
+    id: string;
+    node: ReactNode;
+    container?: Element;
+  }[];
+
+  try {
+    portals = useUIKit().portals
+  } catch (error) {}
+
   const targetOverlay = "headerOverlay"
-  const isOverlayActive = portals.some(({ id }) => id === targetOverlay)
+  const isOverlayActive = portals?.some(({ id }) => id === targetOverlay)
 
   return (
     <div
