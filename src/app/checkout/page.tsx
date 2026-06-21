@@ -19,9 +19,12 @@ import Back from "@/components/Back";
 
 const Page = async ({ params, searchParams }: PageProps) => {
   const sP = await searchParams
-  const { show, buyNow, error, message, promoApplied, cartId: paramCartId } = sP
+  const { show, buyNow, error, success, message, cartId: paramCartId, from } = sP
   const showBilling = show?.length > 0
   const cartId = paramCartId ?? (await cookies()).get("cartId")?.value;
+
+  const successKeys = success?.split(',') ?? [];
+
   if (!cartId && !buyNow) {
     logger.error("No Shopping Cart Found");
     return redirect("/");
@@ -468,7 +471,7 @@ const Page = async ({ params, searchParams }: PageProps) => {
               {error === "promo" && (
                 <div className="text-red-600 text-sm ml-2">{message}</div>
               )}
-              {promoApplied && (
+              {successKeys.includes("promo") && (
                 <div className="text-green-600 text-sm ml-2">Coupon applied successfully.</div>
               )}
             </div>
@@ -500,7 +503,7 @@ const Page = async ({ params, searchParams }: PageProps) => {
                 </div>
               </div>
             </div>
-            <Back className="p-3 cursor-pointer bg-gray-200 rounded w-full" >Continue Shopping</Back>
+            <Back className="p-3 cursor-pointer bg-gray-200 rounded w-full" link={from} >Continue Shopping</Back>
           </div>
         </div>
       </Form>

@@ -11,6 +11,7 @@ import Image from "@/components/Image";
 import Button from "@/components/Button";
 import Link from "next/link";
 import { CatalogObject } from "square";
+import Money from "@/components/Money";
 
 type LANDING_URL = "/landing/[uid]"
 
@@ -32,19 +33,26 @@ export default async function Page({ params }) {
     .then(({ slug, ...rest }) => getProductDetails({ slug }).then((data) => ({ data, ...rest }))
     )
     .then(({ sliceZone, title, description, data: { filteredRelatedImages, catalogObject }, quick_points }) => {
+      const price = ((catalogObject as CatalogObject.Item).itemData.variations[0] as CatalogObject.ItemVariation).itemVariationData.priceMoney.amount
+      
       const headAndCaption = (
         <div className="p-4">
+          <div
+            data-wf-sku-bindings="%5B%7B%22from%22%3A%22f_price_%22%2C%22to%22%3A%22innerHTML%22%7D%5D"
+          // className="k-product-price"
+          >
+            <Money className="font-medium text-xl " number={price} />
+          </div>
           <h1 className="mb-2 p-0 font-black text-3xl">{title}</h1>
           <p className="text-lg">{description}</p>
         </div>
       )
 
       const buyNow = (
-        <Link href={`/checkout?buyNow=${(catalogObject as CatalogObject.Item).itemData.variations[0].id}`} className="px-4 w-full md:w-3/4 mx-auto">
+        <Link href={`/checkout?buyNow=${(catalogObject as CatalogObject.Item).itemData.variations[0].id}&from=/landing/${uid}`} className="px-4 w-full md:w-3/4 mx-auto">
           <Button className="border rounded-full p-4 gradient_mesh text-white w-full k-btn ">Buy Now</Button>
         </Link>
       )
-
 
       return (
         <>

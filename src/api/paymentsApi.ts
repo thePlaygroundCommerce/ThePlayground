@@ -118,6 +118,7 @@ const payForm = async (formData: FormData): Promise<void> => {
     ? await applyDiscount(promoCode, cartId)
         .then((order) => {
           params.append("cartId", order.id);
+          params.append("success", "promo");
           revalidatePath(redirectUrl);
         })
         .catch((err) => {

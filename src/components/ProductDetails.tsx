@@ -6,16 +6,8 @@ import withProductModifiers, {
   Selectors,
   WithProductModifiersProps,
 } from "@/hocs/withProductModifiers";
-import Button from "./Button";
 import { ReactNode } from "react";
-import Rating from "./Rating";
-import Modal from "./Modal";
 import Selector from "./ColorSelector";
-import { BsArrowDownLeftCircle } from "react-icons/bs";
-import AddToCart from "./forms/AddToCart";
-import { FaRegCheckCircle } from "react-icons/fa";
-import { FaCircleCheck } from "react-icons/fa6";
-import Link from "next/link";
 
 export type ProductDetailsProps = {
   price: number
