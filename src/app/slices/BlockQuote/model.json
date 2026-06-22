@@ -1,0 +1,16 @@
+{
+  "id": "block_quote",
+  "type": "SharedSlice",
+  "name": "BlockQuote",
+  "description": "BlockQuote",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": ""
+    }
+  ]
+}

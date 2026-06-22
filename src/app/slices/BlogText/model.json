@@ -1,0 +1,16 @@
+{
+  "id": "blog_text",
+  "type": "SharedSlice",
+  "name": "BlogText",
+  "description": "BlogText",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": ""
+    }
+  ]
+}
