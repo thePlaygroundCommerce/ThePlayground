@@ -22,6 +22,10 @@ const routes: prismic.ClientConfig["routes"] = [
     type: "product_landing_page",
     path: "/landing/:uid",
   },
+  {
+    type: "blog_post",
+    path: "/log/:uid",
+  },
 ];
 
 /**

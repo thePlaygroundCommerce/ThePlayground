@@ -4,15 +4,19 @@ import dynamic from "next/dynamic";
 
 export const components = {
   benefits_callout: dynamic(() => import("./BenefitsCallout")),
+  block_quote: dynamic(() => import("./BlockQuote")),
+  blog_text: dynamic(() => import("./BlogText")),
   drop_list: dynamic(() => import("./DropList")),
   faq_accordion: dynamic(() => import("./FaqAccordion")),
   featured_categories: dynamic(() => import("./FeaturedCategories")),
   header: dynamic(() => import("./Header")),
   hero: dynamic(() => import("./Hero")),
   hero_2: dynamic(() => import("./ProductShowcase")),
+  image: dynamic(() => import("./Image")),
   newsletter: dynamic(() => import("./Newsletter")),
   sliders: dynamic(() => import("./Sliders")),
   social_media_links: dynamic(() => import("./SocialMediaLinks")),
   testimonial_gallery: dynamic(() => import("./TestimonialGallery")),
+  video: dynamic(() => import("./Video")),
   window_panels: dynamic(() => import("./WindowPanels")),
 };
