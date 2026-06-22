@@ -144,11 +144,10 @@ export async function POST(req: Request) {
 
   try {
     // Custom migration code will go here...
+    const migration = prismic.createMigration();
     const prismicJson = await parseAndTransform(content);
 
-    return Response.json(prismicJson);
-
-    const document = prismic.createMigration().createDocument(
+    const document = migration.createDocument(
       {
         type: "blog_post",
         // For some document types, `uid` can be optional,
@@ -162,6 +161,7 @@ export async function POST(req: Request) {
           headline: "",
           image: undefined,
           slices: [],
+          slices2: [],
           meta_title: data.title,
           meta_description: data.excerpt,
           meta_image: undefined,
