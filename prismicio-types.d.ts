@@ -125,7 +125,33 @@ export interface BlogPostDocumentDataSectionsItem {
    * - **Documentation**: https://prismic.io/docs/fields/boolean
    */
   includeDividers: prismic.BooleanField;
+
+  /**
+   * video field in *Blog Post → sections*
+   *
+   * - **Field Type**: Embed
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog_post.sections[].video
+   * - **Documentation**: https://prismic.io/docs/fields/embed
+   */
+  video: prismic.EmbedField;
+
+  /**
+   * blockquote field in *Blog Post → sections*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog_post.sections[].blockquote
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  blockquote: prismic.RichTextField;
 }
+
+type BlogPostDocumentDataSlices2Slice =
+  | VideoSlice
+  | BlockQuoteSlice
+  | ImageSlice
+  | BlogTextSlice;
 
 /**
  * Content for Blog Post documents
@@ -214,6 +240,17 @@ interface BlogPostDocumentData {
    * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
    */
   sections: prismic.GroupField<Simplify<BlogPostDocumentDataSectionsItem>>;
+
+  /**
+   * Slice Zone field in *Blog Post*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog_post.slices2[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/slices
+   */
+  slices2: prismic.SliceZone<BlogPostDocumentDataSlices2Slice>;
 }
 
 /**
@@ -292,6 +329,17 @@ type ComingSoonDocumentDataSlicesSlice = SocialMediaLinksSlice | HeroSlice;
  * Content for Coming Soon documents
  */
 interface ComingSoonDocumentData {
+  /**
+   * image field in *Coming Soon*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: coming_soon.image
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+
   /**
    * Slice Zone field in *Coming Soon*
    *
@@ -1240,6 +1288,66 @@ type BenefitsCalloutSliceVariation = BenefitsCalloutSliceDefault;
 export type BenefitsCalloutSlice = prismic.SharedSlice<
   "benefits_callout",
   BenefitsCalloutSliceVariation
+>;
+
+/**
+ * Default variation for BlockQuote Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type BlockQuoteSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Record<string, never>,
+  never
+>;
+
+/**
+ * Slice variation for *BlockQuote*
+ */
+type BlockQuoteSliceVariation = BlockQuoteSliceDefault;
+
+/**
+ * BlockQuote Shared Slice
+ *
+ * - **API ID**: `block_quote`
+ * - **Description**: BlockQuote
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type BlockQuoteSlice = prismic.SharedSlice<
+  "block_quote",
+  BlockQuoteSliceVariation
+>;
+
+/**
+ * Default variation for BlogText Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type BlogTextSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Record<string, never>,
+  never
+>;
+
+/**
+ * Slice variation for *BlogText*
+ */
+type BlogTextSliceVariation = BlogTextSliceDefault;
+
+/**
+ * BlogText Shared Slice
+ *
+ * - **API ID**: `blog_text`
+ * - **Description**: BlogText
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type BlogTextSlice = prismic.SharedSlice<
+  "blog_text",
+  BlogTextSliceVariation
 >;
 
 /**
@@ -2364,6 +2472,33 @@ type Hero2SliceVariation =
 export type Hero2Slice = prismic.SharedSlice<"hero_2", Hero2SliceVariation>;
 
 /**
+ * Default variation for Image Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ImageSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Record<string, never>,
+  never
+>;
+
+/**
+ * Slice variation for *Image*
+ */
+type ImageSliceVariation = ImageSliceDefault;
+
+/**
+ * Image Shared Slice
+ *
+ * - **API ID**: `image`
+ * - **Description**: Image
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ImageSlice = prismic.SharedSlice<"image", ImageSliceVariation>;
+
+/**
  * Primary content in *Newsletter → Default → Primary*
  */
 export interface NewsletterSliceDefaultPrimary {
@@ -2856,6 +2991,33 @@ export type TestimonialGallerySlice = prismic.SharedSlice<
 >;
 
 /**
+ * Default variation for Video Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type VideoSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Record<string, never>,
+  never
+>;
+
+/**
+ * Slice variation for *Video*
+ */
+type VideoSliceVariation = VideoSliceDefault;
+
+/**
+ * Video Shared Slice
+ *
+ * - **API ID**: `video`
+ * - **Description**: Video
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type VideoSlice = prismic.SharedSlice<"video", VideoSliceVariation>;
+
+/**
  * Primary content in *WindowPanels → Items*
  */
 export interface WindowPanelsSliceDefaultItem {
@@ -2990,6 +3152,7 @@ declare module "@prismicio/client" {
       BlogPostDocumentData,
       BlogPostDocumentDataSlicesSlice,
       BlogPostDocumentDataSectionsItem,
+      BlogPostDocumentDataSlices2Slice,
       CategorylinkDocument,
       CategorylinkDocumentData,
       ComingSoonDocument,
@@ -3034,6 +3197,12 @@ declare module "@prismicio/client" {
       BenefitsCalloutSliceDefaultPrimary,
       BenefitsCalloutSliceVariation,
       BenefitsCalloutSliceDefault,
+      BlockQuoteSlice,
+      BlockQuoteSliceVariation,
+      BlockQuoteSliceDefault,
+      BlogTextSlice,
+      BlogTextSliceVariation,
+      BlogTextSliceDefault,
       DropListSlice,
       DropListSliceDefaultPrimaryDropitemsItem,
       DropListSliceDefaultPrimary,
@@ -3069,6 +3238,9 @@ declare module "@prismicio/client" {
       Hero2SliceDefault,
       Hero2SliceStyle2,
       Hero2SliceStyle3,
+      ImageSlice,
+      ImageSliceVariation,
+      ImageSliceDefault,
       NewsletterSlice,
       NewsletterSliceDefaultPrimary,
       NewsletterSliceVariation,
@@ -3093,6 +3265,9 @@ declare module "@prismicio/client" {
       TestimonialGallerySliceDefaultPrimary,
       TestimonialGallerySliceVariation,
       TestimonialGallerySliceDefault,
+      VideoSlice,
+      VideoSliceVariation,
+      VideoSliceDefault,
       WindowPanelsSlice,
       WindowPanelsSliceDefaultItem,
       WindowPanelsSliceDoubledUpPrimary,

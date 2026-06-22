@@ -7,10 +7,14 @@ import * as cheerio from "cheerio";
 import prismic, { repositoryName } from "@/api/clients/prismicio";
 
 export async function POST(req: Request) {
+  if (!process.env.PRISMIC_WRITE_TOKEN)
+    return Response.json("Importing is to only be used by admins!", {
+      status: 500,
+    });
+
   const writeClient = prismic.createWriteClient(repositoryName, {
     writeToken: process.env.PRISMIC_WRITE_TOKEN,
   });
-  const migration = prismic.createMigration();
 
   const parseAndTransform = async (text: string) => {
     const htmlFromString = await marked.parse(text);
@@ -49,7 +53,6 @@ export async function POST(req: Request) {
 
       return { result: [tableData], warnings: [] };
     };
-
     $("div")
       .children()
       .each((_, element) => {
@@ -69,7 +72,20 @@ export async function POST(req: Request) {
         const transformed =
           tagName === "table"
             ? transformTable(element)
-            : htmlAsRichText($.html(element));
+            : htmlAsRichText($.html(element), {
+                serializer: {
+                  "blockquote p": ({ node }) => {
+                    return {
+                      type: "paragraph",
+                      text: "",
+                      spans: [],
+                      label: "blockquote",
+                    };
+                  },
+                },
+              });
+
+        console.log(transformed);
 
         // transformed.result.filter((a) => a.type === "paragraph")
 
@@ -92,7 +108,9 @@ export async function POST(req: Request) {
           arr.reduce(
             (acc, obj) => {
               if (["paragraph", "list-item"].includes(obj.type))
-                acc.paragraph.push(obj);
+                obj.label === "blockquote"
+                  ? acc.blockquote.push(obj)
+                  : acc.paragraph.push(obj);
               if (["heading2"].includes(obj.type)) acc.heading = obj.text;
               if (["image"].includes(obj.type)) {
                 const src = obj.url;
@@ -100,7 +118,7 @@ export async function POST(req: Request) {
                 const alt = obj.alt;
 
                 acc.image = obj;
-                acc.image.id = migration.createAsset(src, filename, alt);
+                // acc.image.id = migration.createAsset(src, filename, alt);
               }
 
               return acc;
@@ -108,6 +126,7 @@ export async function POST(req: Request) {
             {
               paragraph: [],
               heading: null,
+              blockquote: [],
               image: {},
               table: null,
               includeDividers: true,
@@ -121,10 +140,11 @@ export async function POST(req: Request) {
   };
 
   const text = await req.text();
-  const { data, content } = matter(text);
+  const { data, content } = matter(text, {});
 
   try {
     // Custom migration code will go here...
+    const migration = prismic.createMigration();
     const prismicJson = await parseAndTransform(content);
 
     const document = migration.createDocument(
@@ -141,6 +161,7 @@ export async function POST(req: Request) {
           headline: "",
           image: undefined,
           slices: [],
+          slices2: [],
           meta_title: data.title,
           meta_description: data.excerpt,
           meta_image: undefined,

@@ -9,6 +9,9 @@ import Divider from "@/components/Divider";
 import { Fragment } from "react";
 import { BlogPostDocument } from "prismicio-types";
 import { isFilled } from "@prismicio/client";
+import logger from "@/util/logger";
+import { PrismicNextImage } from "@prismicio/next";
+import _ from "lodash";
 
 const Page = async ({ params }: PageProps) => {
   let blog: BlogPostDocument<string>;
@@ -17,11 +20,11 @@ const Page = async ({ params }: PageProps) => {
   try {
     blog = await client.getByUID('blog_post', uid)
   } catch {
-    // log error - mising blog with uid
+    logger.error("Missing blog with uid %s", uid)
     redirect("/log")
   }
 
-  const { sections, title, headline } = blog.data
+  const { sections, title, headline, image } = blog.data
 
   const slugify = (text: string | undefined, index: number) =>
     (text || `section-${index + 1}`)
@@ -49,26 +52,43 @@ const Page = async ({ params }: PageProps) => {
             day: "numeric",
           })}</p>
         </div>
-        <div className="relative aspect-square">
-          <Image alt="" />
+        <div className="relative">
+          <PrismicNextImage field={image} alt="" />
         </div>
-        <Heading>{headline}</Heading>
+        <p className="italic text-gray-400 w-3/4 mx-auto text-center">{headline}</p>
       </div>
       {tableOfContents.length > 0 && (
         <div className="w-3/4 mx-auto my-12">
           <BlogTableOfContents items={tableOfContents} />
         </div>
       )}
-      {sections.map(({ heading, paragraph, table, includeDividers }, i, arr) => {
+      {sections.map(({ heading, paragraph, table, includeDividers, blockquote, image, video }, i, arr) => {
         const id = tableOfContents[i]?.id || `section-${i + 1}`
-        // console.log(isFilled.table(table), heading)
+
+        const img = isFilled.image(image) && <PrismicNextImage field={image} />
+        const vid = isFilled.embed(video) && (
+          <div style={{ position: "relative", paddingTop: "56.25%" }}>
+            <iframe src={video.embed_url} loading="lazy" style={{ border: 0, position: "absolute", top: 0, height: "100%", width: "100%" }} allow="accelerometer; gyroscope; autoplay; encrypted- media;picture-in-picture;fullscreen;" allowFullScreen />
+          </div>
+        )
+
         return (
           <Fragment key={`section${i}`}>
             <div className="scroll-mt-24">
               <Heading id={id} level={2} className="mb-2">{heading}</Heading>
+              {img || vid}
               <div className="max-w-4/5 text-lg tracking-wider inline-block">
                 <PrismicRichText components={{
-                  paragraph: ({ children }) => <p className="my-4">{children}</p>,
+                  paragraph: ({ node, children }) => {
+                    if (!_.isEmpty(blockquote)) {
+                      return (
+                        <blockquote className="my-4">{children}</blockquote>
+                      )
+                    }
+                    // Fallback to a normal paragraph tag
+                    return <p className="my-4">{children}</p>;
+
+                  },
                   list: ({ children }) => <ul className="list-none space-y-3 pl-4 my-6">{children}</ul>,
                   oList: ({ children }) => <ol className="list-none space-y-3 pl-4 my-6">{children}</ol>,
                   listItem: ({ children }) => (
@@ -76,7 +96,8 @@ const Page = async ({ params }: PageProps) => {
                       {children}
                     </li>
                   ),
-                }} field={paragraph} />
+                  // hyperlink
+                }} field={!_.isEmpty(blockquote) ? blockquote : paragraph} />
               </div>
               {table && (
                 <div className="max-w-4/5">
@@ -90,7 +111,7 @@ const Page = async ({ params }: PageProps) => {
           </Fragment>
         )
       })}
-    </div>
+    </div >
   );
 };
 

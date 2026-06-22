@@ -100,7 +100,6 @@ function PostHogPageView() {
     }
 
     const handlePageleave = (e: BeforeUnloadEvent) => {
-      e.preventDefault();
 
       track('page_leave', { path: pathname, ...trackedValues })
       console.log('pageleave captured', posthog.capture('$pageleave', trackedValues), trackedValues)

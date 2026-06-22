@@ -80,7 +80,7 @@
   "devDependencies": {
     "@eslint/compat": "^1.1.0",
     "@eslint/js": "^9.6.0",
-    "@slicemachine/adapter-next": "^0.3.95",
+    "@slicemachine/adapter-next": "^0.3.96",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@types/geojson": "^7946.0.16",
@@ -97,7 +97,7 @@
     "jest": "^30.4.2",
     "jest-environment-jsdom": "^30",
     "postcss": "^8.5.12",
-    "slice-machine-ui": "^2.21.2",
+    "slice-machine-ui": "^2.21.3",
     "ts-jest": "^29.4.11",
     "typescript-eslint": "^7.14.1"
   },
