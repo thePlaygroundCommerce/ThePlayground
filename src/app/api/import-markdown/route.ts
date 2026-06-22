@@ -7,6 +7,11 @@ import * as cheerio from "cheerio";
 import prismic, { repositoryName } from "@/api/clients/prismicio";
 
 export async function POST(req: Request) {
+  if (!process.env.PRISMIC_WRITE_TOKEN)
+    return Response.json("Importing is to only be used by admins!", {
+      status: 500,
+    });
+
   const writeClient = prismic.createWriteClient(repositoryName, {
     writeToken: process.env.PRISMIC_WRITE_TOKEN,
   });
@@ -103,7 +108,9 @@ export async function POST(req: Request) {
           arr.reduce(
             (acc, obj) => {
               if (["paragraph", "list-item"].includes(obj.type))
-                obj.label === "blockquote" ? acc.blockquote.push(obj) : acc.paragraph.push(obj);
+                obj.label === "blockquote"
+                  ? acc.blockquote.push(obj)
+                  : acc.paragraph.push(obj);
               if (["heading2"].includes(obj.type)) acc.heading = obj.text;
               if (["image"].includes(obj.type)) {
                 const src = obj.url;
