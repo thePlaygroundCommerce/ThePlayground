@@ -148,9 +148,9 @@ export interface BlogPostDocumentDataSectionsItem {
 }
 
 type BlogPostDocumentDataSlices2Slice =
-  | VideoSlice
+  | BlogTableSlice
+  | BlogMediaSlice
   | BlockQuoteSlice
-  | ImageSlice
   | BlogTextSlice;
 
 /**
@@ -1291,6 +1291,21 @@ export type BenefitsCalloutSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Primary content in *BlockQuote → Default → Primary*
+ */
+export interface BlockQuoteSliceDefaultPrimary {
+  /**
+   * quote field in *BlockQuote → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: block_quote.default.primary.quote
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  quote: prismic.RichTextField;
+}
+
+/**
  * Default variation for BlockQuote Slice
  *
  * - **API ID**: `default`
@@ -1299,7 +1314,7 @@ export type BenefitsCalloutSlice = prismic.SharedSlice<
  */
 export type BlockQuoteSliceDefault = prismic.SharedSliceVariation<
   "default",
-  Record<string, never>,
+  Simplify<BlockQuoteSliceDefaultPrimary>,
   never
 >;
 
@@ -1321,6 +1336,136 @@ export type BlockQuoteSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Item in *BlogMedia → Default → Primary → group*
+ */
+export interface BlogMediaSliceDefaultPrimaryGroupItem {
+  /**
+   * image field in *BlogMedia → Default → Primary → group*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog_media.default.primary.group[].image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * embed field in *BlogMedia → Default → Primary → group*
+   *
+   * - **Field Type**: Embed
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog_media.default.primary.group[].embed
+   * - **Documentation**: https://prismic.io/docs/fields/embed
+   */
+  embed: prismic.EmbedField;
+}
+
+/**
+ * Primary content in *BlogMedia → Default → Primary*
+ */
+export interface BlogMediaSliceDefaultPrimary {
+  /**
+   * group field in *BlogMedia → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog_media.default.primary.group[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  group: prismic.GroupField<Simplify<BlogMediaSliceDefaultPrimaryGroupItem>>;
+}
+
+/**
+ * Default variation for BlogMedia Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type BlogMediaSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<BlogMediaSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *BlogMedia*
+ */
+type BlogMediaSliceVariation = BlogMediaSliceDefault;
+
+/**
+ * BlogMedia Shared Slice
+ *
+ * - **API ID**: `blog_media`
+ * - **Description**: BlogMedia
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type BlogMediaSlice = prismic.SharedSlice<
+  "blog_media",
+  BlogMediaSliceVariation
+>;
+
+/**
+ * Primary content in *BlogTable → Default → Primary*
+ */
+export interface BlogTableSliceDefaultPrimary {
+  /**
+   * table field in *BlogTable → Default → Primary*
+   *
+   * - **Field Type**: Table
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog_table.default.primary.table
+   * - **Documentation**: https://prismic.io/docs/fields/table
+   */
+  table: prismic.TableField;
+}
+
+/**
+ * Default variation for BlogTable Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type BlogTableSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<BlogTableSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *BlogTable*
+ */
+type BlogTableSliceVariation = BlogTableSliceDefault;
+
+/**
+ * BlogTable Shared Slice
+ *
+ * - **API ID**: `blog_table`
+ * - **Description**: BlogTable
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type BlogTableSlice = prismic.SharedSlice<
+  "blog_table",
+  BlogTableSliceVariation
+>;
+
+/**
+ * Primary content in *BlogText → Default → Primary*
+ */
+export interface BlogTextSliceDefaultPrimary {
+  /**
+   * text field in *BlogText → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog_text.default.primary.text
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  text: prismic.RichTextField;
+}
+
+/**
  * Default variation for BlogText Slice
  *
  * - **API ID**: `default`
@@ -1329,7 +1474,7 @@ export type BlockQuoteSlice = prismic.SharedSlice<
  */
 export type BlogTextSliceDefault = prismic.SharedSliceVariation<
   "default",
-  Record<string, never>,
+  Simplify<BlogTextSliceDefaultPrimary>,
   never
 >;
 
@@ -2472,33 +2617,6 @@ type Hero2SliceVariation =
 export type Hero2Slice = prismic.SharedSlice<"hero_2", Hero2SliceVariation>;
 
 /**
- * Default variation for Image Slice
- *
- * - **API ID**: `default`
- * - **Description**: Default
- * - **Documentation**: https://prismic.io/docs/slices
- */
-export type ImageSliceDefault = prismic.SharedSliceVariation<
-  "default",
-  Record<string, never>,
-  never
->;
-
-/**
- * Slice variation for *Image*
- */
-type ImageSliceVariation = ImageSliceDefault;
-
-/**
- * Image Shared Slice
- *
- * - **API ID**: `image`
- * - **Description**: Image
- * - **Documentation**: https://prismic.io/docs/slices
- */
-export type ImageSlice = prismic.SharedSlice<"image", ImageSliceVariation>;
-
-/**
  * Primary content in *Newsletter → Default → Primary*
  */
 export interface NewsletterSliceDefaultPrimary {
@@ -2991,33 +3109,6 @@ export type TestimonialGallerySlice = prismic.SharedSlice<
 >;
 
 /**
- * Default variation for Video Slice
- *
- * - **API ID**: `default`
- * - **Description**: Default
- * - **Documentation**: https://prismic.io/docs/slices
- */
-export type VideoSliceDefault = prismic.SharedSliceVariation<
-  "default",
-  Record<string, never>,
-  never
->;
-
-/**
- * Slice variation for *Video*
- */
-type VideoSliceVariation = VideoSliceDefault;
-
-/**
- * Video Shared Slice
- *
- * - **API ID**: `video`
- * - **Description**: Video
- * - **Documentation**: https://prismic.io/docs/slices
- */
-export type VideoSlice = prismic.SharedSlice<"video", VideoSliceVariation>;
-
-/**
  * Primary content in *WindowPanels → Items*
  */
 export interface WindowPanelsSliceDefaultItem {
@@ -3198,9 +3289,20 @@ declare module "@prismicio/client" {
       BenefitsCalloutSliceVariation,
       BenefitsCalloutSliceDefault,
       BlockQuoteSlice,
+      BlockQuoteSliceDefaultPrimary,
       BlockQuoteSliceVariation,
       BlockQuoteSliceDefault,
+      BlogMediaSlice,
+      BlogMediaSliceDefaultPrimaryGroupItem,
+      BlogMediaSliceDefaultPrimary,
+      BlogMediaSliceVariation,
+      BlogMediaSliceDefault,
+      BlogTableSlice,
+      BlogTableSliceDefaultPrimary,
+      BlogTableSliceVariation,
+      BlogTableSliceDefault,
       BlogTextSlice,
+      BlogTextSliceDefaultPrimary,
       BlogTextSliceVariation,
       BlogTextSliceDefault,
       DropListSlice,
@@ -3238,9 +3340,6 @@ declare module "@prismicio/client" {
       Hero2SliceDefault,
       Hero2SliceStyle2,
       Hero2SliceStyle3,
-      ImageSlice,
-      ImageSliceVariation,
-      ImageSliceDefault,
       NewsletterSlice,
       NewsletterSliceDefaultPrimary,
       NewsletterSliceVariation,
@@ -3265,9 +3364,6 @@ declare module "@prismicio/client" {
       TestimonialGallerySliceDefaultPrimary,
       TestimonialGallerySliceVariation,
       TestimonialGallerySliceDefault,
-      VideoSlice,
-      VideoSliceVariation,
-      VideoSliceDefault,
       WindowPanelsSlice,
       WindowPanelsSliceDefaultItem,
       WindowPanelsSliceDoubledUpPrimary,

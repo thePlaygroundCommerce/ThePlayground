@@ -122,9 +122,9 @@ class Catalog {
   //   }
   // }
 
-  async listCatalogObjects(
-    query: { types: string },
-  ): Promise<ListCatalogResponse> {
+  async listCatalogObjects(query: {
+    types: string;
+  }): Promise<ListCatalogResponse> {
     const page = await this.catalogApi.list({ types: query.types });
 
     return {

@@ -4,7 +4,7 @@ import ProductDetails from "@/components/ProductDetails";
 import ProductImageGallery from "@/components/ProductImageGallery";
 import Showcase from "@/components/Showcase";
 import Slider from "@/components/Slider";
-import { client } from "@/api/clients";
+import { client, square } from "@/api/clients";
 import Heading from "@/components/typography/Heading";
 import { getCategoryProducts } from "@/api/customerApi";
 import { PageProps } from "index";
@@ -16,15 +16,31 @@ import { PrismicRichText } from "@prismicio/react";
 import { CatalogObject } from "square";
 import { notFound } from "next/navigation";
 import { TextContent } from "@/app/slices/components/content";
+import logger from "@/util/logger";
 
 export const getProductDetails = async ({
-  slug
-}: { slug: string }) => {
+  slug, type = "id"
+}: { slug: string, type?: "id" | "name" }) => {
+
+  const getProductById = (id: string) => getProduct(id).then((data) => ({ ...data, objects: [data.object] }));
+  const getProductByName = (name: string) => {
+    return square.catalog.search({
+      objectTypes: ["ITEM"],
+      includeRelatedObjects: true,
+      query: {
+        exactQuery: {
+          attributeName: "name",
+          attributeValue: name.replaceAll("-", " "),
+        },
+      },
+    });
+  }
 
   const {
-    object: catalogObject,
     relatedObjects,
-  } = await getProduct(slug);
+    objects: [catalogObject]
+  } = type === "id" ? await getProductById(slug) : await getProductByName(slug)
+
   if (!catalogObject) throw Error("Product not found!")
 
   const filteredRelatedImages =
@@ -41,13 +57,35 @@ export const getProductDetails = async ({
 
 }
 
+export const generateStaticParams = async () => {
+  return await square.catalog.search({
+    objectTypes: ["ITEM"],
+    query: {
+      exactQuery: {
+        attributeName: "ecom_visibility",
+        attributeValue: "VISIBLE",
+      },
+    },
+  })
+    .then((data) => data.objects.map((obj) => ({ slug: (obj as CatalogObject.Item).itemData.name.toLowerCase().trim().replaceAll(" ", "-") })))
+    .catch((err) => {
+      logger.error({ error: err.message }, "No products generated!")
+      return []
+    });
+}
 
 const Page = async ({ params, searchParams }: PageProps) => {
-  var slug = (await searchParams).id
-  if (!slug) slug = (await params).slug
+  let productSearchType: "id" | "name" = "name"
+  var slug = (await params).slug
+  if (!slug) {
+    productSearchType = "id"
+    slug = (await searchParams).id
+  }
 
-
-  const { catalogObject, filteredRelatedImages } = await getProductDetails({ slug }).catch(() => notFound())
+  const { catalogObject, filteredRelatedImages } = await getProductDetails({ slug, type: productSearchType }).catch((err) => {
+    logger.error({ error: err.message }, "Product {} not found", slug)
+    notFound()
+  })
 
   const { items, images } = await getCategoryProducts("");
   const { data } = await client
@@ -77,7 +115,6 @@ const Page = async ({ params, searchParams }: PageProps) => {
       } catch { }
     }
   }
-
 
   const renderProductDetails = () => {
 
@@ -234,8 +271,6 @@ const Page = async ({ params, searchParams }: PageProps) => {
 };
 
 export default Page;
-
-
 
 // /shop/product/[slug] 
 //    expect slug to be product id, which app would lookup id of product

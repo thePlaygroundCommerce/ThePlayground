@@ -19,7 +19,7 @@ export const renderContent = (contentType: Hero2SliceVariation['primary']['conte
         case "card":
             return (
                 <>
-                    <div className="flex gap-8 md:hidden">
+                    <div className="flex gap-8 md:hidden overflow-hidden">
                         <Slider visibleItemsCount={1} isInfinite={false} withIndicator={false} withControls={false}>
                             {content.cards.map(({ title, headline, description, image, type }, i) => {
                                 const ImageComponent = isFilled.image(image) ? createImage({ field: image }) : undefined

@@ -1,0 +1,86 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"table": {
+				"__TYPE__": "TableContent",
+				"content": [
+					{
+						"key": "daf02cec-5b51-47fc-b9f8-cbb7356146ac",
+						"type": "tableRow",
+						"content": [
+							{
+								"key": "344718cb-e291-4efe-b0d8-8a93817b74c8",
+								"type": "tableHeader",
+								"content": {
+									"__TYPE__": "StructuredTextContent",
+									"value": [
+										{
+											"type": "paragraph",
+											"content": {
+												"text": "Duis."
+											}
+										}
+									]
+								}
+							},
+							{
+								"key": "9c0fef55-4440-4f12-87d4-f8448bdcc864",
+								"type": "tableHeader",
+								"content": {
+									"__TYPE__": "StructuredTextContent",
+									"value": [
+										{
+											"type": "paragraph",
+											"content": {
+												"text": "Quis sint."
+											}
+										}
+									]
+								}
+							}
+						]
+					},
+					{
+						"key": "650eade0-e8fa-4de9-bdff-aeadf5343796",
+						"type": "tableRow",
+						"content": [
+							{
+								"key": "5c447a01-8c4a-438d-8f82-b6181a1f3ef2",
+								"type": "tableCell",
+								"content": {
+									"__TYPE__": "StructuredTextContent",
+									"value": [
+										{
+											"type": "paragraph",
+											"content": {
+												"text": "Commodo sunt voluptate labore exercitation laborum esse anim."
+											}
+										}
+									]
+								}
+							},
+							{
+								"key": "e4a7598c-345e-49b6-b00d-b9cae79b79ca",
+								"type": "tableCell",
+								"content": {
+									"__TYPE__": "StructuredTextContent",
+									"value": [
+										{
+											"type": "paragraph",
+											"content": {
+												"text": "Velit id consectetur aute eiusmod ea est."
+											}
+										}
+									]
+								}
+							}
+						]
+					}
+				]
+			}
+		},
+		"items": []
+	}
+]

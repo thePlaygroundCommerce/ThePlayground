@@ -1,10 +1,12 @@
+import axios from "axios";
 import matter from "gray-matter";
-import markdownToRichText from "@gijsbotje/md-to-prismic-richtext";
 
 import { htmlAsRichText } from "@prismicio/migrate";
 import { marked } from "marked";
 import * as cheerio from "cheerio";
 import prismic, { repositoryName } from "@/api/clients/prismicio";
+
+import path from "node:path";
 
 export async function POST(req: Request) {
   if (!process.env.PRISMIC_WRITE_TOKEN)
@@ -12,9 +14,18 @@ export async function POST(req: Request) {
       status: 500,
     });
 
+  let prismicJson;
+
+  const migration = prismic.createMigration();
   const writeClient = prismic.createWriteClient(repositoryName, {
     writeToken: process.env.PRISMIC_WRITE_TOKEN,
   });
+
+  const text = await req.text();
+  const { data, content } = matter(
+    text,
+    { language: "json" }
+  );
 
   const parseAndTransform = async (text: string) => {
     const htmlFromString = await marked.parse(text);
@@ -24,17 +35,21 @@ export async function POST(req: Request) {
     let currentGroup = { result: [] as any[], warnings: [] as any[] };
 
     const transformTable = (element: any) => {
-      const tableData = { head: [], body: [] };
+      const tableData = { head: { rows: [] }, body: { rows: [] } };
       const $table = $(element);
 
       $table.find("tr").each((_, tr) => {
         const isHeader = $(tr).find("th").length > 0;
         const cells = [];
+        const key = crypto.randomUUID();
 
         $(tr)
           .find("th, td")
           .each((_, cell) => {
+            const key = crypto.randomUUID();
+
             cells.push({
+              type: cell.name === "th" ? "header" : "data",
               content: [
                 {
                   type: "paragraph",
@@ -46,13 +61,14 @@ export async function POST(req: Request) {
           });
 
         if (cells.length > 0) {
-          if (isHeader) tableData.head.push({ cells });
-          else tableData.body.push({ cells });
+          if (isHeader) tableData.head.rows.push({ cells });
+          else tableData.body.rows.push({ cells });
         }
       });
 
       return { result: [tableData], warnings: [] };
     };
+
     $("div")
       .children()
       .each((_, element) => {
@@ -69,6 +85,8 @@ export async function POST(req: Request) {
           return;
         }
 
+        
+
         const transformed =
           tagName === "table"
             ? transformTable(element)
@@ -84,10 +102,6 @@ export async function POST(req: Request) {
                   },
                 },
               });
-
-        console.log(transformed);
-
-        // transformed.result.filter((a) => a.type === "paragraph")
 
         currentGroup.result.push(...transformed.result);
         currentGroup.warnings.push(...transformed.warnings);
@@ -114,21 +128,54 @@ export async function POST(req: Request) {
               if (["heading2"].includes(obj.type)) acc.heading = obj.text;
               if (["image"].includes(obj.type)) {
                 const src = obj.url;
-                const filename = src.split("/").pop();
                 const alt = obj.alt;
+                const { ext, base: filename } = path.parse(src);
 
-                acc.image = obj;
-                // acc.image.id = migration.createAsset(src, filename, alt);
+                if (
+                  [
+                    ".mp4",
+                    ".mkv",
+                    ".avi",
+                    ".mov",
+                    ".flv",
+                    ".wmv",
+                    ".webm",
+                  ].includes(ext)
+                ) {
+                  acc.video = {
+                    url: src,
+                    title: filename.slice(0, filename.indexOf(".")),
+                    collection: data.slug,
+                  };
+                } else if (
+                  [
+                    ".jpg",
+                    ".jpeg",
+                    ".png",
+                    ".gif",
+                    ".bmp",
+                    ".webp",
+                    ".tiff",
+                  ].includes(ext)
+                ) {
+                  acc.image = obj;
+                  acc.image.id = migration.createAsset(src, filename, alt);
+                }
+              }
+
+              if (obj.head || obj.body) {
+                acc.table = obj;
               }
 
               return acc;
             },
             {
               paragraph: [],
-              heading: null,
+              heading: undefined,
               blockquote: [],
               image: {},
-              table: null,
+              table: undefined,
+              video: undefined,
               includeDividers: true,
             },
           ),
@@ -139,13 +186,23 @@ export async function POST(req: Request) {
     return result;
   };
 
-  const text = await req.text();
-  const { data, content } = matter(text, {});
-
   try {
     // Custom migration code will go here...
-    const migration = prismic.createMigration();
-    const prismicJson = await parseAndTransform(content);
+    prismicJson = await parseAndTransform(content);
+
+    const b = prismicJson.result.filter((res) => res.video?.title);
+
+    try {
+      for (const res of b) {
+        const { data: embed } = await axios.post(
+          "http://localhost:3005/api/video",
+          res.video,
+        );
+        res.video = embed;
+      }
+    } catch (error) {}
+
+    // return Response.json(prismicJson);
 
     const document = migration.createDocument(
       {
@@ -179,6 +236,9 @@ export async function POST(req: Request) {
     return Response.json(document);
   } catch (error) {
     console.log(error);
-    return Response.json({ error: error.response }, { status: 500 });
+    return Response.json(
+      { error: error.response, prismicJson },
+      { status: 500 },
+    );
   }
 }

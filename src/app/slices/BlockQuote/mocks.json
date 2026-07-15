@@ -2,7 +2,19 @@
 	{
 		"__TYPE__": "SharedSliceContent",
 		"variation": "default",
-		"primary": {},
+		"primary": {
+			"quote": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Consequat labore quis cupidatat culpa officia sint dolor duis. Lorem quis cupidatat laborum. Labore mollit aliqua cupidatat sunt id labore exercitation mollit fugiat do."
+						}
+					}
+				]
+			}
+		},
 		"items": []
 	}
 ]

@@ -1,0 +1,43 @@
+{
+  "id": "blog_media",
+  "type": "SharedSlice",
+  "name": "BlogMedia",
+  "description": "BlogMedia",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "group": {
+          "type": "Group",
+          "config": {
+            "label": "group",
+            "repeat": true,
+            "fields": {
+              "image": {
+                "type": "Image",
+                "config": {
+                  "label": "image",
+                  "constraint": {},
+                  "thumbnails": []
+                }
+              },
+              "embed": {
+                "type": "Embed",
+                "config": {
+                  "label": "embed",
+                  "placeholder": ""
+                }
+              }
+            }
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

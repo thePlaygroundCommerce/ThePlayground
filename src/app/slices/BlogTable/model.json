@@ -1,0 +1,25 @@
+{
+  "id": "blog_table",
+  "type": "SharedSlice",
+  "name": "BlogTable",
+  "description": "BlogTable",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "table": {
+          "type": "Table",
+          "config": {
+            "label": "table"
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

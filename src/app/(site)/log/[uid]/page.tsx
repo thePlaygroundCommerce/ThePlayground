@@ -1,4 +1,4 @@
-import { PrismicRichText, PrismicTable } from "@prismicio/react";
+import { PrismicRichText, PrismicTable, SliceZone } from "@prismicio/react";
 import { client } from "@/api/clients";
 import Image from "@/components/Image";
 import Heading from "@/components/typography/Heading";
@@ -8,10 +8,12 @@ import { redirect } from "next/navigation";
 import Divider from "@/components/Divider";
 import { Fragment } from "react";
 import { BlogPostDocument } from "prismicio-types";
-import { isFilled } from "@prismicio/client";
+import { isFilled, RTTextNode } from "@prismicio/client";
 import logger from "@/util/logger";
 import { PrismicNextImage } from "@prismicio/next";
 import _ from "lodash";
+import { components } from "@/app/slices";
+import BlogText from "@/app/slices/BlogText";
 
 const Page = async ({ params }: PageProps) => {
   let blog: BlogPostDocument<string>;
@@ -24,7 +26,7 @@ const Page = async ({ params }: PageProps) => {
     redirect("/log")
   }
 
-  const { sections, title, headline, image } = blog.data
+  const { sections, title, headline, image, slices2 } = blog.data
 
   const slugify = (text: string | undefined, index: number) =>
     (text || `section-${index + 1}`)
@@ -34,10 +36,17 @@ const Page = async ({ params }: PageProps) => {
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/(^-|-$)/g, '')
 
-  const tableOfContents = sections.filter(({ heading }) => heading).map(({ heading }, i) => ({
+
+  const tableOfContents = slices2.length > 0 ? (isFilled.sliceZone(slices2) && slices2.filter((slice) => slice.slice_type === "blog_text").flatMap((slice) => {
+    return isFilled.richText(slice.primary.text) && slice.primary.text.filter((txt) => txt.type === "heading2").map((txt: RTTextNode, i) => ({
+      heading: txt.text,
+      id: slugify(txt.text, i)
+    }))
+  })) : (sections.filter(({ heading }) => heading).map(({ heading }, i) => ({
     heading,
     id: slugify(heading, i),
-  }))
+  })))
+
 
   return (
     <div className="pt-15 p-4 flex flex-col gap-4">
@@ -62,8 +71,10 @@ const Page = async ({ params }: PageProps) => {
           <BlogTableOfContents items={tableOfContents} />
         </div>
       )}
+      <SliceZone slices={slices2} components={{ ...components, blog_text: (props) => <BlogText {...{ ...props, tableOfContents }} /> }} />
       {sections.map(({ heading, paragraph, table, includeDividers, blockquote, image, video }, i, arr) => {
         const id = tableOfContents[i]?.id || `section-${i + 1}`
+
 
         const img = isFilled.image(image) && <PrismicNextImage field={image} />
         const vid = isFilled.embed(video) && (
@@ -75,10 +86,16 @@ const Page = async ({ params }: PageProps) => {
         return (
           <Fragment key={`section${i}`}>
             <div className="scroll-mt-24">
-              <Heading id={id} level={2} className="mb-2">{heading}</Heading>
+              <Heading id={id} level={1} className="mb-2">{heading}</Heading>
               {img || vid}
               <div className="max-w-4/5 text-lg tracking-wider inline-block">
                 <PrismicRichText components={{
+                  heading1: ({ children }) => <Heading level={1}>{children}</Heading>,
+                  heading2: ({ children }) => <Heading level={2}>{children}</Heading>,
+                  heading3: ({ children }) => <Heading level={3}>{children}</Heading>,
+                  heading4: ({ children }) => <Heading level={4}>{children}</Heading>,
+                  heading5: ({ children }) => <Heading level={5}>{children}</Heading>,
+                  heading6: ({ children }) => <Heading level={6}>{children}</Heading>,
                   paragraph: ({ node, children }) => {
                     if (!_.isEmpty(blockquote)) {
                       return (
