@@ -9,6 +9,7 @@ import { AppProps } from "index"
 import { track } from "@vercel/analytics"
 
 export function PostHogProvider({ children }: AppProps) {
+  console.log(process.env.NEXT_PUBLIC_POSTHOG_KEY, posthog)
   if (!process.env.NEXT_PUBLIC_POSTHOG_KEY) return null
 
   return (

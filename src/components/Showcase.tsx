@@ -1,17 +1,7 @@
 "use client";
 
-import Image from "@/components/Image";
 import clsx from "clsx";
-import { isImageProps } from "./Hero";
-import Heading from "./typography/Heading";
-import Link from "next/link";
-import Button from "./Button";
-import Transition from "@/components/Transition";
-import { loremIpsum } from "lorem-ipsum";
-import { AppProps, Content } from "index";
-import { renderContent } from "@/util/index";
-import MuxPlayer from "@mux/mux-player-react";
-import { Hero2Props } from "@/app/slices/ProductShowcase";
+import { AppProps } from "index";
 import { ReactNode } from "react";
 
 type ShowcaseProps = {
