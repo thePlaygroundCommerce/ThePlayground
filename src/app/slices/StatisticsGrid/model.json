@@ -1,0 +1,40 @@
+{
+  "id": "statistics_grid",
+  "type": "SharedSlice",
+  "name": "StatisticsGrid",
+  "description": "A statistics grid displaying metric values with labels",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default variation with 4 statistics",
+      "imageUrl": "",
+      "primary": {
+        "statistics": {
+          "type": "Group",
+          "config": {
+            "label": "Statistics",
+            "fields": {
+              "metric": {
+                "type": "Text",
+                "config": {
+                  "label": "Metric",
+                  "placeholder": "e.g. 10k+"
+                }
+              },
+              "label": {
+                "type": "Text",
+                "config": {
+                  "label": "Label",
+                  "placeholder": "e.g. Happy travelers"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

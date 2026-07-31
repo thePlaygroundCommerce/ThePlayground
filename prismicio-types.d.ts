@@ -2970,6 +2970,78 @@ export type SocialMediaLinksSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Item in *StatisticsGrid → Default → Primary → Statistics*
+ */
+export interface StatisticsGridSliceDefaultPrimaryStatisticsItem {
+  /**
+   * Metric field in *StatisticsGrid → Default → Primary → Statistics*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: e.g. 10k+
+   * - **API ID Path**: statistics_grid.default.primary.statistics[].metric
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  metric: prismic.KeyTextField;
+
+  /**
+   * Label field in *StatisticsGrid → Default → Primary → Statistics*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: e.g. Happy travelers
+   * - **API ID Path**: statistics_grid.default.primary.statistics[].label
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  label: prismic.KeyTextField;
+}
+
+/**
+ * Primary content in *StatisticsGrid → Default → Primary*
+ */
+export interface StatisticsGridSliceDefaultPrimary {
+  /**
+   * Statistics field in *StatisticsGrid → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: statistics_grid.default.primary.statistics[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  statistics: prismic.GroupField<
+    Simplify<StatisticsGridSliceDefaultPrimaryStatisticsItem>
+  >;
+}
+
+/**
+ * Default variation for StatisticsGrid Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default variation with 4 statistics
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type StatisticsGridSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<StatisticsGridSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *StatisticsGrid*
+ */
+type StatisticsGridSliceVariation = StatisticsGridSliceDefault;
+
+/**
+ * StatisticsGrid Shared Slice
+ *
+ * - **API ID**: `statistics_grid`
+ * - **Description**: A statistics grid displaying metric values with labels
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type StatisticsGridSlice = prismic.SharedSlice<
+  "statistics_grid",
+  StatisticsGridSliceVariation
+>;
+
+/**
  * Item in *TestimonialGallery → Default → Primary → Gallery Images*
  */
 export interface TestimonialGallerySliceDefaultPrimaryGalleryImagesItem {
@@ -3106,6 +3178,108 @@ type TestimonialGallerySliceVariation = TestimonialGallerySliceDefault;
 export type TestimonialGallerySlice = prismic.SharedSlice<
   "testimonial_gallery",
   TestimonialGallerySliceVariation
+>;
+
+/**
+ * Item in *TravelBenefits → Default → Primary → Features*
+ */
+export interface TravelBenefitsSliceDefaultPrimaryFeaturesItem {
+  /**
+   * Feature Title field in *TravelBenefits → Default → Primary → Features*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: e.g. 24/7 support
+   * - **API ID Path**: travel_benefits.default.primary.features[].feature_title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  feature_title: prismic.KeyTextField;
+
+  /**
+   * Feature Description field in *TravelBenefits → Default → Primary → Features*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: travel_benefits.default.primary.features[].feature_description
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  feature_description: prismic.KeyTextField;
+}
+
+/**
+ * Primary content in *TravelBenefits → Default → Primary*
+ */
+export interface TravelBenefitsSliceDefaultPrimary {
+  /**
+   * Overline field in *TravelBenefits → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: e.g. WHY TRAVELERS CHOOSE US
+   * - **API ID Path**: travel_benefits.default.primary.overline
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  overline: prismic.KeyTextField;
+
+  /**
+   * Features field in *TravelBenefits → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: travel_benefits.default.primary.features[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  features: prismic.GroupField<
+    Simplify<TravelBenefitsSliceDefaultPrimaryFeaturesItem>
+  >;
+
+  /**
+   * Title field in *TravelBenefits → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: travel_benefits.default.primary.title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Description field in *TravelBenefits → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: travel_benefits.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  description: prismic.KeyTextField;
+}
+
+/**
+ * Default variation for TravelBenefits Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default variation with 4 feature cards
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type TravelBenefitsSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<TravelBenefitsSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *TravelBenefits*
+ */
+type TravelBenefitsSliceVariation = TravelBenefitsSliceDefault;
+
+/**
+ * TravelBenefits Shared Slice
+ *
+ * - **API ID**: `travel_benefits`
+ * - **Description**: A benefits section showcasing travel service advantages with overline, title, description, and feature cards
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type TravelBenefitsSlice = prismic.SharedSlice<
+  "travel_benefits",
+  TravelBenefitsSliceVariation
 >;
 
 /**
@@ -3358,12 +3532,22 @@ declare module "@prismicio/client" {
       SocialMediaLinksSliceDefaultItem,
       SocialMediaLinksSliceVariation,
       SocialMediaLinksSliceDefault,
+      StatisticsGridSlice,
+      StatisticsGridSliceDefaultPrimaryStatisticsItem,
+      StatisticsGridSliceDefaultPrimary,
+      StatisticsGridSliceVariation,
+      StatisticsGridSliceDefault,
       TestimonialGallerySlice,
       TestimonialGallerySliceDefaultPrimaryGalleryImagesItem,
       TestimonialGallerySliceDefaultPrimaryTestimonialsItem,
       TestimonialGallerySliceDefaultPrimary,
       TestimonialGallerySliceVariation,
       TestimonialGallerySliceDefault,
+      TravelBenefitsSlice,
+      TravelBenefitsSliceDefaultPrimaryFeaturesItem,
+      TravelBenefitsSliceDefaultPrimary,
+      TravelBenefitsSliceVariation,
+      TravelBenefitsSliceDefault,
       WindowPanelsSlice,
       WindowPanelsSliceDefaultItem,
       WindowPanelsSliceDoubledUpPrimary,

@@ -1,0 +1,59 @@
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+}
+
+.font-display {
+  font-family: 'Poppins', sans-serif;
+}
+
+.glass-card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.24), rgba(255,255,255,0.08));
+}
+
+.card-hover {
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(17, 24, 39, 0.12);
+}
+
+.faq-toggle {
+  cursor: pointer;
+}
+
+.faq-answer.is-open {
+  display: block;
+}
+
+.mobile-sticky-cta {
+  transform: translateX(-50%) translateY(120%);
+  transition: transform 220ms ease;
+}
+
+.mobile-sticky-cta.is-visible {
+  transform: translateX(-50%) translateY(0);
+}
+
+.modal-backdrop.is-open {
+  display: flex;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

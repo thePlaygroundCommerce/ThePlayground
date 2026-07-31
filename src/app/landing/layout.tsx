@@ -9,7 +9,7 @@ import CheckoutProvider from '@/context/checkoutContext'
 import Link from 'next/link'
 
 
-const layout = ({ children }: LayoutProps<"/landing/[uid]">) => {
+const layout = ({ children }: LayoutProps<"/landing">) => {
     return (
         <CartProvider data={{ _cart: { locationId: '' }, _options: [] }} images={{}}>
             <CheckoutProvider>

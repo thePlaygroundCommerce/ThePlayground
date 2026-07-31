@@ -17,6 +17,8 @@ export const components = {
   newsletter: dynamic(() => import("./Newsletter")),
   sliders: dynamic(() => import("./Sliders")),
   social_media_links: dynamic(() => import("./SocialMediaLinks")),
+  statistics_grid: dynamic(() => import("./StatisticsGrid")),
   testimonial_gallery: dynamic(() => import("./TestimonialGallery")),
+  travel_benefits: dynamic(() => import("./TravelBenefits")),
   window_panels: dynamic(() => import("./WindowPanels")),
 };

@@ -1,0 +1,50 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"overline": {
+				"__TYPE__": "FieldContent",
+				"value": "according",
+				"type": "Text"
+			},
+			"features": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"feature_title",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "fruit",
+									"type": "Text"
+								}
+							],
+							[
+								"feature_description",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "read",
+									"type": "Text"
+								}
+							]
+						]
+					}
+				]
+			},
+			"title": {
+				"__TYPE__": "FieldContent",
+				"value": "gas",
+				"type": "Text"
+			},
+			"description": {
+				"__TYPE__": "FieldContent",
+				"value": "between",
+				"type": "Text"
+			}
+		},
+		"items": []
+	}
+]
