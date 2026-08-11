@@ -452,7 +452,7 @@ export const WebflowSlider = ({
 export const FadingSlider = () => {
   const [active, setActive] = useState(0)
 
-  const springs = useSpring()
+  // const springs = useSpring()
 
   const { fade, grow } = {
     grow: "",
