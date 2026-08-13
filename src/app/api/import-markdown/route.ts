@@ -24,7 +24,7 @@ export async function POST(req: Request) {
   const text = await req.text();
   const { data, content } = matter(
     text,
-    { language: "json" }
+    // { language: "json" }
   );
 
   const parseAndTransform = async (text: string) => {

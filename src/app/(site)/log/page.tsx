@@ -15,13 +15,15 @@ const Page = async ({ searchParams }: PageProps<"/log">) => {
   const { results: blogs, total_pages: max, page } = await client.getByType("blog_post", {
     page: Number(pge),
     pageSize: BLOG_PAGE_SIZE
-  }); 
+  });
+
+  console.log(blogs[0])
 
   return (
     <div className="mt-24 p-4 sm:p-0">
       <h2 className="mb-12">Travel Tips & Stories</h2>
 
-      {blogs.map(({ data: { image, title } }) => (
+      {blogs.map(({ data: { image, title, meta_description }, last_publication_date, url }) => (
         <div key={title} className="flex flex-col lg:flex-row gap-4 mb-24">
 
           <div className="flex-1">
@@ -39,12 +41,17 @@ const Page = async ({ searchParams }: PageProps<"/log">) => {
           <div className="flex-1 lg:flex lg:flex-col">
             <div className="sm:flex lg:flex-col mb-12">
               <div className="flex-3 mb-4">
-                <h2 className="text-bold text-3xl">Header</h2>
-                <p className="text-gray-300 text-sm">Date</p>
+                <h2 className="text-bold text-3xl mb-2">{title}</h2>
+                {last_publication_date && <p className="text-gray-400 text-sm">{new Date(last_publication_date).toLocaleDateString(undefined, {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}</p>}
               </div>
-              <p className="flex-2 text-ellipsis">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Numquam dolores rem architecto veniam cupiditate cumque.</p>
+              <p className="flex-2 text-ellipsis">{meta_description}</p>
             </div>
-            <Link className="block text-center m-auto bg-black w-1/2 p-4 rounded-2xl text-gray-200" href="#">Read</Link>
+            <Link className="block text-center m-auto bg-black w-1/2 p-4 rounded-2xl text-gray-200" href={url}>Read More</Link>
           </div>
         </div>
       ))}

@@ -201,7 +201,6 @@ export default async function Page({ searchParams }) {
               </>
             )}
           </div>
-
         </div>
       </section>
 
@@ -429,6 +428,7 @@ export default async function Page({ searchParams }) {
           </div>
         </section>
       </div>
+      
     </div>
   )
 }
