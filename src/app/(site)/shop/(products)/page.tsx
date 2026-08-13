@@ -13,23 +13,6 @@ export default async function Page({ params: _params, searchParams }: PageProps<
   items = searchRes.items
   images = searchRes.images
 
-  const func = async (state: {}, formData: FormData) => {
-    'use server'
-
-    const req: Record<string, FormDataEntryValue> = {};
-    for (const [key, value] of formData.entries()) {
-      req[key] = value;
-    }
-
-
-    await callToActionCreateForm(req as RegisterCustomerRequest)
-
-    return {
-      ...state,
-      isSubmitted: true
-    }
-  }
-
   return (
     <div className="grid auto-rows-max auto-cols-auto md:grid-cols-6 w-full md:px-4 gap-4 min-h-screen bg-transparent">
       <div className="hidden md:block col-span-2 md:col-span-1 bg-transparent">

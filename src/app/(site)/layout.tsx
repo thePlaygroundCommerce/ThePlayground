@@ -41,7 +41,7 @@ const Layout = async ({ children }: LayoutProps<"/">) => {
 
     // const mappedCatalogObjects = mapArrayToMap([...apparelObjects, ...relatedObjects]);
     return (
-        <div className={clsx(false && "grid grid-rows-[min-content_1fr]")} suppressHydrationWarning>
+        <div className={clsx()} suppressHydrationWarning>
 
             {/* <!-- This spacer provides the height we want --> */}
             {/* <div className="h-screen col-span-full row-start-1 row-end-[span_2]" /> */}

@@ -1,0 +1,62 @@
+{
+  "id": "travel_benefits",
+  "type": "SharedSlice",
+  "name": "TravelBenefits",
+  "description": "A benefits section showcasing travel service advantages with overline, title, description, and feature cards",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default variation with 4 feature cards",
+      "imageUrl": "",
+      "primary": {
+        "overline": {
+          "type": "Text",
+          "config": {
+            "label": "Overline",
+            "placeholder": "e.g. WHY TRAVELERS CHOOSE US"
+          }
+        },
+        "features": {
+          "type": "Group",
+          "config": {
+            "label": "Features",
+            "fields": {
+              "feature_title": {
+                "type": "Text",
+                "config": {
+                  "label": "Feature Title",
+                  "placeholder": "e.g. 24/7 support"
+                }
+              },
+              "feature_description": {
+                "type": "Text",
+                "config": {
+                  "label": "Feature Description",
+                  "placeholder": ""
+                }
+              }
+            }
+          }
+        },
+        "title": {
+          "type": "Text",
+          "config": {
+            "label": "Title",
+            "placeholder": ""
+          }
+        },
+        "description": {
+          "type": "Text",
+          "config": {
+            "label": "Description",
+            "placeholder": ""
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

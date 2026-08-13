@@ -4,8 +4,11 @@ import Slide, { SlideProps, TypeOmittedSlideProps } from "@/components/Slide";
 import { wrapLink } from "@/util/index";
 import clsx from "clsx";
 import Transition from "@/components/Transition";
+import Image from "@/components/Image";
 import { AppProps, ContentData } from "index";
 import { useDrag } from "@use-gesture/react";
+import { animated, useSpring } from '@react-spring/web'
+
 
 import { useRef, useState, useMemo, Children, useEffect, SetStateAction } from "react";
 
@@ -445,5 +448,43 @@ export const WebflowSlider = ({
     </div>
   );
 };
+
+export const FadingSlider = () => {
+  const [active, setActive] = useState(0)
+
+  // const springs = useSpring()
+
+  const { fade, grow } = {
+    grow: "",
+    fade: "opacity-0"
+  }
+
+  useEffect(() => {
+    const timeout = setInterval(() => {
+      setActive(active => {
+        return active === 2 ? 0 : active + 1
+      })
+    }, 2000)
+    return () => clearTimeout(timeout)
+  }, [])
+
+  return (
+    <div className="flex">
+      {[1, 2, 3, 4].map((_, i) => (
+        <animated.div key={i} onTransitionStart={(e) => {
+          const add = ["-translate-x-full"]
+          // if (i === active) add.push(fade)
+          e.currentTarget.classList.add(...add)
+        }} className={clsx("w-75 aspect-2/3 shrink-0 relative -z-5 overflow-hidden rounded-xl transition-all",
+
+          i != active && "scale-90 ",
+          i == active && "mr-4"
+        )}>
+          <Image alt={""} className="object-cover" />
+        </animated.div>
+      ))}
+    </div>
+  )
+}
 
 export default Slider;

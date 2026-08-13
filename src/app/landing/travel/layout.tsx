@@ -9,7 +9,7 @@ import CheckoutProvider from '@/context/checkoutContext'
 import Link from 'next/link'
 
 
-const layout = ({ children }: LayoutProps<"/landing/[uid]">) => {
+const layout = ({ children }: LayoutProps<"/landing/travel">) => {
     return (
         <CartProvider data={{ _cart: { locationId: '' }, _options: [] }} images={{}}>
             <CheckoutProvider>
@@ -30,14 +30,14 @@ const layout = ({ children }: LayoutProps<"/landing/[uid]">) => {
                                         </div>
                                         <div className="flex-5 flex justify-between items-center">
 
-                                            <Link href="#about" className="hidden sm:block k-nav-link">
-                                                Does It Fit?
+                                            <Link href="#howitworks" className="hidden sm:block k-nav-link">
+                                                How It Works
                                             </Link>
                                             <Link href="#about" className="hidden sm:block k-nav-link">
                                                 What's The Playground
                                             </Link>
                                             <Link href="#reviews" className="hidden sm:block k-nav-link">
-                                                Reviews
+                                                Why us?
                                             </Link>
                                             <Link href="#faqs" className="hidden sm:block k-nav-link">
                                                 Frequently Asked Questions

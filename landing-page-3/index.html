@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adventure Finder | Off-Road Jeep Tours</title>
+    <meta name="description" content="Explore scenic off-road Jeep adventures with trusted local operators and compare guided tours near you." />
+    <meta property="og:title" content="Adventure Finder | Off-Road Jeep Tours" />
+    <meta property="og:description" content="Find scenic Jeep tours, mountain routes, and desert escapes with expert local guides." />
+    <meta property="og:image" content="https://picsum.photos/1200/630?random=30" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#0E7490',
+              secondary: '#16A34A',
+              accent: '#F59E0B',
+              ink: '#111827',
+              mist: '#F9FAFB'
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              display: ['Poppins', 'sans-serif']
+            }
+          }
+        }
+      };
+    </script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="bg-mist text-ink">
+    <header class="sticky top-0 z-40 border-b border-slate-200/70 bg-white/80 backdrop-blur">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+        <a href="#top" class="font-display text-lg font-semibold text-ink">Adventure Finder</a>
+        <nav class="hidden items-center gap-6 text-sm font-medium text-slate-600 md:flex">
+          <a href="#packages" class="transition hover:text-primary">Tour packages</a>
+          <a href="#gallery" class="transition hover:text-primary">Gallery</a>
+          <a href="#lead-form" class="rounded-full bg-primary px-4 py-2 text-white">Book your adventure</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="relative overflow-hidden bg-slate-950 text-white">
+        <img src="https://picsum.photos/1800/1200?random=40" alt="Jeep climbing a scenic mountain road" class="absolute inset-0 h-full w-full object-cover" loading="eager" />
+        <div class="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-900/70 to-primary/35"></div>
+        <div class="relative mx-auto grid max-w-7xl gap-10 px-4 py-24 sm:px-6 lg:grid-cols-[1fr_0.85fr] lg:px-8 lg:py-28">
+          <div class="max-w-2xl">
+            <p class="mb-5 inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm">Mountain • Desert • Scenic</p>
+            <h1 class="font-display text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">Explore incredible off-road Jeep adventures.</h1>
+            <p class="mt-6 text-lg leading-8 text-slate-200">Compare guided Jeep tours from trusted local operators and find a route that matches your pace and scenery.</p>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a href="#lead-form" class="rounded-full bg-accent px-6 py-3 font-semibold text-slate-950">Book your adventure</a>
+              <a href="#packages" class="rounded-full border border-white/30 px-6 py-3 font-semibold text-white">View packages</a>
+            </div>
+          </div>
+          <div class="rounded-[2rem] border border-white/20 bg-white/10 p-6 shadow-2xl backdrop-blur">
+            <h2 class="font-display text-2xl font-semibold">Start your Jeep planning</h2>
+            <form class="mt-6 space-y-4" novalidate>
+              <label class="block text-sm font-medium text-slate-100"><span class="mb-2 block">First name</span><input name="firstName" required class="w-full rounded-2xl border border-white/20 bg-white/90 px-4 py-3 text-slate-900 outline-none" /></label>
+              <label class="block text-sm font-medium text-slate-100"><span class="mb-2 block">Email</span><input type="email" name="email" required class="w-full rounded-2xl border border-white/20 bg-white/90 px-4 py-3 text-slate-900 outline-none" /></label>
+              <label class="block text-sm font-medium text-slate-100"><span class="mb-2 block">Phone</span><input type="tel" name="phone" required class="w-full rounded-2xl border border-white/20 bg-white/90 px-4 py-3 text-slate-900 outline-none" /></label>
+              <label class="block text-sm font-medium text-slate-100"><span class="mb-2 block">Preferred adventure</span><select name="activity" required class="w-full rounded-2xl border border-white/20 bg-white/90 px-4 py-3 text-slate-900 outline-none"><option value="">Choose one</option><option>Mountain Ridge Safari</option><option>Desert Sunset Tour</option><option>River Crossing Expedition</option><option>Family Jeep Escape</option></select></label>
+              <label class="flex items-start gap-3 text-sm text-slate-200"><input type="checkbox" name="consent" required class="mt-1 h-4 w-4 rounded" /><span>I agree to be contacted regarding outdoor adventure offers.</span></label>
+              <button type="submit" class="w-full rounded-full bg-accent px-6 py-3 font-semibold text-slate-950">Get my free quotes</button>
+              <p class="form-message text-sm text-emerald-200" aria-live="polite"></p>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <div class="grid gap-4 rounded-[2rem] border border-slate-200 bg-white p-4 shadow-sm md:grid-cols-4 md:p-6">
+          <div class="text-center"><p class="text-3xl font-semibold text-ink">4.9</p><p class="text-sm text-slate-600">Average rating</p></div>
+          <div class="text-center"><p class="text-3xl font-semibold text-ink">300+</p><p class="text-sm text-slate-600">Guided tours</p></div>
+          <div class="text-center"><p class="text-3xl font-semibold text-ink">48 hrs</p><p class="text-sm text-slate-600">Typical response</p></div>
+          <div class="text-center"><p class="text-3xl font-semibold text-ink">Secure</p><p class="text-sm text-slate-600">Protected booking</p></div>
+        </div>
+      </section>
+
+      <section id="packages" class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div class="mb-10 max-w-2xl">
+          <p class="text-sm font-semibold uppercase tracking-[0.24em] text-primary">Tour packages</p>
+          <h2 class="mt-3 font-display text-3xl font-semibold text-ink sm:text-4xl">Pick the perfect Jeep experience for your travel style.</h2>
+        </div>
+        <div class="grid gap-6 lg:grid-cols-3">
+          <article class="rounded-[2rem] border border-slate-200 bg-white p-7 shadow-sm"><h3 class="font-display text-xl font-semibold">Scenic Mini Escape</h3><p class="mt-3 text-slate-600">A half-day tour featuring panoramic views and easy routes for first-time adventurers.</p><p class="mt-4 text-sm font-semibold text-primary">Ideal for couples</p></article>
+          <article class="rounded-[2rem] border border-slate-200 bg-white p-7 shadow-sm"><h3 class="font-display text-xl font-semibold">Mountain Challenge</h3><p class="mt-3 text-slate-600">Steeper climbs, rocky sections, and unforgettable lookouts for confident groups.</p><p class="mt-4 text-sm font-semibold text-accent">Best for thrill seekers</p></article>
+          <article class="rounded-[2rem] border border-slate-200 bg-white p-7 shadow-sm"><h3 class="font-display text-xl font-semibold">Desert Expedition</h3><p class="mt-3 text-slate-600">Wide-open landscapes, golden-hour stops, and expert narration along the trail.</p><p class="mt-4 text-sm font-semibold text-secondary">Great for families</p></article>
+        </div>
+      </section>
+
+      <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div class="mb-10 max-w-2xl">
+          <p class="text-sm font-semibold uppercase tracking-[0.24em] text-primary">Popular destinations</p>
+          <h2 class="mt-3 font-display text-3xl font-semibold text-ink sm:text-4xl">Explore dramatic terrain from canyon roads to alpine ridgelines.</h2>
+        </div>
+        <div class="grid gap-6 md:grid-cols-3">
+          <article class="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm"><h3 class="font-display text-xl font-semibold">Red Rock Trails</h3><p class="mt-3 text-slate-600">Striking sandstone landscapes and scenic pull-offs.</p></article>
+          <article class="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm"><h3 class="font-display text-xl font-semibold">High Alpine Routes</h3><p class="mt-3 text-slate-600">Cool air, pine forests, and ridge-top views.</p></article>
+          <article class="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm"><h3 class="font-display text-xl font-semibold">Desert Canyon Loop</h3><p class="mt-3 text-slate-600">Golden light, rugged terrain, and unforgettable photo stops.</p></article>
+        </div>
+      </section>
+
+      <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div class="rounded-[2.5rem] bg-gradient-to-br from-primary to-cyan-700 p-8 text-white shadow-xl lg:p-12">
+          <div class="grid gap-10 lg:grid-cols-[1fr_0.9fr] lg:items-center">
+            <div>
+              <p class="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-100">Why book through us</p>
+              <h2 class="mt-3 font-display text-3xl font-semibold sm:text-4xl">Experienced local guidance and stress-free bookings.</h2>
+              <p class="mt-4 text-lg text-cyan-50">We help you compare routes, vehicle styles, and operator credentials before you commit.</p>
+            </div>
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div class="rounded-[1.5rem] border border-white/20 bg-white/10 p-5 backdrop-blur"><p class="font-semibold">Vetted operators</p><p class="mt-2 text-sm text-cyan-50">Trusted by travelers for quality and safety.</p></div>
+              <div class="rounded-[1.5rem] border border-white/20 bg-white/10 p-5 backdrop-blur"><p class="font-semibold">Custom matching</p><p class="mt-2 text-sm text-cyan-50">We tailor suggestions to skill, group size, and schedule.</p></div>
+              <div class="rounded-[1.5rem] border border-white/20 bg-white/10 p-5 backdrop-blur"><p class="font-semibold">Flexible dates</p><p class="mt-2 text-sm text-cyan-50">Easy changes when your plans shift.</p></div>
+              <div class="rounded-[1.5rem] border border-white/20 bg-white/10 p-5 backdrop-blur"><p class="font-semibold">Protected booking</p><p class="mt-2 text-sm text-cyan-50">Secure payment and transparent operator info.</p></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="gallery" class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div class="grid gap-6 md:grid-cols-3">
+          <img src="https://picsum.photos/800/600?random=41" alt="Scenic Jeep trail climbing among tall pines" class="h-64 w-full rounded-[2rem] object-cover shadow-sm" loading="lazy" />
+          <img src="https://picsum.photos/800/600?random=42" alt="Jeep tour crossing a desert canyon" class="h-64 w-full rounded-[2rem] object-cover shadow-sm" loading="lazy" />
+          <img src="https://picsum.photos/800/600?random=43" alt="Group of travelers enjoying a mountain overlook" class="h-64 w-full rounded-[2rem] object-cover shadow-sm" loading="lazy" />
+        </div>
+      </section>
+
+      <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div class="space-y-4">
+          <div class="rounded-[1.5rem] border border-slate-200 bg-white p-6 shadow-sm"><button class="faq-toggle flex w-full items-center justify-between text-left" aria-expanded="false"><span class="font-semibold text-ink">Can I book for a small group?</span><span class="text-2xl text-primary">+</span></button><div class="faq-answer mt-4 hidden text-slate-600">Yes. We work with operators that accommodate couples, families, and smaller private groups.</div></div>
+          <div class="rounded-[1.5rem] border border-slate-200 bg-white p-6 shadow-sm"><button class="faq-toggle flex w-full items-center justify-between text-left" aria-expanded="false"><span class="font-semibold text-ink">Do you offer guided tours for beginners?</span><span class="text-2xl text-primary">+</span></button><div class="faq-answer mt-4 hidden text-slate-600">Absolutely. We can recommend scenic, lower-intensity routes for first-time riders.</div></div>
+        </div>
+      </section>
+
+      <section id="lead-form" class="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
+        <div class="rounded-[2.5rem] border border-slate-200 bg-white p-8 shadow-xl lg:p-10">
+          <div class="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
+            <div>
+              <p class="text-sm font-semibold uppercase tracking-[0.24em] text-primary">Get matched</p>
+              <h2 class="mt-3 font-display text-3xl font-semibold text-ink sm:text-4xl">Share your dates and we’ll connect you with the right tour company.</h2>
+              <p class="mt-4 text-lg text-slate-600">Whether you want a scenic drive or a full mountain expedition, we’ll suggest operators that fit your goals.</p>
+            </div>
+            <form class="space-y-4 rounded-[2rem] bg-slate-50 p-6" novalidate>
+              <div class="grid gap-4 sm:grid-cols-2">
+                <label class="block text-sm font-medium text-slate-700"><span class="mb-2 block">First name</span><input name="firstNameAlt" required class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none" /></label>
+                <label class="block text-sm font-medium text-slate-700"><span class="mb-2 block">Last name</span><input name="lastNameAlt" required class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none" /></label>
+              </div>
+              <div class="grid gap-4 sm:grid-cols-2">
+                <label class="block text-sm font-medium text-slate-700"><span class="mb-2 block">Email</span><input type="email" name="emailAlt" required class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none" /></label>
+                <label class="block text-sm font-medium text-slate-700"><span class="mb-2 block">Phone</span><input type="tel" name="phoneAlt" required class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none" /></label>
+              </div>
+              <div class="grid gap-4 sm:grid-cols-2">
+                <label class="block text-sm font-medium text-slate-700"><span class="mb-2 block">Zip code</span><input name="zipAlt" required class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none" /></label>
+                <label class="block text-sm font-medium text-slate-700"><span class="mb-2 block">Preferred adventure</span><select name="activityAlt" required class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none"><option value="">Choose one</option><option>Mountain Ridge Safari</option><option>Desert Sunset Tour</option><option>River Crossing Expedition</option><option>Family Jeep Escape</option></select></label>
+              </div>
+              <label class="block text-sm font-medium text-slate-700"><span class="mb-2 block">Preferred travel date</span><input type="date" name="travelDateAlt" required class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none" /></label>
+              <label class="flex items-start gap-3 text-sm text-slate-600"><input type="checkbox" name="consentAlt" required class="mt-1 h-4 w-4 rounded border-slate-300" /><span>I agree to be contacted regarding outdoor adventure offers.</span></label>
+              <button type="submit" class="w-full rounded-full bg-primary px-6 py-3 font-semibold text-white">Get my free quotes</button>
+              <p class="form-message text-sm text-primary" aria-live="polite"></p>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="border-t border-slate-200 bg-white/90">
+      <div class="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-8 text-sm text-slate-600 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+        <p>© 2026 Adventure Finder. Off-road journeys, refined.</p>
+      </div>
+    </footer>
+
+    <a href="#lead-form" class="mobile-sticky-cta fixed bottom-4 left-1/2 z-50 flex w-[calc(100%-2rem)] max-w-md -translate-x-1/2 items-center justify-center rounded-full bg-accent px-5 py-3 font-semibold text-slate-950 shadow-xl md:hidden">Book your adventure</a>
+    <script src="script.js"></script>
+  </body>
+</html>
