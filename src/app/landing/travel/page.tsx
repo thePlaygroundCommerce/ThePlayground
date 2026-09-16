@@ -49,7 +49,7 @@ export default async function Page({ searchParams }) {
 
       <section id="form" className="relative overflow-hidden bg-slate-900 text-white">
         <Image
-          src="https://picsum.photos/1600/1000?random=1"
+          src="/images/travel.jpg"
           alt="Scenic river canyon with outdoor adventure guides"
           className="absolute inset-0 h-full w-full object-cover"
           loading="eager"
@@ -215,7 +215,7 @@ export default async function Page({ searchParams }) {
         <section id="about" className="my-24">
           <Showcase content={
             <div className="relative h-full rounded-sm overflow-hidden">
-              <Image alt="" />
+              <Image alt="" src="/images/jeep.jpg" className="object-cover" />
             </div>
           } text={
             <div className="text-left my-8">
@@ -366,7 +366,7 @@ export default async function Page({ searchParams }) {
         <section>
           <Showcase content={
             <div className="relative h-full rounded-sm overflow-hidden">
-              <Image alt="" />
+              <Image alt="" src="/images/group.jpg" className="object-cover" />
             </div>
           } text={
             <div className="flex justify-center items-center h-full">

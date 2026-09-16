@@ -1,0 +1,47 @@
+{
+  "id": "photo_grid",
+  "type": "SharedSlice",
+  "name": "PhotoGrid",
+  "description": "A photo gallery slice displaying a grid of images with optional captions",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default photo gallery variation",
+      "imageUrl": "",
+      "primary": {
+        "title": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Gallery Title",
+            "single": "heading1",
+            "placeholder": "Enter gallery title"
+          }
+        },
+        "gallery_items": {
+          "type": "Group",
+          "config": {
+            "label": "Gallery Items",
+            "fields": {
+              "image": {
+                "type": "Image",
+                "config": {
+                  "label": "Gallery Image"
+                }
+              },
+              "caption": {
+                "type": "Text",
+                "config": {
+                  "label": "Image Caption",
+                  "placeholder": "Enter image caption (optional)"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

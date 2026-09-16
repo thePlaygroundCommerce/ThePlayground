@@ -15,6 +15,7 @@ export const components = {
   hero: dynamic(() => import("./Hero")),
   hero_2: dynamic(() => import("./ProductShowcase")),
   newsletter: dynamic(() => import("./Newsletter")),
+  photo_grid: dynamic(() => import("./PhotoGrid")),
   sliders: dynamic(() => import("./Sliders")),
   social_media_links: dynamic(() => import("./SocialMediaLinks")),
   statistics_grid: dynamic(() => import("./StatisticsGrid")),

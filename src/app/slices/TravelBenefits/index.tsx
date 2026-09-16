@@ -51,7 +51,7 @@ export const TravelBenefits = ({ overline, title, description, features }: Conte
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
             {features.map((item, index) => (
-              <div className="rounded-3xl border border-white/20 bg-white/10 p-5 backdrop-blur">
+              <div key={index} className="rounded-3xl border border-white/20 bg-white/10 p-5 backdrop-blur">
                 {item.feature_title && (
                   <p className="text-2xl font-semibold">{item.feature_title}</p>
                 )}

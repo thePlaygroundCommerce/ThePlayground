@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import axios from "axios";
 import matter from "gray-matter";
 
@@ -7,6 +9,13 @@ import * as cheerio from "cheerio";
 import prismic, { repositoryName } from "@/api/clients/prismicio";
 
 import path from "node:path";
+import { BsTypeH2 } from "react-icons/bs";
+import { transform } from "lodash";
+import {
+  BlogPostDocumentDataSlices2Slice,
+  BlogTextSlice,
+} from "prismicio-types";
+import { isFilled } from "@prismicio/client";
 
 export async function POST(req: Request) {
   if (!process.env.PRISMIC_WRITE_TOKEN)
@@ -69,138 +78,225 @@ export async function POST(req: Request) {
       return { result: [tableData], warnings: [] };
     };
 
-    $("div")
-      .children()
-      .each((_, element) => {
-        const tagName = element.tagName.toLowerCase();
+    const parseSections = () => {
+      // transforms HTML Elements into desired prismic structures
+      $("div")
+        .children()
+        .each((_, element) => {
+          const tagName = element.tagName.toLowerCase();
 
-        if (tagName === "hr") {
-          if (
-            currentGroup.result.length > 0 ||
-            currentGroup.warnings.length > 0
-          ) {
-            groups.push(currentGroup);
+          if (tagName === "hr") {
+            if (
+              currentGroup.result.length > 0 ||
+              currentGroup.warnings.length > 0
+            ) {
+              groups.push(currentGroup);
+            }
+            currentGroup = { result: [], warnings: [] };
+            return;
           }
-          currentGroup = { result: [], warnings: [] };
-          return;
-        }
 
-        
+          const transformed =
+            tagName === "table"
+              ? transformTable(element)
+              : htmlAsRichText($.html(element), {
+                  // serializer: {
+                  //   "blockquote p": ({ node }) => {
+                  //     return {
+                  //       type: "paragraph",
+                  //       text: "",
+                  //       spans: [],
+                  //       label: "blockquote",
+                  //     };
+                  //   },
+                  // },
+                });
 
-        const transformed =
-          tagName === "table"
-            ? transformTable(element)
-            : htmlAsRichText($.html(element), {
-                serializer: {
-                  "blockquote p": ({ node }) => {
-                    return {
-                      type: "paragraph",
-                      text: "",
-                      spans: [],
-                      label: "blockquote",
-                    };
-                  },
-                },
-              });
+          currentGroup.result.push(...transformed.result);
+          currentGroup.warnings.push(...transformed.warnings);
+        });
 
-        currentGroup.result.push(...transformed.result);
-        currentGroup.warnings.push(...transformed.warnings);
-      });
-
-    if (currentGroup.result.length > 0 || currentGroup.warnings.length > 0) {
-      groups.push(currentGroup);
-    }
-
-    const result = {
-      result: groups
-        .map((group) =>
-          group.result.filter((obj) =>
-            obj.text === undefined ? true : obj.text,
-          ),
-        )
-        .map((arr) =>
-          arr.reduce(
-            (acc, obj) => {
-              if (["paragraph", "list-item"].includes(obj.type))
-                obj.label === "blockquote"
-                  ? acc.blockquote.push(obj)
-                  : acc.paragraph.push(obj);
-              if (["heading2"].includes(obj.type)) acc.heading = obj.text;
-              if (["image"].includes(obj.type)) {
-                const src = obj.url;
-                const alt = obj.alt;
-                const { ext, base: filename } = path.parse(src);
-
-                if (
-                  [
-                    ".mp4",
-                    ".mkv",
-                    ".avi",
-                    ".mov",
-                    ".flv",
-                    ".wmv",
-                    ".webm",
-                  ].includes(ext)
-                ) {
-                  acc.video = {
-                    url: src,
-                    title: filename.slice(0, filename.indexOf(".")),
-                    collection: data.slug,
-                  };
-                } else if (
-                  [
-                    ".jpg",
-                    ".jpeg",
-                    ".png",
-                    ".gif",
-                    ".bmp",
-                    ".webp",
-                    ".tiff",
-                  ].includes(ext)
-                ) {
-                  acc.image = obj;
-                  acc.image.id = migration.createAsset(src, filename, alt);
-                }
-              }
-
-              if (obj.head || obj.body) {
-                acc.table = obj;
-              }
-
-              return acc;
-            },
-            {
-              paragraph: [],
-              heading: undefined,
-              blockquote: [],
-              image: {},
-              table: undefined,
-              video: undefined,
-              includeDividers: true,
-            },
-          ),
-        ),
-      warnings: groups.flatMap((group) => group.warnings),
+      if (currentGroup.result.length > 0 || currentGroup.warnings.length > 0) {
+        groups.push(currentGroup);
+      }
     };
 
-    return result;
+    const createSlices = (): BlogPostDocumentDataSlices2Slice[] => {
+      const structs = [];
+
+      // create structured objs ... ( Rich Data, Table, Etc )
+      $("div")
+        .children()
+        .each((i, element) => {
+          const tagName = element.tagName.toLowerCase();
+
+          // html -> desired object
+          const list: {
+            matchList: string[];
+            handler: () =>
+              | ReturnType<typeof transformTable>["result"]
+              | ReturnType<typeof htmlAsRichText>["result"];
+          }[] = [
+            {
+              matchList: ["table"],
+              handler: () => transformTable(element).result,
+            },
+            {
+              matchList: [
+                "p",
+                "h1",
+                "h2",
+                "h3",
+                "h4",
+                "h5",
+                "h6",
+                "img",
+                "ul",
+                "hr",
+              ],
+              handler: () => {
+                const result = htmlAsRichText($.html(element), {
+                  serializer: {
+                    hr: ({ node }) => {
+                      return {
+                        type: "paragraph",
+                        text: "",
+                        spans: [],
+                        label: "hr",
+                      };
+                    },
+                  },
+                }).result;
+
+                const slices = result
+                  .filter((obj) => {
+                    if (obj.type === "paragraph" && !obj.text) {
+                      return false;
+                    }
+                    return true;
+                  })
+                  .map((a) => {
+                    const isMedia = ["image", "embed"].includes(a.type);
+                    return {
+                      slice_type: isMedia ? "blog_media" : "blog_text",
+                      slice_label: null,
+                      variation: "default",
+                      version: "initial",
+                      items: [],
+                      primary: !isMedia
+                        ? {
+                            text: result,
+                          }
+                        : {
+                            group: [
+                              {
+                                image: result.find(
+                                  (obj) => obj.type === "image",
+                                ),
+                              },
+                            ],
+                          },
+                    };
+                  });
+
+                return slices;
+              },
+            },
+          ];
+
+          const matchedTransformer = list.find(({ matchList: stringToMatch }) =>
+            stringToMatch.includes(tagName),
+          );
+
+          if (!matchedTransformer) {
+            console.log("Unexpected tag name found!: ", tagName);
+            return;
+          }
+
+          const transformed = matchedTransformer.handler();
+
+          structs.push(...transformed);
+        });
+
+      // turn structs to slices
+      // turn rich txt objs to BlogText slice
+
+      const result = structs.reduce<BlogPostDocumentDataSlices2Slice[]>(
+        (acc, cur, i) => {
+          if (cur.slice_type === "blog_text") {
+            const lastSliceItem = acc[acc.length - 1];
+            if (lastSliceItem?.slice_type === "blog_text") {
+              lastSliceItem.primary.text.push(...cur.primary.text);
+            } else {
+              acc.push(cur);
+              return acc;
+            }
+          } else {
+            acc.push(cur);
+            return acc;
+          }
+          return acc;
+        },
+        [],
+      );
+
+      return result;
+    };
+
+    return createSlices();
   };
 
   try {
     // Custom migration code will go here...
-    prismicJson = await parseAndTransform(content);
+    const a = await parseAndTransform(content);
 
-    const b = prismicJson.result.filter((res) => res.video?.title);
+    a.filter((obj) => {
+      return obj.slice_type === "blog_media";
+    }).map((slice) => {
+      slice.primary.group.forEach(({ image: img }) => {
+        const src = img.url;
+        const alt = img.alt;
+        const { ext, base: filename } = path.parse(src);
 
-    try {
-      for (const res of b) {
-        const { data: embed } = await axios.post(
-          "http://localhost:3005/api/video",
-          res.video,
-        );
-        res.video = embed;
-      }
-    } catch (error) {}
+        const list = [
+          [[".mp4", ".mkv", ".avi", ".mov", ".flv", ".wmv", ".webm"], () => {}],
+          [
+            [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".tiff"],
+            () => {
+              img.id = migration.createAsset(
+                src,
+                `${data.slug}_${filename}`,
+                alt,
+              );
+            },
+          ],
+        ];
+
+        const matchedTransformer = list.find(([stringsToMatch]) => {
+          return stringsToMatch.includes(ext);
+        });
+        
+        if (!matchedTransformer) {
+          console.log("Unexpected tag name found!: ", tagName);
+          return;
+        }
+        
+        console.log(matchedTransformer);
+        matchedTransformer[1]();
+      });
+    });
+
+    // const videos = prismicJson.result.filter((res) => res.video?.title);
+
+    // try {
+    //   for (const res of videos) {
+    //     const { data: embed } = await axios.post(
+    //       "http://localhost:3005/api/video",
+    //       res.video,
+    //     );
+    //     res.video = embed;
+    //   }
+    // } catch (error) {}
 
     // return Response.json(prismicJson);
 
@@ -218,22 +314,24 @@ export async function POST(req: Request) {
           headline: "",
           image: undefined,
           slices: [],
-          slices2: [],
+          slices2: a,
           meta_title: data.title,
           meta_description: data.excerpt,
           meta_image: undefined,
-          sections: prismicJson.result as any,
+          sections: [],
         },
       },
       data.title,
     );
 
     // Execute the prepared migration at the very end of the script
-    await writeClient.migrate(migration, {
-      reporter: (event) => console.log(event),
-    });
+    await writeClient
+      .migrate(migration, {
+        reporter: (event) => console.log(event),
+      })
+      .catch((err) => console.log(err));
 
-    return Response.json(document);
+    return Response.json(a);
   } catch (error) {
     console.log(error);
     return Response.json(

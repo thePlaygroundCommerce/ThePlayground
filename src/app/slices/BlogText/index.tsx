@@ -12,19 +12,19 @@ export type BlogTextProps = SliceComponentProps<Content.BlogTextSlice>;
 /**
  * Component for "BlogText" Slices.
  */
-const BlogText: FC<BlogTextProps & { tableOfContents: { heading: string, id: string }[] }> = ({ slice, tableOfContents }) => {
+const BlogText: FC<BlogTextProps & { tableOfContents?: { heading: string, id: string }[] }> = ({ slice, tableOfContents }) => {
   const dataAttr = {
     "data-slice-type": slice.slice_type,
     "data-slice-variation": slice.variation
   }
   return (
     <PrismicRichText components={{
-      heading1: ({ children, text }) => <Heading {...dataAttr} id={tableOfContents.find(({ heading }) => heading === text)?.id} level={1}>{children}</Heading>,
-      heading2: ({ children, text }) => <Heading {...dataAttr} id={tableOfContents.find(({ heading }) => heading === text)?.id} level={2}>{children}</Heading>,
-      heading3: ({ children, text }) => <Heading {...dataAttr} id={tableOfContents.find(({ heading }) => heading === text)?.id} level={3}>{children}</Heading>,
-      heading4: ({ children, text }) => <Heading {...dataAttr} id={tableOfContents.find(({ heading }) => heading === text)?.id} level={4}>{children}</Heading>,
-      heading5: ({ children, text }) => <Heading {...dataAttr} id={tableOfContents.find(({ heading }) => heading === text)?.id} level={5}>{children}</Heading>,
-      heading6: ({ children, text }) => <Heading {...dataAttr} id={tableOfContents.find(({ heading }) => heading === text)?.id} level={6}>{children}</Heading>,
+      heading1: ({ children, text }) => <Heading {...dataAttr} id={tableOfContents?.find(({ heading }) => heading === text)?.id} level={1}>{children}</Heading>,
+      heading2: ({ children, text }) => <Heading {...dataAttr} id={tableOfContents?.find(({ heading }) => heading === text)?.id} level={2}>{children}</Heading>,
+      heading3: ({ children, text }) => <Heading {...dataAttr} id={tableOfContents?.find(({ heading }) => heading === text)?.id} level={3}>{children}</Heading>,
+      heading4: ({ children, text }) => <Heading {...dataAttr} id={tableOfContents?.find(({ heading }) => heading === text)?.id} level={4}>{children}</Heading>,
+      heading5: ({ children, text }) => <Heading {...dataAttr} id={tableOfContents?.find(({ heading }) => heading === text)?.id} level={5}>{children}</Heading>,
+      heading6: ({ children, text }) => <Heading {...dataAttr} id={tableOfContents?.find(({ heading }) => heading === text)?.id} level={6}>{children}</Heading>,
       paragraph: ({ children, ...rest }) => {
         // if (!_.isEmpty(blockquote)) {
         //   return (

@@ -70,9 +70,15 @@ const Layout = async ({ children }: LayoutProps<"/">) => {
                                                 <Link href="/shop" className="hidden sm:block k-nav-link">
                                                     shop
                                                 </Link>
-                                                <Link href="/shop" className="hidden sm:block k-nav-link">
-                                                    <strong>🔥</strong> sale
+                                                <Link href="/travel" className="hidden sm:block k-nav-link">
+                                                    travel
                                                 </Link>
+                                                <Link href="/log" className="hidden sm:block k-nav-link">
+                                                    blog
+                                                </Link>
+                                                {/* <Link href="/shop" className="hidden sm:block k-nav-link">
+                                                    <strong>🔥</strong> sale
+                                                </Link> */}
 
                                                 <div
                                                     data-node-type="commerce-cart-wrapper"
