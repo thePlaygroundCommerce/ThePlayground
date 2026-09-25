@@ -1,7 +1,7 @@
 import React, { ReactElement, ReactNode } from "react";
 import { AppProps, Content, ContentData, ContentImage, Modify } from "index";
 import Image from "./Image";
-import Carousel, { WebflowCarousel } from "./Carousel";
+import { WebflowCarousel as Carousel } from "./Carousel";
 import Link from "next/link";
 import Button from "./Button";
 import { isFilled } from "@prismicio/client";
@@ -19,7 +19,7 @@ import { notFound } from "next/navigation";
 import { getProductDetails } from "../app/(site)/shop/(product)/product/[slug]/page";
 
 export type HeroProps = {
-  type: "static" | "carousel";
+  type: string;
   items: Content[];
   content?: Content;
   classes?: {
@@ -35,7 +35,7 @@ export const isImageProps = (obj: ContentImage): obj is ImageProps => {
 export const renderContentImage = (image: ContentImage) => isImageProps(image) ? <Image {...image} /> : image
 
 const Hero = ({
-  type = "static",
+  type = "default",
   items,
   items: [{ contentStyles: { text_content_position = "", content_alignment = "" } = {} }],
   classes: { container: _container, contentContainer: _contentContainer } = {},
@@ -56,9 +56,12 @@ const Hero = ({
     ),
   };
 
+  const Component = map[type]
+
   return (
     <div className={container}>
-      <ProductHero slug="SYY7FIS7MJHPPRUXQZ4R2WDM"/>
+      <Component />
+      {/* <ProductHero slug="SYY7FIS7MJHPPRUXQZ4R2WDM"/> */}
       {/* <div className="h-full w-full absolute">
         <Carousel
           itemStyles={{ className: "w-full" }}
@@ -82,7 +85,7 @@ export const WebflowHero = () => {
   return (
     <div className="k-hero">
       <div className="k-hero-content" style={{ height: "calc(100vh - 85px)" }}>
-        <WebflowCarousel />
+        <Carousel />
       </div>
     </div>
   )
@@ -103,3 +106,10 @@ const ProductHero = async ({ slug }: { slug: string }) => {
 }
 
 export default Hero;
+
+
+const map = {
+  "default": WebflowHero,
+  "carousel": Carousel,
+  "product": ProductHero
+}

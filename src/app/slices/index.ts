@@ -8,6 +8,7 @@ export const components = {
   blog_media: dynamic(() => import("./BlogMedia")),
   blog_table: dynamic(() => import("./BlogTable")),
   blog_text: dynamic(() => import("./BlogText")),
+  carousel: dynamic(() => import("./Carousel")),
   drop_list: dynamic(() => import("./DropList")),
   faq_accordion: dynamic(() => import("./FaqAccordion")),
   featured_categories: dynamic(() => import("./FeaturedCategories")),

@@ -11,6 +11,7 @@ import { Input } from "@headlessui/react";
 import Button from "@/components/Button";
 import Link from "next/link";
 import { BsFillCheckCircleFill } from "react-icons/bs";
+import { Carousel } from "@/app/slices/Carousel";
 
 type LANDING_URL = "/landing/[uid]"
 
@@ -19,6 +20,11 @@ export default async function Page({ searchParams }) {
     error,
     success
   } = await searchParams;
+
+  // const items = [
+  //   <Image key={"b"} src={slice.primary.items[0].image.url} alt={""} fill className="object-cover" />,
+  //   <Image key={"a"} src={slice.primary.items[0].image.url} alt={""} fill className="object-cover" />
+  // ]
 
   return (
     <div>
@@ -253,9 +259,10 @@ export default async function Page({ searchParams }) {
         <section>
           <div className="p-36 text-center">
             <Heading className="mb-4" level={2}>Adventures And Stories<br /> Captured In Pictures</Heading>
-            <div className="relative pt-[56.25%]">
+            {/* <Carousel items={items} text={<p></p>} /> */}
+            {/* <div className="relative pt-[56.25%]">
               <iframe src="https://player.mediadelivery.net/embed/688372/5dc6cad5-5212-49ad-9341-95dd33391eef?autoplay=false&loop=false&muted=true&preload=true&responsive=true" loading="lazy" className="border-0 absolute top-0 h-full w-full" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;fullscreen;" allowFullScreen></iframe>
-            </div>
+            </div> */}
           </div>
         </section>
 
@@ -428,7 +435,7 @@ export default async function Page({ searchParams }) {
           </div>
         </section>
       </div>
-      
+
     </div>
   )
 }

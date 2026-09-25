@@ -38,9 +38,11 @@ const Carousel = ({
   items,
   children,
   className,
-  onSlide = () => {},
+  onSlide = () => { },
 }: Props) => {
   const [ready, setReady] = useState(false);
+  const [active, setActive] = useState(0);
+
   const options = {
     slideChanged({
       track: {
@@ -48,6 +50,7 @@ const Carousel = ({
       },
     }: any) {
       onSlide(abs);
+      setActive(abs)
     },
     created() {
       setReady(true);
@@ -77,12 +80,15 @@ const Carousel = ({
   };
 
   return (
-    <div
-      ref={sliderRef}
-      className={clsx(className, "keen-slider overflow-hidden")}
-    >
-      {ready && instanceRef.current && render()}
-    </div>
+    <>
+      <div
+        ref={sliderRef}
+        className={clsx(className, "keen-slider overflow-hidden h-full w-full md:h-full")}
+      >
+        {ready && instanceRef.current && render()}
+      </div>
+      <CarouselControls items={items} active={active} />
+    </>
   );
 };
 
@@ -90,6 +96,171 @@ export const WebflowCarousel = ({
   title = "Solo Dolo...",
   description = "Going at it alone? Peek our Solo Traveler collection.",
 }) => {
+
+  return (
+    <Carousel items={[
+      <div className="h-full md:flex">
+        <div className="k-hero-side-slider-1 md:h-full" aria-hidden="true">
+          <Image
+            src={staticImages.krasnikova}
+            loading="lazy"
+            alt=""
+            className="k-slide-cover-img"
+            style={{
+              // opacity: "0.6",
+              // transform:
+              //   "translate3d(0px, 0px, 0px) scale3d(1.5, 1.5, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)",
+              transformStyle: "preserve-3d",
+            }}
+            aria-hidden="true"
+          />
+          <div
+            className="k-slide-image-overlay"
+            style={{
+              // transform:
+              //   "translate3d(0px, 0%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)",
+              transformStyle: "preserve-3d",
+            }}
+            aria-hidden="true"
+          />
+        </div>
+        <div
+          id="w-node-_639a5eaa-5c25-0245-1575-e0488fe314f9-861cf97e"
+          className="k-hero-right pl-12 flex flex-col justify-center mt-12 flex-1"
+          aria-hidden="true"
+        >
+          <div
+            className="heading-wrapper heading-space-1"
+            aria-hidden="true"
+          >
+            <h1 aria-hidden="true">{title}</h1>
+            <div
+              className="k-slide-heading-overlay"
+              style={{
+                // transform:
+                //   "translate3d(0px, 0%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)",
+                transformStyle: "preserve-3d",
+              }}
+              aria-hidden="true"
+            />
+          </div>
+          <div className="para-wrapper" aria-hidden="true">
+            <p
+              className="k-slider-para"
+              style={{
+                opacity: "0.6",
+                // transform:
+                //   "translate3d(0px, 0px, 0px) scale3d(1.3, 1.3, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)",
+                transformStyle: "preserve-3d",
+              }}
+              aria-hidden="true"
+            >
+              {description}
+            </p>
+            <div
+              className="k-slide-para-overlay"
+              style={{
+                // transform:
+                //   "translate3d(0px, 0%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)",
+                transformStyle: "preserve-3d",
+              }}
+              aria-hidden="true"
+            />
+          </div>
+          <div className="k-button-wrap btn-wrap-1" aria-hidden="true">
+            <Link
+              href="/shop"
+              className="btn w-button"
+              tabIndex={-1}
+              aria-hidden="true"
+            >
+              shop now
+            </Link>
+          </div>
+        </div>
+      </div>,
+      <div className="h-full flex">
+        <div className="k-hero-side-slider-1 md:h-full" aria-hidden="true">
+          <Image
+            src={staticImages.krasnikova}
+            loading="lazy"
+            alt=""
+            className="k-slide-cover-img"
+            style={{
+              // opacity: "0.6",
+              // transform:
+              //   "translate3d(0px, 0px, 0px) scale3d(1.5, 1.5, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)",
+              transformStyle: "preserve-3d",
+            }}
+            aria-hidden="true"
+          />
+          <div
+            className="k-slide-image-overlay"
+            style={{
+              // transform:
+              //   "translate3d(0px, 0%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)",
+              transformStyle: "preserve-3d",
+            }}
+            aria-hidden="true"
+          />
+        </div>
+        <div
+          id="w-node-_639a5eaa-5c25-0245-1575-e0488fe314f9-861cf97e"
+          className="k-hero-right pl-12 flex flex-col justify-center mt-12"
+          aria-hidden="true"
+        >
+          <div
+            className="heading-wrapper heading-space-1"
+            aria-hidden="true"
+          >
+            <h1 aria-hidden="true">{title}</h1>
+            <div
+              className="k-slide-heading-overlay"
+              style={{
+                // transform:
+                //   "translate3d(0px, 0%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)",
+                transformStyle: "preserve-3d",
+              }}
+              aria-hidden="true"
+            />
+          </div>
+          <div className="para-wrapper" aria-hidden="true">
+            <p
+              className="k-slider-para"
+              style={{
+                opacity: "0.6",
+                // transform:
+                //   "translate3d(0px, 0px, 0px) scale3d(1.3, 1.3, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)",
+                transformStyle: "preserve-3d",
+              }}
+              aria-hidden="true"
+            >
+              {description}
+            </p>
+            <div
+              className="k-slide-para-overlay"
+              style={{
+                // transform:
+                //   "translate3d(0px, 0%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)",
+                transformStyle: "preserve-3d",
+              }}
+              aria-hidden="true"
+            />
+          </div>
+          <div className="k-button-wrap btn-wrap-1" aria-hidden="true">
+            <Link
+              href="/shop"
+              className="btn w-button"
+              tabIndex={-1}
+              aria-hidden="true"
+            >
+              shop now
+            </Link>
+          </div>
+        </div>
+      </div>
+    ]} />
+  )
   return (
     <div
       data-delay="4000"
@@ -133,7 +304,6 @@ export const WebflowCarousel = ({
           <div className="sr-only">goto next slide</div>
         </a>
       </div> */}
-      {/* <div id=x */}
       <div className="k-slider-mask-2 w-slider-mask">
         <div className="k-hero-slider-slide w-slide" style={{ height: "100%" }}>
           <div
@@ -239,5 +409,13 @@ export const WebflowCarousel = ({
     </div>
   );
 };
+
+const CarouselControls = ({ items = [], active = 0 }) => {
+  return (
+    <div className="flex gap-3 p-4 ml-auto md:mx-auto w-max">
+      {items.map((_, i) => <div key={i} className={clsx("size-3 rounded-full", active == i && "bg-red-500" || "bg-zinc-700")} />)}
+    </div>
+  )
+}
 
 export default Carousel;

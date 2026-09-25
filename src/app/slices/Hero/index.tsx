@@ -49,7 +49,7 @@ const Hero = ({
       data-slice-variation={slice.variation}
       className={clsx("h-full")}
     >
-      <HeroComponent type={"static"} items={heroImgs} />
+      <HeroComponent type={variation} items={heroImgs} />
     </section>
   );
 };
