@@ -1,20 +1,14 @@
-import React, { ReactElement, ReactNode } from "react";
-import { AppProps, Content, ContentData, ContentImage, Modify } from "index";
+import { ReactElement } from "react";
+import { AppProps, Content, ContentImage } from "index";
 import Image from "./Image";
 import { WebflowCarousel as Carousel } from "./Carousel";
-import Link from "next/link";
-import Button from "./Button";
 import { isFilled } from "@prismicio/client";
 import clsx from "clsx";
 import { contentPositions } from "@/util/styles";
 import { ImageProps } from "index";
-import { latoLight } from "@/app/fonts";
 
-import staticImages from "@/util/images"
-import Heading from "./typography/Heading";
 import ProductDetails from "./ProductDetails";
 import ProductImageGallery from "./ProductImageGallery";
-import { getProduct } from "@/api/catalogApi";
 import { notFound } from "next/navigation";
 import { getProductDetails } from "../app/(site)/shop/(product)/product/[slug]/page";
 
@@ -41,7 +35,7 @@ const Hero = ({
   classes: { container: _container, contentContainer: _contentContainer } = {},
 }: HeroProps) => {
   const { container, contentContainer } = {
-    container: clsx("overflow-hidden bgimg w-full relative h-full", _container),
+    container: clsx("overflow-hidden bgimg w-full relative h-full flex flex-col ", _container),
     contentContainer: clsx(
       'h-full',
       "w-full",
@@ -60,32 +54,17 @@ const Hero = ({
 
   return (
     <div className={container}>
-      <Component />
-      {/* <ProductHero slug="SYY7FIS7MJHPPRUXQZ4R2WDM"/> */}
-      {/* <div className="h-full w-full absolute">
-        <Carousel
-          itemStyles={{ className: "w-full" }}
-          items={items.map(({ image, content }, i) => (
-            <HeroContent key={i} {...{
-              image: image,
-              content: type === 'static' ? undefined : content
-            }} />
-          ))}
-          className="min-h-[500px] h-full"
-        />
-      </div> */}
-      {/* <div className={contentContainer}>
-        {type === "static" && <HeroContent {...items[0]} image={undefined} />}
-      </div> */}
+      <Component {...{ items }} />
     </div>
   );
 };
 
-export const WebflowHero = () => {
+export const WebflowHero = (props) => {
+
   return (
     <div className="k-hero">
       <div className="k-hero-content" style={{ height: "calc(100vh - 85px)" }}>
-        <Carousel />
+        <Carousel {...props} />
       </div>
     </div>
   )

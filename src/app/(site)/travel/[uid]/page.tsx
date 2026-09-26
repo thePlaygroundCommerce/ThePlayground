@@ -14,6 +14,8 @@ import { redirect } from "next/navigation";
 import { components } from "@/app/slices";
 import { isFilled } from "@prismicio/client";
 import Hero from "@/app/slices/Hero";
+import Button from "@/components/Button";
+import Link from "next/link";
 
 export default async function Page({ searchParams, params }) {
   const {
@@ -37,7 +39,11 @@ export default async function Page({ searchParams, params }) {
 
   return (
     <div>
-      {hero ? <SliceZone slices={[hero]} components={components} /> : (
+      {hero ? (
+        <div className="h-160">
+          <SliceZone slices={[hero]} components={components} />
+        </div>
+      ) : (
         <section id="form" className="relative overflow-hidden bg-slate-900 text-white">
           <Image
             src="/images/travel.jpg"
@@ -60,20 +66,6 @@ export default async function Page({ searchParams, params }) {
                 and more. We connect you with operators that fit your style, budget, and
                 dates.
               </p>
-              {/* <div className="mt-8 flex flex-wrap gap-3">
-              <a
-                href="#lead-form"
-                className="rounded-full bg-accent px-6 py-3 font-semibold text-slate-100 bg-zinc-800 transition hover:-translate-y-0.5"
-              >
-                Get free quotes
-              </a>
-              <a
-                href="#how-it-works"
-                className="rounded-full border border-white/30 px-6 py-3 font-semibold text-white transition hover:bg-white/10"
-              >
-                See how it works
-              </a>
-            </div> */}
               <div className="mt-8 flex flex-wrap gap-4 text-sm text-slate-200">
                 <span className="flex items-center gap-2">
                   <span className="text-accent">★★★★★</span> 4.9 average rating
@@ -83,7 +75,7 @@ export default async function Page({ searchParams, params }) {
                 </span>
               </div>
             </div>
-            <div className="glass-card rounded-4xl border border-white/20 bg-white/10 p-6 shadow-2xl backdrop xl:p-8">
+            {/* <div className="glass-card rounded-4xl border border-white/20 bg-white/10 p-6 shadow-2xl backdrop xl:p-8">
               {success ? (
                 <div>
                   <BsFillCheckCircleFill
@@ -104,9 +96,6 @@ export default async function Page({ searchParams, params }) {
                         Fill And Submit Form
                       </h2>
                     </div>
-                    {/* <div className="rounded-full bg-secondary/20 px-3 py-1 text-sm font-semibold text-emerald-200">
-                No pressure
-              </div> */}
                   </div>
                   <Form action={submitTravelLeadForm} id="hero-form" className="space-y-4">
                     <Input hidden readOnly name="formId" value="ad1exasxwt6" />
@@ -171,16 +160,6 @@ export default async function Page({ searchParams, params }) {
                         </select>
                       </label>
                     </div>
-                    {/* <label className="flex items-start gap-3 text-sm text-slate-200">
-                <input
-                  type="checkbox"
-                  name="fi-checkbox-consent"
-                  className="mt-1 h-4 w-4 rounded border-slate-300"
-                />
-                <span>
-                  I agree to be contacted regarding outdoor adventure offers.
-                </span>
-              </label> */}
                     <button
                       type="submit"
                       className="w-full rounded-full bg-zinc-800 px-6 py-3 font-semibold text-slate-100 transition hover:-translate-y-0.5 cursor-pointer"
@@ -191,34 +170,38 @@ export default async function Page({ searchParams, params }) {
                   </Form>
                 </>
               )}
-            </div>
+            </div> */}
           </div>
         </section>
       )}
 
-      <Grid items={[
+      {/* <Grid items={[
         { info: "10K+", label: "Happy Travelers" },
         { info: "500+", label: "Local Tour Partners" },
         { info: "4.9", label: "Average Rating" },
         { info: "100%", label: "Secure & Private" },
-      ]} />
+      ]} /> */}
 
-      <div className="md:max-w-7xl mx-auto mt-12 grid grid-cols-3">
-        <div className="col-span-2">
-
+      <div className="md:max-w-7xl mx-auto sm:mt-12 md:grid md:grid-cols-3">
+        <div className="col-span-2 relative">
+          <div className="z-30 sticky px-4 pb-4 pt-2 top-0 bg-white flex justify-center">
+            <Link href="https://app.squareup.com/appointments/book/pi0g6oj520piog/L1Y49TP8EXBSN/start"><Button className="shadow-md p-4 w-full border-4 border-green-600 bg-green-400 text-zinc-100 rounded-2xl">Check Availability</Button></Link>
+          </div>
           {/* <DisclosureList items={[
             { heading: "hello", id: "hello" },
             { heading: "hello", id: "hello" },
           ]} /> */}
 
           {isFilled.sliceZone(slices) && slices.filter((sl) => sl.slice_type !== "hero").map((slice) => (
-            <div className="">
+            <div className={clsx(
+              slice.slice_type === "blog_text" && "p-4"
+            )}>
               <SliceZone slices={[slice]} components={components} />
             </div>
           ))}
 
         </div>
-        <div className="col-span-1">
+        <div className="hidden md:block col-span-1">
           <div className="p-4 md:p-8">
             <div className="sticky top-20 z-40">
               <div className="rounded-3xl border border-zinc-200 bg-stone-100 p-6 shadow-xl sm:p-8">
