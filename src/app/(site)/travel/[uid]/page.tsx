@@ -193,7 +193,7 @@ export default async function Page({ searchParams, params }) {
           ]} /> */}
 
           {isFilled.sliceZone(slices) && slices.filter((sl) => sl.slice_type !== "hero").map((slice) => (
-            <div className={clsx(
+            <div key={slice.id} className={clsx(
               slice.slice_type === "blog_text" && "p-4"
             )}>
               <SliceZone slices={[slice]} components={components} />

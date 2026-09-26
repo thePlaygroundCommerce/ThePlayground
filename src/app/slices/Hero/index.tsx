@@ -42,14 +42,14 @@ const Hero = ({
 }: PrismicHeroProps): JSX.Element => {
   const heroImgs =
     variation === "default"
-      ? [slicePropsToHeroProps(heroContent)].map(({ image }) =>
-        renderContentImage({ src: isImageProps(image) && image.src || undefined, className: "object-cover", alt: "" }),
+      ? [slicePropsToHeroProps(heroContent)].map(({ image }, i) =>
+        renderContentImage({ key: i,  src: isImageProps(image) && image.src || undefined, className: "object-cover", alt: "" }),
       )
       : items
         .map(({ bg_image }) => ({ bg_image, ...heroContent }))
         .map(slicePropsToHeroProps)
-        .map(({ image }) =>
-          renderContentImage({ src: isImageProps(image) && image.src || undefined, className: "object-cover", alt: "" }),
+        .map(({ image }, i) =>
+          renderContentImage({ key: i, src: isImageProps(image) && image.src || undefined, className: "object-cover", alt: "" }),
         );
 
   console.log(heroImgs);

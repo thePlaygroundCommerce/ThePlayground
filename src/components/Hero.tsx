@@ -26,7 +26,7 @@ export const isImageProps = (obj: ContentImage): obj is ImageProps => {
   return (obj as ReactElement).type == undefined
 }
 
-export const renderContentImage = (image: ContentImage) => isImageProps(image) ? <Image {...image} /> : image
+export const renderContentImage = (image: ContentImage) => isImageProps(image) ? <Image key={image.key} {...image} /> : image
 
 const Hero = ({
   type = "default",
