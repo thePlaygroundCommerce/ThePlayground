@@ -52,7 +52,6 @@ const Hero = ({
           renderContentImage({ key: i, src: isImageProps(image) && image.src || undefined, className: "object-cover", alt: "" }),
         );
 
-  console.log(heroImgs);
   return (
     <section
       data-slice-type={slice.slice_type}

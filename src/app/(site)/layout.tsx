@@ -62,7 +62,9 @@ const Layout = async ({ children }: LayoutProps<"/">) => {
                                                 <div>play.</div>
                                             </Link>
 
-                                            <Hamburger />
+                                            <div className='md:hidden block'>
+                                                <Hamburger />
+                                            </div>
 
                                         </div>
                                         <div className="flex-5 flex justify-end items-center">
