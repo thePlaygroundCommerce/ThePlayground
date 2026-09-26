@@ -40,7 +40,7 @@ export default async function Page({ searchParams, params }) {
   return (
     <div>
       {hero ? (
-        <div className="h-160">
+        <div className="h-[75vh]">
           <SliceZone slices={[hero]} components={components} />
         </div>
       ) : (
