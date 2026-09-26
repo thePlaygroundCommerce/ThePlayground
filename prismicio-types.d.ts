@@ -1192,6 +1192,96 @@ export type ThePlaygroundDisplayLogoDocument<Lang extends string = string> =
     Lang
   >;
 
+type TravelLeadPageDocumentDataSlicesSlice =
+  | HeroSlice
+  | Hero2Slice
+  | PhotoGridSlice
+  | FaqAccordionSlice
+  | DropListSlice
+  | BlogTextSlice
+  | BlogMediaSlice;
+
+/**
+ * Content for Travel Lead Page documents
+ */
+interface TravelLeadPageDocumentData {
+  /**
+   * Slice Zone field in *Travel Lead Page*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: travel_lead_page.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/slices
+   */
+  slices: prismic.SliceZone<TravelLeadPageDocumentDataSlicesSlice>; /**
+   * Meta Title field in *Travel Lead Page*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: travel_lead_page.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Travel Lead Page*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: travel_lead_page.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Travel Lead Page*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: travel_lead_page.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * Travel Lead Page document from Prismic
+ *
+ * - **API ID**: `travel_lead_page`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type TravelLeadPageDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<TravelLeadPageDocumentData>,
+    "travel_lead_page",
+    Lang
+  >;
+
+interface TravelServiceDocumentData {}
+
+/**
+ * Travel Service document from Prismic
+ *
+ * - **API ID**: `travel_service`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type TravelServiceDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<TravelServiceDocumentData>,
+    "travel_service",
+    Lang
+  >;
+
 export type AllDocumentTypes =
   | BlogPostDocument
   | CategorylinkDocument
@@ -1206,7 +1296,9 @@ export type AllDocumentTypes =
   | ProductLandingPageDocument
   | SocialMediaHandleDocument
   | SocialMediaLinksDocument
-  | ThePlaygroundDisplayLogoDocument;
+  | ThePlaygroundDisplayLogoDocument
+  | TravelLeadPageDocument
+  | TravelServiceDocument;
 
 /**
  * Item in *BenefitsCallout → Default → Primary → Benefits*
@@ -1493,6 +1585,76 @@ type BlogTextSliceVariation = BlogTextSliceDefault;
 export type BlogTextSlice = prismic.SharedSlice<
   "blog_text",
   BlogTextSliceVariation
+>;
+
+/**
+ * Item in *Carousel → Default → Primary → items*
+ */
+export interface CarouselSliceDefaultPrimaryItemsItem {
+  /**
+   * image field in *Carousel → Default → Primary → items*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: carousel.default.primary.items[].image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+}
+
+/**
+ * Primary content in *Carousel → Default → Primary*
+ */
+export interface CarouselSliceDefaultPrimary {
+  /**
+   * items field in *Carousel → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: carousel.default.primary.items[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  items: prismic.GroupField<Simplify<CarouselSliceDefaultPrimaryItemsItem>>;
+
+  /**
+   * text field in *Carousel → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: carousel.default.primary.text
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  text: prismic.RichTextField;
+}
+
+/**
+ * Default variation for Carousel Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type CarouselSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<CarouselSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Carousel*
+ */
+type CarouselSliceVariation = CarouselSliceDefault;
+
+/**
+ * Carousel Shared Slice
+ *
+ * - **API ID**: `carousel`
+ * - **Description**: Carousel
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type CarouselSlice = prismic.SharedSlice<
+  "carousel",
+  CarouselSliceVariation
 >;
 
 /**
@@ -2682,6 +2844,88 @@ export type NewsletterSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Item in *PhotoGrid → Default → Primary → Gallery Items*
+ */
+export interface PhotoGridSliceDefaultPrimaryGalleryItemsItem {
+  /**
+   * Gallery Image field in *PhotoGrid → Default → Primary → Gallery Items*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: photo_grid.default.primary.gallery_items[].image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Image Caption field in *PhotoGrid → Default → Primary → Gallery Items*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Enter image caption (optional)
+   * - **API ID Path**: photo_grid.default.primary.gallery_items[].caption
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  caption: prismic.KeyTextField;
+}
+
+/**
+ * Primary content in *PhotoGrid → Default → Primary*
+ */
+export interface PhotoGridSliceDefaultPrimary {
+  /**
+   * Gallery Title field in *PhotoGrid → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: Enter gallery title
+   * - **API ID Path**: photo_grid.default.primary.title
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  title: prismic.RichTextField;
+
+  /**
+   * Gallery Items field in *PhotoGrid → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: photo_grid.default.primary.gallery_items[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  gallery_items: prismic.GroupField<
+    Simplify<PhotoGridSliceDefaultPrimaryGalleryItemsItem>
+  >;
+}
+
+/**
+ * Default variation for PhotoGrid Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default photo gallery variation
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type PhotoGridSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<PhotoGridSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *PhotoGrid*
+ */
+type PhotoGridSliceVariation = PhotoGridSliceDefault;
+
+/**
+ * PhotoGrid Shared Slice
+ *
+ * - **API ID**: `photo_grid`
+ * - **Description**: A photo gallery slice displaying a grid of images with optional captions
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type PhotoGridSlice = prismic.SharedSlice<
+  "photo_grid",
+  PhotoGridSliceVariation
+>;
+
+/**
  * Item in *Sliders → blog → Primary → blogs*
  */
 export interface SlidersSliceBlogPrimaryItemsItem {
@@ -3456,6 +3700,11 @@ declare module "@prismicio/client" {
       SocialMediaLinksDocumentDataSlicesSlice,
       ThePlaygroundDisplayLogoDocument,
       ThePlaygroundDisplayLogoDocumentData,
+      TravelLeadPageDocument,
+      TravelLeadPageDocumentData,
+      TravelLeadPageDocumentDataSlicesSlice,
+      TravelServiceDocument,
+      TravelServiceDocumentData,
       AllDocumentTypes,
       BenefitsCalloutSlice,
       BenefitsCalloutSliceDefaultPrimaryBenefitsItem,
@@ -3479,6 +3728,11 @@ declare module "@prismicio/client" {
       BlogTextSliceDefaultPrimary,
       BlogTextSliceVariation,
       BlogTextSliceDefault,
+      CarouselSlice,
+      CarouselSliceDefaultPrimaryItemsItem,
+      CarouselSliceDefaultPrimary,
+      CarouselSliceVariation,
+      CarouselSliceDefault,
       DropListSlice,
       DropListSliceDefaultPrimaryDropitemsItem,
       DropListSliceDefaultPrimary,
@@ -3518,6 +3772,11 @@ declare module "@prismicio/client" {
       NewsletterSliceDefaultPrimary,
       NewsletterSliceVariation,
       NewsletterSliceDefault,
+      PhotoGridSlice,
+      PhotoGridSliceDefaultPrimaryGalleryItemsItem,
+      PhotoGridSliceDefaultPrimary,
+      PhotoGridSliceVariation,
+      PhotoGridSliceDefault,
       SlidersSlice,
       SlidersSliceDefaultPrimary,
       SlidersSliceBlogPrimaryItemsItem,

@@ -1,7 +1,4 @@
-import React, { ReactNode } from 'react'
-import { isImageProps } from './Hero'
 import Image from './Image'
-import Heading from './typography/Heading'
 import { ContentData, ContentImage } from 'index'
 import Link from 'next/link'
 import { FaArrowRight } from 'react-icons/fa6'

@@ -3,268 +3,77 @@
 		"__TYPE__": "SharedSliceContent",
 		"variation": "default",
 		"primary": {
-			"description": {
-				"__TYPE__": "StructuredTextContent",
-				"value": [
-					{
-						"type": "paragraph",
-						"content": {
-							"text": "Learn how prismic.io helps thousands of businesses around the world with some of our customers’ use-cases",
-							"spans": []
-						},
-						"direction": "ltr"
-					}
-				]
-			},
-			"image": {
-				"provider": "imgix",
-				"url": "https://images.unsplash.com/photo-1654509504219-b8e1afea885e?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzc0NjN8MHwxfHNlYXJjaHwyMHx8Y2l0cnVzJTIwZnJ1aXR8ZW58MHx8fHwxNzc3NzQyOTg3fDA&ixlib=rb-4.1.0&q=85",
-				"alt": "a tree filled with lots of oranges under a blue sky",
-				"origin": {
-					"id": "aCDxUXLMnAM",
-					"url": "https://images.unsplash.com/photo-1654509504219-b8e1afea885e?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzc0NjN8MHwxfHNlYXJjaHwyMHx8Y2l0cnVzJTIwZnJ1aXR8ZW58MHx8fHwxNzc3NzQyOTg3fDA&ixlib=rb-4.1.0&q=85",
-					"width": 2268,
-					"height": 4032
-				},
-				"width": 2268,
-				"height": 4032,
-				"edit": {
-					"background": "transparent",
-					"zoom": 1,
-					"crop": {
-						"x": 0,
-						"y": 0
-					}
-				},
-				"credits": null,
-				"__TYPE__": "ImageContent",
-				"thumbnails": {}
-			},
-			"description_align": {
-				"__TYPE__": "FieldContent",
-				"value": "measure",
-				"type": "Text"
-			},
-			"window": {
-				"__TYPE__": "BooleanContent",
-				"value": true
-			},
-			"call_to_action_link": {
-				"key": "6c5a664c-ed2f-48c5-bbdb-48ed2132cf93",
-				"__TYPE__": "LinkContent",
-				"value": {
-					"__TYPE__": "DocumentLink",
-					"id": "mock_document_id"
-				}
-			},
-			"call_to_action_label": {
-				"__TYPE__": "FieldContent",
-				"value": "raw",
-				"type": "Text"
-			},
 			"headline": {
 				"__TYPE__": "FieldContent",
-				"value": "essential",
+				"value": "section",
 				"type": "Text"
 			},
-			"title": {
-				"__TYPE__": "FieldContent",
-				"value": "handsome",
-				"type": "Text"
-			},
-			"cards": {
-				"__TYPE__": "GroupContentType",
-				"value": [
-					{
-						"__TYPE__": "GroupItemContent",
-						"value": [
-							[
-								"type",
-								{
-									"__TYPE__": "FieldContent",
-									"value": "review",
-									"type": "Select"
-								}
-							]
-						]
-					}
-				]
-			},
-			"reverse": {
-				"__TYPE__": "BooleanContent",
-				"value": false
-			}
-		},
-		"items": []
-	},
-	{
-		"__TYPE__": "SharedSliceContent",
-		"variation": "style2",
-		"primary": {
 			"description": {
 				"__TYPE__": "StructuredTextContent",
 				"value": [
 					{
 						"type": "paragraph",
 						"content": {
-							"text": "Reprehenderit anim nostrud mollit. Ullamco esse nostrud fugiat consectetur laboris eu proident commodo aliquip. Officia sunt non deserunt magna sit reprehenderit adipisicing laborum ex sit."
+							"text": "Irure ut esse laboris in consequat non commodo esse."
 						}
 					}
 				]
 			},
-			"image": {
-				"origin": {
-					"id": "main",
-					"url": "https://images.unsplash.com/photo-1493119508027-2b584f234d6c",
-					"width": 3424,
-					"height": 3424
-				},
-				"url": "https://images.unsplash.com/photo-1493119508027-2b584f234d6c",
-				"width": 3424,
-				"height": 3424,
-				"edit": {
-					"zoom": 1,
-					"crop": {
-						"x": 0,
-						"y": 0
-					},
-					"background": "transparent"
-				},
-				"alt": "parent",
-				"credits": null,
-				"__TYPE__": "ImageContent",
-				"thumbnails": {}
-			},
 			"description_align": {
 				"__TYPE__": "FieldContent",
-				"value": "fifty",
+				"value": "remarkable",
 				"type": "Text"
 			},
 			"window": {
 				"__TYPE__": "BooleanContent",
 				"value": true
 			},
-			"title": {
-				"__TYPE__": "FieldContent",
-				"type": "Text",
-				"value": "\"It just makes my life better, period.\""
-			},
-			"call_to_action_label": {
-				"__TYPE__": "FieldContent",
-				"type": "Text",
-				"value": "GET YOUR BONE BROTH →"
-			},
-			"cards": {
-				"__TYPE__": "GroupContentType",
-				"value": [
-					{
-						"__TYPE__": "GroupItemContent",
-						"value": []
-					}
-				]
-			},
-			"reverse": {
-				"__TYPE__": "BooleanContent",
-				"value": false
-			}
-		},
-		"items": [
-			{
-				"__TYPE__": "GroupItemContent",
-				"value": []
-			}
-		]
-	},
-	{
-		"__TYPE__": "SharedSliceContent",
-		"variation": "style3",
-		"primary": {
-			"description": {
-				"__TYPE__": "StructuredTextContent",
-				"value": [
-					{
-						"type": "paragraph",
-						"content": {
-							"text": "Content management systems (CMS) have evolved alongside these changing demands. Once simple publishing tools, today's CMS platforms have become the central, technical anchor that supports the entire content lifecycle. This evolution represents a fundamental shift in how we approach content technology – from basic infrastructure to production, publishing, and distribution.",
-							"spans": []
-						},
-						"direction": "ltr"
-					}
-				]
-			},
-			"image": {
-				"origin": {
-					"id": "main",
-					"url": "https://images.unsplash.com/photo-1576662712957-9c79ae1280f8",
-					"width": 3456,
-					"height": 3456
-				},
-				"url": "https://images.unsplash.com/photo-1576662712957-9c79ae1280f8",
-				"width": 3456,
-				"height": 3456,
-				"edit": {
-					"zoom": 1,
-					"crop": {
-						"x": 0,
-						"y": 0
-					},
-					"background": "transparent"
-				},
-				"alt": "lie",
-				"credits": null,
-				"__TYPE__": "ImageContent",
-				"thumbnails": {}
-			},
-			"description_align": {
-				"__TYPE__": "FieldContent",
-				"value": "place",
-				"type": "Text"
-			},
-			"window": {
-				"__TYPE__": "BooleanContent",
-				"value": false
-			},
 			"call_to_action_link": {
-				"key": "f647e0a9-c036-42ea-9d7a-0ff416c95c28",
+				"key": "2928df34-bd34-4d65-b4c4-f909bc4e666b",
 				"__TYPE__": "LinkContent",
 				"value": {
 					"__TYPE__": "DocumentLink",
 					"id": "mock_document_id"
 				}
 			},
+			"call_to_action_label": {
+				"__TYPE__": "FieldContent",
+				"value": "personal",
+				"type": "Text"
+			},
 			"title": {
 				"__TYPE__": "FieldContent",
-				"type": "Text",
-				"value": "Leveraging integrations and content modules"
+				"value": "flag",
+				"type": "Text"
 			},
 			"cards": {
 				"__TYPE__": "GroupContentType",
 				"value": [
 					{
 						"__TYPE__": "GroupItemContent",
+						"key": "0aad2b38-f89b-440a-84a3-dac804517163",
 						"value": [
 							[
 								"image",
 								{
-									"provider": "imgix",
-									"url": "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzc0NjN8MHwxfHNlYXJjaHw3fHxjYXJzfGVufDB8fHx8MTc3Nzg1Njg3NXww&ixlib=rb-4.1.0&q=85",
-									"alt": "yellow porsche 911 on road during daytime",
 									"origin": {
-										"id": "DwxlhTvC16Q",
-										"url": "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzc0NjN8MHwxfHNlYXJjaHw3fHxjYXJzfGVufDB8fHx8MTc3Nzg1Njg3NXww&ixlib=rb-4.1.0&q=85",
-										"width": 2724,
-										"height": 3405
+										"id": "main",
+										"url": "https://images.unsplash.com/photo-1587840171670-8b850147754e",
+										"width": 4480,
+										"height": 4480
 									},
-									"width": 2724,
-									"height": 3405,
+									"width": 4480,
+									"height": 4480,
 									"edit": {
-										"background": "transparent",
 										"zoom": 1,
 										"crop": {
 											"x": 0,
 											"y": 0
-										}
+										},
+										"background": "transparent"
 									},
+									"url": "https://images.unsplash.com/photo-1587840171670-8b850147754e",
+									"alt": "little",
 									"credits": null,
 									"__TYPE__": "ImageContent",
 									"thumbnails": {}
@@ -274,136 +83,32 @@
 								"title",
 								{
 									"__TYPE__": "FieldContent",
-									"type": "Text",
-									"value": "enjoy yoour day"
+									"value": "pleasure",
+									"type": "Text"
 								}
 							],
 							[
 								"headline",
 								{
 									"__TYPE__": "FieldContent",
-									"type": "Text",
-									"value": "enjoy yoour day"
+									"value": "manner",
+									"type": "Text"
 								}
 							],
 							[
 								"description",
 								{
 									"__TYPE__": "FieldContent",
-									"type": "Text",
-									"value": "Developers empower marketers to style content—such as applying rounded corners, shadows, or custom colors—by creating a structured content model that maps CMS fields to CSS classes."
-								}
-							]
-						]
-					},
-					{
-						"__TYPE__": "GroupItemContent",
-						"value": [
-							[
-								"image",
-								{
-									"provider": "imgix",
-									"url": "https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzc0NjN8MHwxfHNlYXJjaHw2fHxjYXJzfGVufDB8fHx8MTc3Nzg1Njg3NXww&ixlib=rb-4.1.0&q=85",
-									"alt": "orange Lamborghini car",
-									"origin": {
-										"id": "oUBjd22gF6w",
-										"url": "https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzc0NjN8MHwxfHNlYXJjaHw2fHxjYXJzfGVufDB8fHx8MTc3Nzg1Njg3NXww&ixlib=rb-4.1.0&q=85",
-										"width": 1937,
-										"height": 2490
-									},
-									"width": 1937,
-									"height": 2490,
-									"edit": {
-										"background": "transparent",
-										"zoom": 1,
-										"crop": {
-											"x": 0,
-											"y": 0
-										}
-									},
-									"credits": null,
-									"__TYPE__": "ImageContent",
-									"thumbnails": {}
+									"value": "ship",
+									"type": "Text"
 								}
 							],
 							[
-								"title",
+								"type",
 								{
 									"__TYPE__": "FieldContent",
-									"type": "Text",
-									"value": "enjoy your day"
-								}
-							],
-							[
-								"headline",
-								{
-									"__TYPE__": "FieldContent",
-									"type": "Text",
-									"value": "enjoy your day"
-								}
-							],
-							[
-								"description",
-								{
-									"__TYPE__": "FieldContent",
-									"type": "Text",
-									"value": "Developers empower marketers to style content—such as applying rounded corners, shadows, or custom colors—by creating a structured content model that maps CMS fields to CSS classes."
-								}
-							]
-						]
-					},
-					{
-						"__TYPE__": "GroupItemContent",
-						"value": [
-							[
-								"image",
-								{
-									"provider": "imgix",
-									"url": "https://images.unsplash.com/photo-1514316454349-750a7fd3da3a?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzc0NjN8MHwxfHNlYXJjaHwxMXx8Y2Fyc3xlbnwwfHx8fDE3Nzc4NTY4NzV8MA&ixlib=rb-4.1.0&q=85",
-									"alt": "black Mercedes-Benz car",
-									"origin": {
-										"id": "YApS6TjKJ9c",
-										"url": "https://images.unsplash.com/photo-1514316454349-750a7fd3da3a?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzc0NjN8MHwxfHNlYXJjaHwxMXx8Y2Fyc3xlbnwwfHx8fDE3Nzc4NTY4NzV8MA&ixlib=rb-4.1.0&q=85",
-										"width": 3456,
-										"height": 5184
-									},
-									"width": 3456,
-									"height": 5184,
-									"edit": {
-										"background": "transparent",
-										"zoom": 1,
-										"crop": {
-											"x": 0,
-											"y": 0
-										}
-									},
-									"credits": null,
-									"__TYPE__": "ImageContent",
-									"thumbnails": {}
-								}
-							],
-							[
-								"description",
-								{
-									"__TYPE__": "FieldContent",
-									"type": "Text",
-									"value": "Developers empower marketers to style content—such as applying rounded corners, shadows, or custom colors—by creating a structured content model that maps CMS fields to CSS classes."
-								}
-							],
-							[
-								"title",
-								{
-									"__TYPE__": "FieldContent",
-									"type": "Text",
-									"value": "enjoy your day"
-								}
-							],
-							[
-								"headline",
-								{
-									"__TYPE__": "FieldContent",
-									"type": "Text",
-									"value": "enjoy your day"
+									"value": "image",
+									"type": "Select"
 								}
 							]
 						]
@@ -412,13 +117,230 @@
 			},
 			"content": {
 				"__TYPE__": "FieldContent",
-				"type": "Select",
-				"value": "card"
+				"value": "image",
+				"type": "Select"
+			},
+			"reverse": {
+				"__TYPE__": "BooleanContent",
+				"value": true
+			},
+			"carousel": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"key": "7bd25935-6f81-4545-bdb4-737844179c70",
+						"value": [
+							[
+								"image",
+								{
+									"origin": {
+										"id": "main",
+										"url": "https://images.unsplash.com/photo-1493119508027-2b584f234d6c",
+										"width": 3424,
+										"height": 3424
+									},
+									"width": 3424,
+									"height": 3424,
+									"edit": {
+										"zoom": 1,
+										"crop": {
+											"x": 0,
+											"y": 0
+										},
+										"background": "transparent"
+									},
+									"url": "https://images.unsplash.com/photo-1493119508027-2b584f234d6c",
+									"alt": "baseball",
+									"credits": null,
+									"__TYPE__": "ImageContent",
+									"thumbnails": {}
+								}
+							],
+							[
+								"video",
+								{
+									"embed_url": "https://twitter.com/timbenniks/status/1304146886832594944",
+									"author_name": "Tim Benniks",
+									"author_url": "https://twitter.com/timbenniks",
+									"html": "<blockquote class=\"twitter-tweet\"><p lang=\"en\" dir=\"ltr\">I’ve been diving deep on <a href=\"https://twitter.com/prismicio?ref_src=twsrc%5Etfw\">@prismicio</a> <a href=\"https://twitter.com/hashtag/slicemachine?src=hash&amp;ref_src=twsrc%5Etfw\">#slicemachine</a> today. I made all my own components and I used custom slices. It works like a charm with <a href=\"https://twitter.com/nuxt_js?ref_src=twsrc%5Etfw\">@nuxt_js</a>. Also\": I’m coding with this view. <a href=\"https://t.co/F0I8X9gz39\">pic.twitter.com/F0I8X9gz39</a></p>&mdash; Tim Benniks (@timbenniks) <a href=\"https://twitter.com/timbenniks/status/1304146886832594944?ref_src=twsrc%5Etfw\">September 10, 2020</a></blockquote>\n<script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script>\n",
+									"type": "rich",
+									"cache_age": "3153600000",
+									"provider_name": "Twitter",
+									"provider_url": "http://www.twitter.com/",
+									"version": "1.0",
+									"all": {
+										"embed_url": "https://twitter.com/timbenniks/status/1304146886832594944",
+										"author_name": "Tim Benniks",
+										"author_url": "https://twitter.com/timbenniks",
+										"html": "<blockquote class=\"twitter-tweet\"><p lang=\"en\" dir=\"ltr\">I’ve been diving deep on <a href=\"https://twitter.com/prismicio?ref_src=twsrc%5Etfw\">@prismicio</a> <a href=\"https://twitter.com/hashtag/slicemachine?src=hash&amp;ref_src=twsrc%5Etfw\">#slicemachine</a> today. I made all my own components and I used custom slices. It works like a charm with <a href=\"https://twitter.com/nuxt_js?ref_src=twsrc%5Etfw\">@nuxt_js</a>. Also\": I’m coding with this view. <a href=\"https://t.co/F0I8X9gz39\">pic.twitter.com/F0I8X9gz39</a></p>&mdash; Tim Benniks (@timbenniks) <a href=\"https://twitter.com/timbenniks/status/1304146886832594944?ref_src=twsrc%5Etfw\">September 10, 2020</a></blockquote>\n<script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script>\n",
+										"width": 550,
+										"height": null,
+										"type": "rich",
+										"cache_age": "3153600000",
+										"provider_name": "Twitter",
+										"provider_url": "http://www.twitter.com/",
+										"version": "1.0"
+									},
+									"__TYPE__": "EmbedContent"
+								}
+							]
+						]
+					}
+				]
+			}
+		},
+		"items": [
+			{
+				"__TYPE__": "GroupItemContent",
+				"key": "e3055b9c-47e6-4424-8aa8-ee6e7f5e1f50",
+				"value": []
+			}
+		]
+	},
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "style2",
+		"primary": {
+			"headline": {
+				"__TYPE__": "FieldContent",
+				"value": "exclaimed",
+				"type": "Text"
+			},
+			"description": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Cupidatat quis occaecat nostrud qui fugiat. Et adipisicing minim commodo pariatur pariatur enim labore aliqua anim elit nulla officia ullamco aliqua. Aliquip dolore do id occaecat deserunt fugiat culpa."
+						}
+					}
+				]
+			},
+			"image": {
+				"origin": {
+					"id": "main",
+					"url": "https://images.unsplash.com/photo-1547394765-185e1e68f34e",
+					"width": 6000,
+					"height": 4000
+				},
+				"width": 6000,
+				"height": 4000,
+				"edit": {
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					},
+					"background": "transparent"
+				},
+				"url": "https://images.unsplash.com/photo-1547394765-185e1e68f34e",
+				"alt": "rough",
+				"credits": null,
+				"__TYPE__": "ImageContent",
+				"thumbnails": {}
+			},
+			"description_align": {
+				"__TYPE__": "FieldContent",
+				"value": "slow",
+				"type": "Text"
+			},
+			"window": {
+				"__TYPE__": "BooleanContent",
+				"value": false
+			},
+			"call_to_action_link": {
+				"key": "10e801a6-d4bc-4e6e-a9fc-011c451cd479",
+				"__TYPE__": "LinkContent",
+				"value": {
+					"__TYPE__": "DocumentLink",
+					"id": "mock_document_id"
+				}
 			},
 			"call_to_action_label": {
 				"__TYPE__": "FieldContent",
-				"type": "Text",
-				"value": "Learn More"
+				"value": "promised",
+				"type": "Text"
+			},
+			"title": {
+				"__TYPE__": "FieldContent",
+				"value": "shoe",
+				"type": "Text"
+			},
+			"cards": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"key": "156e95ea-bfce-43d2-8f0b-c5469d8dba29",
+						"value": [
+							[
+								"image",
+								{
+									"origin": {
+										"id": "main",
+										"url": "https://images.unsplash.com/photo-1600861194802-a2b11076bc51",
+										"width": 2545,
+										"height": 2545
+									},
+									"width": 2545,
+									"height": 2545,
+									"edit": {
+										"zoom": 1,
+										"crop": {
+											"x": 0,
+											"y": 0
+										},
+										"background": "transparent"
+									},
+									"url": "https://images.unsplash.com/photo-1600861194802-a2b11076bc51",
+									"alt": "bicycle",
+									"credits": null,
+									"__TYPE__": "ImageContent",
+									"thumbnails": {}
+								}
+							],
+							[
+								"title",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "children",
+									"type": "Text"
+								}
+							],
+							[
+								"headline",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "over",
+									"type": "Text"
+								}
+							],
+							[
+								"description",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "law",
+									"type": "Text"
+								}
+							],
+							[
+								"type",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "image",
+									"type": "Select"
+								}
+							]
+						]
+					}
+				]
+			},
+			"content": {
+				"__TYPE__": "FieldContent",
+				"value": "image",
+				"type": "Select"
 			},
 			"reverse": {
 				"__TYPE__": "BooleanContent",
@@ -428,6 +350,164 @@
 		"items": [
 			{
 				"__TYPE__": "GroupItemContent",
+				"key": "41c63474-805e-4c55-885d-59626fb1a432",
+				"value": []
+			}
+		]
+	},
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "style3",
+		"primary": {
+			"headline": {
+				"__TYPE__": "FieldContent",
+				"value": "family",
+				"type": "Text"
+			},
+			"description": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Cupidatat esse fugiat fugiat ex veniam. Nisi labore eu deserunt commodo ullamco ex dolor laborum amet. Occaecat ex Lorem adipisicing exercitation enim."
+						}
+					}
+				]
+			},
+			"image": {
+				"origin": {
+					"id": "main",
+					"url": "https://images.unsplash.com/photo-1593642633279-1796119d5482",
+					"width": 4016,
+					"height": 6016
+				},
+				"width": 4016,
+				"height": 6016,
+				"edit": {
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					},
+					"background": "transparent"
+				},
+				"url": "https://images.unsplash.com/photo-1593642633279-1796119d5482",
+				"alt": "harder",
+				"credits": null,
+				"__TYPE__": "ImageContent",
+				"thumbnails": {}
+			},
+			"description_align": {
+				"__TYPE__": "FieldContent",
+				"value": "explore",
+				"type": "Text"
+			},
+			"window": {
+				"__TYPE__": "BooleanContent",
+				"value": true
+			},
+			"call_to_action_link": {
+				"key": "76cd3ab2-5164-46b0-ba64-18ad537ee869",
+				"__TYPE__": "LinkContent",
+				"value": {
+					"__TYPE__": "DocumentLink",
+					"id": "mock_document_id"
+				}
+			},
+			"call_to_action_label": {
+				"__TYPE__": "FieldContent",
+				"value": "please",
+				"type": "Text"
+			},
+			"title": {
+				"__TYPE__": "FieldContent",
+				"value": "exciting",
+				"type": "Text"
+			},
+			"cards": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"key": "5f06df14-546a-476b-ae58-85d85414f88a",
+						"value": [
+							[
+								"image",
+								{
+									"origin": {
+										"id": "main",
+										"url": "https://images.unsplash.com/photo-1596195689404-24d8a8d1c6ea",
+										"width": 5000,
+										"height": 4613
+									},
+									"width": 5000,
+									"height": 4613,
+									"edit": {
+										"zoom": 1,
+										"crop": {
+											"x": 0,
+											"y": 0
+										},
+										"background": "transparent"
+									},
+									"url": "https://images.unsplash.com/photo-1596195689404-24d8a8d1c6ea",
+									"alt": "record",
+									"credits": null,
+									"__TYPE__": "ImageContent",
+									"thumbnails": {}
+								}
+							],
+							[
+								"title",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "whispered",
+									"type": "Text"
+								}
+							],
+							[
+								"headline",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "form",
+									"type": "Text"
+								}
+							],
+							[
+								"description",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "hard",
+									"type": "Text"
+								}
+							],
+							[
+								"type",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "step",
+									"type": "Select"
+								}
+							]
+						]
+					}
+				]
+			},
+			"content": {
+				"__TYPE__": "FieldContent",
+				"value": "image",
+				"type": "Select"
+			},
+			"reverse": {
+				"__TYPE__": "BooleanContent",
+				"value": false
+			}
+		},
+		"items": [
+			{
+				"__TYPE__": "GroupItemContent",
+				"key": "186416b8-1ec8-41b8-940a-6de06eb0a78d",
 				"value": []
 			}
 		]

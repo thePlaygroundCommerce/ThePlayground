@@ -24,7 +24,8 @@ import pic10 from "public/images/oliur.jpg"
 import pic11 from "public/images/samuel.jpeg"
 import pic12 from "public/images/lucas.jpg"
 import { Metadata } from "next";
-
+import Link from "next/link";
+import staticImages from "@/util/images";
 
 export const metadata: Metadata = {
   title: "The Playground",
@@ -208,7 +209,168 @@ const page = () => {
 
   return (
     <div className="page-wrapper">
-      <WebflowHero />
+      <WebflowHero items={[
+        <div className="h-full md:flex">
+          <div className="k-hero-side-slider-1 md:h-full" aria-hidden="true">
+            <Image
+              src={staticImages.krasnikova}
+              loading="lazy"
+              alt=""
+              className="k-slide-cover-img"
+              style={{
+                // opacity: "0.6",
+                // transform:
+                //   "translate3d(0px, 0px, 0px) scale3d(1.5, 1.5, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)",
+                transformStyle: "preserve-3d",
+              }}
+              aria-hidden="true"
+            />
+            <div
+              className="k-slide-image-overlay"
+              style={{
+                // transform:
+                //   "translate3d(0px, 0%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)",
+                transformStyle: "preserve-3d",
+              }}
+              aria-hidden="true"
+            />
+          </div>
+          <div
+            id="w-node-_639a5eaa-5c25-0245-1575-e0488fe314f9-861cf97e"
+            className="k-hero-right pl-12 flex flex-col justify-center mt-12 flex-1"
+            aria-hidden="true"
+          >
+            <div
+              className="heading-wrapper heading-space-1"
+              aria-hidden="true"
+            >
+              <h1 aria-hidden="true">Solo Dolo...</h1>
+              <div
+                className="k-slide-heading-overlay"
+                style={{
+                  // transform:
+                  //   "translate3d(0px, 0%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)",
+                  transformStyle: "preserve-3d",
+                }}
+                aria-hidden="true"
+              />
+            </div>
+            <div className="para-wrapper" aria-hidden="true">
+              <p
+                className="k-slider-para"
+                style={{
+                  opacity: "0.6",
+                  // transform:
+                  //   "translate3d(0px, 0px, 0px) scale3d(1.3, 1.3, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)",
+                  transformStyle: "preserve-3d",
+                }}
+                aria-hidden="true"
+              >
+                Going at it alone? Peek our Solo Traveler collection.
+              </p>
+              <div
+                className="k-slide-para-overlay"
+                style={{
+                  // transform:
+                  //   "translate3d(0px, 0%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)",
+                  transformStyle: "preserve-3d",
+                }}
+                aria-hidden="true"
+              />
+            </div>
+            <div className="k-button-wrap btn-wrap-1" aria-hidden="true">
+              <Link
+                href="/shop"
+                className="btn w-button"
+                tabIndex={-1}
+                aria-hidden="true"
+              >
+                shop now
+              </Link>
+            </div>
+          </div>
+        </div>,
+        // <div className="h-full md:flex">
+        //   <div className="k-hero-side-slider-1 md:h-full" aria-hidden="true">
+        //     <Image
+        //       src={staticImages.krasnikova}
+        //       loading="lazy"
+        //       alt=""
+        //       className="k-slide-cover-img"
+        //       style={{
+        //         // opacity: "0.6",
+        //         // transform:
+        //         //   "translate3d(0px, 0px, 0px) scale3d(1.5, 1.5, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)",
+        //         transformStyle: "preserve-3d",
+        //       }}
+        //       aria-hidden="true"
+        //     />
+        //     <div
+        //       className="k-slide-image-overlay"
+        //       style={{
+        //         // transform:
+        //         //   "translate3d(0px, 0%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)",
+        //         transformStyle: "preserve-3d",
+        //       }}
+        //       aria-hidden="true"
+        //     />
+        //   </div>
+        //   <div
+        //     id="w-node-_639a5eaa-5c25-0245-1575-e0488fe314f9-861cf97e"
+        //     className="k-hero-right pl-12 flex flex-col justify-center mt-12 flex-1"
+        //     aria-hidden="true"
+        //   >
+        //     <div
+        //       className="heading-wrapper heading-space-1"
+        //       aria-hidden="true"
+        //     >
+        //       <h1 aria-hidden="true">Solo Dolo...</h1>
+        //       <div
+        //         className="k-slide-heading-overlay"
+        //         style={{
+        //           // transform:
+        //           //   "translate3d(0px, 0%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)",
+        //           transformStyle: "preserve-3d",
+        //         }}
+        //         aria-hidden="true"
+        //       />
+        //     </div>
+        //     <div className="para-wrapper" aria-hidden="true">
+        //       <p
+        //         className="k-slider-para"
+        //         style={{
+        //           opacity: "0.6",
+        //           // transform:
+        //           //   "translate3d(0px, 0px, 0px) scale3d(1.3, 1.3, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)",
+        //           transformStyle: "preserve-3d",
+        //         }}
+        //         aria-hidden="true"
+        //       >
+        //         Going at it alone? Peek our Solo Traveler collection.
+        //       </p>
+        //       <div
+        //         className="k-slide-para-overlay"
+        //         style={{
+        //           // transform:
+        //           //   "translate3d(0px, 0%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)",
+        //           transformStyle: "preserve-3d",
+        //         }}
+        //         aria-hidden="true"
+        //       />
+        //     </div>
+        //     <div className="k-button-wrap btn-wrap-1" aria-hidden="true">
+        //       <Link
+        //         href="/shop"
+        //         className="btn w-button"
+        //         tabIndex={-1}
+        //         aria-hidden="true"
+        //       >
+        //         shop now
+        //       </Link>
+        //     </div>
+        //   </div>
+        // </div>
+      ]} />
       <div className="section section--spaced-1">
         <div className="k-container-1">
           {/* <div

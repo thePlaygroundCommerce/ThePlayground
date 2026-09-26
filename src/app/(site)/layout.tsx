@@ -62,7 +62,9 @@ const Layout = async ({ children }: LayoutProps<"/">) => {
                                                 <div>play.</div>
                                             </Link>
 
-                                            <Hamburger />
+                                            <div className='md:hidden block'>
+                                                <Hamburger />
+                                            </div>
 
                                         </div>
                                         <div className="flex-5 flex justify-end items-center">
@@ -70,9 +72,15 @@ const Layout = async ({ children }: LayoutProps<"/">) => {
                                                 <Link href="/shop" className="hidden sm:block k-nav-link">
                                                     shop
                                                 </Link>
-                                                <Link href="/shop" className="hidden sm:block k-nav-link">
-                                                    <strong>🔥</strong> sale
+                                                <Link href="/travel" className="hidden sm:block k-nav-link">
+                                                    travel
                                                 </Link>
+                                                <Link href="/log" className="hidden sm:block k-nav-link">
+                                                    blog
+                                                </Link>
+                                                {/* <Link href="/shop" className="hidden sm:block k-nav-link">
+                                                    <strong>🔥</strong> sale
+                                                </Link> */}
 
                                                 <div
                                                     data-node-type="commerce-cart-wrapper"

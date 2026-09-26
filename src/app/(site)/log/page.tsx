@@ -17,8 +17,6 @@ const Page = async ({ searchParams }: PageProps<"/log">) => {
     pageSize: BLOG_PAGE_SIZE
   });
 
-  console.log(blogs[0])
-
   return (
     <div className="mt-24 p-4 sm:p-0">
       <h2 className="mb-12">Travel Tips & Stories</h2>

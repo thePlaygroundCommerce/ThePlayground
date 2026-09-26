@@ -3,5 +3,4 @@
   "adapter": "@slicemachine/adapter-next",
   "libraries": ["./src/app/slices"],
   "localSliceSimulatorURL": "http://localhost:3005/slice-simulator"
-  
 }

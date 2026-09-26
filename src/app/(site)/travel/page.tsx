@@ -21,10 +21,14 @@ export default async function Page({ searchParams }) {
     success
   } = await searchParams;
 
-  // const items = [
-  //   <Image key={"b"} src={slice.primary.items[0].image.url} alt={""} fill className="object-cover" />,
-  //   <Image key={"a"} src={slice.primary.items[0].image.url} alt={""} fill className="object-cover" />
-  // ]
+  const items = [
+    <div className="aspect-3/2 md:aspect-square overflow-hidden w-full md:h-full relative">
+      <Image key={"b"} alt={"image1"} className="object-cover" />
+    </div>,
+    <div className="aspect-3/2 md:aspect-square overflow-hidden w-full md:h-full relative">
+      <Image key={"b"} alt={"image2"} className="object-cover" />
+    </div>
+  ]
 
   return (
     <div>
@@ -218,13 +222,13 @@ export default async function Page({ searchParams }) {
           { info: "100%", label: "Secure & Private" },
         ]} />
 
-        <section id="about" className="my-24">
+        <section id="about" className="my-24 ">
           <Showcase content={
             <div className="relative h-full rounded-sm overflow-hidden">
               <Image alt="" src="/images/jeep.jpg" className="object-cover" />
             </div>
           } text={
-            <div className="text-left my-8">
+            <div className="text-left my-8 pl-2 ">
               <h3 className="text-xl font-black text-zinc-500 capitalize">The Playground</h3>
               <h2 className="mb-12 text-7xl font-black capitalize">where <br />adventure thrives</h2>
               <p className="w-3/4 text-lg">From guided rafting trips to scenic Jeep tours, we make it easier to discover outdoor experiences that match your pace, budget, and travel style. Share your dates and interests, and we’ll connect you with trusted local operators.</p>
@@ -236,7 +240,7 @@ export default async function Page({ searchParams }) {
         <section>
           <div className="p-24 px-12">
             <Heading className="text-center mb-6" level={1}>Our Core Beliefs That Shape Travel Experiences</Heading>
-            <div className="flex gap-8">
+            <div className="flex flex-col md:flex-row gap-8">
               <div className="border rounded-lg p-4 shadow-2xl/30 bg-zinc-800 text-zinc-300 flex flex-col gap-2">
                 <div className="text-2xl bg-zinc-600 border-zinc-200/50 border p-2 w-fit aspect-square flex justify-center rounded-xl items-center">⛰️</div>
                 <h5 className="text-lg font-bold">Adventure-first matching</h5>
@@ -256,18 +260,21 @@ export default async function Page({ searchParams }) {
           </div>
         </section>
 
-        <section>
-          <div className="p-36 text-center">
-            <Heading className="mb-4" level={2}>Adventures And Stories<br /> Captured In Pictures</Heading>
-            {/* <Carousel items={items} text={<p></p>} /> */}
-            {/* <div className="relative pt-[56.25%]">
-              <iframe src="https://player.mediadelivery.net/embed/688372/5dc6cad5-5212-49ad-9341-95dd33391eef?autoplay=false&loop=false&muted=true&preload=true&responsive=true" loading="lazy" className="border-0 absolute top-0 h-full w-full" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;fullscreen;" allowFullScreen></iframe>
-            </div> */}
+        <section className="md:mb-24">
+          <div className="py-36 text-center">
+            <Heading className="mb-4" level={2}>What's The Fun</Heading>
+
+            <Carousel items={items} text={
+              <div className="text-left">
+                <h3>Let's Take A Walk</h3>
+                <p className="text-2xl">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo laboriosam necessitatibus iure fugit culpa distinctio placeat debitis velit, consectetur totam maxime perferendis ea doloribus! Sint assumenda alias voluptates aspernatur laudantium.</p>
+              </div>
+            } />
           </div>
         </section>
 
         <section id="howitworks">
-          <div className="mb-10 max-w-2xl">
+          <div className="mb-10 max-w-2xl pl-2">
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-primary">
               How it works
             </p>
@@ -276,7 +283,7 @@ export default async function Page({ searchParams }) {
             </h2>
           </div>
 
-          <div className="grid gap-6 lg:grid-cols-3">
+          <div className="grid gap-6 lg:grid-cols-3 px-2">
             <article className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm">
               <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary">
                 <svg
@@ -376,12 +383,12 @@ export default async function Page({ searchParams }) {
               <Image alt="" src="/images/group.jpg" className="object-cover" />
             </div>
           } text={
-            <div className="flex justify-center items-center h-full">
+            <div className="flex justify-center items-center h-full pr-2">
               <div className="text-right">
                 <h2 className="mb-12 text-7xl font-black">Most Trusted <br /> Partners In The <br />Travel Industry</h2>
                 <p className="w-3/4 text-lg mb-6 ml-auto">Whether you’re planning a weekend escape or a bucket-list trip, we connect you with operators who know the terrain, the best routes, and know how to create a memorable experience from start to finish.</p>
                 <div className="flex flex-col justify-center">
-                  <p className="w-3/4 text-base ml-auto mb-3"><Link href="#form" className="text-blue-400 underline">Explore our most popular adventures</Link> and find the one that's right for you.</p>
+                  <p className="w-3/4 text-base m-auto text-center md:text-right md:ml-auto mb-3"><Link href="#form" className="text-blue-400 underline">Explore our most popular adventures</Link> and find the one that's right for you.</p>
                 </div>
               </div>
             </div>
@@ -425,7 +432,7 @@ export default async function Page({ searchParams }) {
         </section>
 
 
-        <section>
+        {/* <section>
           <div className="p-36">
             <Newsletter
               title={"Stay Connected"}
@@ -433,7 +440,7 @@ export default async function Page({ searchParams }) {
               cta={"Join Now"}
             />
           </div>
-        </section>
+        </section> */}
       </div>
 
     </div>

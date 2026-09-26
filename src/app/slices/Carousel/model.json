@@ -1,8 +1,8 @@
 {
-  "id": "blog_text",
+  "id": "carousel",
   "type": "SharedSlice",
-  "name": "BlogText",
-  "description": "BlogText",
+  "name": "Carousel",
+  "description": "Carousel",
   "variations": [
     {
       "id": "default",
@@ -12,11 +12,27 @@
       "description": "Default",
       "imageUrl": "",
       "primary": {
+        "items": {
+          "type": "Group",
+          "config": {
+            "label": "items",
+            "repeat": true,
+            "fields": {
+              "image": {
+                "type": "Image",
+                "config": {
+                  "label": "image",
+                  "constraint": {},
+                  "thumbnails": []
+                }
+              }
+            }
+          }
+        },
         "text": {
           "type": "StructuredText",
           "config": {
             "label": "text",
-            "labels": [],
             "placeholder": "",
             "allowTargetBlank": true,
             "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
