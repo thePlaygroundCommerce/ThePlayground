@@ -1,11 +1,5 @@
 import Image from "@/components/Image";
 import clsx from "clsx";
-import Grid from "@/components/Grid";
-import { submitTravelLeadForm } from "@/app/actions/forms/submissions";
-import Form from "next/form";
-import { Input } from "@headlessui/react";
-import { BsFillCheckCircleFill } from "react-icons/bs";
-import { DisclosureList } from "@/components/BlogTableOfContents";
 import { SliceZone } from "@prismicio/react";
 import { TravelLeadPageDocument } from "prismicio-types";
 import { client } from "@/api/clients";
@@ -13,15 +7,10 @@ import logger from "@/util/logger";
 import { redirect } from "next/navigation";
 import { components } from "@/app/slices";
 import { isFilled } from "@prismicio/client";
-import Hero from "@/app/slices/Hero";
 import Button from "@/components/Button";
 import Link from "next/link";
 
-export default async function Page({ searchParams, params }) {
-  const {
-    error,
-    success
-  } = await searchParams;
+export default async function Page({ params }) {
 
   const { uid } = await params
 
@@ -29,9 +18,9 @@ export default async function Page({ searchParams, params }) {
 
   try {
     page = await client.getByUID('travel_lead_page', uid)
-  } catch {
-    logger.error("Missing page with uid %s", uid)
-    redirect("/landing/travel")
+  } catch (e) {
+    logger.error("Missing page with uid %s", uid, e)
+    redirect("/travel")
   }
 
   const { slices } = page.data
