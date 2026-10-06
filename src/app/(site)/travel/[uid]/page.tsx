@@ -9,6 +9,7 @@ import { components } from "@/app/slices";
 import { isFilled } from "@prismicio/client";
 import Button from "@/components/Button";
 import Link from "next/link";
+import BokunButton from "@/components/BokunButton";
 
 export default async function Page({ params }) {
 
@@ -19,7 +20,7 @@ export default async function Page({ params }) {
   try {
     page = await client.getByUID('travel_lead_page', uid)
   } catch (e) {
-    logger.error("Missing page with uid %s", uid, e)
+    logger.error("Missing page with uid %s", uid)
     redirect("/travel")
   }
 
@@ -307,7 +308,8 @@ export default async function Page({ params }) {
                   </ul>
                 </div>
 
-                <Link href="https://app.squareup.com/appointments/book/pi0g6oj520piog/L1Y49TP8EXBSN/start"><Button className="mt-8 w-full rounded-md bg-emerald-700 px-6 py-4 text-center text-3xl font-black uppercase tracking-tight text-white shadow-lg transition hover:brightness-105">Check Availability</Button></Link>
+                <BokunButton />
+                {/* <Link href="https://app.squareup.com/appointments/book/pi0g6oj520piog/L1Y49TP8EXBSN/start"><Button className="mt-8 w-full rounded-md bg-emerald-700 px-6 py-4 text-center text-3xl font-black uppercase tracking-tight text-white shadow-lg transition hover:brightness-105">Check Availability</Button></Link> */}
               </div>
             </div>
           </div>

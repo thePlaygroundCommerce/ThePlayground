@@ -3,6 +3,7 @@ import { ContentData, ContentImage } from 'index'
 import Link from 'next/link'
 import { FaArrowRight } from 'react-icons/fa6'
 import clsx from 'clsx'
+import { wrapLink } from '@/util'
 
 type Props = {
     gridItems: (ContentImage | ContentData)[]
@@ -22,9 +23,9 @@ const PhotoGrid = ({ gridItems }: Props) => {
 
 }
 
-const Item = ({ title, className, description, src, link = "" }: any) => (
-    <div className={clsx("text-white w-full relative shadow-[inset_0px_-75px_68px_-34px_rgba(0,0,0,0.50)]", className)}>
-        <Link href={`/shop${link}`} className=''>
+const Item = ({ title, className, description, src, link = "" }: any) => {
+    const elem = (
+        <>
             <div className='relative h-full'>
                 <Image width={1080} height={1080}
                     src={src}
@@ -34,14 +35,20 @@ const Item = ({ title, className, description, src, link = "" }: any) => (
             </div>
             <div className="absolute bottom-0 p-4 w-full flex items-center gap-4 text-white">
                 <div className={clsx(description && 'w-full')}>
-                    <h5 className='font-semibold'>{title ?? "Real Estate Videography"}</h5>
+                    <h5 className='font-semibold'>{title}</h5>
                     <p className='text-sm line-clamp-2'>{description}</p>
                     {description && <p className="font-light text-zinc-200 text-xs underline">Read More</p>}
                 </div>
-                {!description && <FaArrowRight />}
+                {link && <FaArrowRight />}
             </div>
-        </Link>
-    </div>
-)
+        </>
+    )
+
+    return (
+        <div className={clsx("text-white w-full relative shadow-[inset_0px_-75px_68px_-34px_rgba(0,0,0,0.50)]", className)}>
+            {link ? wrapLink(`/shop${link}`, elem) : elem}
+        </div>
+    )
+}
 
 export default PhotoGrid

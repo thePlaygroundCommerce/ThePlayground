@@ -16,8 +16,7 @@ export type PhotoGridProps = SliceComponentProps<Content.PhotoGridSlice>;
 const PhotoGrid: FC<PhotoGridProps> = ({ slice }) => {
 
   const gridItems: (ContentImage | ContentData)[] = isFilled.group(slice.primary.gallery_items) && slice.primary.gallery_items.map(({ image }) => ({
-    title: "Backpacks",
-    link: "/backpacks",
+    title: "",
     src: isFilled.image(image) && image.url
 
   })) || []
