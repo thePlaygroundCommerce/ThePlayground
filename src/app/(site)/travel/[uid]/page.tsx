@@ -175,7 +175,7 @@ export default async function Page({ params }) {
       <div className="md:max-w-7xl mx-auto sm:mt-12 md:grid md:grid-cols-3">
         <div className="col-span-2 relative">
           <div className=" md:hidden z-30 sticky px-4 pb-4 pt-2 top-0 bg-white flex justify-center">
-            <Link href="https://app.squareup.com/appointments/book/pi0g6oj520piog/L1Y49TP8EXBSN/start"><Button className="shadow-md p-4 w-full border-4 border-green-600 bg-green-400 text-zinc-100 rounded-2xl">Check Availability</Button></Link>
+            <BokunButton className="shadow-md p-4 w-full border-4 border-green-600 bg-green-400 text-zinc-100 rounded-2xl"   />
           </div>
           {/* <DisclosureList items={[
             { heading: "hello", id: "hello" },
@@ -307,7 +307,7 @@ export default async function Page({ params }) {
                   </ul>
                 </div> */}
 
-              <BokunButton />
+              <BokunButton className="bokunButton w-full rounded-md bg-emerald-700 px-6 py-4 text-center text-3xl font-black uppercase tracking-tight text-white shadow-lg transition hover:brightness-105" />
               {/* <Link href="https://app.squareup.com/appointments/book/pi0g6oj520piog/L1Y49TP8EXBSN/start"><Button className="mt-8 w-full rounded-md bg-emerald-700 px-6 py-4 text-center text-3xl font-black uppercase tracking-tight text-white shadow-lg transition hover:brightness-105">Check Availability</Button></Link> */}
             </div>
           </div>
