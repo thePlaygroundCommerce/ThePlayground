@@ -307,7 +307,7 @@ export default async function Page({ params }) {
                   </ul>
                 </div> */}
 
-              <BokunButton className="bokunButton w-full rounded-md bg-emerald-700 px-6 py-4 text-center text-3xl font-black uppercase tracking-tight text-white shadow-lg transition hover:brightness-105" />
+              <BokunButton className="w-full rounded-md bg-emerald-700 px-6 py-4 text-center text-3xl font-black uppercase tracking-tight text-white shadow-lg transition hover:brightness-105" />
               {/* <Link href="https://app.squareup.com/appointments/book/pi0g6oj520piog/L1Y49TP8EXBSN/start"><Button className="mt-8 w-full rounded-md bg-emerald-700 px-6 py-4 text-center text-3xl font-black uppercase tracking-tight text-white shadow-lg transition hover:brightness-105">Check Availability</Button></Link> */}
             </div>
           </div>
