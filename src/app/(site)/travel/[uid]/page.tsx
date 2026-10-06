@@ -192,77 +192,76 @@ export default async function Page({ params }) {
 
         </div>
         <div className="hidden md:block col-span-1">
-          <div className="p-4 md:p-8">
-            <div className="sticky top-20 z-40">
-              <div className="rounded-3xl border border-zinc-200 bg-stone-100 p-6 shadow-xl sm:p-8">
-                <h2 className="text-center text-4xl font-black uppercase leading-none tracking-tight text-emerald-700">
-                  TOUR DETAILS
-                </h2>
+          <div className="p-4 md:p-8 h-full ">
+            <div className="sticky top-20 max-h-[66vh] flex flex-col rounded-3xl border border-zinc-200 bg-stone-100 p-6 shadow-xl sm:p-8">
+              {/* <h2 className="text-center text-4xl font-black uppercase leading-none tracking-tight text-emerald-700">
+                TOUR DETAILS
+              </h2>
 
-                <div className="mt-7 space-y-6 text-slate-900">
+              <div className="mt-7 space-y-6 text-slate-900">
+                <div className="flex items-start gap-3">
+                  <span className="mt-1 flex h-5 w-5 items-center justify-center rounded-sm border border-emerald-700 text-xs font-bold text-emerald-700">
+                    ✓
+                  </span>
+                  <div>
+                    <p className="text-base font-black uppercase tracking-tight text-emerald-700">
+                      DEPARTS DAILY
+                    </p>
+                  </div>
+                </div>
+
+                <div className="ml-8 space-y-1">
                   <div className="flex items-start gap-3">
-                    <span className="mt-1 flex h-5 w-5 items-center justify-center rounded-sm border border-emerald-700 text-xs font-bold text-emerald-700">
-                      ✓
+                    <span className="mt-1 flex h-5 w-5 items-center justify-center rounded-full border border-emerald-700 text-sm font-bold text-emerald-700">
+                      ◔
                     </span>
                     <div>
                       <p className="text-base font-black uppercase tracking-tight text-emerald-700">
-                        DEPARTS DAILY
+                        DEPARTS
+                      </p>
+                      <p className="text-base font-medium text-slate-700">
+                        Between 6:00am and 7:00am
                       </p>
                     </div>
                   </div>
 
-                  <div className="ml-8 space-y-1">
-                    <div className="flex items-start gap-3">
-                      <span className="mt-1 flex h-5 w-5 items-center justify-center rounded-full border border-emerald-700 text-sm font-bold text-emerald-700">
-                        ◔
-                      </span>
-                      <div>
-                        <p className="text-base font-black uppercase tracking-tight text-emerald-700">
-                          DEPARTS
-                        </p>
-                        <p className="text-base font-medium text-slate-700">
-                          Between 6:00am and 7:00am
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="mt-5 flex items-start gap-3">
-                      <span className="mt-1 flex h-5 w-5 items-center justify-center rounded-full border border-emerald-700 text-sm font-bold text-emerald-700">
-                        ↺
-                      </span>
-                      <div>
-                        <p className="text-base font-black uppercase tracking-tight text-emerald-700">
-                          RETURNS
-                        </p>
-                        <p className="text-base font-medium text-slate-700">
-                          Between 7:00pm and 8:00pm
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="mt-5 flex items-start gap-3">
-                      <span className="mt-1 flex h-5 w-5 items-center justify-center rounded-full border border-emerald-700 text-xs font-bold text-emerald-700">
-                        •
-                      </span>
-                      <div>
-                        <p className="text-base font-black uppercase tracking-tight text-emerald-700">
-                          DEPARTS FROM
-                        </p>
-                        <p className="max-w-xs text-base font-medium leading-snug text-slate-700">
-                          Select hotels in the Phoenix, Scottsdale and Tempe area*
-                        </p>
-                      </div>
+                  <div className="mt-5 flex items-start gap-3">
+                    <span className="mt-1 flex h-5 w-5 items-center justify-center rounded-full border border-emerald-700 text-sm font-bold text-emerald-700">
+                      ↺
+                    </span>
+                    <div>
+                      <p className="text-base font-black uppercase tracking-tight text-emerald-700">
+                        RETURNS
+                      </p>
+                      <p className="text-base font-medium text-slate-700">
+                        Between 7:00pm and 8:00pm
+                      </p>
                     </div>
                   </div>
 
-                  <p className="mt-2 pl-8 text-sm italic leading-relaxed text-slate-700">
-                    *In efforts to cut down on the amount of time it takes to do pick ups,
-                    we may need you to meet at another hotel. Our office will contact you
-                    upon booking.
-                  </p>
+                  <div className="mt-5 flex items-start gap-3">
+                    <span className="mt-1 flex h-5 w-5 items-center justify-center rounded-full border border-emerald-700 text-xs font-bold text-emerald-700">
+                      •
+                    </span>
+                    <div>
+                      <p className="text-base font-black uppercase tracking-tight text-emerald-700">
+                        DEPARTS FROM
+                      </p>
+                      <p className="max-w-xs text-base font-medium leading-snug text-slate-700">
+                        Select hotels in the Phoenix, Scottsdale and Tempe area*
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="mt-8">
+                <p className="mt-2 pl-8 text-sm italic leading-relaxed text-slate-700">
+                  *In efforts to cut down on the amount of time it takes to do pick ups,
+                  we may need you to meet at another hotel. Our office will contact you
+                  upon booking.
+                </p>
+              </div> */}
+
+              {/* <div className="mt-8">
                   <h3 className="text-center text-4xl font-black uppercase leading-none tracking-tight text-emerald-700">
                     WHAT&apos;S INCLUDED
                   </h3>
@@ -282,9 +281,9 @@ export default async function Page({ params }) {
                       </li>
                     ))}
                   </ul>
-                </div>
+                </div> */}
 
-                <div className="mt-8">
+              {/* <div className="mt-8">
                   <h3 className="text-center text-4xl font-black uppercase leading-none tracking-tight text-emerald-700">
                     WHAT&apos;S NOT INCLUDED
                   </h3>
@@ -306,11 +305,10 @@ export default async function Page({ params }) {
                       </li>
                     ))}
                   </ul>
-                </div>
+                </div> */}
 
-                <BokunButton />
-                {/* <Link href="https://app.squareup.com/appointments/book/pi0g6oj520piog/L1Y49TP8EXBSN/start"><Button className="mt-8 w-full rounded-md bg-emerald-700 px-6 py-4 text-center text-3xl font-black uppercase tracking-tight text-white shadow-lg transition hover:brightness-105">Check Availability</Button></Link> */}
-              </div>
+              <BokunButton />
+              {/* <Link href="https://app.squareup.com/appointments/book/pi0g6oj520piog/L1Y49TP8EXBSN/start"><Button className="mt-8 w-full rounded-md bg-emerald-700 px-6 py-4 text-center text-3xl font-black uppercase tracking-tight text-white shadow-lg transition hover:brightness-105">Check Availability</Button></Link> */}
             </div>
           </div>
         </div>

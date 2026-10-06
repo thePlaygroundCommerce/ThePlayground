@@ -28,6 +28,9 @@ import laptopbag from "public/images/laptopbag.jpg";
 import one from "public/images/1.jpeg";
 import two from "public/images/2.jpg";
 
+import num from "public/images/1912.jpg";
+import night from "public/images/night.jpg";
+
 export default {
   krasnikova,
   kal,
@@ -46,6 +49,8 @@ export default {
   Icon,
   anastasiya,
   arthouse,
+  num,
+  night,
   castorly,
   dina,
   jessica,

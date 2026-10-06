@@ -38,9 +38,9 @@ export default function MobileNavigation({ }: Props) {
 
   const navs = [
     { name: "Shop", link: "/shop" },
+    { name: "Travel", link: "/travel" },
+    { name: "Stories", link: "/log" },
     { name: "Our Store", link: "/about" },
-    { name: "Stories", link: "/about" },
-    { name: "Shopping Cart", link: "/cart" },
     // { name: "Account", link: "/account" },
   ]
 
@@ -105,44 +105,4 @@ export default function MobileNavigation({ }: Props) {
     </div>
     // </Transition>
   )
-
-  // return (
-  //   <div className="h-screen flex flex-col">
-  //     <div className="flex justify-between border-b px-4 p-2">
-  //       <Link href="/">
-  //         {logo}
-  //       </Link>
-  //       <Button className="p-2 px-3" onClick={handleClose}>
-  //         <IoClose />
-  //       </Button>
-  //     </div>
-  //     <div className="h-full flex flex-col justify-between">
-  //       <nav className="text-end">
-  //         <List size="md">
-  //           {headerNavs.map(({ title, link }) => (
-  //             <List.Item key={title} className="text-black w-full">
-  //               <Link onClick={handleClose} className="px-4 py-2 md:px-4 md:py-2 block w-full" href={`/shop${link ?? ""}`}>
-  //                 {title}
-  //               </Link>
-  //             </List.Item>
-  //           ))}
-  //         </List>
-  //       </nav>
-  //       {/* <nav className="">
-  //         <List size="sm" bordered={false}>
-  //           {footerNavs.map(({ data: { title, link } }) => (
-  //             <List.Item key={title} className="text-black w-full ">
-  //               <Link onClick={handleClose} className="px-4 py-2 md:px-4 md:py-2 block w-full" href={link ?? ""}>
-  //                 {title}
-  //               </Link>
-  //             </List.Item>
-  //           ))}
-  //         </List>
-  //       </nav> */}
-  //     </div>
-  //     <div className="p-4">
-  //       <SocialMediaButtons align="around" />
-  //     </div>
-  //   </div>
-  // );
 }

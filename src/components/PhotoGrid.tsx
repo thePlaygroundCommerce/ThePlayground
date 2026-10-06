@@ -18,9 +18,7 @@ const PhotoGrid = ({ gridItems }: Props) => {
                 {articles}
             </div>
         </div>
-
     )
-
 }
 
 const Item = ({ title, className, description, src, link = "" }: any) => {

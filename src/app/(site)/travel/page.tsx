@@ -1,34 +1,25 @@
 import Image from "@/components/Image";
 import Showcase from "@/components/Showcase";
 import Heading from "@/components/typography/Heading";
-import Newsletter from "@/components/Newsletter";
-import clsx from "clsx";
 import Grid from "@/components/Grid";
 import { TravelBenefits } from "@/app/slices/TravelBenefits";
-import { submitTravelLeadForm } from "@/app/actions/forms/submissions";
-import Form from "next/form";
-import { Input } from "@headlessui/react";
-import Button from "@/components/Button";
 import Link from "next/link";
-import { BsFillCheckCircleFill } from "react-icons/bs";
 import { Carousel } from "@/app/slices/Carousel";
+import staticImages from "@/util/images";
 
-type LANDING_URL = "/landing/[uid]"
+type LANDING_URL = "/landing/[uid]";
 
 export default async function Page({ searchParams }) {
-  const {
-    error,
-    success
-  } = await searchParams;
+  const { error, success } = await searchParams;
 
   const items = [
     <div className="aspect-3/2 md:aspect-square overflow-hidden w-full md:h-full relative">
-      <Image key={"b"} alt={"image1"} className="object-cover" />
+      <Image src={staticImages.num} alt={"image1"} className="object-cover" />
     </div>,
     <div className="aspect-3/2 md:aspect-square overflow-hidden w-full md:h-full relative">
-      <Image key={"b"} alt={"image2"} className="object-cover" />
-    </div>
-  ]
+      <Image src={staticImages.night} alt={"image2"} className="object-cover" />
+    </div>,
+  ];
 
   return (
     <div>
@@ -57,7 +48,10 @@ export default async function Page({ searchParams }) {
         </div>
       </div> */}
 
-      <section id="form" className="relative overflow-hidden bg-slate-900 text-white">
+      <section
+        id="form"
+        className="relative overflow-hidden bg-slate-900 text-white"
+      >
         <Image
           src="/images/travel.jpg"
           alt="Scenic river canyon with outdoor adventure guides"
@@ -75,9 +69,9 @@ export default async function Page({ searchParams }) {
               Find amazing outdoor adventures near you.
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-8 text-slate-200">
-              Compare trusted local guides for rafting, Jeep tours, hiking, ATV rides,
-              and more. We connect you with operators that fit your style, budget, and
-              dates.
+              Compare trusted local guides for rafting, Jeep tours, hiking, ATV
+              rides, and more. We connect you with operators that fit your
+              style, budget, and dates.
             </p>
             {/* <div className="mt-8 flex flex-wrap gap-3">
               <a
@@ -102,159 +96,85 @@ export default async function Page({ searchParams }) {
               </span>
             </div>
           </div>
-          <div className="glass-card rounded-4xl border border-white/20 bg-white/10 p-6 shadow-2xl backdrop xl:p-8">
-            {success ? (
-              <div>
-                <BsFillCheckCircleFill
-                  size="5rem"
-                  className="my-12 m-auto"
-                  color="green"
-                />
-                <p className="text-center">Thank you for submitting your information. We will be sure to contact you in the next 24 hours!</p>
-              </div>
-            ) : (
-              <>
-                <div className="mb-4 flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-slate-200">
-                      Tour matching service
-                    </p>
-                    <h2 className="font-display text-2xl font-semibold">
-                      Fill And Submit Form
-                    </h2>
-                  </div>
-                  {/* <div className="rounded-full bg-secondary/20 px-3 py-1 text-sm font-semibold text-emerald-200">
-                No pressure
-              </div> */}
-                </div>
-                <Form action={submitTravelLeadForm} id="hero-form" className="space-y-4">
-                  <Input hidden readOnly name="formId" value="ad1exasxwt6" />
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <label className="block text-sm font-medium text-slate-100">
-                      <span className="mb-2 block">First name</span>
-                      <input
-                        name="fi-sender-firstName"
-                        placeholder="Joe"
-                        className={clsx(error ? "border-red-400" : "border-white/20", "w-full rounded-2xl border bg-white/90 px-4 py-3 text-slate-900 outline-none ring-0")}
-                      />
-                    </label>
-                    <label className="block text-sm font-medium text-slate-100">
-                      <span className="mb-2 block">Last name</span>
-                      <input
-                        name="fi-sender-lastName"
-                        placeholder="Daniels"
-                        className={clsx(error ? "border-red-400" : "border-white/20", "w-full rounded-2xl border bg-white/90 px-4 py-3 text-slate-900 outline-none ring-0")}
-                      />
-                    </label>
-                  </div>
-                  <label className="block text-sm font-medium text-slate-100">
-                    <span className="mb-2 block">Email</span>
-                    <input
-                      type="email"
-                      placeholder="joedaniels@gmail.com"
-                      name="fi-sender-email"
-                      className={clsx(error ? "border-red-400" : "border-white/20", "w-full rounded-2xl border bg-white/90 px-4 py-3 text-slate-900 outline-none ring-0")}
-                    />
-                  </label>
-                  <label className="block text-sm font-medium text-slate-100">
-                    <span className="mb-2 block">Phone</span>
-                    <input
-                      type="tel"
-                      placeholder="7568492837"
-                      name="fi-sender-phone"
-                      className={clsx(error ? "border-red-400" : "border-white/20", "w-full rounded-2xl border bg-white/90 px-4 py-3 text-slate-900 outline-none ring-0")}
-                    />
-                  </label>
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <label className="block text-sm font-medium text-slate-100">
-                      <span className="mb-2 block">Zip code</span>
-                      <input
-                        name="fi-sender-postcode"
-                        placeholder="20394"
-                        className={clsx(error ? "border-red-400" : "border-white/20", "w-full rounded-2xl border bg-white/90 px-4 py-3 text-slate-900 outline-none ring-0")}
-                      />
-                    </label>
-                    <label className="block text-sm font-medium text-slate-100">
-                      <span className="mb-2 block">Activity</span>
-                      <select
-                        name="fi-message-activity"
-                        className={clsx(error ? "border-red-400" : "border-white/20", "w-full rounded-2xl border bg-white/90 px-4 py-3 text-slate-900 outline-none ring-0")}
-                      >
-                        <option value="">Choose adventure</option>
-                        <option>White Water Rafting</option>
-                        <option>Jeep Tours</option>
-                        <option>Hiking Tours</option>
-                        <option>ATV Tours</option>
-                        <option>Horseback Riding</option>
-                        <option>Ziplining</option>
-                      </select>
-                    </label>
-                  </div>
-                  {/* <label className="flex items-start gap-3 text-sm text-slate-200">
-                <input
-                  type="checkbox"
-                  name="fi-checkbox-consent"
-                  className="mt-1 h-4 w-4 rounded border-slate-300"
-                />
-                <span>
-                  I agree to be contacted regarding outdoor adventure offers.
-                </span>
-              </label> */}
-                  <button
-                    type="submit"
-                    className="w-full rounded-full bg-zinc-800 px-6 py-3 font-semibold text-slate-100 transition hover:-translate-y-0.5 cursor-pointer"
-                  >
-                    Get my free quotes
-                  </button>
-                  <p className="text-red-400 p-1 text-center">{error}</p>
-                </Form>
-              </>
-            )}
-          </div>
         </div>
       </section>
 
       <div className="md:max-w-7xl mx-auto mt-12">
-        <Grid items={[
-          { info: "10K+", label: "Happy Travelers" },
-          { info: "500+", label: "Local Tour Partners" },
-          { info: "4.9", label: "Average Rating" },
-          { info: "100%", label: "Secure & Private" },
-        ]} />
+        <Grid
+          items={[
+            { info: "10K+", label: "Happy Travelers" },
+            { info: "500+", label: "Local Tour Partners" },
+            { info: "4.9", label: "Average Rating" },
+            { info: "100%", label: "Secure & Private" },
+          ]}
+        />
 
         <section id="about" className="my-24 ">
-          <Showcase content={
-            <div className="relative h-full rounded-sm overflow-hidden">
-              <Image alt="" src="/images/jeep.jpg" className="object-cover" />
-            </div>
-          } text={
-            <div className="text-left my-8 pl-2 ">
-              <h3 className="text-xl font-black text-zinc-500 capitalize">The Playground</h3>
-              <h2 className="mb-12 text-7xl font-black capitalize">where <br />adventure thrives</h2>
-              <p className="w-3/4 text-lg">From guided rafting trips to scenic Jeep tours, we make it easier to discover outdoor experiences that match your pace, budget, and travel style. Share your dates and interests, and we’ll connect you with trusted local operators.</p>
-            </div>
-          } cta={""} reverse={false} />
+          <Showcase
+            content={
+              <div className="relative h-full rounded-sm overflow-hidden">
+                <Image alt="" src="/images/jeep.jpg" className="object-cover" />
+              </div>
+            }
+            text={
+              <div className="text-left my-8 pl-2 ">
+                <h3 className="text-xl font-black text-zinc-500 capitalize">
+                  The Playground
+                </h3>
+                <h2 className="mb-12 text-7xl font-black capitalize">
+                  where <br />
+                  adventure thrives
+                </h2>
+                <p className="w-3/4 text-lg">
+                  From guided rafting trips to scenic Jeep tours, we make it
+                  easier to discover outdoor experiences that match your pace,
+                  budget, and travel style. Share your dates and interests, and
+                  we’ll connect you with trusted local operators.
+                </p>
+              </div>
+            }
+            cta={""}
+            reverse={false}
+          />
         </section>
-
 
         <section>
           <div className="p-24 px-12">
-            <Heading className="text-center mb-6" level={1}>Our Core Beliefs That Shape Travel Experiences</Heading>
+            <Heading className="text-center mb-6" level={1}>
+              Our Core Beliefs That Shape Travel Experiences
+            </Heading>
             <div className="flex flex-col md:flex-row gap-8">
               <div className="border rounded-lg p-4 shadow-2xl/30 bg-zinc-800 text-zinc-300 flex flex-col gap-2">
-                <div className="text-2xl bg-zinc-600 border-zinc-200/50 border p-2 w-fit aspect-square flex justify-center rounded-xl items-center">⛰️</div>
+                <div className="text-2xl bg-zinc-600 border-zinc-200/50 border p-2 w-fit aspect-square flex justify-center rounded-xl items-center">
+                  ⛰️
+                </div>
                 <h5 className="text-lg font-bold">Adventure-first matching</h5>
-                <p className="text-zinc-400">We help travelers connect with tours that fit their experience level, interests, and schedule.</p>
+                <p className="text-zinc-400">
+                  We help travelers connect with tours that fit their experience
+                  level, interests, and schedule.
+                </p>
               </div>
               <div className="border rounded-lg p-4 shadow-2xl/30 bg-zinc-800 text-zinc-300 flex flex-col gap-2">
-                <div className="text-2xl bg-zinc-600 border-zinc-200/50 border p-2 w-fit aspect-square flex justify-center rounded-xl items-center">🧭</div>
+                <div className="text-2xl bg-zinc-600 border-zinc-200/50 border p-2 w-fit aspect-square flex justify-center rounded-xl items-center">
+                  🧭
+                </div>
                 <h5 className="text-lg font-bold">Local expertise</h5>
-                <p className="text-zinc-400">Every recommendation is grounded in real guides, destinations, and traveler feedback.</p>
+                <p className="text-zinc-400">
+                  Every recommendation is grounded in real guides, destinations,
+                  and traveler feedback.
+                </p>
               </div>
               <div className="border rounded-lg p-4 shadow-2xl/30 bg-zinc-800 text-zinc-300 flex flex-col gap-2">
-                <div className="text-2xl bg-zinc-600 border-zinc-200/50 border p-2 w-fit aspect-square flex justify-center rounded-xl items-center">💬</div>
-                <h5 className="text-lg font-bold">Simple, no-pressure planning</h5>
-                <p className="text-zinc-400">Get matched with options that feel right for your trip without the overwhelm of endless searching.</p>
+                <div className="text-2xl bg-zinc-600 border-zinc-200/50 border p-2 w-fit aspect-square flex justify-center rounded-xl items-center">
+                  💬
+                </div>
+                <h5 className="text-lg font-bold">
+                  Simple, no-pressure planning
+                </h5>
+                <p className="text-zinc-400">
+                  Get matched with options that feel right for your trip without
+                  the overwhelm of endless searching.
+                </p>
               </div>
             </div>
           </div>
@@ -262,14 +182,46 @@ export default async function Page({ searchParams }) {
 
         <section className="md:mb-24">
           <div className="py-36 text-center">
-            <Heading className="mb-4" level={2}>What's The Fun</Heading>
+            <Carousel
+              items={items}
+              text={
+                <div className="text-left">
+                  <h3>Let's Take A Walk</h3>
+                  <p className="">
+                    Discover the stories, architecture, and hidden character of
+                    Downtown Phoenix on a relaxed walking tour through the heart
+                    of Arizona’s capital.
+                  </p>
+                  <div className="ml-auto sm:text-left text-right p-2 sm:px-0">
+                    <Link className=" text-blue-400 underline" href={"/travel/walking-tours"}>Check It Out</Link>
+                  </div>
+                  {/* <p>Phoenix may seem like a young, modern
+                    city, but beneath the skyscrapers and desert landscape is a
+                    fascinating history stretching from the city’s early
+                    settlement and irrigation canals to the boom years of the
+                    1920s and the creative revival of today. Led by a local
+                    guide, this small-group walking tour takes you through some
+                    of Downtown Phoenix’s most historic and architecturally
+                    significant areas.
 
-            <Carousel items={items} text={
-              <div className="text-left">
-                <h3>Let's Take A Walk</h3>
-                <p className="text-2xl">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo laboriosam necessitatibus iure fugit culpa distinctio placeat debitis velit, consectetur totam maxime perferendis ea doloribus! Sint assumenda alias voluptates aspernatur laudantium.</p>
-              </div>
-            } />
+                  </p>
+                  <p>Along the way, you’ll hear the stories
+                    behind the buildings, neighborhoods, and people who helped
+                    shape the city. Highlights include the historic Luhrs
+                    buildings, the beautifully restored Orpheum Theatre, St.
+                    Mary’s Basilica, Heritage Square and the Victorian-era
+                    Rosson House, before continuing toward the historic
+                    Roosevelt neighborhood and vibrant Roosevelt Row arts
+                    district.
+                  </p>
+                  <p>You’ll see how Phoenix evolved from a small desert
+                    settlement into a major American city—and how historic
+                    buildings and neighborhoods are being preserved, restored,
+                    and given new life.
+                  </p> */}
+                </div>
+              }
+            />
           </div>
         </section>
 
@@ -329,7 +281,8 @@ export default async function Page({ searchParams }) {
                 2. Compare local operators
               </h3>
               <p className="mt-3 text-slate-600">
-                We match you with highly rated guides and compare availability instantly.
+                We match you with highly rated guides and compare availability
+                instantly.
               </p>
             </article>
             <article className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm">
@@ -353,50 +306,89 @@ export default async function Page({ searchParams }) {
                 3. Book with confidence
               </h3>
               <p className="mt-3 text-slate-600">
-                Secure your preferred trip and receive curated recommendations from local
-                pros.
+                Secure your preferred trip and receive curated recommendations
+                from local pros.
               </p>
             </article>
           </div>
-
         </section>
 
         <section id="reviews">
           <TravelBenefits
             overline={"Why travelers choose us"}
             features={[
-              { feature_title: "24/7 support", feature_description: "Questions before, during, and after your trip." },
-              { feature_title: "Flexible booking", feature_description: "Easy rescheduling and verified operator details." },
-              { feature_title: "Money-back guarantee", feature_description: "Trusted protection for your adventure plans." },
-              { feature_title: "Local experts", feature_description: "Operators that know the region and the terrain." },
+              {
+                feature_title: "24/7 support",
+                feature_description:
+                  "Questions before, during, and after your trip.",
+              },
+              {
+                feature_title: "Flexible booking",
+                feature_description:
+                  "Easy rescheduling and verified operator details.",
+              },
+              {
+                feature_title: "Money-back guarantee",
+                feature_description:
+                  "Trusted protection for your adventure plans.",
+              },
+              {
+                feature_title: "Local experts",
+                feature_description:
+                  "Operators that know the region and the terrain.",
+              },
             ]}
             title={"Premium support, local expertise, and zero guesswork."}
-            description={"Every recommendation is curated for safety, quality, and memorable experiences that feel effortless from booking to adventure day."}
+            description={
+              "Every recommendation is curated for safety, quality, and memorable experiences that feel effortless from booking to adventure day."
+            }
           />
         </section>
 
-
-
         <section>
-          <Showcase content={
-            <div className="relative h-full rounded-sm overflow-hidden">
-              <Image alt="" src="/images/group.jpg" className="object-cover" />
-            </div>
-          } text={
-            <div className="flex justify-center items-center h-full pr-2">
-              <div className="text-right">
-                <h2 className="mb-12 text-7xl font-black">Most Trusted <br /> Partners In The <br />Travel Industry</h2>
-                <p className="w-3/4 text-lg mb-6 ml-auto">Whether you’re planning a weekend escape or a bucket-list trip, we connect you with operators who know the terrain, the best routes, and know how to create a memorable experience from start to finish.</p>
-                <div className="flex flex-col justify-center">
-                  <p className="w-3/4 text-base m-auto text-center md:text-right md:ml-auto mb-3"><Link href="#form" className="text-blue-400 underline">Explore our most popular adventures</Link> and find the one that's right for you.</p>
+          <Showcase
+            content={
+              <div className="relative h-full rounded-sm overflow-hidden">
+                <Image
+                  alt=""
+                  src="/images/group.jpg"
+                  className="object-cover"
+                />
+              </div>
+            }
+            text={
+              <div className="flex justify-center items-center h-full pr-2">
+                <div className="text-right">
+                  <h2 className="mb-12 text-7xl font-black">
+                    Most Trusted <br /> Partners In The <br />
+                    Travel Industry
+                  </h2>
+                  <p className="w-3/4 text-lg mb-6 ml-auto">
+                    Whether you’re planning a weekend escape or a bucket-list
+                    trip, we connect you with operators who know the terrain,
+                    the best routes, and know how to create a memorable
+                    experience from start to finish.
+                  </p>
+                  <div className="flex flex-col justify-center">
+                    <p className="w-3/4 text-base md:text-right ml-auto mb-3">
+                      <Link href="#form" className="text-blue-400 underline">
+                        Explore our most popular adventures
+                      </Link>{" "}
+                      and find the one that's right for you.
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          } cta={""} reverse={true} />
+            }
+            cta={""}
+            reverse={true}
+          />
         </section>
 
-
-        <section id="faqs" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <section
+          id="faqs"
+          className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8"
+        >
           <div className="space-y-4">
             <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
               <button
@@ -409,8 +401,8 @@ export default async function Page({ searchParams }) {
                 <span className="text-2xl text-primary">+</span>
               </button>
               <div className="faq-answer mt-4 hidden text-slate-600">
-                Yes. We connect you with calm rivers and guides that teach beginners
-                with patience and care.
+                Yes. We connect you with calm rivers and guides that teach
+                beginners with patience and care.
               </div>
             </div>
             <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
@@ -424,13 +416,12 @@ export default async function Page({ searchParams }) {
                 <span className="text-2xl text-primary">+</span>
               </button>
               <div className="faq-answer mt-4 hidden text-slate-600">
-                Absolutely. We can narrow the list to family-friendly operators and
-                gentler river sections.
+                Absolutely. We can narrow the list to family-friendly operators
+                and gentler river sections.
               </div>
             </div>
           </div>
         </section>
-
 
         {/* <section>
           <div className="p-36">
@@ -442,9 +433,8 @@ export default async function Page({ searchParams }) {
           </div>
         </section> */}
       </div>
-
     </div>
-  )
+  );
 }
 
 // export async function generateMetadata({
